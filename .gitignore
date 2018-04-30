@@ -1,0 +1,6 @@
+#Standard
+.git
+
+#IntelliJ
+.idea
+*.iml
