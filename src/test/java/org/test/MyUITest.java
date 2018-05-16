@@ -16,7 +16,6 @@ import org.junit.Test;
  * @project wi-inf_se2_2018_grundgeruest
  */
 public class MyUITest {
-
     @Before
     public void setUp() throws Exception {
     }
