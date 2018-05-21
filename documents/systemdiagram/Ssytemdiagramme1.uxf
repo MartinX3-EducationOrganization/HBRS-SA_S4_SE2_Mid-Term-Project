@@ -1,0 +1,1070 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>4</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>260</x>
+      <y>432</y>
+      <w>84</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>Unternehmen
+--
+name:String
+UnternehmenId()String
+email()String
+passwort:string
+--
++Register():bool
++login(): bool
++logout():bool</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>96</x>
+      <y>524</y>
+      <w>160</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>Login
+--
+UserName:String
+Passwort:String
+--
++get_user_name(in user_name :string)
++set_user_name(in user_name :string)
++get_passwort(in user_name :string,in passwort :string)
++set_passwort(in user_name :string,in passwort  string)
+session()
++get_user_name_session(in user_name :string)
++get_passwort_session(in user_name :string,in passwort :string)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>396</x>
+      <y>512</y>
+      <w>84</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>_register
+--
+name:String
+passwort:String
+--
+get_name():string
+set_name():string
+getpasswort():string
+set passwort():string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>160</x>
+      <y>464</y>
+      <w>108</w>
+      <h>68</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>250.0;10.0;10.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>340</x>
+      <y>452</y>
+      <w>88</w>
+      <h>68</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;200.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>284</x>
+      <y>576</y>
+      <w>80</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>Account
+--
+-accountId: int
+accountStatus: string
+erstellDatum :String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>312</x>
+      <y>504</y>
+      <w>36</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>70.0;180.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>172</x>
+      <y>440</y>
+      <w>56</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>account registration
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>720</x>
+      <y>528</y>
+      <w>56</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>einloggen ausloggen
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>944</x>
+      <y>276</y>
+      <w>56</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>einloggen
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>584</x>
+      <y>180</y>
+      <w>84</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>User
+--
+
+--
+UserId() Integer
+UserPasswort()String
+registrationDatum()String
+registrationID()Integer
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>656</x>
+      <y>248</y>
+      <w>84</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>Student
+--
+name : string
+ImmatrNr:Int
+passwort:String
+email:String
+--
++Register():bool
++login(): bool
++logout():bool
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>512</x>
+      <y>248</y>
+      <w>84</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>Unternehmen
+--
+name:String
+UnternehmenId()String
+email()String
+passwort:string
+--
++Register():bool
++login(): bool
++logout():bool</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>352</y>
+      <w>76</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>logout
+--
+
+--
+sessionClear()
++clear()
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>664</x>
+      <y>208</y>
+      <w>40</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>80.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>556</x>
+      <y>208</y>
+      <w>36</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;100.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>568</x>
+      <y>316</y>
+      <w>68</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>150.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>644</x>
+      <y>304</y>
+      <w>20</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;120.0;30.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>584</x>
+      <y>180</y>
+      <w>84</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>User
+--
+
+--
+UserId() Integer
+UserPasswort()String
+registrationDatum()String
+registrationID()Integer
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>656</x>
+      <y>248</y>
+      <w>84</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>Student
+--
+name : string
+ImmatrNr:Int
+passwort:String
+email:String
+--
++Register():bool
++login(): bool
++logout():bool
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>512</x>
+      <y>248</y>
+      <w>84</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>Unternehmen
+--
+name:String
+UnternehmenId()String
+email()String
+passwort:string
+--
++Register():bool
++login(): bool
++logout():bool</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>556</x>
+      <y>208</y>
+      <w>36</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;90.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>644</x>
+      <y>304</y>
+      <w>20</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;120.0;30.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>596</x>
+      <y>252</y>
+      <w>56</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>logout
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>88</x>
+      <y>292</y>
+      <w>56</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>profil erstellen
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>436</x>
+      <y>0</y>
+      <w>284</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;System&gt;&gt;
+kollaborationsportal</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>452</x>
+      <y>28</y>
+      <w>96</w>
+      <h>68</h>
+    </coordinates>
+    <panel_attributes>
+
+
+&lt;&lt;subsystem&gt;&gt;
+APP</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>452</x>
+      <y>112</y>
+      <w>92</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>
+
+&lt;&lt;Subsystem&gt;&gt;
+Studcollhbrs.de</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>596</x>
+      <y>40</y>
+      <w>116</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;subsystem&gt;&gt;
+managementsystem</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>544</x>
+      <y>48</y>
+      <w>60</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>130.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>540</x>
+      <y>52</y>
+      <w>64</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>140.0;10.0;10.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>428</x>
+      <y>20</y>
+      <w>12</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>428</x>
+      <y>60</y>
+      <w>12</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>428</x>
+      <y>92</y>
+      <w>12</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>428</x>
+      <y>124</y>
+      <w>12</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>384</x>
+      <y>24</y>
+      <w>52</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>job anbieten
+bg=none</panel_attributes>
+    <additional_attributes>10.0;20.0;110.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>384</x>
+      <y>60</y>
+      <w>48</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>job suchen</panel_attributes>
+    <additional_attributes>10.0;20.0;100.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>380</x>
+      <y>92</y>
+      <w>56</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>profil erstellen</panel_attributes>
+    <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>388</x>
+      <y>124</y>
+      <w>48</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>registrieren</panel_attributes>
+    <additional_attributes>10.0;20.0;100.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>528</x>
+      <y>32</y>
+      <w>16</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>528</x>
+      <y>116</y>
+      <w>16</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>520</x>
+      <y>32</y>
+      <w>12</w>
+      <h>8</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>520</x>
+      <y>44</y>
+      <w>12</w>
+      <h>8</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>520</x>
+      <y>116</y>
+      <w>12</w>
+      <h>8</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>520</x>
+      <y>128</y>
+      <w>12</w>
+      <h>8</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>684</x>
+      <y>44</y>
+      <w>12</w>
+      <h>8</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>684</x>
+      <y>56</y>
+      <w>12</w>
+      <h>8</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>692</x>
+      <y>44</y>
+      <w>16</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>724</x>
+      <y>72</y>
+      <w>56</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>bausteinesicht
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>656</x>
+      <y>432</y>
+      <w>84</w>
+      <h>92</h>
+    </coordinates>
+    <panel_attributes>User
+--
+
+UserId() Integer
+UserPasswort()String
+registrationDatum()String
+registrationID()Integer
+email:string
+--
++Register():bool
++login(): bool
++logout():bool
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>780</x>
+      <y>548</y>
+      <w>80</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>Student
+--
+Vorname : String
+Nachname: String
+Geburtstag: String
+Adresse: String
+LinuxID: String
+LinuxPasswort: String
+ImmatrNr:Int
+studiengang:String
+loggedIn: boolean
+--
+getname()
+setname()
+getbirthday()
+setbirthday()
+getLinuxID()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>588</x>
+      <y>532</y>
+      <w>80</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>Unternehmen
+--
+name:String
+UnternehmenId()String
+ort:string
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>816</x>
+      <y>440</y>
+      <w>152</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Login
+--
+UserName:String
+Passwort:String
+--
++get_user_name(in user_name :string)
++set_user_name(in user_name :string)
++get_passwort(in user_name :string,in passwort :string)
++set_passwort(in user_name :string,in passwort  string)
+session()
++get_user_name_session(in user_name :string)
++get_passwort_session(in user_name :string,in passwort :string)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>656</x>
+      <y>596</y>
+      <w>76</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>logout
+--
+
+--
+sessionClear()
++clear()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>736</x>
+      <y>456</y>
+      <w>88</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;200.0;230.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>628</x>
+      <y>452</y>
+      <w>36</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>70.0;10.0;10.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>736</x>
+      <y>452</y>
+      <w>88</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>200.0;20.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>692</x>
+      <y>520</y>
+      <w>12</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;190.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1076</x>
+      <y>252</y>
+      <w>84</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>Unternehmen
+--
+name:String
+UnternehmenId()String
+ort:string
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>920</x>
+      <y>172</y>
+      <w>152</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>User
+--
+
+UserId() Integer
+UserPasswort()String
+registrationDatum()String
+registrationID()Integer
+email:string
+--
++Register():bool
++login(): bool
++logout():bool
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>820</x>
+      <y>256</y>
+      <w>84</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Student
+--
+Vorname : String
+Nachname: String
+Geburtstag: String
+Adresse: String
+LinuxID: String
+LinuxPasswort: String
+ImmatrNr:Int
+studiengang:String
+loggedIn: boolean
+--
+getname()
+setname()
+getbirthday()
+setbirthday()
+getLinuxID()
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>908</x>
+      <y>336</y>
+      <w>168</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>Login
+--
+UserName:String
+Passwort:String
+--
++get_user_name(in user_name :string)
++set_user_name(in user_name :string)
++get_passwort(in user_name :string,in passwort :string)
++set_passwort(in user_name :string,in passwort  string)
+session()
++get_user_name_session(in user_name :string)
++get_passwort_session(in user_name :string,in passwort :string)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>872</x>
+      <y>216</y>
+      <w>56</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>120.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1068</x>
+      <y>192</y>
+      <w>48</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1072</x>
+      <y>324</y>
+      <w>56</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;140.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>880</x>
+      <y>332</y>
+      <w>36</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>70.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>144</x>
+      <y>188</y>
+      <w>92</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>User
+--
+
+UserId() Integer
+UserPasswort()String
+registrationDatum()String
+registrationID()Integer
+email:string
+--
+session()
++Register():bool
++login(): bool
++logout():bool
++get_user_name_session(in user_name :string)
++get_passwort_session(in user_name :string,in passwort :string)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>292</x>
+      <y>260</y>
+      <w>88</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>Student
+--
+Vorname : String
+Nachname: String
+Geburtstag: String
+Adresse: String
+LinuxID: String
+LinuxPasswort: String
+ImmatrNr:Int
+studiengang:String
+loggedIn: boolean
+--
+getname()
+setname()
+getbirthday()
+setbirthday()
+getLinuxID()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>152</x>
+      <y>360</y>
+      <w>84</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Profil
+--
+
+--
+ProfilId()String
+ProfilStatus()boolean
+registrationsDatum() Sting
+RegistrationId() Integer
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>240</y>
+      <w>80</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>_registration
+--
+
+--
+Status()boolean
+registrationsDatum() String
+registrationId()Integer
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>232</x>
+      <y>216</y>
+      <w>88</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;200.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>80</x>
+      <y>228</y>
+      <w>68</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;60.0;150.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>172</x>
+      <y>288</y>
+      <w>12</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;180.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>
