@@ -27,9 +27,9 @@ public class MyUI extends UI {
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-        final VerticalLayout layout = new VerticalLayout();
-        
-        final TextField name = new TextField();
+        VerticalLayout layout = new VerticalLayout();
+
+        TextField name = new TextField();
         name.setCaption("Type your name here:");
 
         Button button = new Button("Click Me");
@@ -37,7 +37,7 @@ public class MyUI extends UI {
                 + ", it works!")));
         
         layout.addComponents(name, button);
-        
+
         setContent(layout);
     }
 
