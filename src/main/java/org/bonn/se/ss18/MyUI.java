@@ -1,20 +1,23 @@
-package org.test;
+/*
+ * Created by Martin Dünkelmann on 22.05.18 19:51
+ * Copyright (c) 2018. All rights reserved.
+ *
+ * Last modified 22.05.18 19:44
+ */
 
-import javax.servlet.annotation.WebServlet;
+package org.bonn.se.ss18;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.TextField;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
+
+import javax.servlet.annotation.WebServlet;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser window 
- * (or tab) or some part of a html page where a Vaadin application is embedded.
+ * (or tab) or some part of an HTML page where a Vaadin application is embedded.
  * <p>
  * The UI is initialized using {@link #init(VaadinRequest)}. This method is intended to be 
  * overridden to add component to the user interface and initialize non-component functionality.
@@ -30,14 +33,10 @@ public class MyUI extends UI {
         name.setCaption("Type your name here:");
 
         Button button = new Button("Click Me");
-        button.addClickListener( e -> {
-            layout.addComponent(new Label("Thanks " + name.getValue() 
-                    + ", it works!"));
-        });
+        button.addClickListener(e -> layout.addComponent(new Label("Thanks " + name.getValue()
+                + ", it works!")));
         
         layout.addComponents(name, button);
-        layout.setMargin(true);
-        layout.setSpacing(true);
         
         setContent(layout);
     }
