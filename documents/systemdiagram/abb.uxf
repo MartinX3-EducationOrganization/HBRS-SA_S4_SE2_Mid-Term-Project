@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>20</y>
+      <w>960</w>
+      <h>630</h>
+    </coordinates>
+    <panel_attributes>-
+&lt;&lt;comonent&gt;&gt; System "coll@hbrs"</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>80</x>
+      <y>80</y>
+      <w>870</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>--
+Praesentations-schicht</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>270</x>
+      <y>100</y>
+      <w>130</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt; boundary&gt;&gt;
+startmaske</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>490</x>
+      <y>100</y>
+      <w>130</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt; boundary&gt;&gt;
+suchmaske</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>720</x>
+      <y>100</y>
+      <w>130</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt; boundary&gt;&gt;
+vereinbarungsmaske</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>80</x>
+      <y>210</y>
+      <w>870</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>--
+Applikations-schicht</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>270</x>
+      <y>240</y>
+      <w>130</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt; control&gt;&gt;
+jobsuche</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>490</x>
+      <y>240</y>
+      <w>130</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt; control&gt;&gt;
+job bewerbung</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>810</x>
+      <y>220</y>
+      <w>130</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt; dto&gt;&gt;
+vereinbarung</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>640</x>
+      <y>240</y>
+      <w>130</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt; control&gt;&gt;
+job anbieten</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>80</x>
+      <y>360</y>
+      <w>870</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>--
+geschaftsobjekt-schicht</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>260</x>
+      <y>390</y>
+      <w>130</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt; entity&gt;&gt;
+bewerbung</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>430</x>
+      <y>390</y>
+      <w>130</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt; entity&gt;&gt;
+Student</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>610</x>
+      <y>390</y>
+      <w>130</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt; entity&gt;&gt;
+Unternehmen</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>80</x>
+      <y>500</y>
+      <w>870</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>--
+infrastrukturschicht</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>420</x>
+      <y>530</y>
+      <w>130</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt; boundary&gt;&gt;
+Datenbank</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>920</x>
+      <y>80</y>
+      <w>70</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>
+
+       view
+
+
+bg=black
+fg=none</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>900</x>
+      <y>200</y>
+      <w>100</w>
+      <h>290</h>
+    </coordinates>
+    <panel_attributes>
+
+
+
+
+
+
+    
+          modell
+
+bg=black
+fg=none</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>940</x>
+      <y>140</y>
+      <w>90</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>
+ 
+    controller
+
+
+bg=black
+fg=none</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

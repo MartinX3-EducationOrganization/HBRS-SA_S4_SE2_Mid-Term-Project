@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <help_text>Unternehmen
+--
+name:String
+UnternehmenId()String
+email()String
+passwort:string
+--
++Register():bool
++login(): bool
++logout():bool</help_text>
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>300</x>
+      <y>10</y>
+      <w>210</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>Unternehmen
+--
+name:String
+UnternehmenId()String
+email()String
+passwort:string
+--
++Register():bool
++login(): bool
++logout():bool</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>20</x>
+      <y>210</y>
+      <w>400</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>Login
+--
+UserName:String
+Passwort:String
+--
++get_user_name(in user_name :string)
++set_user_name(in user_name :string)
++get_passwort(in user_name :string,in passwort :string)
++set_passwort(in user_name :string,in passwort  string)
+session()
++get_user_name_session(in user_name :string)
++get_passwort_session(in user_name :string,in passwort :string)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>560</x>
+      <y>230</y>
+      <w>210</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>_register
+--
+name:String
+passwort:String
+--
+get_name():string
+set_name():string
+getpasswort():string
+set passwort():string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>180</x>
+      <y>90</y>
+      <w>140</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>120.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>500</x>
+      <y>60</y>
+      <w>140</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>310</x>
+      <y>460</y>
+      <w>200</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>Account
+--
+-accountId: int
+accountStatus: string
+erstellDatum :String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>430</x>
+      <y>190</y>
+      <w>40</w>
+      <h>290</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>20.0;270.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>
