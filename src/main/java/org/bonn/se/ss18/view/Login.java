@@ -29,12 +29,9 @@ public class Login extends VerticalLayout implements View {
             UI.getCurrent().getNavigator().navigateTo(Login.Viewname); //Navigator
         });
 
-
         addComponents(name, button);
         setComponentAlignment(name, Alignment.MIDDLE_CENTER);
         setComponentAlignment(button, Alignment.MIDDLE_CENTER);
-
-
     }
 
     @Override

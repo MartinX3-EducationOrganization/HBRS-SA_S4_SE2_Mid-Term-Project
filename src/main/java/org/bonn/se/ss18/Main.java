@@ -32,10 +32,10 @@ public class Main extends UI {
         getPage().setTitle("Grundgerüst Slave Inc.");
 
         // Create a navigator to control the views
-        navigator = new Navigator(this, this);
+        UI.getCurrent().setNavigator(new Navigator(this, this));
 
         // Create and register the views
-        navigator.addView(Login.Viewname, new Login());
+        UI.getCurrent().getNavigator() .addView(Login.Viewname, new Login());
     }
 
     @WebServlet(urlPatterns = "/*", name = "MainServlet", asyncSupported = true)
