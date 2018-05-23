@@ -14,6 +14,8 @@ import com.vaadin.ui.*;
 
 @Theme("logintheme")
 public class Login extends VerticalLayout implements View {
+    public static final String Viewname = "";
+
     public Login() {
         setSizeFull();
 
@@ -21,12 +23,18 @@ public class Login extends VerticalLayout implements View {
         name.setCaption("Type your name here:");
 
         Button button = new Button("Click Me.");
-        button.addClickListener(e -> addComponent(new Label("Thanks " + name.getValue()
-                + ", it works!")));
+        button.addClickListener(e -> {
+            addComponent(new Label("Thanks " + name.getValue()
+                    + ", it works!"));
+            UI.getCurrent().getNavigator().navigateTo(Login.Viewname); //Navigator
+        });
+
 
         addComponents(name, button);
         setComponentAlignment(name, Alignment.MIDDLE_CENTER);
         setComponentAlignment(button, Alignment.MIDDLE_CENTER);
+
+
     }
 
     @Override

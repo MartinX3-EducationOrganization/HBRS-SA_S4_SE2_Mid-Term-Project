@@ -9,10 +9,10 @@ package org.bonn.se.ss18;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
-import org.bonn.se.ss18.singleton.Navigator;
 import org.bonn.se.ss18.view.Login;
 
 import javax.servlet.annotation.WebServlet;
@@ -26,15 +26,16 @@ import javax.servlet.annotation.WebServlet;
  */
 @Theme("maintheme")
 public class Main extends UI {
+    private Navigator navigator;
     @Override
     protected void init(VaadinRequest vaadinRequest) {
         getPage().setTitle("Grundgerüst Slave Inc.");
 
         // Create a navigator to control the views
-        Navigator.init(this, this);
+        navigator = new Navigator(this, this);
 
         // Create and register the views
-        Navigator.addView("", new Login());
+        navigator.addView(Login.Viewname, new Login());
     }
 
     @WebServlet(urlPatterns = "/*", name = "MainServlet", asyncSupported = true)
