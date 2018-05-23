@@ -1,4 +1,4 @@
-vaadin-app
+wi-inf_se2_2018_grundgeruest
 ==============
 
 Template for a simple Vaadin application that only requires a Servlet 3.0 container to run.
@@ -21,7 +21,7 @@ Client-Side compilation
 
 The generated maven project is using an automatically generated widgetset by default. 
 When you add a dependency that needs client-side compilation, the maven plugin will 
-automatically generate it for you. Your own client-side customisations can be added into
+automatically generate it for you. Your own client-side customizations can be added into
 package "client".
 
 Debugging client side code

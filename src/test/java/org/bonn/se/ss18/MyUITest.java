@@ -1,27 +1,28 @@
 /*
- * Created by Martin Dünkelmann on 16.05.18 12:52
+ * Created by Martin Dünkelmann on 22.05.18 19:46
  * Copyright (c) 2018. All rights reserved.
  *
- * Last modified 16.05.18 12:52
+ * Last modified 22.05.18 19:46
  */
 
-package org.test;
+package org.bonn.se.ss18;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * @author martin on 16.05.18
+ * @author mduenk2s on 22.05.18
  * @project wi-inf_se2_2018_grundgeruest
  */
 public class MyUITest {
+
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
     }
 
     @Test
