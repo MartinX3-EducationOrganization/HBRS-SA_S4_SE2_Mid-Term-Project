@@ -15,7 +15,7 @@ import org.junit.Test;
  * @author mduenk2s on 22.05.18
  * @project wi-inf_se2_2018_grundgeruest
  */
-public class MyUITest {
+public class MainTest {
 
     @Before
     public void setUp() {
