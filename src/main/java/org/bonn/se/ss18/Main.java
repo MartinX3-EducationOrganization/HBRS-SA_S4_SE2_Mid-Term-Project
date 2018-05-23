@@ -35,7 +35,7 @@ public class Main extends UI {
         UI.getCurrent().setNavigator(new Navigator(this, this));
 
         // Create and register the views
-        UI.getCurrent().getNavigator() .addView(Login.Viewname, new Login());
+        UI.getCurrent().getNavigator().addView(Login.Viewname, Login.class);
     }
 
     @WebServlet(urlPatterns = "/*", name = "MainServlet", asyncSupported = true)
