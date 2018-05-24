@@ -7,12 +7,10 @@
 
 package org.bonn.se.ss18.view;
 
-import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.*;
 
-@Theme("logintheme")
 public class Login extends Panel implements View {
     public static final String NAME = "";
 

@@ -7,6 +7,7 @@
 
 package org.bonn.se.ss18;
 
+import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
@@ -23,6 +24,8 @@ import javax.servlet.annotation.WebServlet;
  * The UI is initialized using {@link #init(VaadinRequest)}. This method is intended to be
  * overridden to add component to the user interface and initialize non-component functionality.
  */
+
+@Theme("maintheme")
 public class Main extends UI {
     private Navigator navigator;
     @Override
@@ -35,6 +38,7 @@ public class Main extends UI {
         // Create and register the views
         UI.getCurrent().getNavigator().addView(Login.NAME, Login.class);
 
+        //Move to the Login Page
         UI.getCurrent().getNavigator().navigateTo(Login.NAME);
     }
 
