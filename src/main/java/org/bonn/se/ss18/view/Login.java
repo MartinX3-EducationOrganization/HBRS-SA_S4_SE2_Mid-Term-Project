@@ -9,9 +9,12 @@ package org.bonn.se.ss18.view;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.ClassResource;
+import com.vaadin.server.FileResource;
 import com.vaadin.server.Page;
+import com.vaadin.server.VaadinService;
 import com.vaadin.ui.*;
+
+import java.io.File;
 
 public class Login extends Panel implements View {
     public static final String NAME = "";
@@ -25,7 +28,12 @@ public class Login extends Panel implements View {
     }
 
     private VerticalLayout setLayoutLeft() {
-        return new VerticalLayout(new Image("Logo", new ClassResource("../resources/logo.png")));
+        Image logo = new Image(
+                "",
+                new FileResource(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/../resources/logo.png")));
+        logo.setHeight("100");
+        logo.setWidth("100");
+        return new VerticalLayout(logo);
     }
 
     private VerticalLayout setlayoutRight() {
