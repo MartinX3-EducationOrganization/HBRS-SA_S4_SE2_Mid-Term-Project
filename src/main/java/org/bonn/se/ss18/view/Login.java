@@ -114,6 +114,6 @@ public class Login extends Panel implements View {
     public void enter(ViewChangeListener.ViewChangeEvent event) {
         Page.getCurrent().setTitle("Grundgerüst - Login");
 
-        Notification.show("Welcome to the Grundgerüst.");
+        Notification.show("Welcome to the Grundgerüst");
     }
 }
