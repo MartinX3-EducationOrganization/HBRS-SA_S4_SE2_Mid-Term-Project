@@ -32,30 +32,38 @@ public class Login extends Panel implements View {
         VerticalLayout layoutLeft = setLayoutLeft();
         VerticalLayout layoutCentre = setLayoutCentre();
         VerticalLayout layoutRight = setLayoutRight();
-
-        layoutLeft.setSizeUndefined();
-        layoutCentre.setSizeFull();
-        layoutRight.setSizeUndefined();
-
         HorizontalLayout layout = new HorizontalLayout(
                 layoutLeft,
                 layoutCentre,
                 layoutRight
         );
 
-        layout.setComponentAlignment(layoutLeft, Alignment.MIDDLE_LEFT);
+        layoutLeft.setSizeUndefined();
+        layoutCentre.setSizeFull();
+        layoutRight.setSizeUndefined();
+
+        layout.setComponentAlignment(layoutLeft, Alignment.TOP_LEFT);
         layout.setComponentAlignment(layoutCentre, Alignment.MIDDLE_CENTER);
-        layout.setComponentAlignment(layoutRight, Alignment.MIDDLE_RIGHT);
+        layout.setComponentAlignment(layoutRight, Alignment.TOP_RIGHT);
 
         return layout;
     }
 
     private VerticalLayout setLayoutCentre() {
-        return new VerticalLayout(
-                new Label("Herzlich Willkommen auf Coll@HBRS"),
-                setLayoutCentreVertical(),
-                setCentreFoot()
+        Label head = new Label("Herzlich Willkommen auf Coll@HBRS");
+        VerticalLayout centre = setLayoutCentreVertical();
+        HorizontalLayout foot = setCentreFoot();
+        VerticalLayout layout = new VerticalLayout(
+                head,
+                centre,
+                foot
         );
+
+        layout.setComponentAlignment(head, Alignment.TOP_CENTER);
+        layout.setComponentAlignment(centre, Alignment.MIDDLE_CENTER);
+        layout.setComponentAlignment(foot, Alignment.BOTTOM_CENTER);
+
+        return layout;
     }
 
     private HorizontalLayout setCentreFoot() {
@@ -114,6 +122,6 @@ public class Login extends Panel implements View {
     public void enter(ViewChangeListener.ViewChangeEvent event) {
         Page.getCurrent().setTitle("Grundgerüst - Login");
 
-        Notification.show("Welcome Message Example");
+        Notification.show("Welcome to the Grundgerüst");
     }
 }
