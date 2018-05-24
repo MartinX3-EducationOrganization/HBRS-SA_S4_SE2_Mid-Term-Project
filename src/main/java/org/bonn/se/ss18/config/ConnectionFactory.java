@@ -9,7 +9,7 @@ import java.sql.SQLException;
 /**
  * @author rjourd2s
  */
-public class ConnectionDB {
+public class ConnectionFactory {
     private static final String URL = "jdbc:postgresql://dumbo.inf.h-brs.de:5432/amoham2s";
     private static final String USER = "amoham2s";
     private static final String PASS = "amoham2s";
