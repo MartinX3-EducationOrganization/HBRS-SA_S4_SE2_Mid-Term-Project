@@ -9,6 +9,7 @@ package org.bonn.se.ss18.view;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.ExternalResource;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinService;
@@ -52,7 +53,21 @@ public class Login extends Panel implements View {
     private VerticalLayout setLayoutCentre() {
         return new VerticalLayout(
                 new Label("Herzlich Willkommen auf Coll@HBRS"),
-                setLayoutCentreVertical()
+                setLayoutCentreVertical(),
+                setCentreFoot()
+        );
+    }
+
+    private HorizontalLayout setCentreFoot() {
+        return new HorizontalLayout(
+                new Link(
+                        "Datenschutz",
+                        new ExternalResource("http://vaadin.com/")
+                ),
+                new Link(
+                        "Nutzungsbedingungen",
+                        new ExternalResource("http://vaadin.com/")
+                )
         );
     }
 
