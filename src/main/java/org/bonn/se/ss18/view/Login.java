@@ -9,29 +9,28 @@ package org.bonn.se.ss18.view;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.*;
 
 public class Login extends Panel implements View {
     public static final String NAME = "";
 
     public Login() {
-        VerticalLayout layout = new VerticalLayout();
+        VerticalLayout layoutLeft = new VerticalLayout();
+        layoutLeft.addComponent(new Image("Logo", new ThemeResource("../resources/logo.png")));
 
-        TextField name = new TextField();
-        name.setCaption("Type your name here:");
+        VerticalLayout layoutCentre = new VerticalLayout();
 
-        Button button = new Button("Click Me.");
-        button.addClickListener(e -> {
+        VerticalLayout layoutRight = new VerticalLayout();
+        layoutRight.addComponents(
+                new Label("Noch nicht registriert?"),
+                new Button("Jetzt registrieren!", //TODO: Login -> Registration
+                        event -> UI.getCurrent().getNavigator().navigateTo("Registration")));
 
-            layout.addComponent(new Label("Thanks " + name.getValue()
-                    + ", it works!"));
-        });
+        HorizontalLayout mainLayout = new HorizontalLayout();
+        mainLayout.addComponents(layoutLeft, layoutCentre, layoutRight);
 
-        layout.addComponents(name, button);
-        layout.setComponentAlignment(name, Alignment.MIDDLE_CENTER);
-        layout.setComponentAlignment(button, Alignment.MIDDLE_CENTER);
-
-        setContent(layout);
+        setContent(mainLayout);
     }
 
     @Override
