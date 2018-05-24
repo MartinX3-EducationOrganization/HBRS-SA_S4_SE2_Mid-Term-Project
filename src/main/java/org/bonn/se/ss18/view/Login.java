@@ -13,25 +13,27 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.*;
 
 @Theme("logintheme")
-public class Login extends VerticalLayout implements View {
-    public static final String Viewname = "";
+public class Login extends Panel implements View {
+    public static final String NAME = "";
 
     public Login() {
-        setSizeFull();
+        VerticalLayout layout = new VerticalLayout();
 
         TextField name = new TextField();
         name.setCaption("Type your name here:");
 
         Button button = new Button("Click Me.");
         button.addClickListener(e -> {
-            addComponent(new Label("Thanks " + name.getValue()
+
+            layout.addComponent(new Label("Thanks " + name.getValue()
                     + ", it works!"));
-            UI.getCurrent().getNavigator().navigateTo(Login.Viewname); //Navigator
         });
 
-        addComponents(name, button);
-        setComponentAlignment(name, Alignment.MIDDLE_CENTER);
-        setComponentAlignment(button, Alignment.MIDDLE_CENTER);
+        layout.addComponents(name, button);
+        layout.setComponentAlignment(name, Alignment.MIDDLE_CENTER);
+        layout.setComponentAlignment(button, Alignment.MIDDLE_CENTER);
+
+        setContent(layout);
     }
 
     @Override
