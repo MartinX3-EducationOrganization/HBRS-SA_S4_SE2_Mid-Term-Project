@@ -28,9 +28,9 @@ import javax.servlet.annotation.WebServlet;
 @Theme("maintheme")
 public class Main extends UI {
     private Navigator navigator;
+
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-        getPage().setTitle("Grundgerüst Slave Inc.");
 
         // Create a navigator to control the views
         UI.getCurrent().setNavigator(new Navigator(this, this));

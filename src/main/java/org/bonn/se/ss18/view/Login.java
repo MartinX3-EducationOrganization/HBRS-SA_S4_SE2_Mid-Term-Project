@@ -9,6 +9,7 @@ package org.bonn.se.ss18.view;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.Page;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.*;
 
@@ -35,6 +36,7 @@ public class Login extends Panel implements View {
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
+        Page.getCurrent().setTitle("Ficken");
         Notification.show("Welcome Message Example");
     }
 }
