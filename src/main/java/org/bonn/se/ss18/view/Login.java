@@ -23,7 +23,7 @@ public class Login extends Panel implements View {
         HorizontalLayout content = setSiteLayout();
 
         content.setSizeFull();
-        
+
         setContent(content);
     }
 
@@ -67,7 +67,10 @@ public class Login extends Panel implements View {
     private FormLayout setLayoutCentreForm() {
         return new FormLayout(
                 new TextField("Benutzername"),
-                new TextField("Passwort")
+                new TextField("Passwort"),
+                new Button("Anmelden", //TODO: Login -> Anmelden
+                        event -> UI.getCurrent().getNavigator().navigateTo("Anmelden + Benutzerdaten")
+                )
         );
     }
 
