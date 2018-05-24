@@ -99,7 +99,7 @@ public class Login extends Panel implements View {
 
     private VerticalLayout setLayoutLeft() {
         Image logo = new Image(
-                "",
+                null,
                 new FileResource(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/../resources/logo.png"))
         );
 
