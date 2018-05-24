@@ -35,6 +35,7 @@ public class Main extends UI {
         // Create and register the views
         UI.getCurrent().getNavigator().addView(Login.NAME, Login.class);
 
+        //Move to the Login Page
         UI.getCurrent().getNavigator().navigateTo(Login.NAME);
     }
 
