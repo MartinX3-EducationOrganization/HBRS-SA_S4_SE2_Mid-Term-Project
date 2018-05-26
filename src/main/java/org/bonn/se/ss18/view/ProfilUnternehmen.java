@@ -1,14 +1,13 @@
 /*
- * Created by Martin Dünkelmann on 23.05.18 12:28
+ * Created by Martin Dünkelmann on 26.05.18 20:55
  * Copyright (c) 2018. All rights reserved.
  *
- * Last modified 23.05.18 12:26
+ * Last modified 26.05.18 19:26
  */
 
 package org.bonn.se.ss18.view;
 
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.ExternalResource;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinService;
@@ -16,8 +15,8 @@ import com.vaadin.ui.*;
 
 import java.io.File;
 
-public class Login extends Abstract {
-    public Login() {
+public class ProfilUnternehmen extends Abstract {
+    public ProfilUnternehmen() {
         HorizontalLayout content = setSiteLayout();
 
         content.setSizeFull();
@@ -26,7 +25,7 @@ public class Login extends Abstract {
     }
 
     public static String getName() {
-        return "";
+        return "ProfilUnternehmen";
     }
 
     private HorizontalLayout setSiteLayout() {
@@ -51,16 +50,13 @@ public class Login extends Abstract {
     }
 
     private VerticalLayout setLayoutCentre() {
-        Label head = new Label("Herzlich Willkommen auf Coll@HBRS");
         VerticalLayout centre = setLayoutCentreVertical();
         HorizontalLayout foot = setCentreFoot();
         VerticalLayout layout = new VerticalLayout(
-                head,
                 centre,
                 foot
         );
 
-        layout.setComponentAlignment(head, Alignment.TOP_CENTER);
         layout.setComponentAlignment(centre, Alignment.MIDDLE_CENTER);
         layout.setComponentAlignment(foot, Alignment.BOTTOM_CENTER);
 
@@ -68,34 +64,17 @@ public class Login extends Abstract {
     }
 
     private HorizontalLayout setCentreFoot() {
-        return new HorizontalLayout(
-                new Link(
-                        "Datenschutz",
-                        new ExternalResource("http://vaadin.com/")
-                ),
-                new Link(
-                        "Nutzungsbedingungen",
-                        new ExternalResource("http://vaadin.com/")
-                )
-        );
+        return new HorizontalLayout();
     }
 
     private VerticalLayout setLayoutCentreVertical() {
         return new VerticalLayout(
-                new Label("Anmeldung"),
-                new Label("Bitte geben Sie ihren Benutzernamen und ihr Passwort ein"),
                 setLayoutCentreForm()
         );
     }
 
     private FormLayout setLayoutCentreForm() {
-        return new FormLayout(
-                new TextField("Linux-Kennung / Benutzername"),
-                new TextField("Passwort"),
-                new Button("Anmelden", //TODO: Login -> Anmelden
-                        event -> UI.getCurrent().getNavigator().navigateTo("MainView + Benutzerdaten weiterleiten")
-                )
-        );
+        return new FormLayout();
     }
 
     private VerticalLayout setLayoutLeft() {
@@ -111,18 +90,11 @@ public class Login extends Abstract {
     }
 
     private VerticalLayout setLayoutRight() {
-        return new VerticalLayout(
-                new Label("Noch nicht registriert?"),
-                new Button("Jetzt registrieren!", //TODO: Login -> Registration
-                        event -> UI.getCurrent().getNavigator().navigateTo("Registration")
-                )
-        );
+        return new VerticalLayout();
     }
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
-        Page.getCurrent().setTitle("Grundgerüst - Login");
-
-        Notification.show("Welcome to the Grundgerüst");
+        Page.getCurrent().setTitle("Grundgerüst - Profil - Unternehmen");
     }
 }
