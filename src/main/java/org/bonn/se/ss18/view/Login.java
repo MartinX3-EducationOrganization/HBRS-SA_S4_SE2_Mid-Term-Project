@@ -33,7 +33,12 @@ public class Login extends Abstract {
     private HorizontalLayout setSiteLayout() {
         VerticalLayout layoutLeft = setLayoutLeft();
         VerticalLayout layoutCentre = setLayoutCentre();
-        VerticalLayout layoutRight = setLayoutRight();
+        VerticalLayout layoutRight = new VerticalLayout(
+                new Label("Noch nicht registriert?"),
+                new Button("Jetzt registrieren!",
+                        event -> UI.getCurrent().getNavigator().navigateTo(RegistrationUnternehmen.getName())
+                )
+        );
         HorizontalLayout layout = new HorizontalLayout(
                 layoutLeft,
                 layoutCentre,
@@ -53,8 +58,27 @@ public class Login extends Abstract {
 
     private VerticalLayout setLayoutCentre() {
         Label head = new Label("Herzlich Willkommen auf Coll@HBRS");
-        VerticalLayout centre = setLayoutCentreVertical();
-        HorizontalLayout foot = setCentreFoot();
+        VerticalLayout centre = new VerticalLayout(
+                new Label("Anmeldung"),
+                new Label("Bitte geben Sie ihren Benutzernamen und ihr Passwort ein"),
+                new FormLayout(
+                        new TextField("Linux-Kennung / Benutzername"),
+                        new PasswordField("Passwort"),
+                        new Button("Anmelden", //TODO: Login -> Anmelden
+                                event -> UI.getCurrent().getNavigator().navigateTo("MainView + Benutzerdaten weiterleiten")
+                        )
+                )
+        );
+        HorizontalLayout foot = new HorizontalLayout(
+                new Link(
+                        "Datenschutz",
+                        new ExternalResource("http://vaadin.com/")
+                ),
+                new Link(
+                        "Nutzungsbedingungen",
+                        new ExternalResource("http://vaadin.com/")
+                )
+        );
         VerticalLayout layout = new VerticalLayout(
                 head,
                 centre,
@@ -68,37 +92,6 @@ public class Login extends Abstract {
         return layout;
     }
 
-    private HorizontalLayout setCentreFoot() {
-        return new HorizontalLayout(
-                new Link(
-                        "Datenschutz",
-                        new ExternalResource("http://vaadin.com/")
-                ),
-                new Link(
-                        "Nutzungsbedingungen",
-                        new ExternalResource("http://vaadin.com/")
-                )
-        );
-    }
-
-    private VerticalLayout setLayoutCentreVertical() {
-        return new VerticalLayout(
-                new Label("Anmeldung"),
-                new Label("Bitte geben Sie ihren Benutzernamen und ihr Passwort ein"),
-                setLayoutCentreForm()
-        );
-    }
-
-    private FormLayout setLayoutCentreForm() {
-        return new FormLayout(
-                new TextField("Linux-Kennung / Benutzername"),
-                new PasswordField("Passwort"),
-                new Button("Anmelden", //TODO: Login -> Anmelden
-                        event -> UI.getCurrent().getNavigator().navigateTo("MainView + Benutzerdaten weiterleiten")
-                )
-        );
-    }
-
     private VerticalLayout setLayoutLeft() {
         Image logo = new Image(
                 null,
@@ -109,15 +102,6 @@ public class Login extends Abstract {
         logo.setWidth("100");
 
         return new VerticalLayout(logo);
-    }
-
-    private VerticalLayout setLayoutRight() {
-        return new VerticalLayout(
-                new Label("Noch nicht registriert?"),
-                new Button("Jetzt registrieren!",
-                        event -> UI.getCurrent().getNavigator().navigateTo(RegistrationUnternehmen.getName())
-                )
-        );
     }
 
     @Override
