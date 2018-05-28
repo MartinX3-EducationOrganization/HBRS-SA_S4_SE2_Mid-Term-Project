@@ -7,14 +7,15 @@
 
 package org.bonn.se.ss18.view;
 
+import com.vaadin.annotations.Title;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.FileResource;
-import com.vaadin.server.Page;
 import com.vaadin.server.VaadinService;
 import com.vaadin.ui.*;
 
 import java.io.File;
 
+@Title("Grundgerüst - Profil - Unternehmen")
 public class ProfilUnternehmen extends Abstract {
     public ProfilUnternehmen() {
         HorizontalLayout content = setSiteLayout();
@@ -95,6 +96,5 @@ public class ProfilUnternehmen extends Abstract {
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
-        Page.getCurrent().setTitle("Grundgerüst - Profil - Unternehmen");
     }
 }

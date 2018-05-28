@@ -15,6 +15,7 @@ import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
 import org.bonn.se.ss18.view.Login;
 import org.bonn.se.ss18.view.ProfilUnternehmen;
+import org.bonn.se.ss18.view.RegistrationUnternehmen;
 
 import javax.servlet.annotation.WebServlet;
 
@@ -32,12 +33,12 @@ public class Main extends UI {
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-
         // Create a navigator to control the views
         UI.getCurrent().setNavigator(new Navigator(this, this));
 
         // Create and register the views
         UI.getCurrent().getNavigator().addView(Login.getName(), Login.class);
+        UI.getCurrent().getNavigator().addView(RegistrationUnternehmen.getName(), RegistrationUnternehmen.class);
         UI.getCurrent().getNavigator().addView(ProfilUnternehmen.getName(), ProfilUnternehmen.class);
 
         //Move to the Login Page

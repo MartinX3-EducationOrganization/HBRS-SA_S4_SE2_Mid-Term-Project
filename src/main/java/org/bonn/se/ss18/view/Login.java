@@ -7,15 +7,16 @@
 
 package org.bonn.se.ss18.view;
 
+import com.vaadin.annotations.Title;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.FileResource;
-import com.vaadin.server.Page;
 import com.vaadin.server.VaadinService;
 import com.vaadin.ui.*;
 
 import java.io.File;
 
+@Title("Grundgerüst - Login")
 public class Login extends Abstract {
     public Login() {
         HorizontalLayout content = setSiteLayout();
@@ -113,16 +114,14 @@ public class Login extends Abstract {
     private VerticalLayout setLayoutRight() {
         return new VerticalLayout(
                 new Label("Noch nicht registriert?"),
-                new Button("Jetzt registrieren!", //TODO: Login -> Registration
-                        event -> UI.getCurrent().getNavigator().navigateTo("Registration")
+                new Button("Jetzt registrieren!",
+                        event -> UI.getCurrent().getNavigator().navigateTo(RegistrationUnternehmen.getName())
                 )
         );
     }
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
-        Page.getCurrent().setTitle("Grundgerüst - Login");
-
         Notification.show("Welcome to the Grundgerüst");
     }
 }
