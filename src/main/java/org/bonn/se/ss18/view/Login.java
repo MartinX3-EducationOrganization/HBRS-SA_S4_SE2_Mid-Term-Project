@@ -91,7 +91,7 @@ public class Login extends Abstract {
     private FormLayout setLayoutCentreForm() {
         return new FormLayout(
                 new TextField("Linux-Kennung / Benutzername"),
-                new TextField("Passwort"),
+                new PasswordField("Passwort"),
                 new Button("Anmelden", //TODO: Login -> Anmelden
                         event -> UI.getCurrent().getNavigator().navigateTo("MainView + Benutzerdaten weiterleiten")
                 )
