@@ -60,11 +60,13 @@ public class RegistrationUnternehmen extends Abstract {
 //Nutzungsbedingungen
         CheckBoxGroup<String> useConditionsCheckbox = setItemGroup(new CheckBoxGroup<>(), null, "");
         useConditionsCheckbox.setRequiredIndicatorVisible(true);
-        HorizontalLayout fittingLayout = setLayout(new HorizontalLayout(),
-                useConditionsCheckbox,
-                new Label(
-                        "Ich habe die " + "<a href='http://google.de'> Nutzungsbedingungen</a>" + " gelesen und akzeptiere sie",
-                        ContentMode.HTML
+        HorizontalLayout fittingLayout = setLayout(
+                new HorizontalLayout(
+                        useConditionsCheckbox,
+                        new Label(
+                                "Ich habe die " + "<a href='http://google.de'> Nutzungsbedingungen</a>" + " gelesen und akzeptiere sie",
+                                ContentMode.HTML
+                        )
                 )
         );
         layout.addComponent(fittingLayout);
@@ -72,13 +74,13 @@ public class RegistrationUnternehmen extends Abstract {
 
 //Button Registrieren
         HorizontalLayout buttonlayout = setLayout(
-                new HorizontalLayout(),
-                new Button(
+                new HorizontalLayout(
+                        new Button(
                         "Registrieren",
                         event -> {
                             UI.getCurrent().getNavigator().navigateTo(""); //TODO: Hier fehlt der Navigationsendpunkt. Falls der Zielort noch incht existieren sollte, ist das okay.
                             Notification.show("Vielen Dank");
-                        }
+                        })
                 )
         );
         layout.addComponent(buttonlayout);
@@ -86,9 +88,11 @@ public class RegistrationUnternehmen extends Abstract {
 
 //Datenschutz/Nutzungsbedingungen
         HorizontalLayout dataLayout = setLayout(
-                new HorizontalLayout(),
-                new Label("<a href='http://google.de'> Datenschutz</a>", ContentMode.HTML),
-                new Label("<a href='http://google.de'> Nutzungsbedingungen</a>", ContentMode.HTML)
+                new HorizontalLayout(
+                        new Label("<a href='http://google.de'> Datenschutz</a>", ContentMode.HTML),
+                        new Label("<a href='http://google.de'> Nutzungsbedingungen</a>", ContentMode.HTML)
+                )
+
         );
         layout.addComponent(dataLayout);
         layout.setComponentAlignment(dataLayout, Alignment.BOTTOM_CENTER);
@@ -114,13 +118,14 @@ public class RegistrationUnternehmen extends Abstract {
 
     private FormLayout setForm() {
         FormLayout form = setLayout(
-                new FormLayout(),
-                setItemGroup(new RadioButtonGroup<>("Anrede"), OPTIONGROUP_HORIZONTAL, "Herr", "Frau"),
-                setFormularItem(new TextField(), "Name, Vorname", VaadinIcons.USER),
-                setFormularItem(new TextField(), "Unternehmen", VaadinIcons.OFFICE),
-                setFormularItem(new DateField(), "Geburtstag", VaadinIcons.CALENDAR_USER),
-                setFormularItem(new TextField(), "Email", VaadinIcons.MAILBOX),
-                setFormularItem(new TextField(), "Telefon", VaadinIcons.PHONE)
+                new FormLayout(
+                        setItemGroup(new RadioButtonGroup<>("Anrede"), OPTIONGROUP_HORIZONTAL, "Herr", "Frau"),
+                        setFormularItem(new TextField(), "Name, Vorname", VaadinIcons.USER),
+                        setFormularItem(new TextField(), "Unternehmen", VaadinIcons.OFFICE),
+                        setFormularItem(new DateField(), "Geburtstag", VaadinIcons.CALENDAR_USER),
+                        setFormularItem(new TextField(), "Email", VaadinIcons.MAILBOX),
+                        setFormularItem(new TextField(), "Telefon", VaadinIcons.PHONE)
+                )
         );
 
 //PLZ
@@ -138,8 +143,7 @@ public class RegistrationUnternehmen extends Abstract {
         return item;
     }
 
-    private <T extends AbstractOrderedLayout> T setLayout(T layout, Component... components) {
-        layout.addComponents(components);
+    private <T extends AbstractOrderedLayout> T setLayout(T layout) {
         layout.setMargin(true);
         layout.setWidth(null);
 
