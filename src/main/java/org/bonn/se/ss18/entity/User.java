@@ -4,35 +4,56 @@ package org.bonn.se.ss18.entity;
 /**
  * @author rjourd2s
  */
-public class User {
-    private final int userID;
-    private final String passwort;
-    private final String strasse;
-    private final String hausnr;
-    private final String plz;
-    private final String ort;
-    private final String email;
-    private final String telNr;
-    private final String faxNr;
-    private final byte[] foto;
-    private final String kurzVorstellung;
+public class User extends AbstractEntity {
+    private String passwort;
+    private String strasse;
+    private String hausnr;
+    private String plz;
+    private String ort;
+    private String email;
+    private String telNr;
+    private String faxNr;
+    private byte[] foto;
+    private String kurzVorstellung;
 
-    public User(int userID, String passwort, String strasse, String hausnr, String plz, String ort, String email, String telNr, String faxNr, byte[] foto, String kurzvorstellung) {
-        this.userID = userID;
+    public void setPasswort(String passwort) {
         this.passwort = passwort;
-        this.strasse = strasse;
-        this.hausnr = hausnr;
-        this.plz = plz;
-        this.ort = ort;
-        this.email = email;
-        this.telNr = telNr;
-        this.faxNr = faxNr;
-        this.foto = foto;
-        kurzVorstellung = kurzvorstellung;
     }
 
-    public int getUserID() {
-        return userID;
+    public void setStrasse(String strasse) {
+        this.strasse = strasse;
+    }
+
+    public void setHausnr(String hausnr) {
+        this.hausnr = hausnr;
+    }
+
+    public void setPlz(String plz) {
+        this.plz = plz;
+    }
+
+    public void setOrt(String ort) {
+        this.ort = ort;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setTelNr(String telNr) {
+        this.telNr = telNr;
+    }
+
+    public void setFaxNr(String faxNr) {
+        this.faxNr = faxNr;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
+
+    public void setKurzVorstellung(String kurzVorstellung) {
+        this.kurzVorstellung = kurzVorstellung;
     }
 
     public String getPasswort() {
@@ -73,5 +94,10 @@ public class User {
 
     public String getKurzVorstellung() {
         return kurzVorstellung;
+    }
+
+    @Override
+    public String toString() {
+        return "ID= " + getiD() + "passwort=" + getPasswort();
     }
 }
