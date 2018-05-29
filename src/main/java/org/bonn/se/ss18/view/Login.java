@@ -64,11 +64,16 @@ public class Login extends Abstract {
                 new Label("Bitte geben Sie ihren Benutzernamen und ihr Passwort ein"),
                 new FormLayout(
                         new TextField("Linux-Kennung / Benutzername"),
-                        new PasswordField("Passwort")));
-        Button login = new Button("Anmelden",
-                event -> UI.getCurrent().getNavigator().navigateTo("MainView + Benutzerdaten weiterleiten"));
-        login.setClickShortcut(ShortcutAction.KeyCode.ENTER);
-        centre.addComponent(login);
+                        new PasswordField("Passwort")
+                ),
+                setButton(
+                        new Button(
+                                "Anmelden",
+                                event -> UI.getCurrent().getNavigator().navigateTo("MainView + Benutzerdaten weiterleiten")
+                        ),
+                        ShortcutAction.KeyCode.ENTER
+                )
+        );
         HorizontalLayout foot = new HorizontalLayout(
                 new Link(
                         "Datenschutz",
@@ -90,6 +95,11 @@ public class Login extends Abstract {
         layout.setComponentAlignment(foot, Alignment.BOTTOM_CENTER);
 
         return layout;
+    }
+
+    private Button setButton(Button login, int keycode) {
+        login.setClickShortcut(keycode);
+        return login;
     }
 
     private VerticalLayout setLayoutLeft() {
