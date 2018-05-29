@@ -8,6 +8,7 @@
 package org.bonn.se.ss18.view;
 
 import com.vaadin.annotations.Title;
+import com.vaadin.event.ShortcutAction;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.FileResource;
@@ -63,12 +64,11 @@ public class Login extends Abstract {
                 new Label("Bitte geben Sie ihren Benutzernamen und ihr Passwort ein"),
                 new FormLayout(
                         new TextField("Linux-Kennung / Benutzername"),
-                        new PasswordField("Passwort"),
-                        new Button("Anmelden", //TODO: Login -> Anmelden
-                                event -> UI.getCurrent().getNavigator().navigateTo("MainView + Benutzerdaten weiterleiten")
-                        )
-                )
-        );
+                        new PasswordField("Passwort")));
+        Button login = new Button("Anmelden",
+                event -> UI.getCurrent().getNavigator().navigateTo("MainView + Benutzerdaten weiterleiten"));
+        login.setClickShortcut(ShortcutAction.KeyCode.ENTER);
+        centre.addComponent(login);
         HorizontalLayout foot = new HorizontalLayout(
                 new Link(
                         "Datenschutz",

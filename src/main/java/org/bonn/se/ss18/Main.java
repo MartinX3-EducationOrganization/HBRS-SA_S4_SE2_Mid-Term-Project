@@ -7,6 +7,7 @@
 
 package org.bonn.se.ss18;
 
+import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
@@ -18,6 +19,7 @@ import org.bonn.se.ss18.view.ProfilUnternehmen;
 import org.bonn.se.ss18.view.RegistrationUnternehmen;
 import org.bonn.se.ss18.view.StellenausschreibungUnternehmen;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
 /**
@@ -29,6 +31,7 @@ import javax.servlet.annotation.WebServlet;
  */
 
 @Theme("maintheme")
+@PreserveOnRefresh
 public class Main extends UI {
     private Navigator navigator;
 
@@ -51,5 +54,10 @@ public class Main extends UI {
     @WebServlet(urlPatterns = "/*", name = "MainServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = Main.class, productionMode = false)
     public static class MainServlet extends VaadinServlet {
+        @Override
+        protected void servletInitialized()
+            throws ServletException {
+            super.servletInitialized();
+        }
     }
 }
