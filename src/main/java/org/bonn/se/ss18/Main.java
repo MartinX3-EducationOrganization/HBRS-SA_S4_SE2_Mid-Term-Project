@@ -16,6 +16,7 @@ import com.vaadin.ui.UI;
 import org.bonn.se.ss18.view.Login;
 import org.bonn.se.ss18.view.ProfilUnternehmen;
 import org.bonn.se.ss18.view.RegistrationUnternehmen;
+import org.bonn.se.ss18.view.StellenausschreibungUnternehmen;
 
 import javax.servlet.annotation.WebServlet;
 
@@ -40,6 +41,8 @@ public class Main extends UI {
         UI.getCurrent().getNavigator().addView(Login.getName(), Login.class);
         UI.getCurrent().getNavigator().addView(RegistrationUnternehmen.getName(), RegistrationUnternehmen.class);
         UI.getCurrent().getNavigator().addView(ProfilUnternehmen.getName(), ProfilUnternehmen.class);
+        UI.getCurrent().getNavigator().addView(StellenausschreibungUnternehmen.getName(), StellenausschreibungUnternehmen.class);
+
 
         //Move to the Login Page
         UI.getCurrent().getNavigator().navigateTo(Login.getName());
