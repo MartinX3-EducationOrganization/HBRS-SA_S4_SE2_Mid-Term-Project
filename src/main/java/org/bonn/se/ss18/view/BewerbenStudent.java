@@ -1,8 +1,8 @@
 /*
- * Created by Martin Dünkelmann on 26.05.18 20:55
+ * Created by Martin Dünkelmann on 29.05.18 21:49
  * Copyright (c) 2018. All rights reserved.
  *
- * Last modified 26.05.18 19:26
+ * Last modified 28.05.18 22:04
  */
 
 package org.bonn.se.ss18.view;
@@ -15,9 +15,9 @@ import com.vaadin.ui.*;
 
 import java.io.File;
 
-@Title("Grundgerüst - Profil - Unternehmen")
-public class ProfilUnternehmen extends Abstract {
-    public ProfilUnternehmen() {
+@Title("Grundgerüst - Profil - Student - Bewerben")
+public class BewerbenStudent extends Abstract {
+    public BewerbenStudent() {
         HorizontalLayout content = setSiteLayout();
 
         content.setSizeFull();
@@ -26,7 +26,7 @@ public class ProfilUnternehmen extends Abstract {
     }
 
     public static String getName() {
-        return "ProfilUnternehmen";
+        return "BewerbenStudent";
     }
 
     private HorizontalLayout setSiteLayout() {

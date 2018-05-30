@@ -142,7 +142,7 @@ public class StellenausschreibungUnternehmen extends Abstract {
     private VerticalLayout setLayoutLeft() {
         Image logo = new Image(
                 null,
-                new FileResource(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/../resources/logo.png"))
+                new FileResource(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/WEB-INF/classes/logo.png"))
         );
 
         logo.setHeight("100");
@@ -154,7 +154,7 @@ public class StellenausschreibungUnternehmen extends Abstract {
     private VerticalLayout setLayoutRight() {
         Image logo = new Image(
                 null,
-                new FileResource(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/../resources/logo.png"))
+                new FileResource(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/WEB-INF/classes/logo.png"))
         );
 
         logo.setHeight("100");
