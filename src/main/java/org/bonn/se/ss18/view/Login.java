@@ -20,7 +20,7 @@ import java.io.File;
 @Title("Grundgerüst - Login")
 public class Login extends Abstract {
     public Login() {
-        final HorizontalLayout content = setSiteLayout();
+        HorizontalLayout content = setSiteLayout();
 
         content.setSizeFull();
 
@@ -32,9 +32,9 @@ public class Login extends Abstract {
     }
 
     private HorizontalLayout setSiteLayout() {
-        final VerticalLayout layoutLeft = setLayoutLeft();
-        final VerticalLayout layoutCentre = setLayoutCentre();
-        final VerticalLayout layoutRight = new VerticalLayout(
+        VerticalLayout layoutLeft = setLayoutLeft();
+        VerticalLayout layoutCentre = setLayoutCentre();
+        VerticalLayout layoutRight = new VerticalLayout(
                 new Label("Noch nicht registriert?"),
                 new Button("Jetzt registrieren!",
                         event -> UI.getCurrent().getNavigator().navigateTo(RegistrationUnternehmen.getName())
@@ -44,7 +44,7 @@ public class Login extends Abstract {
         layoutCentre.setSizeFull();
         layoutRight.setSizeUndefined();
 
-        final HorizontalLayout layout = new HorizontalLayout(
+        HorizontalLayout layout = new HorizontalLayout(
                 layoutLeft,
                 layoutCentre,
                 layoutRight
@@ -57,8 +57,8 @@ public class Login extends Abstract {
     }
 
     private VerticalLayout setLayoutCentre() {
-        final Label head = new Label("Herzlich Willkommen auf Coll@HBRS");
-        final VerticalLayout centre = new VerticalLayout(
+        Label head = new Label("Herzlich Willkommen auf Coll@HBRS");
+        VerticalLayout centre = new VerticalLayout(
                 new Label("Anmeldung"),
                 new Label("Bitte geben Sie ihren Benutzernamen und ihr Passwort ein"),
                 new FormLayout(
@@ -73,7 +73,7 @@ public class Login extends Abstract {
                         ShortcutAction.KeyCode.ENTER
                 )
         );
-        final HorizontalLayout foot = new HorizontalLayout(
+        HorizontalLayout foot = new HorizontalLayout(
                 new Link(
                         "Datenschutz",
                         new ExternalResource("http://vaadin.com/")
@@ -83,7 +83,7 @@ public class Login extends Abstract {
                         new ExternalResource("http://vaadin.com/")
                 )
         );
-        final VerticalLayout layout = new VerticalLayout(
+        VerticalLayout layout = new VerticalLayout(
                 head,
                 centre,
                 foot
@@ -96,13 +96,13 @@ public class Login extends Abstract {
         return layout;
     }
 
-    private Button setButton(final Button login, final int keycode) {
+    private Button setButton(Button login, int keycode) {
         login.setClickShortcut(keycode);
         return login;
     }
 
     private VerticalLayout setLayoutLeft() {
-        final Image logo = new Image(
+        Image logo = new Image(
                 null,
                 new FileResource(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/WEB-INF/classes/logo.png"))
         );
@@ -114,7 +114,7 @@ public class Login extends Abstract {
     }
 
     @Override
-    public void enter(final ViewChangeListener.ViewChangeEvent event) {
+    public void enter(ViewChangeListener.ViewChangeEvent event) {
         Notification.show("Welcome to the Grundgerüst");
     }
 }
