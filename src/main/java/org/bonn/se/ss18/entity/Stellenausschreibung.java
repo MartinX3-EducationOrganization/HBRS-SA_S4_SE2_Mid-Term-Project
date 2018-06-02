@@ -1,15 +1,20 @@
 package org.bonn.se.ss18.entity;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.sql.Date;
 
 /**
  * @author rjourd2s
  */
-public class Stellenausschreibung extends AbstractEntity {
+public class Stellenausschreibung extends AbstractEntity implements Serializable {
     private int UnternehmensID;
     private String title;
     private String text;
     private Date datum;
+
+    public Stellenausschreibung() {
+
+    }
 
     public Stellenausschreibung(String title, String text) {
         super();
@@ -41,7 +46,7 @@ public class Stellenausschreibung extends AbstractEntity {
         this.text = text;
     }
 
-    public Date getDatum() {
+    public java.sql.Date getDatum() {
         return datum;
     }
 

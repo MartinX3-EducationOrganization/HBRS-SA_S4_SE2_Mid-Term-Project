@@ -1,21 +1,51 @@
 package org.bonn.se.ss18.dao;
 
-import org.bonn.se.ss18.config.ConnectionFactory;
-import org.bonn.se.ss18.entity.AbstractEntity;
 import org.bonn.se.ss18.entity.User;
 
 import java.sql.*;
+import java.util.Set;
 
 /**
  * @author rjourd2s
  */
-public class UserDao<T extends AbstractEntity> implements GenericDao<User> {
-    private Connection connection = ConnectionFactory.getConnection();
+public class UserDAO extends GenericDAO<User> {
+    public UserDAO(Connection con) {
+        super(con, "table_user");
+    }
+
+
+    @Override
+    public User readbyId(int id) {
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " WHERE userid=" + id);
+            return readResults(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public User readbyString(String column, String keyword) {
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " WHERE " + column + "=" + " \'" + keyword + "\'");
+            return readResults(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Set<User> getAllbyId(int id) {
+        return null;
+    }
 
     @Override
     public boolean create(User user) {
         try {
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO table_user VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO " + tableName + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             return createps(user, ps);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -26,23 +56,10 @@ public class UserDao<T extends AbstractEntity> implements GenericDao<User> {
 
 
     @Override
-    public User read(int id) {
-        try {
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM table_user WHERE id=" + id);
-            return readResults(rs);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-
-    @Override
     public boolean update(User user) {
 
         try {
-            PreparedStatement ps = connection.prepareStatement("UPDATE table_user SET id=?,passwort=?,strasse=?,hausnr=?,plz=?,ort=?,email=?,telnr=?,faxnr=?,foto=?,kurzvorstellung=? WHERE id=" + user.getiD());
+            PreparedStatement ps = con.prepareStatement("UPDATE " + tableName + " SET userid=?,passwort=?,strasse=?,hausnr=?,plz=?,ort=?,email=?,telnr=?,faxnr=?,foto=?,kurzvorstellung=? WHERE userid=" + user.getiD());
             return createps(user, ps);
 
         } catch (SQLException ex) {
@@ -54,8 +71,8 @@ public class UserDao<T extends AbstractEntity> implements GenericDao<User> {
     @Override
     public boolean delete(User user) {
         try {
-            Statement stmt = connection.createStatement();
-            int i = stmt.executeUpdate("DELETE FROM table_user WHERE id=" + user.getiD());
+            Statement stmt = con.createStatement();
+            int i = stmt.executeUpdate("DELETE FROM " + tableName + " WHERE id=" + user.getiD());
             if (i == 1) {
                 return true;
             }

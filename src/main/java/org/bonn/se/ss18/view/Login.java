@@ -14,11 +14,15 @@ import com.vaadin.server.ExternalResource;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinService;
 import com.vaadin.ui.*;
+import org.bonn.se.ss18.controller.LoggingControl;
 
 import java.io.File;
 
 @Title("Grundgerüst - Login")
 public class Login extends Abstract {
+    // Link zum Backend
+    LoggingControl main = new LoggingControl();
+
     public Login() {
         HorizontalLayout content = setSiteLayout();
 
@@ -57,22 +61,44 @@ public class Login extends Abstract {
     }
 
     private VerticalLayout setLayoutCentre() {
+
+        VerticalLayout centre = new VerticalLayout();
         Label head = new Label("Herzlich Willkommen auf Coll@HBRS");
-        VerticalLayout centre = new VerticalLayout(
-                new Label("Anmeldung"),
-                new Label("Bitte geben Sie ihren Benutzernamen und ihr Passwort ein"),
-                new FormLayout(
-                        new TextField("Linux-Kennung / Benutzername"),
-                        new PasswordField("Passwort")
-                ),
-                setButton(
-                        new Button(
-                                "Anmelden",
-                                event -> UI.getCurrent().getNavigator().navigateTo("MainView + Benutzerdaten weiterleiten")
-                        ),
-                        ShortcutAction.KeyCode.ENTER
-                )
-        );
+        Label headtext = new Label("Anmeldung");
+        Label info = new Label("Bitte geben Sie ihren Benutzernamen und ihr Passwort ein");
+        FormLayout eingabeFeld = new FormLayout();
+        TextField user = new TextField("Linux-Kennung / Benutzername");
+        PasswordField pass = new PasswordField("Passwort");
+        Button loginButton = new Button("Anmelden");
+        loginButton.addStyleName("friendly");
+        loginButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
+        eingabeFeld.addComponent(user);
+        eingabeFeld.addComponent(pass);
+        eingabeFeld.addComponent(loginButton);
+
+        centre.addComponent(headtext);
+        centre.addComponent(info);
+        centre.addComponent(eingabeFeld);
+        loginButton.addClickListener(new Button.ClickListener() {
+            @Override
+            public void buttonClick(Button.ClickEvent event) {
+                try {
+                    main.login(user.getValue(), pass.getValue());
+                }
+                // Wenn Loging erfolgreich
+                catch (Exception ex) {
+                    // Falls incorrect
+                    user.setValue("");
+                    pass.setValue("");
+                    Notification.show("Logindaten wurden nicht richtig eingeben.", Notification.Type.ERROR_MESSAGE);
+                }
+
+            }
+        });
+
+        centre.addComponent(head);
+
+
         HorizontalLayout foot = new HorizontalLayout(
                 new Link(
                         "Datenschutz",

@@ -1,6 +1,6 @@
 package org.bonn.se.ss18.entity;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * @author rjourd2s
@@ -11,7 +11,7 @@ public class Student extends User {
     private String vorname;
     private String nachname;
     private Date gebDatum;
-
+    
     public String getLinuxID() {
         return linuxID;
     }
@@ -50,5 +50,9 @@ public class Student extends User {
 
     public void setGebDatum(Date gebDatum) {
         this.gebDatum = gebDatum;
+    }
+
+    public String getType() {
+        return "Student";
     }
 }
