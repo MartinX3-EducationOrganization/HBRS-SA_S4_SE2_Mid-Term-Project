@@ -18,7 +18,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
     public Unternehmer readbyId(int id) {
         try {
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " WHERE unternehmenid=" + id);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " WHERE userid=" + id);
             return readResults(rs);
         } catch (SQLException e) {
             e.printStackTrace();

@@ -13,8 +13,8 @@ import org.bonn.se.ss18.service.Roles;
  */
 public class MenueView extends VerticalLayout implements View {
 
-    private LoggingControl logging = new LoggingControl();
-    private User currentuser = (User) UI.getCurrent().getSession().getAttribute(Roles.CURREN_USER);
+    private final LoggingControl logging = new LoggingControl();
+    private final User currentuser = (User) UI.getCurrent().getSession().getAttribute(Roles.CURREN_USER);
 
     HorizontalLayout upperSection = new HorizontalLayout();
     HorizontalLayout innerUpperSection = new HorizontalLayout();
@@ -94,7 +94,7 @@ public class MenueView extends VerticalLayout implements View {
 
     }
 
-    public void setMenuTitle() {
+    private void setMenuTitle() {
         //set the menu title
         menuTitle.addComponent(lblMenu);
         menuLayout.addComponent(menuTitle);
@@ -103,7 +103,7 @@ public class MenueView extends VerticalLayout implements View {
 
     }
 
-    public void addWelcomeText() {
+    private void addWelcomeText() {
         //create new label for welcome text
         String name = logging.getNameUser(currentuser);
 
@@ -120,7 +120,7 @@ public class MenueView extends VerticalLayout implements View {
     }
 
 
-    public void addDashboardOption(String caption) {
+    private void addDashboardOption(String caption) {
         //set menu buttons
 
         Button button = new Button(caption);
@@ -138,7 +138,8 @@ public class MenueView extends VerticalLayout implements View {
         });
     }
 
-    public Component getComponent(String componentName) {
+    //TODO in Switch kommt noch mehr
+    private Component getComponent(String componentName) {
         if (componentName.equals("")) {
             return new Login();
         } else if (componentName.equals("")) {
@@ -150,7 +151,7 @@ public class MenueView extends VerticalLayout implements View {
         }
     }
 
-    public void addMenuOption(String caption, String componentName) {
+    private void addMenuOption(String caption, String componentName) {
         Button button = new Button(caption);
         button.setWidth("100%");
         button.setStyleName("borderless");
@@ -167,10 +168,11 @@ public class MenueView extends VerticalLayout implements View {
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
+        // Wenn Logout oder Session beendet keine Weg zurück!
         if (currentuser == null) {
             getUI().getNavigator().navigateTo("");
         }
-        //Reseten der Compunenten
+        //Reseten der Componenten
         menuLayout.removeAllComponents();
         contentLayout.removeAllComponents();
 

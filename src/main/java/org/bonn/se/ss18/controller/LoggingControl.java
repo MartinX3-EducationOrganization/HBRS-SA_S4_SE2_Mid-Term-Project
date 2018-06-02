@@ -25,34 +25,32 @@ public class LoggingControl {
      */
     public void login(String usernamme, String password) {
         ConnectionFactory dao;
+        UserDAO uDAO = null;
+        StudentDAO sDAO = null;
         try {
             dao = ConnectionFactory.getInstance();
             // DAO von User (EMAIL) oder von Student(LINUXID)
-            UserDAO uDAO = (UserDAO) dao.getDAO(Tables.table_user);
-            StudentDAO sDAO = (StudentDAO) dao.getDAO(Tables.table_student);
-
-            int id;
-
-            if (sDAO.read(usernamme).getiD() != 0) {
-                id = sDAO.read(usernamme).getiD();
-            } else if (uDAO.readbyString("email", usernamme).getiD() != 0) {
-                id = uDAO.readbyString("email", usernamme).getiD();
-            } else {
-                id = 0;
-            }
-
-            VaadinSession session = UI.getCurrent().getSession();
-
-            session.setAttribute(Roles.CURREN_USER, uDAO.readbyId(id));
-
-            if ((uDAO.readbyId(id).getPasswort().equals(password))) {
-                UI.getCurrent().getNavigator().navigateTo("MenueView");
-            }
-
-            dao.close();
+            uDAO = (UserDAO) dao.getDAO(Tables.table_user);
+            sDAO = (StudentDAO) dao.getDAO(Tables.table_student);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        int id = 0;
+
+        if (sDAO.read(usernamme) != null) {
+            id = sDAO.read(usernamme).getiD();
+        } else if (uDAO.readbyString("email", usernamme) != null) {
+            id = uDAO.readbyString("email", usernamme).getiD();
+        }
+
+        VaadinSession session = UI.getCurrent().getSession();
+
+        session.setAttribute(Roles.CURREN_USER, uDAO.readbyId(id));
+
+        if ((uDAO.readbyId(id).getPasswort().equals(password))) {
+            UI.getCurrent().getNavigator().navigateTo("MenueView");
+        }
+
     }
 
     public void logout() {
@@ -73,18 +71,15 @@ public class LoggingControl {
                 Student a = sDAO.readbyId(user.getiD());
                 return a.getNachname();
             } else if (uDAO.readbyId(user.getiD()) != null) {
-                {
-                    Unternehmer b = uDAO.readbyId(user.getiD());
-                    return b.getFirmenname();
-                }
+                Unternehmer b = uDAO.readbyId(user.getiD());
+                return b.getFirmenname();
             }
             dao.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
-
-
+    }
 //        try {
 //            dao = ConnectionFactory.getInstance();
 //
@@ -100,7 +95,6 @@ public class LoggingControl {
 //            e.printStackTrace();
 //        }
 //        return null;
-    }
 
     public String isStudenorUnternehmer(User user) {
         ConnectionFactory dao;
