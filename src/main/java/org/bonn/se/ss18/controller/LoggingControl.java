@@ -49,7 +49,7 @@ public class LoggingControl {
         session.setAttribute(Roles.CURREN_USER, uDAO.readbyId(id));
 
         if ((uDAO.readbyId(id).getPasswort().equals(password))) {
-            UI.getCurrent().getNavigator().navigateTo("MenueView");
+            UI.getCurrent().getNavigator().navigateTo("MenueView"); //TODO: Profil -> Unterscheidung Student / Unternehmen
         }
 
     }

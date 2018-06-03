@@ -14,6 +14,7 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
+import org.bonn.se.ss18.service.Roles;
 
 /**
  * @author martin on 03.06.18
@@ -30,7 +31,6 @@ import com.vaadin.ui.themes.ValoTheme;
 public class MainUI extends UI {
     //        UI.getCurrent().getNavigator().addViewChangeListener();
 
-    private int TTTTEEEESSSSTTTT = 0;
     @Override
     protected void init(VaadinRequest vaadinRequest) {
         CssLayout viewContainer = new CssLayout();
@@ -57,12 +57,15 @@ public class MainUI extends UI {
     }
 
     private VerticalLayout getCenterLayout(CssLayout viewContainer) {
-        HorizontalLayout headerMenu = getHeaderMenu();
-        VerticalLayout centerLayout = new VerticalLayout(
-                headerMenu,
-                viewContainer
-        );
-        centerLayout.setComponentAlignment(headerMenu, Alignment.MIDDLE_RIGHT);
+        VerticalLayout centerLayout = new VerticalLayout();
+        centerLayout.addComponent(viewContainer);
+
+        if (UI.getCurrent().getSession().getAttribute(Roles.CURREN_USER) != null) {
+            HorizontalLayout headerMenu = getHeaderMenu();
+            centerLayout.addComponent(headerMenu);
+            centerLayout.setComponentAlignment(headerMenu, Alignment.MIDDLE_RIGHT);
+        }
+
         return centerLayout;
     }
 
@@ -81,9 +84,8 @@ public class MainUI extends UI {
     private CssLayout getLeftSideMenu() { //TODO: getLeftSideMenu
         Label title = new Label("Menu");
         title.addStyleName(ValoTheme.MENU_TITLE);
-        TTTTEEEESSSSTTTT++;
         Button profil = new Button(
-                "Profil" + TTTTEEEESSSSTTTT,
+                "Profil",
                 e -> getNavigator().navigateTo(ProfilStudent.getName())
         );
         profil.addStyleNames(
