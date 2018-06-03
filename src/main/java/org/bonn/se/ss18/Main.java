@@ -7,14 +7,12 @@
 
 package org.bonn.se.ss18;
 
-import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinServlet;
 import org.bonn.se.ss18.view.MainUI;
 
 import javax.servlet.annotation.WebServlet;
 
-@PreserveOnRefresh
 public class Main {
     @WebServlet(urlPatterns = "/*", name = "MainServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = MainUI.class, productionMode = false)
