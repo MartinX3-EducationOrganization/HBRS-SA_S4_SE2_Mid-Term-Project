@@ -21,10 +21,6 @@ import java.util.Locale;
 public class StellenausschreibungUnternehmen extends Abstract {
     private final Grid<Stellenausschreibung> grid = new Grid<>(Stellenausschreibung.class);
 
-    public static String getName() {
-        return "Stellenausschreibung";
-    }
-
     public StellenausschreibungUnternehmen() {
 
         VerticalLayout content = new VerticalLayout();
@@ -89,6 +85,10 @@ public class StellenausschreibungUnternehmen extends Abstract {
         footer.setWidth("100%");
         //content.addComponent(footer);
 
+    }
+
+    public static String getName() {
+        return "Stellenausschreibung";
     }
 
     private void updateGrid() {
