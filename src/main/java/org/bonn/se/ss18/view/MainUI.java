@@ -38,6 +38,12 @@ public class MainUI extends UI {
         addViews();
         UI.getCurrent().getNavigator().navigateTo(Login.getName());
 
+        UI.getCurrent().getNavigator().addViewChangeListener(
+                event -> rebuildMenu(event, viewContainer)
+        );
+    }
+
+    private boolean rebuildMenu(ViewChangeListener.ViewChangeEvent event, CssLayout viewContainer) {
         CssLayout leftSideMenu = getLeftSideMenu();
         HorizontalLayout layout = new HorizontalLayout(
                 leftSideMenu,
@@ -46,14 +52,7 @@ public class MainUI extends UI {
         layout.setHeight(100, Unit.PERCENTAGE);
         setContent(layout);
 
-        UI.getCurrent().getNavigator().addViewChangeListener(
-                event -> rebuildMenu(event, layout, leftSideMenu)
-        );
-    }
-
-    private boolean rebuildMenu(ViewChangeListener.ViewChangeEvent event, HorizontalLayout layout, CssLayout viewContainer) {
-        layout.replaceComponent(viewContainer, getLeftSideMenu());
-        return false;
+        return true;
     }
 
     private VerticalLayout getCenterLayout(CssLayout viewContainer) {
