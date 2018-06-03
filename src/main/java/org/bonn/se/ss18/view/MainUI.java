@@ -10,6 +10,7 @@ package org.bonn.se.ss18.view;
 import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.Navigator;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
@@ -32,16 +33,27 @@ public class MainUI extends UI {
     @Override
     protected void init(VaadinRequest vaadinRequest) {
         CssLayout viewContainer = new CssLayout();
+
+        UI.getCurrent().setNavigator(new Navigator(this, viewContainer));
+        addViews();
+        UI.getCurrent().getNavigator().navigateTo(Login.getName());
+
+        CssLayout leftSideMenu = getLeftSideMenu();
         HorizontalLayout layout = new HorizontalLayout(
-                getLeftSideMenu(),
+                leftSideMenu,
                 getCenterLayout(viewContainer)
         );
         layout.setHeight(100, Unit.PERCENTAGE);
         setContent(layout);
 
-        UI.getCurrent().setNavigator(new Navigator(this, viewContainer));
-        addViews();
-        UI.getCurrent().getNavigator().navigateTo(Login.getName());
+        UI.getCurrent().getNavigator().addViewChangeListener(
+                event -> rebuildMenu(event, layout, leftSideMenu)
+        );
+    }
+
+    private boolean rebuildMenu(ViewChangeListener.ViewChangeEvent event, HorizontalLayout layout, CssLayout viewContainer) {
+        layout.replaceComponent(viewContainer, getLeftSideMenu());
+        return false;
     }
 
     private VerticalLayout getCenterLayout(CssLayout viewContainer) {
@@ -70,26 +82,38 @@ public class MainUI extends UI {
         Label title = new Label("Menu");
         title.addStyleName(ValoTheme.MENU_TITLE);
 
-        Button view1 = new Button("View 1", e -> getNavigator().navigateTo("view1"));
-        view1.addStyleNames(ValoTheme.BUTTON_LINK, ValoTheme.MENU_ITEM);
-        Button view2 = new Button("View 2", e -> getNavigator().navigateTo("view2"));
-        view2.addStyleNames(ValoTheme.BUTTON_LINK, ValoTheme.MENU_ITEM);
+        Button profil = new Button(
+                "Profil",
+                e -> getNavigator().navigateTo(ProfilStudent.getName())
+        );
+        profil.addStyleNames(
+                ValoTheme.BUTTON_LINK,
+                ValoTheme.MENU_ITEM
+        );
 
-        CssLayout menu = new CssLayout(
+        Button view2 = new Button(
+                "Profileinstellungen",
+                e -> getNavigator().navigateTo("Profileinstellungen") //TODO: Profileinstellungen
+        );
+        view2.addStyleNames(
+                ValoTheme.BUTTON_LINK,
+                ValoTheme.MENU_ITEM
+        );
+
+        CssLayout layout = new CssLayout(
                 title,
-                view1,
+                profil,
                 view2
         );
-        menu.addStyleName(ValoTheme.MENU_ROOT);
-        menu.setWidth(20, Unit.PERCENTAGE);
-        return menu;
+        layout.addStyleName(ValoTheme.MENU_ROOT);
+        return layout;
     }
 
     private void addViews() {
         UI.getCurrent().getNavigator().addView(BewerbenStudent.getName(), BewerbenStudent.class);
         UI.getCurrent().getNavigator().addView(Login.getName(), Login.class);
         UI.getCurrent().getNavigator().addView(MenueView.getName(), MenueView.class);
-        UI.getCurrent().getNavigator().addView(Profil.getName(), Profil.class);
+        UI.getCurrent().getNavigator().addView(ProfilStudent.getName(), ProfilStudent.class);
         UI.getCurrent().getNavigator().addView(ProfilUnternehmen.getName(), ProfilUnternehmen.class);
         UI.getCurrent().getNavigator().addView(RegistrationUnternehmen.getName(), RegistrationUnternehmen.class);
         UI.getCurrent().getNavigator().addView(StellenausschreibungUnternehmen.getName(), StellenausschreibungUnternehmen.class);

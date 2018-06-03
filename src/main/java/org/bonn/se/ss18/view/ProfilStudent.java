@@ -13,15 +13,15 @@ import java.util.Iterator;
  * @author rjourd2s
  */
 
-public class Profil extends VerticalLayout implements View {
+public class ProfilStudent extends VerticalLayout implements View {
     boolean read;
     FormLayout form = new FormLayout();
 
-    public Profil() {
+    public ProfilStudent() {
         setSpacing(true);
         setMargin(true);
 
-        Label title = new Label("Profil");
+        Label title = new Label("ProfilStudent");
         title.addStyleName(ValoTheme.LABEL_H1);
         addComponent(title);
 
@@ -145,6 +145,10 @@ public class Profil extends VerticalLayout implements View {
 
     }
 
+    public static String getName() {
+        return "ProfilStudent";
+    }
+
     private void readOnly(boolean b) {
         if (b) {
             Iterator<Component> i = form.getComponentIterator();
@@ -169,10 +173,6 @@ public class Profil extends VerticalLayout implements View {
             }
             read = false;
         }
-    }
-
-    public static String getName() {
-        return "Profil";
     }
 
     @Override
