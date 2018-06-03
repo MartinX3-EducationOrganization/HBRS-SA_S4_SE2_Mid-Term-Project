@@ -3,10 +3,13 @@ package org.bonn.se.ss18.view;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.FileResource;
+import com.vaadin.server.VaadinService;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 
+import java.io.File;
 import java.util.Iterator;
 
 /**
@@ -36,6 +39,11 @@ public class ProfilStudent extends VerticalLayout implements View {
         section.addStyleName(ValoTheme.LABEL_COLORED);
         form.addComponent(section);
 
+        FileResource resource = new FileResource(new File(VaadinService.getCurrent()
+                .getBaseDirectory().getAbsolutePath() +
+                "/WEB-INF/classes/profile_default.jpg"));
+        Image image = new Image("", resource);
+        form.addComponent(image);
 
         TextField vorname = new TextField("Vorame");
         //TODO get Name from Tables ...  name.setValue(TODO get Name from Tables);
