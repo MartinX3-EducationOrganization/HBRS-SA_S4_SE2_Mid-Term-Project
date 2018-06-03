@@ -9,7 +9,6 @@ package org.bonn.se.ss18.view;
 
 import com.vaadin.annotations.Title;
 import com.vaadin.event.ShortcutAction;
-import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.*;
 import org.bonn.se.ss18.controller.LoggingControl;
@@ -20,18 +19,6 @@ public class Login extends Abstract {
     private final LoggingControl main = new LoggingControl();
 
     public Login() {
-        HorizontalLayout content = getSiteLayout();
-
-        content.setSizeFull();
-
-        setContent(content);
-    }
-
-    public static String getName() {
-        return "";
-    }
-
-    private HorizontalLayout getSiteLayout() {
         VerticalLayout layoutCentre = getLayoutCentre();
         VerticalLayout layoutRight = new VerticalLayout(
                 new Label("Noch nicht registriert?"),
@@ -39,7 +26,6 @@ public class Login extends Abstract {
                         event -> UI.getCurrent().getNavigator().navigateTo(RegistrationUnternehmen.getName())
                 )
         );
-        layoutRight.setSizeUndefined();
 
         HorizontalLayout layout = new HorizontalLayout(
                 layoutCentre,
@@ -47,7 +33,11 @@ public class Login extends Abstract {
         );
         layout.setComponentAlignment(layoutCentre, Alignment.MIDDLE_CENTER);
         layout.setComponentAlignment(layoutRight, Alignment.TOP_RIGHT);
-        return layout;
+        setContent(layout);
+    }
+
+    public static String getName() {
+        return "";
     }
 
     private VerticalLayout getLayoutCentre() {
@@ -78,28 +68,21 @@ public class Login extends Abstract {
                 )
         );
 
-        Label head = new Label("Herzlich Willkommen auf Coll@HBRS");
         VerticalLayout centre = new VerticalLayout(
                 new Label("Anmeldung"),
                 new Label("Bitte geben Sie ihren Benutzernamen und ihr Passwort ein"),
-                new FormLayout(user, pass, loginButton),
-                head
+                new FormLayout(user, pass, loginButton)
         );
 
+        Label head = new Label("Herzlich Willkommen auf Coll@HBRS");
         VerticalLayout layout = new VerticalLayout(
                 head,
                 centre,
                 foot
         );
-        layout.setSizeFull();
         layout.setComponentAlignment(head, Alignment.TOP_CENTER);
         layout.setComponentAlignment(centre, Alignment.MIDDLE_CENTER);
         layout.setComponentAlignment(foot, Alignment.BOTTOM_CENTER);
         return layout;
-    }
-
-    @Override
-    public void enter(ViewChangeListener.ViewChangeEvent event) {
-        Notification.show("Welcome to the Grundgerüst");
     }
 }
