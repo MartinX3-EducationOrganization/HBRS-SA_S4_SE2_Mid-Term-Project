@@ -10,13 +10,9 @@ package org.bonn.se.ss18.view;
 import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.Navigator;
-import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinService;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
-
-import java.io.File;
 
 /**
  * @author martin on 03.06.18
@@ -31,38 +27,35 @@ import java.io.File;
 @PreserveOnRefresh
 @Theme("maintheme")
 public class MainUI extends UI {
+    //        UI.getCurrent().getNavigator().addViewChangeListener();
+
     @Override
     protected void init(VaadinRequest vaadinRequest) {
         CssLayout viewContainer = new CssLayout();
-        viewContainer.setSizeFull();
-        UI.getCurrent().setNavigator(new Navigator(this, viewContainer));
-        addViews();
-        UI.getCurrent().getNavigator().navigateTo(Login.getName());
-
         HorizontalLayout layout = new HorizontalLayout(
                 getLeftSideMenu(),
                 getCenterLayout(viewContainer)
         );
         layout.setHeight(100, Unit.PERCENTAGE);
         setContent(layout);
+
+        UI.getCurrent().setNavigator(new Navigator(this, viewContainer));
+        addViews();
+        UI.getCurrent().getNavigator().navigateTo(Login.getName());
     }
 
     private VerticalLayout getCenterLayout(CssLayout viewContainer) {
         HorizontalLayout headerMenu = getHeaderMenu();
-        VerticalLayout layout = new VerticalLayout(
+        VerticalLayout centerLayout = new VerticalLayout(
                 headerMenu,
                 viewContainer
         );
-        layout.setComponentAlignment(headerMenu, Alignment.MIDDLE_CENTER);
-        return layout;
+        centerLayout.setComponentAlignment(headerMenu, Alignment.MIDDLE_RIGHT);
+        return centerLayout;
     }
 
     private HorizontalLayout getHeaderMenu() { //TODO: getHeaderMenu
         return new HorizontalLayout(
-                new Button(
-                        "Startseite",
-                        event -> UI.getCurrent().getNavigator().navigateTo(Profil.getName())
-                ),
                 new Button(
                         "Logout",
                         event -> {
@@ -74,15 +67,6 @@ public class MainUI extends UI {
     }
 
     private CssLayout getLeftSideMenu() { //TODO: getLeftSideMenu
-        Image logo = new Image(
-                null,
-                new FileResource(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/WEB-INF/classes/logo.png"))
-        );
-        logo.addClickListener(
-                event -> UI.getCurrent().getNavigator().navigateTo(Profil.getName())
-        );
-        logo.addStyleName(ValoTheme.MENU_LOGO);
-
         Label title = new Label("Menu");
         title.addStyleName(ValoTheme.MENU_TITLE);
 
@@ -91,7 +75,11 @@ public class MainUI extends UI {
         Button view2 = new Button("View 2", e -> getNavigator().navigateTo("view2"));
         view2.addStyleNames(ValoTheme.BUTTON_LINK, ValoTheme.MENU_ITEM);
 
-        CssLayout menu = new CssLayout(logo, title, view1, view2);
+        CssLayout menu = new CssLayout(
+                title,
+                view1,
+                view2
+        );
         menu.addStyleName(ValoTheme.MENU_ROOT);
         menu.setWidth(20, Unit.PERCENTAGE);
         return menu;
@@ -106,6 +94,4 @@ public class MainUI extends UI {
         UI.getCurrent().getNavigator().addView(RegistrationUnternehmen.getName(), RegistrationUnternehmen.class);
         UI.getCurrent().getNavigator().addView(StellenausschreibungUnternehmen.getName(), StellenausschreibungUnternehmen.class);
     }
-
-    //        UI.getCurrent().getNavigator().addViewChangeListener();
 }
