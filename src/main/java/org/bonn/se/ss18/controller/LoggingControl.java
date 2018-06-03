@@ -98,7 +98,7 @@ public class LoggingControl {
 
     public String isStudendOrUnternehmer(User user) {
         if (user == null) {
-            return null;
+            return "";
         }
 
         ConnectionFactory dao;

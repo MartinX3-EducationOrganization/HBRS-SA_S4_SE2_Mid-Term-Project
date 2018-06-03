@@ -191,6 +191,7 @@ public class MenueView extends VerticalLayout implements View {
                 addMenuOption("Profileinstellungen", "");
                 addMenuOption("Stellen", "");
                 break;
+            case "":
             default:
                 UI.getCurrent().getNavigator().navigateTo(Login.getName());
         }
