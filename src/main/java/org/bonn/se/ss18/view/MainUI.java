@@ -7,6 +7,7 @@
 
 package org.bonn.se.ss18.view;
 
+import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.FileResource;
@@ -27,6 +28,7 @@ import java.io.File;
  * The UI is initialized using {@link #init(VaadinRequest)}. This method is intended to be
  * overridden to add component to the user interface and initialize non-component functionality.
  */
+@PreserveOnRefresh
 @Theme("maintheme")
 public class MainUI extends UI {
     @Override
