@@ -59,7 +59,7 @@ public class MainUI extends UI {
         return new HorizontalLayout(
                 new Button(
                         "Startseite",
-                        event1 -> UI.getCurrent().getNavigator().navigateTo(Profil.getName())
+                        event -> UI.getCurrent().getNavigator().navigateTo(Profil.getName())
                 ),
                 new Button(
                         "Logout",
@@ -76,8 +76,10 @@ public class MainUI extends UI {
                 null,
                 new FileResource(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/WEB-INF/classes/logo.png"))
         );
-        logo.setHeight("100");
-        logo.setWidth("100");
+        logo.addClickListener(
+                event -> UI.getCurrent().getNavigator().navigateTo(Profil.getName())
+        );
+        logo.addStyleName(ValoTheme.MENU_LOGO);
 
         Label title = new Label("Menu");
         title.addStyleName(ValoTheme.MENU_TITLE);

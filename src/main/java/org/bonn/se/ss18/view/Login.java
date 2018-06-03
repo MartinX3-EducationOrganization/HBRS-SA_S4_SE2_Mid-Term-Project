@@ -20,7 +20,7 @@ public class Login extends Abstract {
     private final LoggingControl main = new LoggingControl();
 
     public Login() {
-        HorizontalLayout content = setSiteLayout();
+        HorizontalLayout content = getSiteLayout();
 
         content.setSizeFull();
 
@@ -31,8 +31,8 @@ public class Login extends Abstract {
         return "";
     }
 
-    private HorizontalLayout setSiteLayout() {
-        VerticalLayout layoutCentre = setLayoutCentre();
+    private HorizontalLayout getSiteLayout() {
+        VerticalLayout layoutCentre = getLayoutCentre();
         VerticalLayout layoutRight = new VerticalLayout(
                 new Label("Noch nicht registriert?"),
                 new Button("Jetzt registrieren!",
@@ -50,7 +50,7 @@ public class Login extends Abstract {
         return layout;
     }
 
-    private VerticalLayout setLayoutCentre() {
+    private VerticalLayout getLayoutCentre() {
         TextField user = new TextField("Linux-Kennung / Benutzername");
         PasswordField pass = new PasswordField("Passwort");
         Button loginButton = new Button("Anmelden", (Button.ClickListener) event -> {
