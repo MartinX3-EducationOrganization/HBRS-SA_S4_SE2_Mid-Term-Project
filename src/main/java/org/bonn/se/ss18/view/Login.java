@@ -72,7 +72,6 @@ public class Login extends Abstract {
                 Notification.show("Logindaten wurden nicht richtig eingeben.", Notification.Type.ERROR_MESSAGE);
             }
         });
-        loginButton.addStyleName("friendly");
         loginButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
 
         HorizontalLayout foot = new HorizontalLayout(

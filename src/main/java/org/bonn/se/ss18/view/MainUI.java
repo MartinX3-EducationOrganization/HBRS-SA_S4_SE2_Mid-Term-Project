@@ -27,6 +27,38 @@ import com.vaadin.ui.themes.ValoTheme;
 public class MainUI extends UI {
     @Override
     protected void init(VaadinRequest vaadinRequest) {
+        CssLayout viewContainer = new CssLayout();
+        viewContainer.setSizeFull();
+
+        UI.getCurrent().setNavigator(new Navigator(this, viewContainer));
+        addViews();
+        UI.getCurrent().getNavigator().navigateTo(Login.getName());
+
+        CssLayout leftSideMenu = getLeftSideMenu();
+        VerticalLayout centralView = getCentralView(viewContainer);
+        HorizontalLayout mainLayout = new HorizontalLayout(leftSideMenu, centralView);
+        mainLayout.setHeight(100, Unit.PERCENTAGE);
+        setContent(mainLayout);
+    }
+
+    private VerticalLayout getCentralView(CssLayout viewContainer) {
+        VerticalLayout layout = new VerticalLayout(getHeaderMenu(), viewContainer);
+        return layout;
+    }
+
+    private HorizontalLayout getHeaderMenu() { //TODO: getHeaderMenu
+        Button btnLogout = new Button("Sign Out");
+        btnLogout.addClickListener((Button.ClickListener) event -> {
+            UI.getCurrent().getNavigator().navigateTo(Login.getName());
+            UI.getCurrent().getSession().close();
+        });
+
+        HorizontalLayout layout = new HorizontalLayout(btnLogout);
+        layout.setComponentAlignment(btnLogout, Alignment.MIDDLE_RIGHT);
+        return layout;
+    }
+
+    private CssLayout getLeftSideMenu() { //TODO: getLeftSideMenu
         Label title = new Label("Menu");
         title.addStyleName(ValoTheme.MENU_TITLE);
 
@@ -37,20 +69,7 @@ public class MainUI extends UI {
 
         CssLayout menu = new CssLayout(title, view1, view2);
         menu.addStyleName(ValoTheme.MENU_ROOT);
-
-        CssLayout viewContainer = new CssLayout();
-
-        HorizontalLayout mainLayout = new HorizontalLayout(menu, viewContainer);
-        mainLayout.setSizeFull();
-        setContent(mainLayout);
-
-        // Create a navigator to control the views
-        UI.getCurrent().setNavigator(new Navigator(this, viewContainer));
-        addViews();
-
-
-        //Move to the Login Page
-        UI.getCurrent().getNavigator().navigateTo(Login.getName());
+        return menu;
     }
 
     private void addViews() {
@@ -60,7 +79,6 @@ public class MainUI extends UI {
         UI.getCurrent().getNavigator().addView(RegistrationUnternehmen.getName(), RegistrationUnternehmen.class);
         UI.getCurrent().getNavigator().addView(StellenausschreibungUnternehmen.getName(), StellenausschreibungUnternehmen.class);
         UI.getCurrent().getNavigator().addView(MenueView.getName(), MenueView.class);
-        // Create and register the views
     }
 
     //        UI.getCurrent().getNavigator().addViewChangeListener();
