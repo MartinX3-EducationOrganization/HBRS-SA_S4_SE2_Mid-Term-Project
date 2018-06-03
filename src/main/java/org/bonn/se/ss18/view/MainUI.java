@@ -1,34 +1,29 @@
 /*
- * Created by Martin Dünkelmann on 22.05.18 19:51
+ * Created by Martin Dünkelmann on 03.06.18 17:19
  * Copyright (c) 2018. All rights reserved.
  *
- * Last modified 22.05.18 19:44
+ * Last modified 03.06.18 17:19
  */
 
-package org.bonn.se.ss18;
+package org.bonn.se.ss18.view;
 
-import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Theme;
-import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
-import org.bonn.se.ss18.view.*;
-
-import javax.servlet.annotation.WebServlet;
 
 /**
+ * @author martin on 03.06.18
+ * @project wi-inf_se2_2018_grundgeruest
+ * <p>
  * This UI is the application entry point. A UI may either represent a browser window
  * (or tab) or some part of an HTML page where a Vaadin application is embedded.
  * <p>
  * The UI is initialized using {@link #init(VaadinRequest)}. This method is intended to be
  * overridden to add component to the user interface and initialize non-component functionality.
  */
-
 @Theme("maintheme")
-@PreserveOnRefresh
-public class Main extends UI {
+public class MainUI extends UI {
     @Override
     protected void init(VaadinRequest vaadinRequest) {
         // Create a navigator to control the views
@@ -46,11 +41,5 @@ public class Main extends UI {
         UI.getCurrent().getNavigator().navigateTo(Login.getName());
     }
 
-    @WebServlet(urlPatterns = "/*", name = "MainServlet", asyncSupported = true)
-    @VaadinServletConfiguration(ui = Main.class, productionMode = false)
-    public static class MainServlet extends VaadinServlet {
-        @Override
-        protected void servletInitialized() {
-        }
-    }
+    //        UI.getCurrent().getNavigator().addViewChangeListener();
 }
