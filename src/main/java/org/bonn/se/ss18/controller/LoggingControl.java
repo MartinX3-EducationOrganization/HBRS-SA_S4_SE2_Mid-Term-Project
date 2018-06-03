@@ -11,6 +11,7 @@ import org.bonn.se.ss18.entity.Unternehmer;
 import org.bonn.se.ss18.entity.User;
 import org.bonn.se.ss18.service.Roles;
 import org.bonn.se.ss18.service.Tables;
+import org.bonn.se.ss18.view.Login;
 
 import java.sql.SQLException;
 
@@ -55,7 +56,7 @@ public class LoggingControl {
 
     public void logout() {
         //  Umleiten auf login seite und Session closen.
-        UI.getCurrent().getNavigator().navigateTo("");
+        UI.getCurrent().getNavigator().navigateTo(Login.getName());
         UI.getCurrent().getSession().close();
     }
 
