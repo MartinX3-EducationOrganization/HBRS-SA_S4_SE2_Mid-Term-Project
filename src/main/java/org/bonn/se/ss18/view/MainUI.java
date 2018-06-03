@@ -10,7 +10,8 @@ package org.bonn.se.ss18.view;
 import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.ui.UI;
+import com.vaadin.ui.*;
+import com.vaadin.ui.themes.ValoTheme;
 
 /**
  * @author martin on 03.06.18
@@ -26,19 +27,40 @@ import com.vaadin.ui.UI;
 public class MainUI extends UI {
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-        // Create a navigator to control the views
-        UI.getCurrent().setNavigator(new Navigator(this, this));
+        Label title = new Label("Menu");
+        title.addStyleName(ValoTheme.MENU_TITLE);
 
-        // Create and register the views
+        Button view1 = new Button("View 1", e -> getNavigator().navigateTo("view1"));
+        view1.addStyleNames(ValoTheme.BUTTON_LINK, ValoTheme.MENU_ITEM);
+        Button view2 = new Button("View 2", e -> getNavigator().navigateTo("view2"));
+        view2.addStyleNames(ValoTheme.BUTTON_LINK, ValoTheme.MENU_ITEM);
+
+        CssLayout menu = new CssLayout(title, view1, view2);
+        menu.addStyleName(ValoTheme.MENU_ROOT);
+
+        CssLayout viewContainer = new CssLayout();
+
+        HorizontalLayout mainLayout = new HorizontalLayout(menu, viewContainer);
+        mainLayout.setSizeFull();
+        setContent(mainLayout);
+
+        // Create a navigator to control the views
+        UI.getCurrent().setNavigator(new Navigator(this, viewContainer));
+        addViews();
+
+
+        //Move to the Login Page
+        UI.getCurrent().getNavigator().navigateTo(Login.getName());
+    }
+
+    private void addViews() {
         UI.getCurrent().getNavigator().addView(BewerbenStudent.getName(), BewerbenStudent.class);
         UI.getCurrent().getNavigator().addView(Login.getName(), Login.class);
         UI.getCurrent().getNavigator().addView(ProfilUnternehmen.getName(), ProfilUnternehmen.class);
         UI.getCurrent().getNavigator().addView(RegistrationUnternehmen.getName(), RegistrationUnternehmen.class);
         UI.getCurrent().getNavigator().addView(StellenausschreibungUnternehmen.getName(), StellenausschreibungUnternehmen.class);
         UI.getCurrent().getNavigator().addView(MenueView.getName(), MenueView.class);
-
-        //Move to the Login Page
-        UI.getCurrent().getNavigator().navigateTo(Login.getName());
+        // Create and register the views
     }
 
     //        UI.getCurrent().getNavigator().addViewChangeListener();
