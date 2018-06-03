@@ -30,6 +30,7 @@ import com.vaadin.ui.themes.ValoTheme;
 public class MainUI extends UI {
     //        UI.getCurrent().getNavigator().addViewChangeListener();
 
+    private int TTTTEEEESSSSTTTT = 0;
     @Override
     protected void init(VaadinRequest vaadinRequest) {
         CssLayout viewContainer = new CssLayout();
@@ -80,9 +81,9 @@ public class MainUI extends UI {
     private CssLayout getLeftSideMenu() { //TODO: getLeftSideMenu
         Label title = new Label("Menu");
         title.addStyleName(ValoTheme.MENU_TITLE);
-
+        TTTTEEEESSSSTTTT++;
         Button profil = new Button(
-                "Profil",
+                "Profil" + TTTTEEEESSSSTTTT,
                 e -> getNavigator().navigateTo(ProfilStudent.getName())
         );
         profil.addStyleNames(
