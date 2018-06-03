@@ -16,16 +16,12 @@ public class MenueView extends VerticalLayout implements View {
     private final LoggingControl logging = new LoggingControl();
     private final User currentuser = (User) UI.getCurrent().getSession().getAttribute(Roles.CURREN_USER);
 
-    private final HorizontalLayout upperSection = new HorizontalLayout();
-    private final HorizontalLayout innerUpperSection = new HorizontalLayout();
-    private final HorizontalSplitPanel lowerSection = new HorizontalSplitPanel();
     private final VerticalLayout menuLayout = new VerticalLayout();
     private final HorizontalLayout menuTitle = new HorizontalLayout();
     private final VerticalLayout contentLayout = new VerticalLayout();
 
     private final Label lblHeader;
     private final Label lblMenu;
-    private final Button btnLogout;
 
     public MenueView() {
 
@@ -36,37 +32,33 @@ public class MenueView extends VerticalLayout implements View {
         lblHeader.addStyleName("h2");
         lblHeader.setSizeUndefined();
 
-        btnLogout = new Button("Sign Out");
+        Button btnLogout = new Button("Sign Out");
         btnLogout.addStyleName("small");
         btnLogout.addStyleName("friendly");
         btnLogout.setSizeUndefined();
-        btnLogout.addClickListener(new Button.ClickListener() {
-
-            // Bei Logout ausloggen und wieder auf Startseite.
-            @Override
-            public void buttonClick(Button.ClickEvent event) {
-                logging.logout();
-            }
-        });
+        // Bei Logout ausloggen und wieder auf Startseite.
+        btnLogout.addClickListener((Button.ClickListener) event -> logging.logout());
 
         lblMenu = new Label("Menu");
         lblMenu.addStyleName("colored");
         lblMenu.addStyleName("h2");
 
 
+        HorizontalLayout innerUpperSection = new HorizontalLayout();
         innerUpperSection.addComponent(lblHeader);
         innerUpperSection.addComponent(btnLogout);
         innerUpperSection.setExpandRatio(btnLogout, 1);
         innerUpperSection.setSpacing(true);
         innerUpperSection.setComponentAlignment(btnLogout, Alignment.MIDDLE_RIGHT);
 
+        HorizontalLayout upperSection = new HorizontalLayout();
         upperSection.setSizeFull();
         upperSection.addComponent(innerUpperSection);
 
         upperSection.setMargin(new MarginInfo(false, true, false, false));
         upperSection.setComponentAlignment(innerUpperSection, Alignment.TOP_RIGHT);
         upperSection.addStyleName("borderBottom");
-        upperSection.setHeight(4, Sizeable.UNITS_EM);
+        upperSection.setHeight(4, Sizeable.Unit.EM);
 
         //  Menü
         menuTitle.addComponent(lblMenu);
@@ -74,6 +66,7 @@ public class MenueView extends VerticalLayout implements View {
         menuLayout.setWidth("100%");
         menuLayout.setComponentAlignment(menuTitle, Alignment.MIDDLE_CENTER);
 
+        HorizontalSplitPanel lowerSection = new HorizontalSplitPanel();
         lowerSection.addComponent(menuLayout);
         lowerSection.addComponent(contentLayout);
         contentLayout.setSizeFull();
@@ -90,7 +83,7 @@ public class MenueView extends VerticalLayout implements View {
 
     }
 
-    public static String getName() {
+    static String getName() {
         return "MenueView";
     }
 
@@ -105,14 +98,14 @@ public class MenueView extends VerticalLayout implements View {
 
     private void addWelcomeText() {
         //create new label for welcome text
-        String name = logging.getNameUser(currentuser);
+        String name = "";
 
         Label lblTitle = new Label("Welcome " + name + "!");
         lblTitle.addStyleName("h1");
         lblTitle.addStyleName("colored");
 
         // TODO
-        lblHeader.setValue("" + logging.isStudendOrUnternehmer(currentuser));
+        lblHeader.setValue("");
 
         contentLayout.addComponent(lblTitle);
         contentLayout.setMargin(new MarginInfo(false, false, false, true));
@@ -128,13 +121,9 @@ public class MenueView extends VerticalLayout implements View {
         button.setStyleName("borderless");
         menuLayout.addComponent(button);
 
-        button.addClickListener(new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent event) {
-                contentLayout.removeAllComponents();
-                addWelcomeText();
-            }
-
+        button.addClickListener((Button.ClickListener) event -> {
+            contentLayout.removeAllComponents();
+            addWelcomeText();
         });
     }
 
@@ -156,22 +145,16 @@ public class MenueView extends VerticalLayout implements View {
         button.setWidth("100%");
         button.setStyleName("borderless");
         menuLayout.addComponent(button);
-        button.addClickListener(new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent event) {
-                contentLayout.removeAllComponents();
-                contentLayout.addComponent(getComponent(componentName));
-            }
-
+        button.addClickListener((Button.ClickListener) event -> {
+            contentLayout.removeAllComponents();
+            contentLayout.addComponent(getComponent(componentName));
         });
     }
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
         // Wenn Logout oder Session beendet keine Weg zurück!
-        if (currentuser == null) {
-            getUI().getNavigator().navigateTo("");
-        }
+
         //Reseten der Componenten
         menuLayout.removeAllComponents();
         contentLayout.removeAllComponents();
@@ -180,7 +163,7 @@ public class MenueView extends VerticalLayout implements View {
         setMenuTitle();
         addDashboardOption("Profil");
 
-        switch (logging.isStudendOrUnternehmer(currentuser)) {
+        switch ("Student") {
             case "Student":
                 addMenuOption("Persöhnliche Daten", "");
                 addMenuOption("Profileinstellungen", "");
@@ -193,8 +176,6 @@ public class MenueView extends VerticalLayout implements View {
                 break;
             case "":
             default:
-                UI.getCurrent().getNavigator().navigateTo(Login.getName());
-                return;
         }
 
         addWelcomeText();
