@@ -2,6 +2,7 @@ package org.bonn.se.ss18.view;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.Sizeable;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.*;
 import org.bonn.se.ss18.controller.LoggingControl;
@@ -12,20 +13,19 @@ import org.bonn.se.ss18.service.Roles;
  * @author rjourd2s
  */
 public class MenueView extends VerticalLayout implements View {
-
     private final LoggingControl logging = new LoggingControl();
     private final User currentuser = (User) UI.getCurrent().getSession().getAttribute(Roles.CURREN_USER);
 
-    private HorizontalLayout upperSection = new HorizontalLayout();
-    private HorizontalLayout innerUpperSection = new HorizontalLayout();
-    private HorizontalSplitPanel lowerSection = new HorizontalSplitPanel();
-    private VerticalLayout menuLayout = new VerticalLayout();
-    private HorizontalLayout menuTitle = new HorizontalLayout();
-    private VerticalLayout contentLayout = new VerticalLayout();
+    private final HorizontalLayout upperSection = new HorizontalLayout();
+    private final HorizontalLayout innerUpperSection = new HorizontalLayout();
+    private final HorizontalSplitPanel lowerSection = new HorizontalSplitPanel();
+    private final VerticalLayout menuLayout = new VerticalLayout();
+    private final HorizontalLayout menuTitle = new HorizontalLayout();
+    private final VerticalLayout contentLayout = new VerticalLayout();
 
-    private Label lblHeader;
-    private Label lblMenu;
-    private Button btnLogout;
+    private final Label lblHeader;
+    private final Label lblMenu;
+    private final Button btnLogout;
 
     public MenueView() {
 
@@ -66,7 +66,7 @@ public class MenueView extends VerticalLayout implements View {
         upperSection.setMargin(new MarginInfo(false, true, false, false));
         upperSection.setComponentAlignment(innerUpperSection, Alignment.TOP_RIGHT);
         upperSection.addStyleName("borderBottom");
-        upperSection.setHeight(4, UNITS_EM);
+        upperSection.setHeight(4, Sizeable.UNITS_EM);
 
         //  Menü
         menuTitle.addComponent(lblMenu);
