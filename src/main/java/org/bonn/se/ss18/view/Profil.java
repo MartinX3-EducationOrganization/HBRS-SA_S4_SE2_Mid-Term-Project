@@ -7,11 +7,16 @@ import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 
+import java.util.Iterator;
+
 /**
  * @author rjourd2s
  */
 
 public class Profil extends VerticalLayout implements View {
+    boolean read;
+    FormLayout form = new FormLayout();
+
     public Profil() {
         setSpacing(true);
         setMargin(true);
@@ -20,7 +25,7 @@ public class Profil extends VerticalLayout implements View {
         title.addStyleName(ValoTheme.LABEL_H1);
         addComponent(title);
 
-        FormLayout form = new FormLayout();
+
         form.setMargin(false);
         form.setWidth("800px");
         form.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
@@ -108,29 +113,28 @@ public class Profil extends VerticalLayout implements View {
         bio.setWidth("100%");
         bio.setValue("<p>blalblabla</p>");
         form.addComponent(bio);
-        bio.setReadOnly(true);
-        form.setReadOnly(true);
-
+        readOnly(true);
+        read = true;
 
         Button edit = new Button("Edit", new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                boolean readOnly = form.isReadOnly();
-                if (readOnly) {
+                if (read) {
                     bio.setReadOnly(false);
-                    form.setReadOnly(false);
+                    readOnly(false);
                     form.removeStyleName(ValoTheme.FORMLAYOUT_LIGHT);
                     event.getButton().setCaption("Save");
                     event.getButton().addStyleName(ValoTheme.BUTTON_PRIMARY);
                 } else {
                     bio.setReadOnly(true);
-                    form.setReadOnly(true);
+                    readOnly(true);
                     form.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
                     event.getButton().setCaption("Edit");
                     event.getButton().removeStyleName(ValoTheme.BUTTON_PRIMARY);
                 }
             }
         });
+
 
         HorizontalLayout footer = new HorizontalLayout();
         footer.setMargin(new MarginInfo(true, false, true, false));
@@ -139,6 +143,32 @@ public class Profil extends VerticalLayout implements View {
         form.addComponent(footer);
         footer.addComponent(edit);
 
+    }
+
+    private void readOnly(boolean b) {
+        if (b) {
+            Iterator<Component> i = form.getComponentIterator();
+            while (i.hasNext()) {
+                Component c = i.next();
+                if (c instanceof com.vaadin.ui.AbstractField) {
+                    AbstractField field = (AbstractField) c;
+                    field.setReadOnly(true);
+
+                }
+            }
+            read = true;
+        } else {
+            Iterator<Component> i = form.getComponentIterator();
+            while (i.hasNext()) {
+                Component c = i.next();
+                if (c instanceof com.vaadin.ui.AbstractField) {
+                    AbstractField field = (AbstractField) c;
+                    field.setReadOnly(false);
+                }
+
+            }
+            read = false;
+        }
     }
 
     public static String getName() {

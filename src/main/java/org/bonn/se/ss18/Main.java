@@ -41,6 +41,7 @@ public class Main extends UI {
         UI.getCurrent().getNavigator().addView(RegistrationUnternehmen.getName(), RegistrationUnternehmen.class);
         UI.getCurrent().getNavigator().addView(StellenausschreibungUnternehmen.getName(), StellenausschreibungUnternehmen.class);
         UI.getCurrent().getNavigator().addView(MenueView.getName(), MenueView.class);
+        UI.getCurrent().getNavigator().addView(Profil.getName(), Profil.class);
 
         //Move to the Login Page
         UI.getCurrent().getNavigator().navigateTo(Login.getName());
