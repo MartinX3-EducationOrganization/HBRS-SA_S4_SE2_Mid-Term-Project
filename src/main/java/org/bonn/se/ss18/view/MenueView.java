@@ -179,15 +179,20 @@ public class MenueView extends VerticalLayout implements View {
         //Componente die geadded werden je Nach User.
         setMenuTitle();
         addDashboardOption("Profil");
-        if (logging.isStudendOrUnternehmer(currentuser).equals("Student")) {
-            addMenuOption("Persöhnliche Daten", "");
-            addMenuOption("Profileinstellungen", "");
-            addMenuOption("Dokumente", "");
 
-        } else {
-            addMenuOption("Persöhnliche Daten", "");
-            addMenuOption("Profileinstellungen", "");
-            addMenuOption("Stellen", "");
+        switch (logging.isStudendOrUnternehmer(currentuser)) {
+            case "Student":
+                addMenuOption("Persöhnliche Daten", "");
+                addMenuOption("Profileinstellungen", "");
+                addMenuOption("Dokumente", "");
+                break;
+            case "Unternehmer":
+                addMenuOption("Persöhnliche Daten", "");
+                addMenuOption("Profileinstellungen", "");
+                addMenuOption("Stellen", "");
+                break;
+            default:
+                UI.getCurrent().getNavigator().navigateTo(Login.getName());
         }
 
         addWelcomeText();
