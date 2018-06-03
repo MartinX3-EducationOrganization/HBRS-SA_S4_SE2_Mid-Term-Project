@@ -39,11 +39,12 @@ public class ProfilStudent extends VerticalLayout implements View {
         section.addStyleName(ValoTheme.LABEL_COLORED);
         form.addComponent(section);
 
-        FileResource resource = new FileResource(new File(VaadinService.getCurrent()
-                .getBaseDirectory().getAbsolutePath() +
-                "/WEB-INF/classes/profile_default.jpg"));
-        Image image = new Image("", resource);
-        form.addComponent(image);
+        form.addComponent(
+                new Image(
+                        null,
+                        new FileResource(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/WEB-INF/classes/profile_default.jpg"))
+                )
+        );
 
         TextField vorname = new TextField("Vorame");
         //TODO get Name from Tables ...  name.setValue(TODO get Name from Tables);
