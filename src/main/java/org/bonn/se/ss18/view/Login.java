@@ -44,8 +44,6 @@ public class Login extends Abstract {
                         event -> UI.getCurrent().getNavigator().navigateTo(RegistrationUnternehmen.getName())
                 )
         );
-        layoutLeft.setSizeUndefined();
-        layoutCentre.setSizeFull();
         layoutRight.setSizeUndefined();
 
         HorizontalLayout layout = new HorizontalLayout(
@@ -56,7 +54,6 @@ public class Login extends Abstract {
         layout.setComponentAlignment(layoutLeft, Alignment.TOP_LEFT);
         layout.setComponentAlignment(layoutCentre, Alignment.MIDDLE_CENTER);
         layout.setComponentAlignment(layoutRight, Alignment.TOP_RIGHT);
-
         return layout;
     }
 
@@ -102,11 +99,10 @@ public class Login extends Abstract {
                 centre,
                 foot
         );
-
+        layout.setSizeFull();
         layout.setComponentAlignment(head, Alignment.TOP_CENTER);
         layout.setComponentAlignment(centre, Alignment.MIDDLE_CENTER);
         layout.setComponentAlignment(foot, Alignment.BOTTOM_CENTER);
-
         return layout;
     }
 
@@ -119,7 +115,9 @@ public class Login extends Abstract {
         logo.setHeight("100");
         logo.setWidth("100");
 
-        return new VerticalLayout(logo);
+        VerticalLayout layout = new VerticalLayout(logo);
+        layout.setSizeUndefined();
+        return layout;
     }
 
     @Override
