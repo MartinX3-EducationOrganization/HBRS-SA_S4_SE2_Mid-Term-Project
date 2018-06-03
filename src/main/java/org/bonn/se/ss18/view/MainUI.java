@@ -9,9 +9,13 @@ package org.bonn.se.ss18.view;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.Navigator;
+import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.server.VaadinService;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
+
+import java.io.File;
 
 /**
  * @author martin on 03.06.18
@@ -68,6 +72,13 @@ public class MainUI extends UI {
     }
 
     private CssLayout getLeftSideMenu() { //TODO: getLeftSideMenu
+        Image logo = new Image(
+                null,
+                new FileResource(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/WEB-INF/classes/logo.png"))
+        );
+        logo.setHeight("100");
+        logo.setWidth("100");
+
         Label title = new Label("Menu");
         title.addStyleName(ValoTheme.MENU_TITLE);
 
@@ -76,7 +87,7 @@ public class MainUI extends UI {
         Button view2 = new Button("View 2", e -> getNavigator().navigateTo("view2"));
         view2.addStyleNames(ValoTheme.BUTTON_LINK, ValoTheme.MENU_ITEM);
 
-        CssLayout menu = new CssLayout(title, view1, view2);
+        CssLayout menu = new CssLayout(logo, title, view1, view2);
         menu.addStyleName(ValoTheme.MENU_ROOT);
         menu.setWidth(20, Unit.PERCENTAGE);
         return menu;

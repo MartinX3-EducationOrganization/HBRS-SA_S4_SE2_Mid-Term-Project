@@ -11,17 +11,13 @@ import com.vaadin.annotations.Title;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.ExternalResource;
-import com.vaadin.server.FileResource;
-import com.vaadin.server.VaadinService;
 import com.vaadin.ui.*;
 import org.bonn.se.ss18.controller.LoggingControl;
-
-import java.io.File;
 
 @Title("Grundgerüst - Login")
 public class Login extends Abstract {
     // Link zum Backend
-    LoggingControl main = new LoggingControl();
+    private final LoggingControl main = new LoggingControl();
 
     public Login() {
         HorizontalLayout content = setSiteLayout();
@@ -36,7 +32,6 @@ public class Login extends Abstract {
     }
 
     private HorizontalLayout setSiteLayout() {
-        VerticalLayout layoutLeft = setLayoutLeft();
         VerticalLayout layoutCentre = setLayoutCentre();
         VerticalLayout layoutRight = new VerticalLayout(
                 new Label("Noch nicht registriert?"),
@@ -47,11 +42,9 @@ public class Login extends Abstract {
         layoutRight.setSizeUndefined();
 
         HorizontalLayout layout = new HorizontalLayout(
-                layoutLeft,
                 layoutCentre,
                 layoutRight
         );
-        layout.setComponentAlignment(layoutLeft, Alignment.TOP_LEFT);
         layout.setComponentAlignment(layoutCentre, Alignment.MIDDLE_CENTER);
         layout.setComponentAlignment(layoutRight, Alignment.TOP_RIGHT);
         return layout;
@@ -102,20 +95,6 @@ public class Login extends Abstract {
         layout.setComponentAlignment(head, Alignment.TOP_CENTER);
         layout.setComponentAlignment(centre, Alignment.MIDDLE_CENTER);
         layout.setComponentAlignment(foot, Alignment.BOTTOM_CENTER);
-        return layout;
-    }
-
-    private VerticalLayout setLayoutLeft() {
-        Image logo = new Image(
-                null,
-                new FileResource(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/WEB-INF/classes/logo.png"))
-        );
-
-        logo.setHeight("100");
-        logo.setWidth("100");
-
-        VerticalLayout layout = new VerticalLayout(logo);
-        layout.setSizeUndefined();
         return layout;
     }
 
