@@ -29,33 +29,42 @@ public class MainUI extends UI {
     protected void init(VaadinRequest vaadinRequest) {
         CssLayout viewContainer = new CssLayout();
         viewContainer.setSizeFull();
-
         UI.getCurrent().setNavigator(new Navigator(this, viewContainer));
         addViews();
         UI.getCurrent().getNavigator().navigateTo(Login.getName());
 
-        CssLayout leftSideMenu = getLeftSideMenu();
-        VerticalLayout centralView = getCentralView(viewContainer);
-        HorizontalLayout mainLayout = new HorizontalLayout(leftSideMenu, centralView);
-        mainLayout.setHeight(100, Unit.PERCENTAGE);
-        setContent(mainLayout);
+        HorizontalLayout layout = new HorizontalLayout(
+                getLeftSideMenu(),
+                getCenterLayout(viewContainer)
+        );
+        layout.setHeight(100, Unit.PERCENTAGE);
+        setContent(layout);
     }
 
-    private VerticalLayout getCentralView(CssLayout viewContainer) {
-        VerticalLayout layout = new VerticalLayout(getHeaderMenu(), viewContainer);
+    private VerticalLayout getCenterLayout(CssLayout viewContainer) {
+        HorizontalLayout headerMenu = getHeaderMenu();
+        VerticalLayout layout = new VerticalLayout(
+                headerMenu,
+                viewContainer
+        );
+        layout.setComponentAlignment(headerMenu, Alignment.MIDDLE_CENTER);
         return layout;
     }
 
     private HorizontalLayout getHeaderMenu() { //TODO: getHeaderMenu
-        Button btnLogout = new Button("Sign Out");
-        btnLogout.addClickListener((Button.ClickListener) event -> {
-            UI.getCurrent().getNavigator().navigateTo(Login.getName());
-            UI.getCurrent().getSession().close();
-        });
-
-        HorizontalLayout layout = new HorizontalLayout(btnLogout);
-        layout.setComponentAlignment(btnLogout, Alignment.MIDDLE_RIGHT);
-        return layout;
+        return new HorizontalLayout(
+                new Button(
+                        "Startseite",
+                        event1 -> UI.getCurrent().getNavigator().navigateTo(Profil.getName())
+                ),
+                new Button(
+                        "Logout",
+                        event -> {
+                            UI.getCurrent().getNavigator().navigateTo(Login.getName());
+                            UI.getCurrent().getSession().close();
+                        }
+                )
+        );
     }
 
     private CssLayout getLeftSideMenu() { //TODO: getLeftSideMenu
@@ -69,6 +78,7 @@ public class MainUI extends UI {
 
         CssLayout menu = new CssLayout(title, view1, view2);
         menu.addStyleName(ValoTheme.MENU_ROOT);
+        menu.setWidth(20, Unit.PERCENTAGE);
         return menu;
     }
 
