@@ -29,8 +29,6 @@ import javax.servlet.annotation.WebServlet;
 @Theme("maintheme")
 @PreserveOnRefresh
 public class Main extends UI {
-    private Navigator navigator;
-
     @Override
     protected void init(VaadinRequest vaadinRequest) {
         // Create a navigator to control the views
