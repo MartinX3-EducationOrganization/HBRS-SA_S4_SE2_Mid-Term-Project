@@ -194,6 +194,7 @@ public class MenueView extends VerticalLayout implements View {
             case "":
             default:
                 UI.getCurrent().getNavigator().navigateTo(Login.getName());
+                return;
         }
 
         addWelcomeText();
