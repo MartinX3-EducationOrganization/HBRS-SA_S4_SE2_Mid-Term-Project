@@ -16,20 +16,16 @@ public class MenueView extends VerticalLayout implements View {
     private final LoggingControl logging = new LoggingControl();
     private final User currentuser = (User) UI.getCurrent().getSession().getAttribute(Roles.CURREN_USER);
 
-    HorizontalLayout upperSection = new HorizontalLayout();
-    HorizontalLayout innerUpperSection = new HorizontalLayout();
-    HorizontalSplitPanel lowerSection = new HorizontalSplitPanel();
-    VerticalLayout menuLayout = new VerticalLayout();
-    HorizontalLayout menuTitle = new HorizontalLayout();
-    VerticalLayout contentLayout = new VerticalLayout();
+    private HorizontalLayout upperSection = new HorizontalLayout();
+    private HorizontalLayout innerUpperSection = new HorizontalLayout();
+    private HorizontalSplitPanel lowerSection = new HorizontalSplitPanel();
+    private VerticalLayout menuLayout = new VerticalLayout();
+    private HorizontalLayout menuTitle = new HorizontalLayout();
+    private VerticalLayout contentLayout = new VerticalLayout();
 
-    Label lblHeader;
-    Label lblMenu;
-    Button btnLogout;
-
-    public static String getName() {
-        return "MenueView";
-    }
+    private Label lblHeader;
+    private Label lblMenu;
+    private Button btnLogout;
 
     public MenueView() {
 
@@ -94,6 +90,10 @@ public class MenueView extends VerticalLayout implements View {
 
     }
 
+    public static String getName() {
+        return "MenueView";
+    }
+
     private void setMenuTitle() {
         //set the menu title
         menuTitle.addComponent(lblMenu);
@@ -112,7 +112,7 @@ public class MenueView extends VerticalLayout implements View {
         lblTitle.addStyleName("colored");
 
         // TODO
-        lblHeader.setValue("" + logging.isStudenorUnternehmer(currentuser));
+        lblHeader.setValue("" + logging.isStudendOrUnternehmer(currentuser));
 
         contentLayout.addComponent(lblTitle);
         contentLayout.setMargin(new MarginInfo(false, false, false, true));
@@ -179,7 +179,7 @@ public class MenueView extends VerticalLayout implements View {
         //Componente die geadded werden je Nach User.
         setMenuTitle();
         addDashboardOption("Profil");
-        if (logging.isStudenorUnternehmer(currentuser).equals("Student")) {
+        if (logging.isStudendOrUnternehmer(currentuser).equals("Student")) {
             addMenuOption("Persöhnliche Daten", "");
             addMenuOption("Profileinstellungen", "");
             addMenuOption("Dokumente", "");

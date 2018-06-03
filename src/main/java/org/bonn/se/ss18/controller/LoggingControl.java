@@ -96,7 +96,11 @@ public class LoggingControl {
 //        }
 //        return null;
 
-    public String isStudenorUnternehmer(User user) {
+    public String isStudendOrUnternehmer(User user) {
+        if (user == null) {
+            return null;
+        }
+
         ConnectionFactory dao;
         try {
             dao = ConnectionFactory.getInstance();
