@@ -92,21 +92,6 @@ public class LoggingController {
         }
         return null;
     }
-//        try {
-//            dao = ConnectionFactory.getInstance();
-//
-//            if (user instanceof Student) {
-//                StudentDAO sDAO = (StudentDAO) dao.getDAO(Tables.table_student);
-//                return sDAO.readbyId(user.getiD()).getNachname();
-//            } else if (user instanceof Unternehmer) {
-//                UnternehmerDAO uDAO = (UnternehmerDAO) dao.getDAO(Tables.table_unternehmen);
-//                return uDAO.readbyId(user.getiD()).getFirmenname();
-//            }
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
 
     public String isStudendOrUnternehmer(User user) {
         if (user == null) {
