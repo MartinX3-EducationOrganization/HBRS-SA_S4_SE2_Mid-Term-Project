@@ -34,7 +34,6 @@ public class StellenaussgabeDataView extends Window {
         //Description TextArea
         RichTextArea description = new RichTextArea();
         description.setCaption("Text");
-        description.setSizeUndefined();
         if (documentData.getText() != null) {
             description.setValue(documentData.getText());
         }
@@ -78,9 +77,6 @@ public class StellenaussgabeDataView extends Window {
                 close();
             }
         });
-
-        //Set layout size to undefined to let it fit to its content
-        layout.setSizeUndefined();
 
         //Set the layout as content of the hole window
         setContent(layout);

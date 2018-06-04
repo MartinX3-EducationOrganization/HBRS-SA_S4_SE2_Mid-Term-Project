@@ -35,7 +35,6 @@ public class StellenausschreibungUnternehmen extends Abstract {
         titleBar.setExpandRatio(title, 1.0f);
 
         Label titleComment = new Label("Schlechte Bezahlung!");
-        titleComment.setSizeUndefined();
         titleBar.addComponent(titleComment);
 
 
@@ -53,7 +52,6 @@ public class StellenausschreibungUnternehmen extends Abstract {
         matter.setContent(grid);
 
 
-        grid.setSizeFull();
         grid.setColumns("title");
         grid.addColumn("text", new
 

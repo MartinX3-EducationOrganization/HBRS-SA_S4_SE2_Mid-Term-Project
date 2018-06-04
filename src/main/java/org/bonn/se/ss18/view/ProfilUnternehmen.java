@@ -18,11 +18,7 @@ import java.io.File;
 @Title("Grundgerüst - Profil - Unternehmen")
 public class ProfilUnternehmen extends Abstract {
     public ProfilUnternehmen() {
-        HorizontalLayout content = setSiteLayout();
-
-        content.setSizeFull();
-
-        setContent(content);
+        setContent(setSiteLayout());
     }
 
     public static String getName() {
@@ -38,10 +34,6 @@ public class ProfilUnternehmen extends Abstract {
                 layoutCentre,
                 layoutRight
         );
-
-        layoutLeft.setSizeUndefined();
-        layoutCentre.setSizeFull();
-        layoutRight.setSizeUndefined();
 
         layout.setComponentAlignment(layoutLeft, Alignment.TOP_LEFT);
         layout.setComponentAlignment(layoutCentre, Alignment.MIDDLE_CENTER);

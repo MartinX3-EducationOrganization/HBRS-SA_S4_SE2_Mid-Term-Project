@@ -18,11 +18,7 @@ import java.io.File;
 @Title("Grundgerüst - Profil - Student - Bewerben")
 public class BewerbenStudent extends Abstract {
     public BewerbenStudent() {
-        HorizontalLayout content = setSiteLayout();
-
-        content.setSizeFull();
-
-        setContent(content);
+        setContent(setSiteLayout());
     }
 
     public static String getName() {
@@ -36,9 +32,6 @@ public class BewerbenStudent extends Abstract {
                 layoutLeft,
                 layoutCentre
         );
-
-        layoutLeft.setSizeUndefined();
-        layoutCentre.setSizeFull();
 
         layout.setComponentAlignment(layoutLeft, Alignment.TOP_LEFT);
         layout.setComponentAlignment(layoutCentre, Alignment.MIDDLE_CENTER);
