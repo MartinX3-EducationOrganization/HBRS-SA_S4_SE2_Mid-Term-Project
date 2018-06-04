@@ -26,9 +26,9 @@ public class ProfilUnternehmen extends Abstract {
     }
 
     private HorizontalLayout setSiteLayout() {
-        VerticalLayout layoutCentre = setLayoutCentre();
-        VerticalLayout layoutRight = setLayoutRight();
-        HorizontalLayout layout = new HorizontalLayout(
+        final VerticalLayout layoutCentre = setLayoutCentre();
+        final VerticalLayout layoutRight = setLayoutRight();
+        final HorizontalLayout layout = new HorizontalLayout(
                 layoutCentre,
                 layoutRight
         );
@@ -40,9 +40,9 @@ public class ProfilUnternehmen extends Abstract {
     }
 
     private VerticalLayout setLayoutCentre() {
-        VerticalLayout centre = setLayoutCentreVertical();
-        HorizontalLayout foot = setCentreFoot();
-        VerticalLayout layout = new VerticalLayout(
+        final VerticalLayout centre = setLayoutCentreVertical();
+        final HorizontalLayout foot = setCentreFoot();
+        final VerticalLayout layout = new VerticalLayout(
                 centre,
                 foot
         );
@@ -68,7 +68,7 @@ public class ProfilUnternehmen extends Abstract {
     }
 
     private VerticalLayout setLayoutLeft() {
-        Image logo = new Image(
+        final Image logo = new Image(
                 null,
                 new FileResource(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/WEB-INF/classes/logo.png"))
         );
@@ -81,9 +81,5 @@ public class ProfilUnternehmen extends Abstract {
 
     private VerticalLayout setLayoutRight() {
         return new VerticalLayout();
-    }
-
-    @Override
-    public void enter(ViewChangeListener.ViewChangeEvent event) {
     }
 }

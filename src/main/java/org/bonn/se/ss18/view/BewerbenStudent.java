@@ -8,10 +8,6 @@
 package org.bonn.se.ss18.view;
 
 import com.vaadin.annotations.Title;
-import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.FormLayout;
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
 
 @Title("Grundgerüst - Profil - Student - Bewerben")
@@ -24,46 +20,9 @@ public class BewerbenStudent extends Abstract {
         return "BewerbenStudent";
     }
 
-    private HorizontalLayout setSiteLayout() {
-        VerticalLayout layoutCentre = setLayoutCentre();
-        HorizontalLayout layout = new HorizontalLayout(
-                layoutCentre
-        );
-
-        layout.setComponentAlignment(layoutCentre, Alignment.MIDDLE_CENTER);
+    private VerticalLayout setSiteLayout() {
+        VerticalLayout layout = new VerticalLayout();
 
         return layout;
-    }
-
-    private VerticalLayout setLayoutCentre() {
-        VerticalLayout centre = setLayoutCentreVertical();
-        HorizontalLayout foot = setCentreFoot();
-        VerticalLayout layout = new VerticalLayout(
-                centre,
-                foot
-        );
-
-        layout.setComponentAlignment(centre, Alignment.MIDDLE_CENTER);
-        layout.setComponentAlignment(foot, Alignment.BOTTOM_CENTER);
-
-        return layout;
-    }
-
-    private HorizontalLayout setCentreFoot() {
-        return new HorizontalLayout();
-    }
-
-    private VerticalLayout setLayoutCentreVertical() {
-        return new VerticalLayout(
-                setLayoutCentreForm()
-        );
-    }
-
-    private FormLayout setLayoutCentreForm() {
-        return new FormLayout();
-    }
-
-    @Override
-    public void enter(ViewChangeListener.ViewChangeEvent event) {
     }
 }
