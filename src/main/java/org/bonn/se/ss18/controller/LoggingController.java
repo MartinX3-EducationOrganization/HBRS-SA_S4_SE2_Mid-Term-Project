@@ -1,7 +1,6 @@
 package org.bonn.se.ss18.controller;
 
 
-import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.UI;
 import org.bonn.se.ss18.dao.StudentDAO;
 import org.bonn.se.ss18.dao.UnternehmerDAO;
@@ -46,9 +45,7 @@ public class LoggingController {
             id = uDAO.readbyString("email", usernamme).getiD();
         }
 
-        VaadinSession session = UI.getCurrent().getSession();
-
-        session.setAttribute(Roles.CURRENT_USER, uDAO.readbyId(id));
+        UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, uDAO.readbyId(id));
 
         if ((uDAO.readbyId(id).getPasswort().equals(password))) {
             if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) instanceof Student) {
