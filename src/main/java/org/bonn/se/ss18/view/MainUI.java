@@ -14,7 +14,12 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
+import org.bonn.se.ss18.entity.Student;
+import org.bonn.se.ss18.entity.Unternehmer;
 import org.bonn.se.ss18.service.Roles;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author martin on 03.06.18
@@ -86,33 +91,118 @@ public class MainUI extends UI {
     }
 
     private CssLayout getLeftSideMenu() { //TODO: getLeftSideMenu
+        Button[] buttons = null;
+
+        if (UI.getCurrent().getSession().getAttribute(Roles.CURREN_USER) instanceof Student) {
+            buttons = getStudentMenu();
+        } else if (UI.getCurrent().getSession().getAttribute(Roles.CURREN_USER) instanceof Unternehmer) {
+            buttons = getUnternehmerMenu();
+        }
+
         Label title = new Label("Menu");
         title.addStyleName(ValoTheme.MENU_TITLE);
-        Button profil = new Button(
+        CssLayout layout = new CssLayout(
+                title
+        );
+
+        if (buttons != null) {
+            layout.addComponents(buttons);
+        }
+        layout.addStyleName(ValoTheme.MENU_ROOT);
+
+        return layout;
+    }
+
+    private Button[] getStudentMenu() {
+        List<Button> buttons = new ArrayList<>();
+
+        Button button = new Button(
                 "Profil",
                 e -> getNavigator().navigateTo(ProfilStudent.getName())
         );
-        profil.addStyleNames(
+        button.addStyleNames(
                 ValoTheme.BUTTON_LINK,
                 ValoTheme.MENU_ITEM
         );
+        buttons.add(button);
 
-        Button view2 = new Button(
+        button = new Button(
+                "Persönliche Daten",
+                e -> getNavigator().navigateTo("")//TODO: Persönliche Daten
+        );
+        button.addStyleNames(
+                ValoTheme.BUTTON_LINK,
+                ValoTheme.MENU_ITEM
+        );
+        buttons.add(button);
+
+        button = new Button(
                 "Profileinstellungen",
-                e -> getNavigator().navigateTo("Profileinstellungen") //TODO: Profileinstellungen
+                e -> getNavigator().navigateTo("")//TODO: Profileinstellungen
         );
-        view2.addStyleNames(
+        button.addStyleNames(
                 ValoTheme.BUTTON_LINK,
                 ValoTheme.MENU_ITEM
         );
+        buttons.add(button);
 
-        CssLayout layout = new CssLayout(
-                title,
-                profil,
-                view2
+        button = new Button(
+                "Dokumente",
+                e -> getNavigator().navigateTo("")//TODO: Dokumente
         );
-        layout.addStyleName(ValoTheme.MENU_ROOT);
-        return layout;
+        button.addStyleNames(
+                ValoTheme.BUTTON_LINK,
+                ValoTheme.MENU_ITEM
+        );
+        buttons.add(button);
+
+        return buttons.toArray(new Button[0]);
+    }
+
+    private Button[] getUnternehmerMenu() {
+        List<Button> buttons = new ArrayList<>();
+
+        Button button = new Button(
+                "Profil",
+                e -> getNavigator().navigateTo(ProfilUnternehmen.getName())
+        );
+        button.addStyleNames(
+                ValoTheme.BUTTON_LINK,
+                ValoTheme.MENU_ITEM
+        );
+        buttons.add(button);
+
+        button = new Button(
+                "Persönliche Daten",
+                e -> getNavigator().navigateTo("")//TODO: Persönliche Daten
+        );
+        button.addStyleNames(
+                ValoTheme.BUTTON_LINK,
+                ValoTheme.MENU_ITEM
+        );
+        buttons.add(button);
+
+        button = new Button(
+                "Profileinstellungen",
+                e -> getNavigator().navigateTo("")//TODO: Profileinstellungen
+        );
+        button.addStyleNames(
+                ValoTheme.BUTTON_LINK,
+                ValoTheme.MENU_ITEM
+        );
+        buttons.add(button);
+
+        button = new Button(
+                "Stellen",
+                e -> getNavigator().navigateTo("")//TODO: Stellen
+        );
+        button.addStyleNames(
+                ValoTheme.BUTTON_LINK,
+                ValoTheme.MENU_ITEM
+        );
+        buttons.add(button);
+
+        return buttons.toArray(new Button[0]);
     }
 
     private void addViews() {
