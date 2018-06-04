@@ -67,7 +67,6 @@ public class LoginController {
     }
 
     public void logout() {
-        //  Umleiten auf login seite und Session closen.
         UI.getCurrent().getNavigator().navigateTo(Login.getName());
         UI.getCurrent().getSession().close();
         Page.getCurrent().reload();
