@@ -147,6 +147,16 @@ public class MainUI extends UI {
         buttons.add(button);
 
         button = new Button(
+                "BewerbenStudent",
+                e -> getNavigator().navigateTo(BewerbenStudent.getName())
+        );
+        button.addStyleNames(
+                ValoTheme.BUTTON_LINK,
+                ValoTheme.MENU_ITEM
+        );
+        buttons.add(button);
+
+        button = new Button(
                 "Dokumente",
                 e -> getNavigator().navigateTo("")//TODO: Dokumente
         );
