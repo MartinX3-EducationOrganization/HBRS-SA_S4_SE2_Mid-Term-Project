@@ -151,7 +151,7 @@ public class MainUI extends UI {
         buttons.add(button);
 
         button = new Button(
-                "BewerbenStudent",
+                "Bewerben",
                 e -> getNavigator().navigateTo(BewerbenStudent.getName())
         );
         button.addStyleNames(
