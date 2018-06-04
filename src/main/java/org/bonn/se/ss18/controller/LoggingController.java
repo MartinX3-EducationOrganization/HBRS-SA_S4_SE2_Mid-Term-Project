@@ -57,7 +57,6 @@ public class LoggingController {
                 UI.getCurrent().getNavigator().navigateTo(ProfilUnternehmen.getName());
             }
         }
-
     }
 
     public void logout() {
