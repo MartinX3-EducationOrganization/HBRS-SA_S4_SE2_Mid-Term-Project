@@ -8,7 +8,7 @@ import org.bonn.se.ss18.dao.UnternehmerDAO;
 import org.bonn.se.ss18.dao.UserDAO;
 import org.bonn.se.ss18.entity.Student;
 import org.bonn.se.ss18.entity.Unternehmer;
-import org.bonn.se.ss18.entity.User;
+import org.bonn.se.ss18.exception.NoSuchUserOrPasswort;
 import org.bonn.se.ss18.service.Roles;
 import org.bonn.se.ss18.service.Tables;
 import org.bonn.se.ss18.view.Login;
