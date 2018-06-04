@@ -9,11 +9,10 @@ package org.bonn.se.ss18.view;
 
 import com.vaadin.annotations.Title;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.FileResource;
-import com.vaadin.server.VaadinService;
-import com.vaadin.ui.*;
-
-import java.io.File;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.VerticalLayout;
 
 @Title("Grundgerüst - Profil - Student - Bewerben")
 public class BewerbenStudent extends Abstract {
@@ -26,14 +25,11 @@ public class BewerbenStudent extends Abstract {
     }
 
     private HorizontalLayout setSiteLayout() {
-        VerticalLayout layoutLeft = setLayoutLeft();
         VerticalLayout layoutCentre = setLayoutCentre();
         HorizontalLayout layout = new HorizontalLayout(
-                layoutLeft,
                 layoutCentre
         );
 
-        layout.setComponentAlignment(layoutLeft, Alignment.TOP_LEFT);
         layout.setComponentAlignment(layoutCentre, Alignment.MIDDLE_CENTER);
 
         return layout;
@@ -65,18 +61,6 @@ public class BewerbenStudent extends Abstract {
 
     private FormLayout setLayoutCentreForm() {
         return new FormLayout();
-    }
-
-    private VerticalLayout setLayoutLeft() {
-        Image logo = new Image(
-                null,
-                new FileResource(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/WEB-INF/classes/logo.png"))
-        );
-
-        logo.setHeight("100");
-        logo.setWidth("100");
-
-        return new VerticalLayout(logo);
     }
 
     @Override

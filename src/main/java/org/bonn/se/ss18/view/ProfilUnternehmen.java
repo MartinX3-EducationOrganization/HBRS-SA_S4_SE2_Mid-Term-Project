@@ -26,16 +26,13 @@ public class ProfilUnternehmen extends Abstract {
     }
 
     private HorizontalLayout setSiteLayout() {
-        VerticalLayout layoutLeft = setLayoutLeft();
         VerticalLayout layoutCentre = setLayoutCentre();
         VerticalLayout layoutRight = setLayoutRight();
         HorizontalLayout layout = new HorizontalLayout(
-                layoutLeft,
                 layoutCentre,
                 layoutRight
         );
 
-        layout.setComponentAlignment(layoutLeft, Alignment.TOP_LEFT);
         layout.setComponentAlignment(layoutCentre, Alignment.MIDDLE_CENTER);
         layout.setComponentAlignment(layoutRight, Alignment.TOP_RIGHT);
 

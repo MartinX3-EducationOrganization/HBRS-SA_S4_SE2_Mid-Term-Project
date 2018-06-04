@@ -12,7 +12,9 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.server.VaadinService;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import org.bonn.se.ss18.controller.LoginController;
@@ -20,6 +22,7 @@ import org.bonn.se.ss18.entity.Student;
 import org.bonn.se.ss18.entity.Unternehmer;
 import org.bonn.se.ss18.service.Roles;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,9 +73,8 @@ public class MainUI extends UI {
         VerticalLayout centerLayout = new VerticalLayout();
 
         if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) != null) {
-            MenuBar headerMenu = getHeaderMenu();
+            HorizontalLayout headerMenu = getHeaderMenu();
             centerLayout.addComponent(headerMenu);
-            centerLayout.setComponentAlignment(headerMenu, Alignment.MIDDLE_RIGHT);
         }
 
         centerLayout.addComponent(viewContainer);
@@ -80,7 +82,27 @@ public class MainUI extends UI {
         return centerLayout;
     }
 
-    private MenuBar getHeaderMenu() {
+    private HorizontalLayout getHeaderMenu() {
+        MenuBar menuBar = getHeaderMenuBar();
+
+        Image logo = new Image(
+                null,
+                new FileResource(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/WEB-INF/classes/logo.png"))
+        );
+        logo.setHeight(37, Unit.PIXELS);
+
+        HorizontalLayout layout = new HorizontalLayout(
+                logo,
+                menuBar
+        );
+
+        layout.setComponentAlignment(logo, Alignment.TOP_LEFT);
+        layout.setComponentAlignment(menuBar, Alignment.TOP_RIGHT);
+
+        return layout;
+    }
+
+    private MenuBar getHeaderMenuBar() {
         MenuBar menuBar = new MenuBar();
         menuBar.addItem("Nachrichten(0)");
         menuBar.addItem("Kontakt");
@@ -116,6 +138,7 @@ public class MainUI extends UI {
             layout.addComponents(buttons);
         }
         layout.addStyleName(ValoTheme.MENU_ROOT);
+
 
         return layout;
     }
