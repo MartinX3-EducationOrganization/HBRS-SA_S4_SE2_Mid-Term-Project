@@ -32,20 +32,16 @@ public class BewerbenStudent extends Abstract {
     private HorizontalLayout setSiteLayout() {
         VerticalLayout layoutLeft = setLayoutLeft();
         VerticalLayout layoutCentre = setLayoutCentre();
-        VerticalLayout layoutRight = setLayoutRight();
         HorizontalLayout layout = new HorizontalLayout(
                 layoutLeft,
-                layoutCentre,
-                layoutRight
+                layoutCentre
         );
 
         layoutLeft.setSizeUndefined();
         layoutCentre.setSizeFull();
-        layoutRight.setSizeUndefined();
 
         layout.setComponentAlignment(layoutLeft, Alignment.TOP_LEFT);
         layout.setComponentAlignment(layoutCentre, Alignment.MIDDLE_CENTER);
-        layout.setComponentAlignment(layoutRight, Alignment.TOP_RIGHT);
 
         return layout;
     }
@@ -88,10 +84,6 @@ public class BewerbenStudent extends Abstract {
         logo.setWidth("100");
 
         return new VerticalLayout(logo);
-    }
-
-    private VerticalLayout setLayoutRight() {
-        return new VerticalLayout();
     }
 
     @Override

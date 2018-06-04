@@ -30,11 +30,11 @@ public class StellenausschreibungUnternehmen extends Abstract {
         titleBar.setWidth("100%");
         content.addComponent(titleBar);
 
-        Label title = new Label("Der Ultimative BENIS SAMMLER");
+        Label title = new Label("Eine gute Stelle!");
         titleBar.addComponent(title);
         titleBar.setExpandRatio(title, 1.0f);
 
-        Label titleComment = new Label("für Martin!");
+        Label titleComment = new Label("Schlechte Bezahlung!");
         titleComment.setSizeUndefined();
         titleBar.addComponent(titleComment);
 
