@@ -8,7 +8,6 @@
 package org.bonn.se.ss18.view;
 
 import com.vaadin.annotations.Title;
-import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinService;
 import com.vaadin.ui.*;
@@ -81,9 +80,5 @@ public class ProfilUnternehmen extends Abstract {
 
     private VerticalLayout setLayoutRight() {
         return new VerticalLayout();
-    }
-
-    @Override
-    public void enter(ViewChangeListener.ViewChangeEvent event) {
     }
 }

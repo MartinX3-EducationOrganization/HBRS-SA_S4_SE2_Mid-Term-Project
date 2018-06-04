@@ -9,7 +9,6 @@ package org.bonn.se.ss18.view;
 
 import com.vaadin.annotations.Title;
 import com.vaadin.event.ShortcutAction;
-import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.*;
 import org.bonn.se.ss18.controller.LoginController;
 import org.bonn.se.ss18.exception.NoSuchUserOrPasswort;
@@ -58,17 +57,6 @@ public class Login extends Abstract {
         });
         loginButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
 
-        HorizontalLayout foot = new HorizontalLayout(
-                new Link(
-                        "Datenschutz",
-                        new ExternalResource("http://vaadin.com/")
-                ),
-                new Link(
-                        "Nutzungsbedingungen",
-                        new ExternalResource("http://vaadin.com/")
-                )
-        );
-
         VerticalLayout centre = new VerticalLayout(
                 new Label("Anmeldung"),
                 new Label("Bitte geben Sie ihren Benutzernamen und ihr Passwort ein"),
@@ -78,12 +66,10 @@ public class Login extends Abstract {
         Label head = new Label("Herzlich Willkommen auf Coll@HBRS");
         VerticalLayout layout = new VerticalLayout(
                 head,
-                centre,
-                foot
+                centre
         );
         layout.setComponentAlignment(head, Alignment.TOP_CENTER);
         layout.setComponentAlignment(centre, Alignment.MIDDLE_CENTER);
-        layout.setComponentAlignment(foot, Alignment.BOTTOM_CENTER);
         return layout;
     }
 }

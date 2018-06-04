@@ -1,8 +1,6 @@
 package org.bonn.se.ss18.view;
 
 import com.vaadin.annotations.Title;
-import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.Page;
 import com.vaadin.shared.ui.grid.HeightMode;
 import com.vaadin.ui.*;
 import com.vaadin.ui.renderers.HtmlRenderer;
@@ -98,10 +96,4 @@ public class StellenausschreibungUnternehmen extends Abstract {
             e.printStackTrace();
         }
     }
-
-    @Override
-    public void enter(ViewChangeListener.ViewChangeEvent event) {
-        Page.getCurrent().setTitle("Stellenausschreibungen");
-    }
-
 }

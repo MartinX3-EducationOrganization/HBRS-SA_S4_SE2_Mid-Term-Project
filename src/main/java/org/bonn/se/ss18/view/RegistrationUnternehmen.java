@@ -86,17 +86,6 @@ public class RegistrationUnternehmen extends Abstract {
         layout.addComponent(buttonlayout);
         layout.setComponentAlignment(buttonlayout, Alignment.BOTTOM_CENTER);
 
-//Datenschutz/Nutzungsbedingungen
-        HorizontalLayout dataLayout = setLayout(
-                new HorizontalLayout(
-                        new Label("<a href='http://google.de'> Datenschutz</a>", ContentMode.HTML),
-                        new Label("<a href='http://google.de'> Nutzungsbedingungen</a>", ContentMode.HTML)
-                )
-
-        );
-        layout.addComponent(dataLayout);
-        layout.setComponentAlignment(dataLayout, Alignment.BOTTOM_CENTER);
-
         setContent(layout);
     }
 

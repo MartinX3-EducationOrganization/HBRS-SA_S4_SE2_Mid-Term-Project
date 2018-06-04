@@ -1,7 +1,6 @@
 package org.bonn.se.ss18.view;
 
 
-import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinService;
 import com.vaadin.shared.ui.MarginInfo;
@@ -18,9 +17,9 @@ import java.util.Iterator;
  */
 
 public class ProfilStudent extends Abstract {
+    private final Student user = (Student) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
     boolean read;
     FormLayout form = new FormLayout();
-    private final Student user = (Student) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
 
     public ProfilStudent() {
         Label title = new Label("ProfilStudent");
@@ -184,11 +183,5 @@ public class ProfilStudent extends Abstract {
             }
             read = false;
         }
-    }
-
-    @Override
-    public void enter(ViewChangeEvent event) {
-        // TODO Auto-generated method stub
-
     }
 }
