@@ -1,6 +1,7 @@
 package org.bonn.se.ss18.controller;
 
 
+import com.vaadin.server.Page;
 import com.vaadin.ui.UI;
 import org.bonn.se.ss18.dao.StudentDAO;
 import org.bonn.se.ss18.dao.UnternehmerDAO;
@@ -19,7 +20,7 @@ import java.sql.SQLException;
 /**
  * @author rjourd2s
  */
-public class LoggingController {
+public class LoginController {
 
     /*
      *   LOGIN via Linuxid
@@ -69,6 +70,7 @@ public class LoggingController {
         //  Umleiten auf login seite und Session closen.
         UI.getCurrent().getNavigator().navigateTo(Login.getName());
         UI.getCurrent().getSession().close();
+        Page.getCurrent().reload();
     }
 
     public String getNameUser(User user) {

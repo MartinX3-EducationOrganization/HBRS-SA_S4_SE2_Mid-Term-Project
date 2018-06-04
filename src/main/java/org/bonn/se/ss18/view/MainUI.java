@@ -15,6 +15,7 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
+import org.bonn.se.ss18.controller.LoginController;
 import org.bonn.se.ss18.entity.Student;
 import org.bonn.se.ss18.entity.Unternehmer;
 import org.bonn.se.ss18.service.Roles;
@@ -35,7 +36,7 @@ import java.util.List;
 @PreserveOnRefresh
 @Theme("maintheme")
 public class MainUI extends UI {
-    //        UI.getCurrent().getNavigator().addViewChangeListener();
+    LoginController loginController = new LoginController();
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -90,8 +91,7 @@ public class MainUI extends UI {
         );
         menuBar.addItem(
                 "Logout", event -> {
-                    UI.getCurrent().getNavigator().navigateTo(Login.getName());
-                    UI.getCurrent().getSession().close();
+                    loginController.logout();
                 }
         );
         return menuBar;
