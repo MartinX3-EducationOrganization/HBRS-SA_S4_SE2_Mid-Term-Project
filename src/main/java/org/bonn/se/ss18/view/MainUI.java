@@ -9,6 +9,7 @@ package org.bonn.se.ss18.view;
 
 import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Theme;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinRequest;
@@ -80,6 +81,9 @@ public class MainUI extends UI {
 
     private HorizontalLayout getHeaderMenu() { //TODO: getHeaderMenu
         return new HorizontalLayout(
+                new Button("Nachrichten(0)"),
+                new Button("Kontakt"),
+                new Button(VaadinIcons.QUESTION_CIRCLE),
                 new Button(
                         "Logout",
                         event -> {
