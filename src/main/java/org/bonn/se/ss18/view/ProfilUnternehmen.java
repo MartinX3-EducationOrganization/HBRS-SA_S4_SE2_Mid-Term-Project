@@ -8,77 +8,50 @@
 package org.bonn.se.ss18.view;
 
 import com.vaadin.annotations.Title;
-import com.vaadin.server.FileResource;
-import com.vaadin.server.VaadinService;
 import com.vaadin.ui.*;
-
-import java.io.File;
 
 @Title("Grundgerüst - Profil - Unternehmen")
 public class ProfilUnternehmen extends Abstract {
     public ProfilUnternehmen() {
-        setContent(setSiteLayout());
+        setContent(
+                new VerticalLayout(
+                        new VerticalLayout(
+                                setProfilePictureLayout()
+                        ),
+                        new VerticalLayout(
+                                setLayoutCentreForm()
+                        )
+                )
+        );
     }
 
     public static String getName() {
         return "ProfilUnternehmen";
     }
 
-    private HorizontalLayout setSiteLayout() {
-        VerticalLayout layoutCentre = setLayoutCentre();
-        VerticalLayout layoutRight = setLayoutRight();
-        HorizontalLayout layout = new HorizontalLayout(
-                layoutCentre,
-                layoutRight
-        );
-
-        layout.setComponentAlignment(layoutCentre, Alignment.MIDDLE_CENTER);
-        layout.setComponentAlignment(layoutRight, Alignment.TOP_RIGHT);
-
-        return layout;
-    }
-
-    private VerticalLayout setLayoutCentre() {
-        VerticalLayout centre = setLayoutCentreVertical();
-        HorizontalLayout foot = setCentreFoot();
-        VerticalLayout layout = new VerticalLayout(
-                centre,
-                foot
-        );
-
-        layout.setComponentAlignment(centre, Alignment.MIDDLE_CENTER);
-        layout.setComponentAlignment(foot, Alignment.BOTTOM_CENTER);
-
-        return layout;
-    }
-
-    private HorizontalLayout setCentreFoot() {
-        return new HorizontalLayout();
-    }
-
-    private VerticalLayout setLayoutCentreVertical() {
-        return new VerticalLayout(
-                setLayoutCentreForm()
-        );
-    }
-
     private FormLayout setLayoutCentreForm() {
-        return new FormLayout();
-    }
+        TextArea area = new TextArea("Neuigkeiten");
+        area.setWordWrap(true);
+        area.setHeight(500, Unit.PIXELS);
+        area.setWidth(500, Unit.PIXELS);
 
-    private VerticalLayout setLayoutLeft() {
-        Image logo = new Image(
-                null,
-                new FileResource(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/WEB-INF/classes/logo.png"))
+        return new FormLayout(
+                area,
+                new Button(
+                        "submit",
+                        event -> area.setReadOnly(true)
+                )
         );
-
-        logo.setHeight("100");
-        logo.setWidth("100");
-
-        return new VerticalLayout(logo);
     }
 
-    private VerticalLayout setLayoutRight() {
-        return new VerticalLayout();
+    private VerticalLayout setProfilePictureLayout() {
+//TODO: Hier später Profilbild hinzufügen
+        Upload upload = new Upload(
+                "Upload it here",
+                null
+        );
+        upload.setImmediateMode(false);
+
+        return new VerticalLayout(upload);
     }
 }

@@ -21,7 +21,9 @@ public class BewerbenStudent extends Abstract {
     }
 
     private VerticalLayout setSiteLayout() {
-        VerticalLayout layout = new VerticalLayout();
+        VerticalLayout layout = new VerticalLayout(
+                
+        );
 
         return layout;
     }
