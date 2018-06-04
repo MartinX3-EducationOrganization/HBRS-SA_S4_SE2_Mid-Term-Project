@@ -14,7 +14,7 @@ import org.bonn.se.ss18.service.Roles;
  */
 public class MenueView extends VerticalLayout implements View {
     private final LoggingControl logging = new LoggingControl();
-    private final User currentuser = (User) UI.getCurrent().getSession().getAttribute(Roles.CURREN_USER);
+    private final User currentuser = (User) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
 
     private final VerticalLayout menuLayout = new VerticalLayout();
     private final HorizontalLayout menuTitle = new HorizontalLayout();

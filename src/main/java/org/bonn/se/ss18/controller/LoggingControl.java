@@ -46,7 +46,7 @@ public class LoggingControl {
 
         VaadinSession session = UI.getCurrent().getSession();
 
-        session.setAttribute(Roles.CURREN_USER, uDAO.readbyId(id));
+        session.setAttribute(Roles.CURRENT_USER, uDAO.readbyId(id));
 
         if ((uDAO.readbyId(id).getPasswort().equals(password))) {
             UI.getCurrent().getNavigator().navigateTo("MenueView"); //TODO: Profil -> Unterscheidung Student / Unternehmen

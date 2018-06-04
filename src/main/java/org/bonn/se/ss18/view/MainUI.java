@@ -52,7 +52,7 @@ public class MainUI extends UI {
     private boolean rebuildMenu(ViewChangeListener.ViewChangeEvent event, CssLayout viewContainer) {
         HorizontalLayout layout = new HorizontalLayout();
 
-        if (UI.getCurrent().getSession().getAttribute(Roles.CURREN_USER) != null) {
+        if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) != null) {
             CssLayout leftSideMenu = getLeftSideMenu();
             leftSideMenu.setHeight(100, Unit.PERCENTAGE);
             layout.addComponent(leftSideMenu);
@@ -67,7 +67,7 @@ public class MainUI extends UI {
     private VerticalLayout getCenterLayout(CssLayout viewContainer) {
         VerticalLayout centerLayout = new VerticalLayout();
 
-        if (UI.getCurrent().getSession().getAttribute(Roles.CURREN_USER) != null) {
+        if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) != null) {
             HorizontalLayout headerMenu = getHeaderMenu();
             centerLayout.addComponent(headerMenu);
             centerLayout.setComponentAlignment(headerMenu, Alignment.MIDDLE_RIGHT);
@@ -93,9 +93,9 @@ public class MainUI extends UI {
     private CssLayout getLeftSideMenu() { //TODO: getLeftSideMenu
         Button[] buttons = null;
 
-        if (UI.getCurrent().getSession().getAttribute(Roles.CURREN_USER) instanceof Student) {
+        if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) instanceof Student) {
             buttons = getStudentMenu();
-        } else if (UI.getCurrent().getSession().getAttribute(Roles.CURREN_USER) instanceof Unternehmer) {
+        } else if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) instanceof Unternehmer) {
             buttons = getUnternehmerMenu();
         }
 
