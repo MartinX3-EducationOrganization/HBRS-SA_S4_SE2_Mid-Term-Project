@@ -78,7 +78,7 @@ public class RegistrationUnternehmen extends Abstract {
                         new Button(
                         "Registrieren",
                         event -> {
-                            UI.getCurrent().getNavigator().navigateTo(""); //TODO: Hier fehlt der Navigationsendpunkt. Falls der Zielort noch incht existieren sollte, ist das okay.
+                            UI.getCurrent().getNavigator().navigateTo(ProfilUnternehmen.getName());
                             Notification.show("Vielen Dank");
                         })
                 )
