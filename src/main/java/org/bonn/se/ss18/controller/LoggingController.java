@@ -18,7 +18,7 @@ import java.sql.SQLException;
 /**
  * @author rjourd2s
  */
-public class LoggingControl {
+public class LoggingController {
 
     /*
      *   LOGIN via Linuxid

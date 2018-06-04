@@ -11,12 +11,12 @@ import com.vaadin.annotations.Title;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.*;
-import org.bonn.se.ss18.controller.LoggingControl;
+import org.bonn.se.ss18.controller.LoggingController;
 
 @Title("Grundgerüst - Login")
 public class Login extends Abstract {
     // Link zum Backend
-    private final LoggingControl main = new LoggingControl();
+    private final LoggingController loggingController = new LoggingController();
 
     public Login() {
         VerticalLayout layoutCentre = getLayoutCentre();
@@ -45,7 +45,7 @@ public class Login extends Abstract {
         PasswordField pass = new PasswordField("Passwort");
         Button loginButton = new Button("Anmelden", (Button.ClickListener) event -> {
             try {
-                main.login(user.getValue(), pass.getValue());
+                loggingController.login(user.getValue(), pass.getValue());
             }
             // Wenn Loging erfolgreich
             catch (Exception ex) {
