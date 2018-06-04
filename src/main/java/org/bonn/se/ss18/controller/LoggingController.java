@@ -12,6 +12,8 @@ import org.bonn.se.ss18.entity.User;
 import org.bonn.se.ss18.service.Roles;
 import org.bonn.se.ss18.service.Tables;
 import org.bonn.se.ss18.view.Login;
+import org.bonn.se.ss18.view.ProfilStudent;
+import org.bonn.se.ss18.view.ProfilUnternehmen;
 
 import java.sql.SQLException;
 
@@ -49,7 +51,11 @@ public class LoggingController {
         session.setAttribute(Roles.CURRENT_USER, uDAO.readbyId(id));
 
         if ((uDAO.readbyId(id).getPasswort().equals(password))) {
-            UI.getCurrent().getNavigator().navigateTo("MenueView"); //TODO: Profil -> Unterscheidung Student / Unternehmen
+            if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) instanceof Student) {
+                UI.getCurrent().getNavigator().navigateTo(ProfilStudent.getName());
+            } else if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) instanceof Unternehmer) {
+                UI.getCurrent().getNavigator().navigateTo(ProfilUnternehmen.getName());
+            }
         }
 
     }
