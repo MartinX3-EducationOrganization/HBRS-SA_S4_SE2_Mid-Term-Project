@@ -69,7 +69,7 @@ public class MainUI extends UI {
         VerticalLayout centerLayout = new VerticalLayout();
 
         if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) != null) {
-            HorizontalLayout headerMenu = getHeaderMenu();
+            MenuBar headerMenu = getHeaderMenu();
             centerLayout.addComponent(headerMenu);
             centerLayout.setComponentAlignment(headerMenu, Alignment.MIDDLE_RIGHT);
         }
@@ -79,19 +79,22 @@ public class MainUI extends UI {
         return centerLayout;
     }
 
-    private HorizontalLayout getHeaderMenu() { //TODO: getHeaderMenu
-        return new HorizontalLayout(
-                new Button("Nachrichten(0)"),
-                new Button("Kontakt"),
-                new Button(VaadinIcons.QUESTION_CIRCLE),
-                new Button(
-                        "Logout",
-                        event -> {
-                            UI.getCurrent().getNavigator().navigateTo(Login.getName());
-                            UI.getCurrent().getSession().close();
-                        }
-                )
+    private MenuBar getHeaderMenu() {
+        MenuBar menuBar = new MenuBar();
+        menuBar.addItem("Nachrichten(0)");
+        menuBar.addItem("Kontakt");
+        menuBar.addItem(
+                "",
+                VaadinIcons.QUESTION_CIRCLE,
+                null
         );
+        menuBar.addItem(
+                "Logout", event -> {
+                    UI.getCurrent().getNavigator().navigateTo(Login.getName());
+                    UI.getCurrent().getSession().close();
+                }
+        );
+        return menuBar;
     }
 
     private CssLayout getLeftSideMenu() { //TODO: getLeftSideMenu
