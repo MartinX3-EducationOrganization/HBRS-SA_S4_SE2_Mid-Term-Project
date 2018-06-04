@@ -8,7 +8,6 @@
 package org.bonn.se.ss18.view;
 
 import com.vaadin.annotations.Title;
-import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinService;
 import com.vaadin.ui.*;
@@ -26,9 +25,9 @@ public class ProfilUnternehmen extends Abstract {
     }
 
     private HorizontalLayout setSiteLayout() {
-        final VerticalLayout layoutCentre = setLayoutCentre();
-        final VerticalLayout layoutRight = setLayoutRight();
-        final HorizontalLayout layout = new HorizontalLayout(
+        VerticalLayout layoutCentre = setLayoutCentre();
+        VerticalLayout layoutRight = setLayoutRight();
+        HorizontalLayout layout = new HorizontalLayout(
                 layoutCentre,
                 layoutRight
         );
@@ -40,9 +39,9 @@ public class ProfilUnternehmen extends Abstract {
     }
 
     private VerticalLayout setLayoutCentre() {
-        final VerticalLayout centre = setLayoutCentreVertical();
-        final HorizontalLayout foot = setCentreFoot();
-        final VerticalLayout layout = new VerticalLayout(
+        VerticalLayout centre = setLayoutCentreVertical();
+        HorizontalLayout foot = setCentreFoot();
+        VerticalLayout layout = new VerticalLayout(
                 centre,
                 foot
         );
@@ -68,7 +67,7 @@ public class ProfilUnternehmen extends Abstract {
     }
 
     private VerticalLayout setLayoutLeft() {
-        final Image logo = new Image(
+        Image logo = new Image(
                 null,
                 new FileResource(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/WEB-INF/classes/logo.png"))
         );

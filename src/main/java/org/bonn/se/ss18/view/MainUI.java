@@ -12,6 +12,7 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.ExternalResource;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinService;
@@ -75,11 +76,27 @@ public class MainUI extends UI {
         if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) != null) {
             HorizontalLayout headerMenu = getHeaderMenu();
             centerLayout.addComponent(headerMenu);
+            centerLayout.setComponentAlignment(headerMenu, Alignment.TOP_CENTER);
         }
 
-        centerLayout.addComponent(viewContainer);
+        HorizontalLayout footer = getFooter();
+        centerLayout.addComponents(viewContainer, footer);
+        centerLayout.setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
 
         return centerLayout;
+    }
+
+    private HorizontalLayout getFooter() {
+        return new HorizontalLayout(
+                new Link(
+                        "Datenschutz",
+                        new ExternalResource("http://vaadin.com/")
+                ),
+                new Link(
+                        "Nutzungsbedingungen",
+                        new ExternalResource("http://vaadin.com/")
+                )
+        );
     }
 
     private HorizontalLayout getHeaderMenu() {
