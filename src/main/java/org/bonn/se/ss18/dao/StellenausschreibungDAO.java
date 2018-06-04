@@ -16,7 +16,7 @@ public class StellenausschreibungDAO extends GenericDAO<Stellenausschreibung> {
 
     //  Eine Stellenausschreibung nach ID.
     @Override
-    public Stellenausschreibung readbyId(int id) throws SQLException {
+    public Stellenausschreibung readbyId(int id) {
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " WHERE userid=" + id);

@@ -15,7 +15,7 @@ public class StudentDAO extends GenericDAO<Student> {
 
 
     @Override
-    public Student readbyId(int id) throws SQLException {
+    public Student readbyId(int id) {
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " WHERE userid=" + id);
@@ -28,7 +28,7 @@ public class StudentDAO extends GenericDAO<Student> {
 
     //  Macht kein Sinn vorerst da man immer nur einen Studenten bekommen würde.
     @Override
-    public Set<Student> getAllbyId(int id) throws SQLException {
+    public Set<Student> getAllbyId(int id) {
         return null;
     }
 

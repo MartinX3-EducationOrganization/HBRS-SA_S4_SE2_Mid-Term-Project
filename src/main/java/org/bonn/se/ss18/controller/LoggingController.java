@@ -29,23 +29,32 @@ public class LoggingController {
         ConnectionFactory dao;
         UserDAO uDAO = null;
         StudentDAO sDAO = null;
+        UnternehmerDAO untDAO = null;
         try {
             dao = ConnectionFactory.getInstance();
             // DAO von User (EMAIL) oder von Student(LINUXID)
             uDAO = (UserDAO) dao.getDAO(Tables.table_user);
             sDAO = (StudentDAO) dao.getDAO(Tables.table_student);
+            untDAO = (UnternehmerDAO) dao.getDAO(Tables.table_unternehmen);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         int id = 0;
 
+
         if (sDAO.read(usernamme) != null) {
             id = sDAO.read(usernamme).getiD();
+            UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, sDAO.read(usernamme));
+
         } else if (uDAO.readbyString("email", usernamme) != null) {
             id = uDAO.readbyString("email", usernamme).getiD();
+            if (sDAO.readbyId(id) != null) {
+                UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, sDAO.readbyId(id));
+            } else if (untDAO.readbyId(id) != null) {
+                UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, untDAO.readbyId(id));
+            }
         }
 
-        UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, uDAO.readbyId(id));
 
         if ((uDAO.readbyId(id).getPasswort().equals(password))) {
             if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) instanceof Student) {
