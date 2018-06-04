@@ -1,12 +1,13 @@
 package org.bonn.se.ss18.view;
 
 
-import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinService;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
+import org.bonn.se.ss18.entity.Student;
+import org.bonn.se.ss18.service.Roles;
 
 import java.io.File;
 import java.util.Iterator;
@@ -16,6 +17,7 @@ import java.util.Iterator;
  */
 
 public class ProfilStudent extends Abstract {
+    private final Student user = (Student) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
     boolean read;
     FormLayout form = new FormLayout();
 
@@ -40,8 +42,7 @@ public class ProfilStudent extends Abstract {
         );
 
         TextField vorname = new TextField("Vorame");
-        //TODO get Name from Tables ...  name.setValue(TODO get Name from Tables);
-        vorname.setValue("Vorname");
+        vorname.setValue(user.getVorname());
         vorname.setWidth("50%");
         form.addComponent(vorname);
 
@@ -182,11 +183,5 @@ public class ProfilStudent extends Abstract {
             }
             read = false;
         }
-    }
-
-    @Override
-    public void enter(ViewChangeEvent event) {
-        // TODO Auto-generated method stub
-
     }
 }

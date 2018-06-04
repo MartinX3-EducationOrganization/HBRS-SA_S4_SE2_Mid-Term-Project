@@ -95,7 +95,7 @@ public class StudentDAO extends GenericDAO<Student> {
         ps.setString(3, student.getAnrede());
         ps.setString(4, student.getVorname());
         ps.setString(5, student.getNachname());
-        ps.setDate(6, student.getGebDatum());
+        ps.setDate(6, Date.valueOf(student.getGebDatum()));
         int i = ps.executeUpdate();
         // Eine Reihe(ROW)
         return i == 1;

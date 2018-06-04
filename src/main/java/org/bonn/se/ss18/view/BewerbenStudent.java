@@ -8,12 +8,7 @@
 package org.bonn.se.ss18.view;
 
 import com.vaadin.annotations.Title;
-import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.FileResource;
-import com.vaadin.server.VaadinService;
-import com.vaadin.ui.*;
-
-import java.io.File;
+import com.vaadin.ui.VerticalLayout;
 
 @Title("Grundgerüst - Profil - Student - Bewerben")
 public class BewerbenStudent extends Abstract {
@@ -25,61 +20,9 @@ public class BewerbenStudent extends Abstract {
         return "BewerbenStudent";
     }
 
-    private HorizontalLayout setSiteLayout() {
-        VerticalLayout layoutLeft = setLayoutLeft();
-        VerticalLayout layoutCentre = setLayoutCentre();
-        HorizontalLayout layout = new HorizontalLayout(
-                layoutLeft,
-                layoutCentre
-        );
-
-        layout.setComponentAlignment(layoutLeft, Alignment.TOP_LEFT);
-        layout.setComponentAlignment(layoutCentre, Alignment.MIDDLE_CENTER);
+    private VerticalLayout setSiteLayout() {
+        VerticalLayout layout = new VerticalLayout();
 
         return layout;
-    }
-
-    private VerticalLayout setLayoutCentre() {
-        VerticalLayout centre = setLayoutCentreVertical();
-        HorizontalLayout foot = setCentreFoot();
-        VerticalLayout layout = new VerticalLayout(
-                centre,
-                foot
-        );
-
-        layout.setComponentAlignment(centre, Alignment.MIDDLE_CENTER);
-        layout.setComponentAlignment(foot, Alignment.BOTTOM_CENTER);
-
-        return layout;
-    }
-
-    private HorizontalLayout setCentreFoot() {
-        return new HorizontalLayout();
-    }
-
-    private VerticalLayout setLayoutCentreVertical() {
-        return new VerticalLayout(
-                setLayoutCentreForm()
-        );
-    }
-
-    private FormLayout setLayoutCentreForm() {
-        return new FormLayout();
-    }
-
-    private VerticalLayout setLayoutLeft() {
-        Image logo = new Image(
-                null,
-                new FileResource(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/WEB-INF/classes/logo.png"))
-        );
-
-        logo.setHeight("100");
-        logo.setWidth("100");
-
-        return new VerticalLayout(logo);
-    }
-
-    @Override
-    public void enter(ViewChangeListener.ViewChangeEvent event) {
     }
 }
