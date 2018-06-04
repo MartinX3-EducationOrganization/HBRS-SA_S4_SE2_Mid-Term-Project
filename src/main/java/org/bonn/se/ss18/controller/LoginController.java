@@ -71,57 +71,5 @@ public class LoginController {
         UI.getCurrent().getSession().close();
         Page.getCurrent().reload();
     }
-
-    public String getNameUser(User user) {
-        ConnectionFactory dao;
-        try {
-            dao = ConnectionFactory.getInstance();
-
-            StudentDAO sDAO = (StudentDAO) dao.getDAO(Tables.table_student);
-            UnternehmerDAO uDAO = (UnternehmerDAO) dao.getDAO(Tables.table_unternehmen);
-
-            if (sDAO.readbyId(user.getiD()) != null) {
-                Student a = sDAO.readbyId(user.getiD());
-                return a.getNachname();
-            } else if (uDAO.readbyId(user.getiD()) != null) {
-                Unternehmer b = uDAO.readbyId(user.getiD());
-                return b.getFirmenname();
-            }
-            dao.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public String isStudendOrUnternehmer(User user) {
-        if (user == null) {
-            return "";
-        }
-
-        ConnectionFactory dao;
-        try {
-            dao = ConnectionFactory.getInstance();
-
-            StudentDAO sDAO = (StudentDAO) dao.getDAO(Tables.table_student);
-            //Falls mal mehr Unterklassen von User dazu kommmen.
-            //UnternehmerDAO uDAO = (UnternehmerDAO) dao.getDAO(Tables.table_unternehmen);
-
-            //TODO NULLPOINTER
-            if (sDAO.readbyId(user.getiD()) != null) {
-                dao.close();
-                return "Student";
-            } else {
-                return "Unternehmer";
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-    /*
-     *   SIGNUP TODO
-     */
 }
 
