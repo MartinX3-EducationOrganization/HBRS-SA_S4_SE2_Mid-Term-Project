@@ -107,7 +107,7 @@ public class MainUI extends UI {
         menuBar.addItem("Nachrichten(0)");
         menuBar.addItem("Kontakt");
         menuBar.addItem(
-                "",
+                "Hilfe",
                 VaadinIcons.QUESTION_CIRCLE,
                 null
         );
