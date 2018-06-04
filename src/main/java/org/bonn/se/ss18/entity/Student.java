@@ -1,6 +1,7 @@
 package org.bonn.se.ss18.entity;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  * @author rjourd2s
@@ -10,8 +11,8 @@ public class Student extends User {
     private String anrede;
     private String vorname;
     private String nachname;
-    private Date gebDatum;
-    
+    private LocalDate gebDatum;
+
     public String getLinuxID() {
         return linuxID;
     }
@@ -44,12 +45,12 @@ public class Student extends User {
         this.nachname = nachname;
     }
 
-    public Date getGebDatum() {
+    public LocalDate getGebDatum() {
         return gebDatum;
     }
 
     public void setGebDatum(Date gebDatum) {
-        this.gebDatum = gebDatum;
+        this.gebDatum = gebDatum.toLocalDate();
     }
 
     public String getType() {
