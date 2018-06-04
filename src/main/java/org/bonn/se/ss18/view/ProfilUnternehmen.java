@@ -35,15 +35,13 @@ public class ProfilUnternehmen extends Abstract {
         area.setHeight(500, Unit.PIXELS);
         area.setWidth(500, Unit.PIXELS);
 
-        FormLayout form = new FormLayout(
+        return new FormLayout(
                 area,
                 new Button(
                         "submit",
                         event -> area.setReadOnly(true)
                 )
         );
-
-        return form;
     }
 
     private VerticalLayout setProfilePictureLayout() {
