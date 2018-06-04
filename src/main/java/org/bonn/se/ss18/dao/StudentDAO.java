@@ -18,7 +18,8 @@ public class StudentDAO extends GenericDAO<Student> {
     public Student readbyId(int id) {
         try {
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " WHERE userid=" + id);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM table_user INNER JOIN table_student ss ON table_user.userid = ss.userid " +
+                    "WHERE table_user.userid=" + id);
             return readResults(rs);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -78,7 +79,8 @@ public class StudentDAO extends GenericDAO<Student> {
     public Student read(String linuxid) {
         try {
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " WHERE linuxid=" + "\'" + linuxid + "\'");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM table_user INNER JOIN table_student ss ON table_user.userid = ss.userid " +
+                    "WHERE ss.linuxid=" + "\'" + linuxid + "\'");
             return readResults(rs);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -104,12 +106,23 @@ public class StudentDAO extends GenericDAO<Student> {
     private Student readResults(ResultSet rs) throws SQLException {
         if (rs.next()) {
             Student student = new Student();
-            student.setLinuxID(rs.getString(1));
-            student.setiD(rs.getInt(2));
-            student.setAnrede(rs.getString(3));
-            student.setVorname(rs.getString(4));
-            student.setNachname(rs.getString(5));
-            student.setGebDatum(rs.getDate(6));
+            student.setiD(rs.getInt(1));
+            student.setPasswort(rs.getString(2));
+            student.setStrasse(rs.getString(3));
+            student.setHausnr(rs.getString(4));
+            student.setPlz(rs.getString(5));
+            student.setOrt(rs.getString(6));
+            student.setEmail(rs.getString(7));
+            student.setTelNr(rs.getString(8));
+            student.setFaxNr(rs.getString(9));
+            student.setFoto(rs.getBytes(10));
+            student.setKurzVorstellung(rs.getString(11));
+            student.setLinuxID(rs.getString(12));
+            student.setiD(rs.getInt(13));
+            student.setAnrede(rs.getString(14));
+            student.setVorname(rs.getString(15));
+            student.setNachname(rs.getString(16));
+            student.setGebDatum(rs.getDate(17));
             return student;
         }
         return null;

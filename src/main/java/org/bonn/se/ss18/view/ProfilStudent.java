@@ -47,13 +47,12 @@ public class ProfilStudent extends Abstract {
         form.addComponent(vorname);
 
         TextField nachname = new TextField("Nachame");
-        //TODO get Name from Tables ...  name.setValue(TODO get Name from Tables);
-        nachname.setValue("Nachname");
+        nachname.setValue(user.getNachname());
         nachname.setWidth("50%");
         form.addComponent(nachname);
 
         DateField birthday = new DateField("Birthday");
-        //TODO get Name from Tables birthday.getValue();
+        birthday.setValue(user.getGebDatum());
         birthday.setReadOnly(true);
         form.addComponent(birthday);
 
@@ -64,40 +63,40 @@ public class ProfilStudent extends Abstract {
         form.addComponent(section);
 
         TextField strasse = new TextField("Straße");
-        strasse.setValue("Straße");
+        strasse.setValue(user.getStrasse());
         strasse.setWidth("50%");
         form.addComponent(strasse);
 
         TextField hnr = new TextField("Hausnummer");
-        hnr.setValue("16");
+        hnr.setValue(user.getHausnr());
         hnr.setWidth("10%");
         form.addComponent(hnr);
 
         TextField plz = new TextField("Plz");
-        plz.setValue("53757");
+        plz.setValue(user.getPlz());
         plz.setWidth("10%");
         form.addComponent(plz);
 
 
         TextField ort = new TextField("Ort");
-        ort.setValue("Sankt Augustin");
+        ort.setValue(user.getOrt());
         ort.setWidth("50%");
         form.addComponent(ort);
 
 
         TextField email = new TextField("Email");
-        //TODO get email from Tables email.getValue();
+        email.setValue(user.getEmail());
         email.setWidth("50%");
         form.addComponent(email);
 
 
         TextField phone = new TextField("Telefonnummer");
-        //TODO get Phone
+        phone.setValue(user.getTelNr());
         phone.setWidth("50%");
         form.addComponent(phone);
 
         TextField fax = new TextField("Faxnummer");
-        //TODO get Fax
+        fax.setValue(user.getFaxNr());
         fax.setWidth("50%");
         form.addComponent(fax);
 
@@ -107,14 +106,10 @@ public class ProfilStudent extends Abstract {
         section.addStyleName(ValoTheme.LABEL_COLORED);
         form.addComponent(section);
 
-        TextField website = new TextField("Website");
-        //TODO website.getValue();
-        website.setWidth("100%");
-        form.addComponent(website);
 
         RichTextArea bio = new RichTextArea("Kurzvorstellung");
         bio.setWidth("100%");
-        bio.setValue("<p>blalblabla</p>");
+        bio.setValue(user.getKurzVorstellung());
         form.addComponent(bio);
         readOnly(true);
         read = true;
