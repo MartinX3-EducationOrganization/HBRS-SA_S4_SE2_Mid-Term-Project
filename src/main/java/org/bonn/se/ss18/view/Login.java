@@ -12,7 +12,7 @@ import com.vaadin.event.ShortcutAction;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.*;
 import org.bonn.se.ss18.controller.LoginController;
-import org.bonn.se.ss18.exception.NoSuchUser;
+import org.bonn.se.ss18.exception.NoSuchUserOrPasswort;
 
 @Title("Grundgerüst - Login")
 public class Login extends Abstract {
@@ -49,7 +49,7 @@ public class Login extends Abstract {
                 loginController.login(user.getValue(), pass.getValue());
             }
             // Wenn Loging erfolgreich
-            catch (NoSuchUser ex) {
+            catch (NoSuchUserOrPasswort ex) {
                 // Falls incorrect
                 user.setValue("");
                 pass.setValue("");
