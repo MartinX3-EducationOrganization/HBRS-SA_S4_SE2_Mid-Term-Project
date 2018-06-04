@@ -208,7 +208,6 @@ public class MainUI extends UI {
     private void addViews() {
         UI.getCurrent().getNavigator().addView(BewerbenStudent.getName(), BewerbenStudent.class);
         UI.getCurrent().getNavigator().addView(Login.getName(), Login.class);
-        UI.getCurrent().getNavigator().addView(MenueView.getName(), MenueView.class);
         UI.getCurrent().getNavigator().addView(ProfilStudent.getName(), ProfilStudent.class);
         UI.getCurrent().getNavigator().addView(ProfilUnternehmen.getName(), ProfilUnternehmen.class);
         UI.getCurrent().getNavigator().addView(RegistrationUnternehmen.getName(), RegistrationUnternehmen.class);

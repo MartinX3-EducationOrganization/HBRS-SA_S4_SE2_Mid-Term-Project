@@ -1,7 +1,6 @@
 package org.bonn.se.ss18.view;
 
 
-import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinService;
@@ -16,23 +15,17 @@ import java.util.Iterator;
  * @author rjourd2s
  */
 
-public class ProfilStudent extends VerticalLayout implements View {
+public class ProfilStudent extends Abstract {
     boolean read;
     FormLayout form = new FormLayout();
 
     public ProfilStudent() {
-        setSpacing(true);
-        setMargin(true);
-
         Label title = new Label("ProfilStudent");
         title.addStyleName(ValoTheme.LABEL_H1);
-        addComponent(title);
-
 
         form.setMargin(false);
         form.setWidth("800px");
         form.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
-        addComponent(form);
 
         Label section = new Label("Persönliche Informationen");
         section.addStyleName(ValoTheme.LABEL_H2);
@@ -151,6 +144,13 @@ public class ProfilStudent extends VerticalLayout implements View {
         footer.setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
         form.addComponent(footer);
         footer.addComponent(edit);
+
+        setContent(
+                new VerticalLayout(
+                        title,
+                        form
+                )
+        );
 
     }
 
