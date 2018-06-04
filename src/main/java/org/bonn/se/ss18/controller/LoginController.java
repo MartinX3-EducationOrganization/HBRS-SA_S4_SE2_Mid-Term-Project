@@ -8,6 +8,7 @@ import org.bonn.se.ss18.dao.UnternehmerDAO;
 import org.bonn.se.ss18.dao.UserDAO;
 import org.bonn.se.ss18.entity.Student;
 import org.bonn.se.ss18.entity.Unternehmer;
+import org.bonn.se.ss18.exception.NoSuchUserOrPasswort;
 import org.bonn.se.ss18.service.Roles;
 import org.bonn.se.ss18.service.Tables;
 import org.bonn.se.ss18.view.Login;
@@ -25,7 +26,7 @@ public class LoginController {
      *   LOGIN via Linuxid
      *
      */
-    public void login(String usernamme, String password) {
+    public void login(String usernamme, String password) throws NoSuchUserOrPasswort {
         ConnectionFactory dao;
         UserDAO uDAO = null;
         StudentDAO sDAO = null;
@@ -52,6 +53,8 @@ public class LoginController {
                 UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, sDAO.readbyId(id));
             } else if (untDAO.readbyId(id) != null) {
                 UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, untDAO.readbyId(id));
+            } else {
+                throw new NoSuchUserOrPasswort();
             }
         }
 
@@ -62,6 +65,8 @@ public class LoginController {
             } else if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) instanceof Unternehmer) {
                 UI.getCurrent().getNavigator().navigateTo(ProfilUnternehmen.getName());
             }
+        } else {
+            throw new NoSuchUserOrPasswort();
         }
     }
 
