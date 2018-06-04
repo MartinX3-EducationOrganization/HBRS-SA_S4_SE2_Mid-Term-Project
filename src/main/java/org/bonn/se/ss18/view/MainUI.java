@@ -48,12 +48,12 @@ public class MainUI extends UI {
         HorizontalLayout layout = new HorizontalLayout();
 
         if (UI.getCurrent().getSession().getAttribute(Roles.CURREN_USER) != null) {
-            layout.addComponent(getLeftSideMenu());
+            CssLayout leftSideMenu = getLeftSideMenu();
+            leftSideMenu.setHeight(100, Unit.PERCENTAGE);
+            layout.addComponent(leftSideMenu);
         }
 
         layout.addComponent(getCenterLayout(viewContainer));
-        layout.setHeight(100, Unit.PERCENTAGE);
-
         setContent(layout);
 
         return true;
