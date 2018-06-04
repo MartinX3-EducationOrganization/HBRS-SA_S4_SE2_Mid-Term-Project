@@ -45,12 +45,15 @@ public class MainUI extends UI {
     }
 
     private boolean rebuildMenu(ViewChangeListener.ViewChangeEvent event, CssLayout viewContainer) {
-        CssLayout leftSideMenu = getLeftSideMenu();
-        HorizontalLayout layout = new HorizontalLayout(
-                leftSideMenu,
-                getCenterLayout(viewContainer)
-        );
+        HorizontalLayout layout = new HorizontalLayout();
+
+        if (UI.getCurrent().getSession().getAttribute(Roles.CURREN_USER) != null) {
+            layout.addComponent(getLeftSideMenu());
+        }
+
+        layout.addComponent(getCenterLayout(viewContainer));
         layout.setHeight(100, Unit.PERCENTAGE);
+
         setContent(layout);
 
         return true;
@@ -58,13 +61,14 @@ public class MainUI extends UI {
 
     private VerticalLayout getCenterLayout(CssLayout viewContainer) {
         VerticalLayout centerLayout = new VerticalLayout();
-        centerLayout.addComponent(viewContainer);
 
         if (UI.getCurrent().getSession().getAttribute(Roles.CURREN_USER) != null) {
             HorizontalLayout headerMenu = getHeaderMenu();
             centerLayout.addComponent(headerMenu);
             centerLayout.setComponentAlignment(headerMenu, Alignment.MIDDLE_RIGHT);
         }
+
+        centerLayout.addComponent(viewContainer);
 
         return centerLayout;
     }
