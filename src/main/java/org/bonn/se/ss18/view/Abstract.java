@@ -8,6 +8,7 @@
 package org.bonn.se.ss18.view;
 
 import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.Panel;
 
 /**
@@ -17,5 +18,13 @@ import com.vaadin.ui.Panel;
 public abstract class Abstract extends Panel implements View {
     public static String getName() {
         throw new IllegalArgumentException("Child class did not override getName() method.  This must be done in order for the class to be used!");
+    }
+
+    @Override
+    public void enter(ViewChangeListener.ViewChangeEvent event) {
+        /*  if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) == null) {
+         UI.getCurrent().getNavigator().navigateTo(Login.getName());
+         Page.getCurrent().reload();
+         }*/
     }
 }
