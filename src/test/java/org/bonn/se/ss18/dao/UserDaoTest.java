@@ -45,7 +45,7 @@ public class UserDaoTest {
         user.setFoto(null);
         user.setKurzVorstellung(null);
         Assert.assertFalse(dao.create(user));
-       // dao.delete(user);
+
 
         User newUser = new User();
         newUser.setiD(8);
@@ -61,14 +61,14 @@ public class UserDaoTest {
         newUser.setKurzVorstellung("blabla");
 
         Assert.assertFalse(dao.create(newUser));
-        dao.delete(newUser);
+       // dao.delete(newUser);
 
 
 
     }
 
     @Test
-    public void testread() {
+    public void testreadbyId() {
 
         User user = dao.readbyId(7);
         Assert.assertEquals(null,user);
@@ -84,15 +84,19 @@ public class UserDaoTest {
   @Test
     public void testupdate() {
 
-        User user = dao.readbyId(1);
-        user.setKurzVorstellung("neuerwert");
-        Assert.assertTrue(dao.update(user));
+       // User user = dao.readbyId(1);
+        //user.setKurzVorstellung("neuer");
+        //Assert.assertTrue(dao.update(user));
+
+      User user1 =dao.readbyId(1);
+      Assert.assertFalse(user1==null);
+      Assert.assertEquals("53757",user1.getPlz());
 
 
 
 
-        User user2=dao.readbyId(1);
-        Assert.assertEquals("neuerwert",user2.getKurzVorstellung());
+      //  User user2=dao.readbyId(1);
+        //Assert.assertEquals("neuerwert",user2.getKurzVorstellung());
 
 
     }

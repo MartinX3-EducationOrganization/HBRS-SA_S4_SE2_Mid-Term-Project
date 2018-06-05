@@ -1,7 +1,6 @@
 package org.bonn.se.ss18.dao;
-
 import org.bonn.se.ss18.controller.ConnectionFactory;
-import org.bonn.se.ss18.entity.Student;
+import org.bonn.se.ss18.entity.Stellenausschreibung;
 import org.bonn.se.ss18.entity.Unternehmer;
 import org.junit.After;
 import org.junit.Assert;
@@ -11,8 +10,13 @@ import org.junit.Test;
 import java.sql.Date;
 import java.util.Set;
 
-import static org.junit.Assert.*;
-
+import org.bonn.se.ss18.controller.ConnectionFactory;
+import org.bonn.se.ss18.dao.UserDAO;
+import org.bonn.se.ss18.entity.User;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.*;
 public class UnternehmerDAOTest {
     private UnternehmerDAO dao;
 
