@@ -11,6 +11,7 @@ public class LoginControllerTest {
 
     @Before
     public void setUp() throws Exception {
+        login = new LoginController();
     }
 
     @After
