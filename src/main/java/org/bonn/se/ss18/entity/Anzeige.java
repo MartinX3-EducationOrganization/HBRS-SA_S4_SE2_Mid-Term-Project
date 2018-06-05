@@ -6,7 +6,7 @@ import java.time.LocalDate;
 /**
  * @author rjourd2s
  */
-public class Anzeige extends AbstractEntity {
+public class Anzeige {
     private int anzeigeid;
     private int userid;
     private LocalDate datum;

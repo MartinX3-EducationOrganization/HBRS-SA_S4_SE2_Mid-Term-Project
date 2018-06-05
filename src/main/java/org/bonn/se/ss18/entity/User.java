@@ -4,7 +4,7 @@ package org.bonn.se.ss18.entity;
 /**
  * @author rjourd2s
  */
-public class User extends AbstractEntity {
+public class User {
     private String passwort;
     private String strasse;
     private String hausnr;
@@ -94,10 +94,5 @@ public class User extends AbstractEntity {
 
     public String getKurzVorstellung() {
         return kurzVorstellung;
-    }
-
-    @Override
-    public String toString() {
-        return "ID= " + getiD() + "passwort=" + getPasswort();
     }
 }

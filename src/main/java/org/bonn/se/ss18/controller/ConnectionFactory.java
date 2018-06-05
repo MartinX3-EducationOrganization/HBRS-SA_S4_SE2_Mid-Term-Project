@@ -60,13 +60,19 @@ public class ConnectionFactory {
                 return new StudentDAO(connection);
             case table_unternehmen:
                 return new UnternehmerDAO(connection);
-            case table_stellenunternehmen:
-                return new StellenausschreibungDAO(connection);
-            case table_anzeige:
-                return new AnzeigeDAO(connection);
-            //TODO -> Weiter folgen...
+            case table_qualifikation:
+                return new QualifikationDAO(connection);
+            case table_dokument:
+                return new DokumentDAO(connection);
+            case table_branche:
+                return new BrancheDAO(connection);
+            case table_bewerbunganlage:
+                return new BewerbunganlageDAO(connection);
+            case table_bewerbung:
+                return new BewerbungDAO(connection);
             default:
                 throw new SQLException("Trying to link to an unexistant table.");
+
         }
 
     }

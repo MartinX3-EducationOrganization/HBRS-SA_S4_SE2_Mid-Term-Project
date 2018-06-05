@@ -6,9 +6,18 @@ package org.bonn.se.ss18.entity;
  */
 public class Unternehmer extends User {
     private int unternehmerid;
+    private int userid;
     private String firmenname;
     private String website;
     private int branchenid;
+
+    public int getUserid() {
+        return userid;
+    }
+
+    public void setUserid(int userid) {
+        this.userid = userid;
+    }
 
     public int getUnternehmerid() {
         return unternehmerid;

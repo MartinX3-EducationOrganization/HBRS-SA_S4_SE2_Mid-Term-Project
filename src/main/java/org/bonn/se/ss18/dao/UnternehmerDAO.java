@@ -61,7 +61,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
     public boolean delete(Unternehmer unternehmer) {
         try {
             Statement stmt = con.createStatement();
-            int i = stmt.executeUpdate("DELETE FROM " + tableName + " WHERE id=" + unternehmer.getiD());
+            int i = stmt.executeUpdate("DELETE FROM " + tableName + " WHERE id=" + unternehmer.getUserid());
             if (i == 1) {
                 return true;
             }
@@ -77,7 +77,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
 
     private boolean createps(Unternehmer unternehmer, PreparedStatement ps) throws SQLException {
         ps.setInt(1, unternehmer.getUnternehmerid());
-        ps.setInt(2, unternehmer.getiD());
+        ps.setInt(2, unternehmer.getUserid());
         ps.setString(3, unternehmer.getFirmenname());
         ps.setString(4, unternehmer.getWebsite());
         ps.setInt(5, unternehmer.getBranchenid());
@@ -90,7 +90,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
         if (rs.next()) {
             Unternehmer unternehmer = new Unternehmer();
             unternehmer.setUnternehmerid(rs.getInt(1));
-            unternehmer.setiD(rs.getInt(2));
+            unternehmer.setUserid(rs.getInt(2));
             unternehmer.setFirmenname(rs.getString(3));
             unternehmer.setWebsite(rs.getString(4));
             unternehmer.setBranchenid(rs.getInt(5));

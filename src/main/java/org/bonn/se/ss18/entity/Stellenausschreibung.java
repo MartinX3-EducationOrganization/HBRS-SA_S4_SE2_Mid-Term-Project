@@ -1,12 +1,11 @@
 package org.bonn.se.ss18.entity;
 
-import java.io.Serializable;
 import java.sql.Date;
 
 /**
  * @author rjourd2s
  */
-public class Stellenausschreibung extends AbstractEntity implements Serializable {
+public class Stellenausschreibung {
     private int UnternehmensID;
     private String title;
     private String text;
