@@ -3,10 +3,11 @@ package org.bonn.se.ss18.view;
 import com.vaadin.annotations.Title;
 import com.vaadin.shared.ui.grid.HeightMode;
 import com.vaadin.ui.*;
-import com.vaadin.ui.renderers.HtmlRenderer;
 import org.bonn.se.ss18.controller.ConnectionFactory;
-import org.bonn.se.ss18.dao.StellenausschreibungDAO;
-import org.bonn.se.ss18.entity.Stellenausschreibung;
+import org.bonn.se.ss18.dao.AnzeigeDAO;
+import org.bonn.se.ss18.entity.Anzeige;
+import org.bonn.se.ss18.entity.Unternehmer;
+import org.bonn.se.ss18.service.Roles;
 import org.bonn.se.ss18.service.Tables;
 
 import java.sql.SQLException;
@@ -17,7 +18,7 @@ import java.util.Locale;
  */
 @Title("Grundgerüst - Unternehmen - Stellenausschreibung")
 public class StellenausschreibungUnternehmen extends Abstract {
-    private final Grid<Stellenausschreibung> grid = new Grid<>(Stellenausschreibung.class);
+    private final Grid<Anzeige> grid = new Grid<>(Anzeige.class);
 
     public StellenausschreibungUnternehmen() {
 
@@ -30,7 +31,7 @@ public class StellenausschreibungUnternehmen extends Abstract {
 
         Label title = new Label("Eine gute Stelle!");
         titleBar.addComponent(title);
-        titleBar.setExpandRatio(title, 1.0f);
+        // titleBar.setExpandRatio(title, 1.0f);
 
         Label titleComment = new Label("Schlechte Bezahlung!");
         titleBar.addComponent(titleComment);
@@ -39,34 +40,34 @@ public class StellenausschreibungUnternehmen extends Abstract {
         HorizontalLayout center = new HorizontalLayout();
         content.addComponent(center);
 
-        Panel menue = new Panel();
-        center.addComponent(menue);
-        menue.setContent(new VerticalLayout(
-
-        ));
 
         Panel matter = new Panel();
         center.addComponent(matter);
         matter.setContent(grid);
 
+        content.setWidth("100%");
 
-        grid.setColumns("title");
-        grid.addColumn("text", new
+        //grid.setColumns("title");
+        // grid.setColumns("datum");
+        // grid.addColumn("text", new
 
-                HtmlRenderer());
+        //        HtmlRenderer());
+
 
         updateGrid();
         grid.setLocale(Locale.GERMAN);
         grid.setHeightMode(HeightMode.UNDEFINED);
 
-
+        center.setSizeUndefined();
+        //matter.setSizeUndefined();
+        grid.setSizeFull();
         grid.addItemClickListener(event ->
 
         {
             //Check, if it is a double-click event
             if (event.getMouseEventDetails().isDoubleClick()) {
                 //get the item which has been clicked
-                Stellenausschreibung documentData = event.getItem();
+                Anzeige documentData = event.getItem();
                 //open the item in a window
                 StellenaussgabeDataView window = new StellenaussgabeDataView(documentData);
                 getUI().addWindow(window);
@@ -90,8 +91,12 @@ public class StellenausschreibungUnternehmen extends Abstract {
     private void updateGrid() {
         try {
             ConnectionFactory dao = ConnectionFactory.getInstance();
-            StellenausschreibungDAO sDAO = (StellenausschreibungDAO) dao.getDAO(Tables.table_stellenunternehmen);
-            grid.setItems(sDAO.getAllbyId(UI.getCurrent().getUIId()));
+            AnzeigeDAO aDAO = (AnzeigeDAO) dao.getDAO(Tables.table_anzeige);
+            Unternehmer ut = (Unternehmer) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
+            grid.setItems(aDAO.getAllbyId(ut.getiD()));
+            grid.removeColumn("anzeigeid");
+            grid.removeColumn("userid");
+            grid.removeColumn("branchenid");
         } catch (SQLException e) {
             e.printStackTrace();
         }

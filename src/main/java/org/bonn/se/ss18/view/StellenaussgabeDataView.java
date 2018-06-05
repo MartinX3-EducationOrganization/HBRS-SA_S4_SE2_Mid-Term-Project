@@ -2,8 +2,8 @@ package org.bonn.se.ss18.view;
 
 import com.vaadin.ui.*;
 import org.bonn.se.ss18.controller.ConnectionFactory;
-import org.bonn.se.ss18.dao.StellenausschreibungDAO;
-import org.bonn.se.ss18.entity.Stellenausschreibung;
+import org.bonn.se.ss18.dao.AnzeigeDAO;
+import org.bonn.se.ss18.entity.Anzeige;
 import org.bonn.se.ss18.service.Tables;
 
 import java.sql.SQLException;
@@ -12,9 +12,9 @@ import java.sql.SQLException;
  * @author rjourd2s
  */
 public class StellenaussgabeDataView extends Window {
-    private final Stellenausschreibung documentData;
+    private final Anzeige documentData;
 
-    public StellenaussgabeDataView(Stellenausschreibung documentData) {
+    public StellenaussgabeDataView(Anzeige documentData) {
         this.documentData = documentData;
 
         //Create a form layout which holds all components
@@ -23,6 +23,28 @@ public class StellenaussgabeDataView extends Window {
         layout.setSpacing(true);
 
         //Topic TextField
+        TextField title = new TextField();
+        title.setCaption("Titel");
+        if (documentData.getTitle() != null) {
+            title.setValue(documentData.getTitle());
+        }
+        layout.addComponent(title);
+
+
+        DateField datum = new DateField();
+        datum.setCaption("Datum");
+        if (documentData.getDatum() != null) {
+            datum.setValue(documentData.getDatum());
+        }
+        layout.addComponent(datum);
+
+        TextField ort = new TextField();
+        ort.setCaption("Ort");
+        if (documentData.getOrt() != null) {
+            ort.setValue(documentData.getOrt());
+        }
+        layout.addComponent(ort);
+
         TextField topic = new TextField();
         topic.setCaption("Titel");
         if (documentData.getTitle() != null) {
@@ -63,13 +85,13 @@ public class StellenaussgabeDataView extends Window {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                StellenausschreibungDAO sDAO = null;
+                AnzeigeDAO aDAO = null;
                 try {
-                    sDAO = (StellenausschreibungDAO) dao.getDAO(Tables.table_stellenunternehmen);
+                    aDAO = (AnzeigeDAO) dao.getDAO(Tables.table_anzeige);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                sDAO.update(documentData);
+                aDAO.update(documentData);
                 //Mark the object as changed
                 //documentData.setChanged(true);
 

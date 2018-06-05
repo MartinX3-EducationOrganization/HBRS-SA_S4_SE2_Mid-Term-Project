@@ -62,6 +62,8 @@ public class ConnectionFactory {
                 return new UnternehmerDAO(connection);
             case table_stellenunternehmen:
                 return new StellenausschreibungDAO(connection);
+            case table_anzeige:
+                return new AnzeigeDAO(connection);
             //TODO -> Weiter folgen...
             default:
                 throw new SQLException("Trying to link to an unexistant table.");

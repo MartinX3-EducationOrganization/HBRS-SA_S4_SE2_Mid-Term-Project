@@ -251,7 +251,7 @@ public class MainUI extends UI {
 
         button = new Button(
                 "Stellen",
-                e -> getNavigator().navigateTo("")//TODO: Stellen
+                e -> getNavigator().navigateTo("Stellenausschreibung")//TODO: Stellen
         );
         button.addStyleNames(
                 ValoTheme.BUTTON_LINK,
