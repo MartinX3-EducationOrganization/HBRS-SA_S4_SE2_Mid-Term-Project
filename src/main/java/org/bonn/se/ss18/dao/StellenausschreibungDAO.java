@@ -19,7 +19,7 @@ public class StellenausschreibungDAO extends GenericDAO<Stellenausschreibung> {
     public Stellenausschreibung readbyId(int id) {
         try {
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " WHERE userid=" + id);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " WHERE id=" + id);
             return readResults(rs);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -35,7 +35,14 @@ public class StellenausschreibungDAO extends GenericDAO<Stellenausschreibung> {
             ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " WHERE unternehmensid=" + id);
             Set stellen = new HashSet();
             while (rs.next()) {
-                Stellenausschreibung st = readResults(rs);
+                //Stellenausschreibung st = readResults(rs);
+
+                Stellenausschreibung st = new Stellenausschreibung();
+                st.setiD(rs.getInt("id"));
+                st.setUnternehmensID(rs.getInt("unternehmensid"));
+                st.setDatum(rs.getDate("datum"));
+                st.setText(rs.getString("text"));
+                st.setTitle(rs.getString("title"));
                 stellen.add(st);
             }
             return stellen;
@@ -99,11 +106,13 @@ public class StellenausschreibungDAO extends GenericDAO<Stellenausschreibung> {
 
     private Stellenausschreibung readResults(ResultSet rs) throws SQLException {
         Stellenausschreibung stelle = new Stellenausschreibung();
-        stelle.setiD(rs.getInt("id"));
-        stelle.setUnternehmensID(rs.getInt("unternehmensid"));
-        stelle.setTitle(rs.getString("title"));
-        stelle.setText(rs.getString("text"));
-        stelle.setDatum(rs.getDate("datum"));
+        while (rs.next()) {
+            stelle.setiD(rs.getInt("id"));
+            stelle.setUnternehmensID(rs.getInt("unternehmensid"));
+            stelle.setTitle(rs.getString("title"));
+            stelle.setText(rs.getString("text"));
+            stelle.setDatum(rs.getDate("datum"));
+        }
         return stelle;
     }
 }

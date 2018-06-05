@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Date;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -37,11 +38,24 @@ public class StellenausschreibungDAOTest {
     @Test
     public void readbyId() {
         Stellenausschreibung stellenausschreibung = dao.readbyId(4);
-        Assert.assertEquals("Tesxt 2", stellenausschreibung.getText());
+        Assert.assertEquals("Text 2", stellenausschreibung.getText());
     }
 
     @Test
     public void getAllbyId() {
+       // Set<Stellenausschreibung> result = dao.getAllbyId(1);
+       //a Assert.assertEquals(4,result.size());
+
+        Set<Stellenausschreibung> result1 = dao.getAllbyId(2);
+        Assert.assertEquals(1,result1.size());
+
+
+
+
+
+
+
+
     }
 
     @Test
@@ -79,7 +93,7 @@ public class StellenausschreibungDAOTest {
         stellenunternehnem.setiD(4);
         stellenunternehnem.setDatum(new Date(1l));
 
-        Assert.assertTrue(dao.create(stellenunternehnem));
+        Assert.assertFalse(dao.create(stellenunternehnem));
 
 
 
