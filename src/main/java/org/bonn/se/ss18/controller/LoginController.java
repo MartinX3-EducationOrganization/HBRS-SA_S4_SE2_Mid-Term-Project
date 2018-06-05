@@ -2,6 +2,7 @@ package org.bonn.se.ss18.controller;
 
 
 import com.vaadin.server.Page;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import org.bonn.se.ss18.dao.StudentDAO;
 import org.bonn.se.ss18.dao.UnternehmerDAO;
@@ -26,28 +27,39 @@ public class LoginController {
      *   LOGIN via Linuxid
      *
      */
-    public void login(String usernamme, String password) throws NoSuchUserOrPasswort {
-        ConnectionFactory dao;
-        UserDAO uDAO = null;
-        StudentDAO sDAO = null;
-        UnternehmerDAO untDAO = null;
+    public boolean login(String usernamme, String password) throws NoSuchUserOrPasswort {
+        ConnectionFactory dao = null;
         try {
             dao = ConnectionFactory.getInstance();
-            // DAO von User (EMAIL) oder von Student(LINUXID)
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        UserDAO uDAO;
+        StudentDAO sDAO;
+        UnternehmerDAO untDAO;
+        try {
             uDAO = (UserDAO) dao.getDAO(Tables.table_user);
             sDAO = (StudentDAO) dao.getDAO(Tables.table_student);
             untDAO = (UnternehmerDAO) dao.getDAO(Tables.table_unternehmen);
         } catch (SQLException e) {
             e.printStackTrace();
+            Notification.show("Keine Verbindung zur Datenbank!", Notification.Type.ERROR_MESSAGE);
+            return false;
         }
+
         int id = 0;
 
 
-        if (sDAO.read(usernamme) != null) {
+        if (sDAO.read(usernamme) != null)
+
+        {
             id = sDAO.read(usernamme).getiD();
             UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, sDAO.read(usernamme));
 
-        } else if (uDAO.readbyString("email", usernamme) != null) {
+        } else if (uDAO.readbyString("email", usernamme) != null)
+
+        {
             id = uDAO.readbyString("email", usernamme).getiD();
             if (sDAO.readbyId(id) != null) {
                 UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, sDAO.readbyId(id));
@@ -56,20 +68,29 @@ public class LoginController {
             } else {
                 throw new NoSuchUserOrPasswort();
             }
-        } else {
-            throw new NoSuchUserOrPasswort();
         }
 
 
-        if ((uDAO.readbyId(id).getPasswort().equals(password))) {
+        if ((uDAO.readbyId(id).
+
+                getPasswort().
+
+                equals(password)))
+
+        {
             if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) instanceof Student) {
                 UI.getCurrent().getNavigator().navigateTo(ProfilStudent.getName());
+                return true;
             } else if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) instanceof Unternehmer) {
                 UI.getCurrent().getNavigator().navigateTo(ProfilUnternehmen.getName());
+                return true;
             }
-        } else {
+        } else
+
+        {
             throw new NoSuchUserOrPasswort();
         }
+        return false;
     }
 
     public void logout() {

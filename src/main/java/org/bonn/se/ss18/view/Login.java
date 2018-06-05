@@ -46,14 +46,12 @@ public class Login extends Abstract {
         Button loginButton = new Button("Anmelden", (Button.ClickListener) event -> {
             try {
                 loginController.login(user.getValue(), pass.getValue());
-            }
-            // Wenn Loging erfolgreich
-            catch (NoSuchUserOrPasswort ex) {
-                // Falls incorrect
+            } catch (NoSuchUserOrPasswort ex) {
                 user.setValue("");
                 pass.setValue("");
                 Notification.show("Logindaten wurden nicht richtig eingeben.", Notification.Type.ERROR_MESSAGE);
             }
+
         });
         loginButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
 
