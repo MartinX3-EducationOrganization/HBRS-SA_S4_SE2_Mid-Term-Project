@@ -56,6 +56,8 @@ public class LoginController {
             } else {
                 throw new NoSuchUserOrPasswort();
             }
+        } else {
+            throw new NoSuchUserOrPasswort();
         }
 
 

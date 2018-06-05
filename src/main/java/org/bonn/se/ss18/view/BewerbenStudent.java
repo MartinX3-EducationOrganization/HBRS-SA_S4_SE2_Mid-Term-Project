@@ -8,7 +8,11 @@
 package org.bonn.se.ss18.view;
 
 import com.vaadin.annotations.Title;
+import com.vaadin.ui.ComboBox;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
+
+import java.util.Collections;
 
 @Title("Grundgerüst - Profil - Student - Bewerben")
 public class BewerbenStudent extends Abstract {
@@ -21,8 +25,16 @@ public class BewerbenStudent extends Abstract {
     }
 
     private VerticalLayout setSiteLayout() {
-        VerticalLayout layout = new VerticalLayout();
+        return new VerticalLayout(
+                getHeaderMenu()
+        );
+    }
 
-        return layout;
+    private HorizontalLayout getHeaderMenu() {
+        return new HorizontalLayout(
+                new ComboBox<>("Filtern...", Collections.singletonList("Beispiel")/*TODO: BewerbenController.getOptions()*/),
+                new ComboBox<>("Sortieren...", Collections.singletonList("Gehalt")/*TODO: BewerbenController.getOptions()*/),
+                new ComboBox<>("Suchen...", Collections.singletonList("Backen")/*TODO: BewerbenController.getOptions()*/)
+        );
     }
 }

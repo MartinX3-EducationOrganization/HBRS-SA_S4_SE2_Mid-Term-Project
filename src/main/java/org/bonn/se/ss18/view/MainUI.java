@@ -136,7 +136,7 @@ public class MainUI extends UI {
         return menuBar;
     }
 
-    private CssLayout getLeftSideMenu() { //TODO: getLeftSideMenu
+    private CssLayout getLeftSideMenu() {
         Button[] buttons = null;
 
         if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) instanceof Student) {
