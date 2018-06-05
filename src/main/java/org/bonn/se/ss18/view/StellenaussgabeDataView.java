@@ -45,13 +45,34 @@ public class StellenaussgabeDataView extends Window {
         }
         layout.addComponent(ort);
 
-        TextField topic = new TextField();
-        topic.setCaption("Titel");
+        TextField typ = new TextField();
+        typ.setCaption("Typ");
         if (documentData.getTitle() != null) {
-            topic.setValue(documentData.getTitle());
+            typ.setValue(documentData.getTyp());
         }
-        layout.addComponent(topic);
+        layout.addComponent(typ);
 
+
+        TextField anstellung = new TextField();
+        anstellung.setCaption("Anstellungsart");
+        if (documentData.getAnstellungsart() != null) {
+            anstellung.setValue(documentData.getAnstellungsart());
+        }
+        layout.addComponent(anstellung);
+
+        TextField arbeitszeit = new TextField();
+        arbeitszeit.setCaption("Arbeitszeiten");
+        if (documentData.getArbeitszeit() != null) {
+            arbeitszeit.setValue(documentData.getArbeitszeit());
+        }
+        layout.addComponent(arbeitszeit);
+
+        DateField beginn = new DateField();
+        beginn.setCaption("Beginn");
+        if (documentData.getBeginn() != null) {
+            beginn.setValue(documentData.getBeginn());
+        }
+        layout.addComponent(beginn);
 
         //Description TextArea
         RichTextArea description = new RichTextArea();
@@ -61,7 +82,7 @@ public class StellenaussgabeDataView extends Window {
         }
         layout.addComponent(description);
 
-
+        layout.setSizeUndefined();
         //Add save and cancel buttons
         HorizontalLayout buttonLayout = new HorizontalLayout();
         Button save = new Button("save");
@@ -74,10 +95,10 @@ public class StellenaussgabeDataView extends Window {
 
 
         save.addClickListener(event -> {
-            if (topic.getValue().equals("") || description.getValue().equals("")) {
+            if (title.getValue().equals("") || description.getValue().equals("")) {
                 Notification.show("Sie können nichts leeres speichern!");
             } else {
-                documentData.setTitle(topic.getValue());
+                documentData.setTitle(title.getValue());
                 documentData.setText(description.getValue());
                 ConnectionFactory dao = null;
                 try {
