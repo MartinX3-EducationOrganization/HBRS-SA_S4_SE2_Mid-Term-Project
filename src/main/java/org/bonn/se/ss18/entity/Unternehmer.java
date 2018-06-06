@@ -9,6 +9,15 @@ public class Unternehmer extends User {
     private String firmenname;
     private String website;
     private int branchenid;
+    private String ansprechpartner;
+
+    public String getAnsprechpartner() {
+        return ansprechpartner;
+    }
+
+    public void setAnsprechpartner(String ansprechpartner) {
+        this.ansprechpartner = ansprechpartner;
+    }
 
     public int getUnternehmerid() {
         return unternehmerid;

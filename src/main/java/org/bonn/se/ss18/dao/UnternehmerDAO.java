@@ -35,7 +35,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
     @Override
     public boolean create(Unternehmer unternehmer) {
         try {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO " + tableName + " VALUES (?, ?, ?, ?, ?, ?)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO " + tableName + " VALUES (?, ?, ?, ?, ?, ?,?)");
             return createps(unternehmer, ps);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,7 +47,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
     public boolean update(Unternehmer unternehmer) {
 
         try {
-            PreparedStatement ps = con.prepareStatement("UPDATE " + tableName + " SET unternehmenid=?,userid=?,firmenname=?,website=?,brancheid=? WHERE unternehmenid=" + unternehmer.getUnternehmerid());
+            PreparedStatement ps = con.prepareStatement("UPDATE " + tableName + " SET unternehmenid=?,userid=?,firmenname=?,website=?,brancheid=?,ansprechpartner=? WHERE unternehmenid=" + unternehmer.getUnternehmerid());
             return createps(unternehmer, ps);
 
         } catch (SQLException ex) {
@@ -81,6 +81,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
         ps.setString(3, unternehmer.getFirmenname());
         ps.setString(4, unternehmer.getWebsite());
         ps.setInt(5, unternehmer.getBranchenid());
+        ps.setString(6, unternehmer.getAnsprechpartner());
         int i = ps.executeUpdate();
         // Eine Reihe(ROW)
         return i == 1;
@@ -94,6 +95,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
             unternehmer.setFirmenname(rs.getString(3));
             unternehmer.setWebsite(rs.getString(4));
             unternehmer.setBranchenid(rs.getInt(5));
+            unternehmer.setAnsprechpartner(rs.getString(6));
             return unternehmer;
         }
         return null;
