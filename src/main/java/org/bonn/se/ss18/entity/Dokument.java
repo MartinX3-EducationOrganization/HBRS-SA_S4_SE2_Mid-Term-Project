@@ -3,19 +3,10 @@ package org.bonn.se.ss18.entity;
 /**
  * @author rjourd2s
  */
-public class Dokument {
-    private int dokumentid;
+public class Dokument extends AbstractEntity {
     private int userid;
     private String dateiname;
     private byte[] datei;
-
-    public int getDokumentid() {
-        return dokumentid;
-    }
-
-    public void setDokumentid(int dokumentid) {
-        this.dokumentid = dokumentid;
-    }
 
     public int getUserid() {
         return userid;

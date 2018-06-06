@@ -3,18 +3,10 @@ package org.bonn.se.ss18.entity;
 /**
  * @author rjourd2s
  */
-public class Bewerbunganlage {
-    private int bewerbunganlageid;
+public class Bewerbunganlage extends AbstractEntity {
     private int bewerbungid;
     private byte[] datei;
-
-    public int getBewerbunganlageid() {
-        return bewerbunganlageid;
-    }
-
-    public void setBewerbunganlageid(int bewerbunganlageid) {
-        this.bewerbunganlageid = bewerbunganlageid;
-    }
+    
 
     public int getBewerbungid() {
         return bewerbungid;

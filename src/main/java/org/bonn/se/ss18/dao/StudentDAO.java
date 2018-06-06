@@ -63,7 +63,7 @@ public class StudentDAO extends GenericDAO<Student> {
     public boolean delete(Student student) {
         try {
             Statement stmt = con.createStatement();
-            int i = stmt.executeUpdate("DELETE FROM " + tableName + " WHERE id=" + student.getiD());
+            int i = stmt.executeUpdate("DELETE FROM " + tableName + " WHERE id=" + student.getId());
             if (i == 1) {
                 return true;
             }
@@ -93,7 +93,7 @@ public class StudentDAO extends GenericDAO<Student> {
      */
     private boolean createps(Student student, PreparedStatement ps) throws SQLException {
         ps.setString(1, student.getLinuxID());
-        ps.setInt(2, student.getiD());
+        ps.setInt(2, student.getId());
         ps.setString(3, student.getAnrede());
         ps.setString(4, student.getVorname());
         ps.setString(5, student.getNachname());
@@ -106,7 +106,7 @@ public class StudentDAO extends GenericDAO<Student> {
     private Student readResults(ResultSet rs) throws SQLException {
         if (rs.next()) {
             Student student = new Student();
-            student.setiD(rs.getInt(1));
+            student.setId(rs.getInt(1));
             student.setPasswort(rs.getString(2));
             student.setStrasse(rs.getString(3));
             student.setHausnr(rs.getString(4));
@@ -118,7 +118,7 @@ public class StudentDAO extends GenericDAO<Student> {
             student.setFoto(rs.getBytes(10));
             student.setKurzVorstellung(rs.getString(11));
             student.setLinuxID(rs.getString(12));
-            student.setiD(rs.getInt(13));
+            student.setId(rs.getInt(13));
             student.setAnrede(rs.getString(14));
             student.setVorname(rs.getString(15));
             student.setNachname(rs.getString(16));

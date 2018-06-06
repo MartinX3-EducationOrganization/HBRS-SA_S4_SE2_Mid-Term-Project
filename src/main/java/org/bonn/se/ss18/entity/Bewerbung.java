@@ -5,21 +5,12 @@ import java.time.LocalDate;
 /**
  * @author rjourd2s
  */
-public class Bewerbung {
-    private int bewerbungid;
+public class Bewerbung extends AbstractEntity {
     private String linuxid;
     private int unternehmenid;
     private LocalDate datum;
     private byte[] anschreiben;
     private byte[] lebenslauf;
-
-    public int getBewerbungid() {
-        return bewerbungid;
-    }
-
-    public void setBewerbungid(int bewerbungid) {
-        this.bewerbungid = bewerbungid;
-    }
 
     public String getLinuxid() {
         return linuxid;

@@ -5,21 +5,12 @@ import java.time.LocalDate;
 /**
  * @author rjourd2s
  */
-public class Qualifikation {
-    private int qualifikationid;
+public class Qualifikation extends AbstractEntity {
     private String inuxid;
     private String typ;
     private String bezeichnung;
     private LocalDate von;
     private LocalDate bis;
-
-    public int getQualifikationid() {
-        return qualifikationid;
-    }
-
-    public void setQualifikationid(int qualifikationid) {
-        this.qualifikationid = qualifikationid;
-    }
 
     public String getInuxid() {
         return inuxid;

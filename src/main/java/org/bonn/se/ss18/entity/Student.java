@@ -13,6 +13,7 @@ public class Student extends User {
     private String nachname;
     private LocalDate gebDatum;
 
+
     public String getLinuxID() {
         return linuxID;
     }
@@ -53,7 +54,4 @@ public class Student extends User {
         this.gebDatum = gebDatum.toLocalDate();
     }
 
-    public String getType() {
-        return "Student";
-    }
 }

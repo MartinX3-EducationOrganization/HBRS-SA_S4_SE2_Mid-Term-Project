@@ -61,7 +61,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
     @Override
     public boolean update(Anzeige stelle) {
         try {
-            PreparedStatement ps = con.prepareStatement("UPDATE " + tableName + " SET anzeigeid=?,userid=?,datum=?,titel=?,ort=?,typ=?,anstellungsart=?,arbeitszeit=?,bracheid=?,beginn=?,aktiv=?,text=? WHERE id=" + stelle.getAnzeigeid());
+            PreparedStatement ps = con.prepareStatement("UPDATE " + tableName + " SET anzeigeid=?,userid=?,datum=?,titel=?,ort=?,typ=?,anstellungsart=?,arbeitszeit=?,bracheid=?,beginn=?,aktiv=?,text=? WHERE id=" + stelle.getId());
             return createps(stelle, ps);
 
         } catch (SQLException ex) {
@@ -74,7 +74,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
     public boolean delete(Anzeige stelle) {
         try {
             Statement stmt = con.createStatement();
-            int i = stmt.executeUpdate("DELETE FROM " + tableName + " WHERE id=" + stelle.getAnzeigeid());
+            int i = stmt.executeUpdate("DELETE FROM " + tableName + " WHERE id=" + stelle.getId());
             if (i == 1) {
                 return true;
             }
@@ -85,7 +85,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
     }
 
     private boolean createps(Anzeige anzeige, PreparedStatement ps) throws SQLException {
-        ps.setInt(1, anzeige.getAnzeigeid());
+        ps.setInt(1, anzeige.getId());
         ps.setInt(2, anzeige.getUserid());
         ps.setDate(3, Date.valueOf(anzeige.getDatum()));
         ps.setString(4, anzeige.getTitle());
@@ -106,7 +106,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
 
     private Anzeige readResults(ResultSet rs) throws SQLException {
         Anzeige anzeige = new Anzeige();
-        anzeige.setiD(rs.getInt("anzeigeid"));
+        anzeige.setId(rs.getInt("anzeigeid"));
         anzeige.setUserid(rs.getInt("userid"));
         anzeige.setDatum(rs.getDate("datum"));
         anzeige.setTitle(rs.getString("titel"));

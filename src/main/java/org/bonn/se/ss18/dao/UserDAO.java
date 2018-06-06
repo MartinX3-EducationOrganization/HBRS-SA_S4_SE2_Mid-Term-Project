@@ -59,7 +59,7 @@ public class UserDAO extends GenericDAO<User> {
     public boolean update(User user) {
 
         try {
-            PreparedStatement ps = con.prepareStatement("UPDATE " + tableName + " SET userid=?,passwort=?,strasse=?,hausnr=?,plz=?,ort=?,email=?,telnr=?,faxnr=?,foto=?,kurzvorstellung=? WHERE userid=" + user.getiD());
+            PreparedStatement ps = con.prepareStatement("UPDATE " + tableName + " SET userid=?,passwort=?,strasse=?,hausnr=?,plz=?,ort=?,email=?,telnr=?,faxnr=?,foto=?,kurzvorstellung=? WHERE userid=" + user.getId());
             return createps(user, ps);
 
         } catch (SQLException ex) {
@@ -72,7 +72,7 @@ public class UserDAO extends GenericDAO<User> {
     public boolean delete(User user) {
         try {
             Statement stmt = con.createStatement();
-            int i = stmt.executeUpdate("DELETE FROM " + tableName + " WHERE id=" + user.getiD());
+            int i = stmt.executeUpdate("DELETE FROM " + tableName + " WHERE id=" + user.getId());
             if (i == 1) {
                 return true;
             }
@@ -84,7 +84,7 @@ public class UserDAO extends GenericDAO<User> {
 
 
     private boolean createps(User user, PreparedStatement ps) throws SQLException {
-        ps.setInt(1, user.getiD());
+        ps.setInt(1, user.getId());
         ps.setString(2, user.getPasswort());
         ps.setString(3, user.getStrasse());
         ps.setString(4, user.getHausnr());
@@ -103,7 +103,7 @@ public class UserDAO extends GenericDAO<User> {
     private User readResults(ResultSet rs) throws SQLException {
         if (rs.next()) {
             User user = new User();
-            user.setiD(rs.getInt(1));
+            user.setId(rs.getInt(1));
             user.setPasswort(rs.getString(2));
             user.setStrasse(rs.getString(3));
             user.setHausnr(rs.getString(4));

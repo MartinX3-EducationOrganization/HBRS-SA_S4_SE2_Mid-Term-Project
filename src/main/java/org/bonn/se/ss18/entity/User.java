@@ -4,7 +4,8 @@ package org.bonn.se.ss18.entity;
 /**
  * @author rjourd2s
  */
-public class User {
+public class User extends AbstractEntity {
+
     private String passwort;
     private String strasse;
     private String hausnr;

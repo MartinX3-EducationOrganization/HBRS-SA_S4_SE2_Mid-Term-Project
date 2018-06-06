@@ -1,22 +1,14 @@
 package org.bonn.se.ss18.dao;
+
 import org.bonn.se.ss18.controller.ConnectionFactory;
-import org.bonn.se.ss18.entity.Stellenausschreibung;
 import org.bonn.se.ss18.entity.Unternehmer;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.Date;
 import java.util.Set;
 
-import org.bonn.se.ss18.controller.ConnectionFactory;
-import org.bonn.se.ss18.dao.UserDAO;
-import org.bonn.se.ss18.entity.User;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.*;
 public class UnternehmerDAOTest {
     private UnternehmerDAO dao;
 
@@ -41,7 +33,7 @@ public class UnternehmerDAOTest {
     @Test
     public void getAllbyId() {
         Set<Unternehmer> result = dao.getAllbyId(0);
-        Assert.assertEquals(null,result);
+        Assert.assertEquals(null, result);
     }
 
     @Test
@@ -55,14 +47,13 @@ public class UnternehmerDAOTest {
         Assert.assertFalse(dao.create(unternehmer));
 
 
-
     }
 
     @Test
     public void update() {
         Unternehmer unternehmer = dao.readbyId(1);
-        Assert.assertFalse(unternehmer==null);
-        Assert.assertEquals("AG Dümer 2",unternehmer.getFirmenname());
+        Assert.assertFalse(unternehmer == null);
+        Assert.assertEquals("AG Dümer 2", unternehmer.getFirmenname());
     }
 
     @Test

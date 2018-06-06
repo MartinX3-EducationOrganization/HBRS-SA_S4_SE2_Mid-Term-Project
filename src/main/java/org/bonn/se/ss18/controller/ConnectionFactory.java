@@ -70,6 +70,8 @@ public class ConnectionFactory {
                 return new BewerbunganlageDAO(connection);
             case table_bewerbung:
                 return new BewerbungDAO(connection);
+            case table_anzeige:
+                return new AnzeigeDAO(connection);
             default:
                 throw new SQLException("Trying to link to an unexistant table.");
 

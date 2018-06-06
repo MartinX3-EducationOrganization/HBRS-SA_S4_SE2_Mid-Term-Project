@@ -1,39 +1,33 @@
 package org.bonn.se.ss18.dao;
 
 import org.bonn.se.ss18.controller.ConnectionFactory;
-import org.bonn.se.ss18.dao.UserDAO;
 import org.bonn.se.ss18.entity.User;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.*;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
-import static org.junit.Assert.*;
 
 public class UserDaoTest {
-   // Connection connection ;
+    // Connection connection ;
 
     private UserDAO dao;
+
     @Before
     public void setUp() throws Exception {
 
         dao = new UserDAO(ConnectionFactory.getInstance().getConnection());
-         //connection = ConnectionFactory.getConnection();
+        //connection = ConnectionFactory.getConnection();
     }
 
     @After
     public void tearDown() throws Exception {
-        dao =null;
+        dao = null;
     }
 
     @Test
     public void testcreate() {
         User user = new User();
-        user.setiD(3);
+        user.setId(3);
         user.setPasswort("123");
         user.setStrasse("Weg");
         user.setHausnr("23");
@@ -48,7 +42,7 @@ public class UserDaoTest {
 
 
         User newUser = new User();
-        newUser.setiD(8);
+        newUser.setId(8);
         newUser.setPasswort("üü8ää");
         newUser.setStrasse("Wieg");
         newUser.setHausnr("108");
@@ -61,8 +55,7 @@ public class UserDaoTest {
         newUser.setKurzVorstellung("blabla");
 
         Assert.assertFalse(dao.create(newUser));
-       // dao.delete(newUser);
-
+        // dao.delete(newUser);
 
 
     }
@@ -71,31 +64,29 @@ public class UserDaoTest {
     public void testreadbyId() {
 
         User user = dao.readbyId(7);
-        Assert.assertEquals(null,user);
+        Assert.assertEquals(null, user);
         User user1 = dao.readbyId(2);
-        Assert.assertEquals("email@unternehmen.de",user1.getEmail());
+        Assert.assertEquals("email@unternehmen.de", user1.getEmail());
         User user2 = dao.readbyId(1);
-        Assert.assertEquals("Sankt Augustin",user2.getOrt());
+        Assert.assertEquals("Sankt Augustin", user2.getOrt());
 
-        Assert.assertTrue(user1!=null);
-        Assert.assertFalse(user1==null);
+        Assert.assertTrue(user1 != null);
+        Assert.assertFalse(user1 == null);
     }
 
-  @Test
+    @Test
     public void testupdate() {
 
-       // User user = dao.readbyId(1);
+        // User user = dao.readbyId(1);
         //user.setKurzVorstellung("neuer");
         //Assert.assertTrue(dao.update(user));
 
-      User user1 =dao.readbyId(1);
-      Assert.assertFalse(user1==null);
-      Assert.assertEquals("53757",user1.getPlz());
+        User user1 = dao.readbyId(1);
+        Assert.assertFalse(user1 == null);
+        Assert.assertEquals("53757", user1.getPlz());
 
 
-
-
-      //  User user2=dao.readbyId(1);
+        //  User user2=dao.readbyId(1);
         //Assert.assertEquals("neuerwert",user2.getKurzVorstellung());
 
 
@@ -105,7 +96,7 @@ public class UserDaoTest {
     public void testdelete() {
 
         User newUser = new User();
-        newUser.setiD(8);
+        newUser.setId(8);
         newUser.setPasswort("üü8ää");
         newUser.setStrasse("Wieg");
         newUser.setHausnr("108");

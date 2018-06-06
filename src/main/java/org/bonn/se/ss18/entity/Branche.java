@@ -3,17 +3,8 @@ package org.bonn.se.ss18.entity;
 /**
  * @author rjourd2s
  */
-public class Branche {
-    private int brancheid;
+public class Branche extends AbstractEntity {
     private String bezeichnung;
-
-    public int getBrancheid() {
-        return brancheid;
-    }
-
-    public void setBrancheid(int brancheid) {
-        this.brancheid = brancheid;
-    }
 
     public String getBezeichnung() {
         return bezeichnung;

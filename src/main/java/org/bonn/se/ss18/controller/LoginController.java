@@ -54,13 +54,13 @@ public class LoginController {
         if (sDAO.read(usernamme) != null)
 
         {
-            id = sDAO.read(usernamme).getiD();
+            id = sDAO.read(usernamme).getId();
             UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, sDAO.read(usernamme));
 
         } else if (uDAO.readbyString("email", usernamme) != null)
 
         {
-            id = uDAO.readbyString("email", usernamme).getiD();
+            id = uDAO.readbyString("email", usernamme).getId();
             if (sDAO.readbyId(id) != null) {
                 UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, sDAO.readbyId(id));
             } else if (untDAO.readbyId(id) != null) {

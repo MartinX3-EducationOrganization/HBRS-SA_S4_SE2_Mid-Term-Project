@@ -6,8 +6,7 @@ import java.time.LocalDate;
 /**
  * @author rjourd2s
  */
-public class Anzeige {
-    private int anzeigeid;
+public class Anzeige extends AbstractEntity {
     private int userid;
     private LocalDate datum;
     private String title;
@@ -37,13 +36,6 @@ public class Anzeige {
         this.text = text;
     }
 
-    public int getAnzeigeid() {
-        return anzeigeid;
-    }
-
-    public void setAnzeigeid(int anzeigeid) {
-        this.anzeigeid = anzeigeid;
-    }
 
     public int getUserid() {
         return userid;
