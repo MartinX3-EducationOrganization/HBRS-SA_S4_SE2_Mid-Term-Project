@@ -28,7 +28,7 @@ public class LoginController {
      *
      */
     public boolean login(String usernamme, String password) throws NoSuchUserOrPasswort {
-        ConnectionFactory dao = null;
+        ConnectionFactory dao;
         try {
             dao = ConnectionFactory.getInstance();
         } catch (SQLException e) {

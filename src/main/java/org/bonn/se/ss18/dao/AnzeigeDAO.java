@@ -46,12 +46,12 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
         return null;
     }
 
+    @Override
     public boolean create(Anzeige stelle) {
         try {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO " + tableName + " "
-                        + "VALUES (null, " + stelle.getUserid() + ", " + stelle.getDatum() + ", " + stelle.getTitel() + ", " + stelle.getOrt() + ", "
-                            + stelle.getTyp() + ", " + stelle.getAnstellungsart() + ", " + stelle.getArbeitszeit() + ", " + stelle.getBrancheid() + ", "
-                            + stelle.getBeginn() + ", " + stelle.getAktiv() + ", " + stelle.getText() + ")");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO " + tableName +
+                    "(userid,datum,titel,ort,typ,anstellungsart,arbeitszeit,brancheid,beginn,aktiv,text)"
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             return createps(stelle, ps);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -60,13 +60,14 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
         return false;
     }
 
+    @Override
     public boolean update(Anzeige stelle) {
         try {
             PreparedStatement ps = con.prepareStatement("UPDATE " + tableName + " "
-                + "SET userid = " + stelle.getUserid() + ", datum = " + stelle.getDatum() + ", titel = " + stelle.getTitel() + ", ort = " + stelle.getOrt() + ", "
-                            + "typ = " + stelle.getTyp() + ", anstellungsart = " + stelle.getAnstellungsart() + ", arbeitszeit = " + stelle.getArbeitszeit() + ", " 
-                            + "brancheid = " + stelle.getBrancheid() + ", beginn = " + stelle.getBeginn() + ", aktiv = " + stelle.getAktiv() + ", text = " + stelle.getText()
-                + "WHERE id = " + stelle.getId());
+                    + "SET userid = " + stelle.getUserid() + ", datum = " + stelle.getDatum() + ", titel = " + stelle.getTitel() + ", ort = " + stelle.getOrt() + ", "
+                    + "typ = " + stelle.getTyp() + ", anstellungsart = " + stelle.getAnstellungsart() + ", arbeitszeit = " + stelle.getArbeitszeit() + ", "
+                    + "brancheid = " + stelle.getBrancheid() + ", beginn = " + stelle.getBeginn() + ", aktiv = " + stelle.getAktiv() + ", text = " + stelle.getText()
+                    + "WHERE id = " + stelle.getId());
             return createps(stelle, ps);
 
         } catch (SQLException ex) {
@@ -90,18 +91,18 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
     }
 
     private boolean createps(Anzeige anzeige, PreparedStatement ps) throws SQLException {
-        ps.setInt(1, anzeige.getId());
-        ps.setInt(2, anzeige.getUserid());
-        ps.setDate(3, Date.valueOf(anzeige.getDatum()));
-        ps.setString(4, anzeige.getTitel());
-        ps.setString(5, anzeige.getOrt());
-        ps.setString(6, anzeige.getTyp());
-        ps.setString(7, anzeige.getAnstellungsart());
-        ps.setString(8, anzeige.getArbeitszeit());
-        ps.setInt(9, anzeige.getBrancheid());
-        ps.setDate(10, Date.valueOf(anzeige.getBeginn()));
-        ps.setBoolean(11, anzeige.getAktiv());
-        ps.setString(12, anzeige.getText());
+        //ps.setInt(1, anzeige.getId());
+        ps.setInt(1, anzeige.getUserid());
+        ps.setDate(2, Date.valueOf(anzeige.getDatum()));
+        ps.setString(3, anzeige.getTitel());
+        ps.setString(4, anzeige.getOrt());
+        ps.setString(5, anzeige.getTyp());
+        ps.setString(6, anzeige.getAnstellungsart());
+        ps.setString(7, anzeige.getArbeitszeit());
+        ps.setInt(8, anzeige.getBrancheid());
+        ps.setDate(9, Date.valueOf(anzeige.getBeginn()));
+        ps.setBoolean(10, anzeige.getAktiv());
+        ps.setString(11, anzeige.getText());
 
         int i = ps.executeUpdate();
         // Eine Reihe(ROW)
