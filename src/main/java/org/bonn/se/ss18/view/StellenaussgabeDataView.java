@@ -25,8 +25,8 @@ public class StellenaussgabeDataView extends Window {
         //Topic TextField
         TextField title = new TextField();
         title.setCaption("Titel");
-        if (documentData.getTitle() != null) {
-            title.setValue(documentData.getTitle());
+        if (documentData.getTitel() != null) {
+            title.setValue(documentData.getTitel());
         }
         layout.addComponent(title);
 
@@ -47,7 +47,7 @@ public class StellenaussgabeDataView extends Window {
 
         TextField typ = new TextField();
         typ.setCaption("Typ");
-        if (documentData.getTitle() != null) {
+        if (documentData.getTyp() != null) {
             typ.setValue(documentData.getTyp());
         }
         layout.addComponent(typ);
@@ -98,7 +98,7 @@ public class StellenaussgabeDataView extends Window {
             if (title.getValue().equals("") || description.getValue().equals("")) {
                 Notification.show("Sie können nichts leeres speichern!");
             } else {
-                documentData.setTitle(title.getValue());
+                documentData.setTitel(title.getValue());
                 documentData.setText(description.getValue());
                 ConnectionFactory dao = null;
                 try {

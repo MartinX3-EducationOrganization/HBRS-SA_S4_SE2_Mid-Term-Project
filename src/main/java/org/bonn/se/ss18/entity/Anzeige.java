@@ -9,23 +9,23 @@ import java.time.LocalDate;
 public class Anzeige extends AbstractEntity {
     private int userid;
     private LocalDate datum;
-    private String title;
+    private String titel;
     private String ort;
     private String typ;
     private String anstellungsart;
     private String arbeitszeit;
-    private int branchenid;
+    private int brancheid;
     private LocalDate beginn;
     private boolean aktiv;
     private String text;
 
 
-    public String getTitle() {
-        return title;
+    public String getTitel() {
+        return titel;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitel(String titel) {
+        this.titel = titel;
     }
 
     public String getText() {
@@ -85,12 +85,12 @@ public class Anzeige extends AbstractEntity {
         this.arbeitszeit = arbeitszeit;
     }
 
-    public int getBranchenid() {
-        return branchenid;
+    public int getBrancheid() {
+        return brancheid;
     }
 
-    public void setBranchenid(int branchenid) {
-        this.branchenid = branchenid;
+    public void setBrancheid(int brancheid) {
+        this.brancheid = brancheid;
     }
 
     public LocalDate getBeginn() {
@@ -101,7 +101,7 @@ public class Anzeige extends AbstractEntity {
         this.beginn = beginn.toLocalDate();
     }
 
-    public boolean isAktiv() {
+    public boolean getAktiv() {
         return aktiv;
     }
 
