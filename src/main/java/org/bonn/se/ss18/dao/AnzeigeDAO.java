@@ -64,10 +64,10 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
     public boolean update(Anzeige stelle) {
         try {
             PreparedStatement ps = con.prepareStatement("UPDATE " + tableName + " "
-                    + "SET userid = " + stelle.getUserid() + ", datum = " + stelle.getDatum() + ", titel = " + stelle.getTitel() + ", ort = " + stelle.getOrt() + ", "
-                    + "typ = " + stelle.getTyp() + ", anstellungsart = " + stelle.getAnstellungsart() + ", arbeitszeit = " + stelle.getArbeitszeit() + ", "
-                    + "brancheid = " + stelle.getBrancheid() + ", beginn = " + stelle.getBeginn() + ", aktiv = " + stelle.getAktiv() + ", text = " + stelle.getText()
-                    + "WHERE id = " + stelle.getId());
+                    + "SET userid = ?, datum = ? , titel = ?, ort = ?, "
+                    + "typ = ?, anstellungsart = ?, arbeitszeit = ?, "
+                    + "brancheid = ?, beginn = ?, aktiv = ?, text = ?"
+                    + "WHERE anzeigeid = " + stelle.getId());
             return createps(stelle, ps);
 
         } catch (SQLException ex) {
@@ -111,21 +111,23 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
 
 
     private Anzeige readResults(ResultSet rs) throws SQLException {
-        Anzeige anzeige = new Anzeige();
-        anzeige.setId(rs.getInt("anzeigeid"));
-        anzeige.setUserid(rs.getInt("userid"));
-        anzeige.setDatum(rs.getDate("datum"));
-        anzeige.setTitel(rs.getString("titel"));
-        anzeige.setOrt(rs.getString("ort"));
-        anzeige.setTyp(rs.getString("typ"));
-        anzeige.setAnstellungsart(rs.getString("anstellungsart"));
-        anzeige.setArbeitszeit(rs.getString("arbeitszeit"));
-        anzeige.setBrancheid(rs.getInt("brancheid"));
-        anzeige.setBeginn(rs.getDate("beginn"));
-        anzeige.setAktiv(rs.getBoolean("aktiv"));
-        anzeige.setText(rs.getString("text"));
+        if (rs.next()) {
+            Anzeige anzeige = new Anzeige();
+            anzeige.setId(rs.getInt("anzeigeid"));
+            anzeige.setUserid(rs.getInt("userid"));
+            anzeige.setDatum(rs.getDate("datum"));
+            anzeige.setTitel(rs.getString("titel"));
+            anzeige.setOrt(rs.getString("ort"));
+            anzeige.setTyp(rs.getString("typ"));
+            anzeige.setAnstellungsart(rs.getString("anstellungsart"));
+            anzeige.setArbeitszeit(rs.getString("arbeitszeit"));
+            anzeige.setBrancheid(rs.getInt("brancheid"));
+            anzeige.setBeginn(rs.getDate("beginn"));
+            anzeige.setAktiv(rs.getBoolean("aktiv"));
+            anzeige.setText(rs.getString("text"));
 
-        return anzeige;
+            return anzeige;
+        }
+        return null;
     }
-
 }
