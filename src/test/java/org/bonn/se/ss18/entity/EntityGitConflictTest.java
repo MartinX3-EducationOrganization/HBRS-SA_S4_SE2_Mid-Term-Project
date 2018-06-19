@@ -24,8 +24,8 @@ public class EntityGitConflictTest {
     }
 
     public void setAlter(int alter) {
+        this.alter = alter * 2;
         this.alter = alter;
-
     }
 
     public LocalDate getBday() {
