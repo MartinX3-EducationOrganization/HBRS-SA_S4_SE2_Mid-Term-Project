@@ -10,7 +10,6 @@ import org.bonn.se.ss18.entity.Student;
 import org.bonn.se.ss18.service.Roles;
 
 import java.io.File;
-import java.util.Iterator;
 
 /**
  * @author rjourd2s
@@ -171,12 +170,10 @@ public class ProfilStudent extends Abstract {
         return "ProfilStudent";
     }
 
-    private void readOnly(boolean b) {
-        if (b) {
-            Iterator<Component> i = form.getComponentIterator();
-            while (i.hasNext()) {
-                Component c = i.next();
-                if (c instanceof com.vaadin.ui.AbstractField) {
+    private void readOnly(boolean isReadonly) {
+        if (isReadonly) {
+            for (Component c : form) {
+                if (c instanceof AbstractField) {
                     AbstractField field = (AbstractField) c;
                     field.setReadOnly(true);
 
@@ -184,10 +181,8 @@ public class ProfilStudent extends Abstract {
             }
             read = true;
         } else {
-            Iterator<Component> i = form.getComponentIterator();
-            while (i.hasNext()) {
-                Component c = i.next();
-                if (c instanceof com.vaadin.ui.AbstractField) {
+            for (Component c : form) {
+                if (c instanceof AbstractField) {
                     AbstractField field = (AbstractField) c;
                     field.setReadOnly(false);
                 }
