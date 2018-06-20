@@ -31,10 +31,12 @@ public class StellenausschreibungUnternehmen extends Abstract {
 
         Label title = new Label("Eine gute Stelle!");
         titleBar.addComponent(title);
+        title.setId("gut");
         // titleBar.setExpandRatio(title, 1.0f);
 
         Label titleComment = new Label("Schlechte Bezahlung!");
         titleBar.addComponent(titleComment);
+        titleComment.setId("schlecht");
 
 
         HorizontalLayout center = new HorizontalLayout();
@@ -61,6 +63,7 @@ public class StellenausschreibungUnternehmen extends Abstract {
         center.setSizeUndefined();
         //matter.setSizeUndefined();
         grid.setSizeFull();
+
         grid.addItemClickListener(event ->
 
         {
@@ -95,7 +98,7 @@ public class StellenausschreibungUnternehmen extends Abstract {
             Unternehmer ut = (Unternehmer) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
             grid.setItems(aDAO.getAllbyId(ut.getId()));
             grid.removeColumn("userid");
-            grid.removeColumn("branchenid");
+            grid.removeColumn("brancheid");
         } catch (SQLException e) {
             e.printStackTrace();
         }

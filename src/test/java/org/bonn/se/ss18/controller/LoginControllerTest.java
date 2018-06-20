@@ -31,7 +31,7 @@ public class LoginControllerTest {
 
     @Test
     public void testLogin() throws SQLException, NoSuchUserOrPasswort {
-        Assert.assertFalse(login.login("s22alda2s","123"));
+        Assert.assertFalse(login.login("salda2s","123"));
       // Assert.assertFalse(login.login("salklda2s","183"));
        //Assert.assertFalse(login.login("emmail@hotmail.de","345"));
 

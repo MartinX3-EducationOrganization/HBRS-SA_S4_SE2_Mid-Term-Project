@@ -42,16 +42,21 @@ public class ProfilStudent extends Abstract {
         );
 
         TextField vorname = new TextField("Vorame");
+        vorname.setId("firstname");
         vorname.setValue(user.getVorname());
         vorname.setWidth("50%");
         form.addComponent(vorname);
 
+
         TextField nachname = new TextField("Nachame");
+        nachname.setId("lastname");
         nachname.setValue(user.getNachname());
         nachname.setWidth("50%");
         form.addComponent(nachname);
 
+
         DateField birthday = new DateField("Birthday");
+        birthday.setId("birthday");
         birthday.setValue(user.getGebDatum());
         birthday.setReadOnly(true);
         form.addComponent(birthday);
@@ -63,39 +68,46 @@ public class ProfilStudent extends Abstract {
         form.addComponent(section);
 
         TextField strasse = new TextField("Straße");
+        strasse.setId("street");
         strasse.setValue(user.getStrasse());
         strasse.setWidth("50%");
         form.addComponent(strasse);
 
         TextField hnr = new TextField("Hausnummer");
+        hnr.setId("hs");
         hnr.setValue(user.getHausnr());
         hnr.setWidth("10%");
         form.addComponent(hnr);
 
         TextField plz = new TextField("Plz");
+        plz.setId("plz");
         plz.setValue(user.getPlz());
         plz.setWidth("10%");
         form.addComponent(plz);
 
 
         TextField ort = new TextField("Ort");
+        ort.setId("ort");
         ort.setValue(user.getOrt());
         ort.setWidth("50%");
         form.addComponent(ort);
 
 
         TextField email = new TextField("Email");
+        email.setId("email");
         email.setValue(user.getEmail());
         email.setWidth("50%");
         form.addComponent(email);
 
 
         TextField phone = new TextField("Telefonnummer");
+        phone.setId("tel");
         phone.setValue(user.getTelNr());
         phone.setWidth("50%");
         form.addComponent(phone);
 
         TextField fax = new TextField("Faxnummer");
+        fax.setId("fax");
         fax.setValue(user.getFaxNr());
         fax.setWidth("50%");
         form.addComponent(fax);
@@ -108,6 +120,7 @@ public class ProfilStudent extends Abstract {
 
 
         RichTextArea bio = new RichTextArea("Kurzvorstellung");
+        bio.setId("bio");
         bio.setWidth("100%");
         bio.setValue(user.getKurzVorstellung());
         form.addComponent(bio);
@@ -115,6 +128,7 @@ public class ProfilStudent extends Abstract {
         read = true;
 
         Button edit = new Button("Edit", new Button.ClickListener() {
+
             @Override
             public void buttonClick(Button.ClickEvent event) {
                 if (read) {
@@ -130,8 +144,11 @@ public class ProfilStudent extends Abstract {
                     event.getButton().setCaption("Edit");
                     event.getButton().removeStyleName(ValoTheme.BUTTON_PRIMARY);
                 }
+
+
             }
         });
+        edit.setId("edit");
 
 
         HorizontalLayout footer = new HorizontalLayout();

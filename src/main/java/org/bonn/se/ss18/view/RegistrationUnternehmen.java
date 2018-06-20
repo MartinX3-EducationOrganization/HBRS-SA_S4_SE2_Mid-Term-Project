@@ -73,15 +73,15 @@ public class RegistrationUnternehmen extends Abstract {
         layout.setComponentAlignment(fittingLayout, Alignment.BOTTOM_CENTER);
 
 //Button Registrieren
+        Button regestrieren =  new Button(
+                "Registrieren",
+                event -> {
+                    UI.getCurrent().getNavigator().navigateTo(ProfilUnternehmen.getName());
+                    Notification.show("Vielen Dank");
+                });
+        regestrieren.setId("regestrieren");
         HorizontalLayout buttonlayout = setLayout(
-                new HorizontalLayout(
-                        new Button(
-                        "Registrieren",
-                        event -> {
-                            UI.getCurrent().getNavigator().navigateTo(ProfilUnternehmen.getName());
-                            Notification.show("Vielen Dank");
-                        })
-                )
+                new HorizontalLayout(regestrieren)
         );
         layout.addComponent(buttonlayout);
         layout.setComponentAlignment(buttonlayout, Alignment.BOTTOM_CENTER);

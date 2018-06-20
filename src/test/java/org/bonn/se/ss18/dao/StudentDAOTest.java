@@ -56,7 +56,7 @@ public class StudentDAOTest {
     public void create() {
         Student student = new Student();
         student.setLinuxID("ux2s");
-        student.setiD(1);
+        student.setId(1);
         student.setAnrede("Herr");
         student.setVorname("muster");
         student.setNachname("mustermann");
@@ -82,7 +82,7 @@ public class StudentDAOTest {
 
         Student student = new Student();
         student.setLinuxID("hmn2s");
-        student.setiD(2);
+        student.setId(2);
         student.setAnrede("Herr");
         student.setVorname("beni");
         student.setNachname("Müller");

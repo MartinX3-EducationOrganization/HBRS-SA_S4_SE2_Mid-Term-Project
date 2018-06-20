@@ -34,6 +34,7 @@ public class ProfilUnternehmen extends Abstract {
         area.setWordWrap(true);
         area.setHeight(500, Unit.PIXELS);
         area.setWidth(500, Unit.PIXELS);
+        area.setId("profilu");
 
         return new FormLayout(
                 area,
@@ -42,6 +43,7 @@ public class ProfilUnternehmen extends Abstract {
                         event -> area.setReadOnly(true)
                 )
         );
+
     }
 
     private VerticalLayout setProfilePictureLayout() {

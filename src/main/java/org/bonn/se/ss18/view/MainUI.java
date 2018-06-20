@@ -128,11 +128,16 @@ public class MainUI extends UI {
                 VaadinIcons.QUESTION_CIRCLE,
                 null
         );
-        menuBar.addItem(
+        MenuBar.MenuItem item = menuBar.addItem(
                 "Logout", event -> {
                     loginController.logout();
+                   // menuBar.setId("logout");
                 }
         );
+        item.setStyleName("log-out");
+
+
+
         return menuBar;
     }
 
@@ -167,6 +172,7 @@ public class MainUI extends UI {
                 "Profil",
                 e -> getNavigator().navigateTo(ProfilStudent.getName())
         );
+        button.setId("profil");
         button.addStyleNames(
                 ValoTheme.BUTTON_LINK,
                 ValoTheme.MENU_ITEM
@@ -197,6 +203,7 @@ public class MainUI extends UI {
                 "Bewerben",
                 e -> getNavigator().navigateTo(BewerbenStudent.getName())
         );
+        button.setId("bewerben");
         button.addStyleNames(
                 ValoTheme.BUTTON_LINK,
                 ValoTheme.MENU_ITEM
@@ -253,6 +260,7 @@ public class MainUI extends UI {
                 "Stellen",
                 e -> getNavigator().navigateTo("Stellenausschreibung")//TODO: Stellen
         );
+        button.setId("stellen");
         button.addStyleNames(
                 ValoTheme.BUTTON_LINK,
                 ValoTheme.MENU_ITEM

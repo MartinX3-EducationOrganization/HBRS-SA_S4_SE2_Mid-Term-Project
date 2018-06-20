@@ -1,8 +1,6 @@
-package org.bonn.se.ss18;
+package org.bonn.se.ss18.view;
 
 import junit.framework.TestCase;
-import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -12,8 +10,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.concurrent.TimeUnit;
 
-public class LoginTest extends TestCase {
-    //Webseite URL
+import static org.junit.Assert.*;
+
+public class ProfilUnternehmenTest extends TestCase {
     private static String URL = "http://localhost:8080/";
     //systemproperty key
     private static String SYSTEM_PATH = "webdriver.chrome.driver";
@@ -22,9 +21,10 @@ public class LoginTest extends TestCase {
 
     private WebDriver driver;
 
+
+
     @Before
-    public void setUp(){
-        //setzen den Chrome driver in system umgebung
+    public void setUp() throws Exception {
         System.setProperty(SYSTEM_PATH, CHROME_PATH);
         //erzeugen den Chrome driver
         driver = new ChromeDriver();
@@ -35,41 +35,19 @@ public class LoginTest extends TestCase {
     }
 
     @Test
-    public void testLogin(){
-        //website aufgerufen und driver soll den webelement mit der Id finden(input feld für user name)
-        WebElement element = driver.findElement(By.id("gwt-uid-3"));
+    public void testProfilUnternehmen() throws InterruptedException {
+        WebElement element = driver.findElement(By.id("gwt-uid-15"));
         //in der gefundene inpult feld soll die user name salda2s eingegeben werden
-        element.sendKeys("salda2s");
+        element.sendKeys("email@unternehmen.de");
 
-        element = driver.findElement(By.id("gwt-uid-5"));
+        element = driver.findElement(By.id("gwt-uid-16"));
         element.sendKeys("123");
 
         //anmelder button mit der id log-in soll gefunden werden
         element = driver.findElement(By.id("log-in"));
         //soll die gefundene anmelde button klicken
         element.click();
-        //nach erfolgreicher anmeldung soll diese Vorname label gefunden werden
-
-        element = driver.findElement(By.id("gwt-uid-8"));
-
-        //label text muss vorame heissen
-        Assert.assertEquals("Vorame", element.getText());
-
-        element = driver.findElement(By.className("log-out"));
-        element.click();
-
-
 
 
     }
-
-    @After
-    public void tearDown(){
-
-        driver.close();
-    }
-
-
-
-
 }
