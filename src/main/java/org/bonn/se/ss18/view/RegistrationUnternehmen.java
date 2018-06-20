@@ -25,7 +25,7 @@ public class RegistrationUnternehmen extends Abstract {
         layout.setSpacing(true);
         layout.setMargin(true);
 
-//Überschrift
+//Überschrift #
         Label label = new Label(
                 "<font size = \"6\" color=\"black\"> Registrierung",
                 ContentMode.HTML

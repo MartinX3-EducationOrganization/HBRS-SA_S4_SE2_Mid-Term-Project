@@ -29,12 +29,12 @@ public class AnzeigeDAOTest {
         anzeige.setId(100);
         anzeige.setUserid(100);
         anzeige.setDatum(new Date(2000, 1, 1));
-        anzeige.setTitle("Titel");
+        anzeige.setTitel("Titel");
         anzeige.setOrt("Ort");
         anzeige.setTyp("Typ");
         anzeige.setAnstellungsart("Anstellung");
         anzeige.setArbeitszeit("8-18");
-        anzeige.setBranchenid(42);
+        anzeige.setBrancheid(42);
         anzeige.setBeginn(new Date(2000, 1, 1));
         anzeige.setAktiv(true);
         anzeige.setText("Text");
@@ -60,14 +60,14 @@ public class AnzeigeDAOTest {
         Assert.assertEquals(100, anzeige2.getId());
         Assert.assertEquals(100, anzeige2.getUserid());
         Assert.assertEquals(new Date(2000, 1, 1), Date.valueOf(anzeige.getDatum()));
-        Assert.assertEquals("Titel", anzeige2.getTitle());
+        Assert.assertEquals("Titel", anzeige2.getTitel());
         Assert.assertEquals("Ort", anzeige2.getOrt());
         Assert.assertEquals("Typ", anzeige2.getTyp());
         Assert.assertEquals("Anstellung", anzeige2.getAnstellungsart());
         Assert.assertEquals("8-18", anzeige2.getArbeitszeit());
-        Assert.assertEquals(42, anzeige2.getBranchenid());
+        Assert.assertEquals(42, anzeige2.getBrancheid());
         Assert.assertEquals(new Date(2000, 1, 1), Date.valueOf(anzeige.getDatum()));
-        Assert.assertTrue(anzeige2.isAktiv());
+        Assert.assertTrue(anzeige2.getAktiv());
         Assert.assertEquals("Text", anzeige2.getText());
     }
 

@@ -1,23 +1,14 @@
 package org.bonn.se.ss18.dao;
-import org.bonn.se.ss18.controller.ConnectionFactory;
-import org.bonn.se.ss18.dao.UserDAO;
-import org.bonn.se.ss18.entity.User;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.*;
 
 import org.bonn.se.ss18.controller.ConnectionFactory;
 import org.bonn.se.ss18.entity.Student;
-
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Date;
 import java.sql.SQLException;
-
-import static org.junit.Assert.*;
 
 public class StudentDAOTest {
     private StudentDAO dao;
@@ -72,9 +63,6 @@ public class StudentDAOTest {
         Assert.assertTrue(dao.update(student));
 
 
-
-
-
     }
 
     @Test
@@ -96,10 +84,8 @@ public class StudentDAOTest {
         Student student = dao.read("ux2s");
 
         Assert.assertFalse(student == null);
-        Assert.assertTrue(student!=null);
+        Assert.assertTrue(student != null);
         Assert.assertEquals("muster", student.getVorname());
-
-
 
 
     }
