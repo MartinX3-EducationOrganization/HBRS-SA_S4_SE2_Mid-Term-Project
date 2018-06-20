@@ -9,15 +9,10 @@ package org.bonn.se.ss18.view;
 
 import com.vaadin.annotations.Title;
 import com.vaadin.event.ShortcutAction;
-import com.vaadin.server.ClassResource;
-import com.vaadin.server.FileResource;
 import com.vaadin.server.ThemeResource;
-import com.vaadin.server.VaadinService;
 import com.vaadin.ui.*;
 import org.bonn.se.ss18.controller.LoginController;
 import org.bonn.se.ss18.exception.NoSuchUserOrPasswort;
-
-import java.io.File;
 
 @Title("Grundgerüst - Login")
 public class Login extends Abstract {
@@ -71,8 +66,9 @@ public class Login extends Abstract {
                 new FormLayout(user, pass, loginButton)
         );
 
-        ThemeResource res = new ThemeResource("images/images.jpg");
-        Image img = new Image(null, res);
+        Image img = new Image(null, new ThemeResource("images/images.jpg"));
+        img.setWidth(120, Unit.PIXELS);
+        img.setHeight(90, Unit.PIXELS);
         Label head = new Label("Herzlich Willkommen auf Coll@HBRS");
         VerticalLayout layout = new VerticalLayout(
                 img,
