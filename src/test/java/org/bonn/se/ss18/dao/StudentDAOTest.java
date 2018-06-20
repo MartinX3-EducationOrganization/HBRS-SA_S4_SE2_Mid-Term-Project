@@ -29,7 +29,7 @@ public class StudentDAOTest {
     public void readbyId() throws SQLException {
         Student student = dao.readbyId(1);
 
-        Assert.assertEquals("muster", student.getVorname());
+        Assert.assertEquals("Sascha", student.getVorname());
 
 
     }
@@ -59,7 +59,7 @@ public class StudentDAOTest {
     public void update() {
 
         Student student = dao.read("ux2s");
-        student.setVorname("ben");
+        student.setVorname("Alda");
         Assert.assertTrue(dao.update(student));
 
 
@@ -85,7 +85,7 @@ public class StudentDAOTest {
 
         Assert.assertFalse(student == null);
         Assert.assertTrue(student != null);
-        Assert.assertEquals("muster", student.getVorname());
+        Assert.assertEquals("mustermann", student.getNachname());
 
 
     }
