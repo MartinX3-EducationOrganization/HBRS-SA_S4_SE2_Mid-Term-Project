@@ -170,8 +170,8 @@ public class ProfilStudent extends Abstract {
         return "ProfilStudent";
     }
 
-    private void readOnly(boolean b) {
-        if (b) {
+    private void readOnly(boolean isReadonly) {
+        if (isReadonly) {
             for (Component c : form) {
                 if (c instanceof AbstractField) {
                     AbstractField field = (AbstractField) c;
