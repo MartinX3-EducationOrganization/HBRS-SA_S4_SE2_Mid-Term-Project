@@ -50,8 +50,8 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
     public boolean create(Anzeige stelle) {
         try {
             PreparedStatement ps = con.prepareStatement("INSERT INTO " + tableName +
-                    "(userid,datum,titel,ort,typ,anstellungsart,arbeitszeit,brancheid,beginn,aktiv,text)"
-                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    "(userid,datum,titel,ort,typ,anstellungsart,arbeitszeit,brancheid,beginn,aktiv,text, anzeigeid)"
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             return createps(stelle, ps);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -66,7 +66,8 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
             PreparedStatement ps = con.prepareStatement("UPDATE " + tableName + " "
                     + "SET userid = ?, datum = ? , titel = ?, ort = ?, "
                     + "typ = ?, anstellungsart = ?, arbeitszeit = ?, "
-                    + "brancheid = ?, beginn = ?, aktiv = ?, text = ?"
+                    + "brancheid = ?, beginn = ?, aktiv = ?, text = ?, "
+                    +   "anzeigeid = ?"
                     + "WHERE anzeigeid = " + stelle.getId());
             return createps(stelle, ps);
 
@@ -80,7 +81,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
     public boolean delete(Anzeige stelle) {
         try {
             Statement stmt = con.createStatement();
-            int i = stmt.executeUpdate("DELETE FROM " + tableName + " WHERE id=" + stelle.getId());
+            int i = stmt.executeUpdate("DELETE FROM " + tableName + " WHERE anzeigeid=" + stelle.getId());
             if (i == 1) {
                 return true;
             }
@@ -103,6 +104,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
         ps.setDate(9, Date.valueOf(anzeige.getBeginn()));
         ps.setBoolean(10, anzeige.getAktiv());
         ps.setString(11, anzeige.getText());
+        ps.setInt(12, anzeige.getId());
 
         int i = ps.executeUpdate();
         // Eine Reihe(ROW)

@@ -49,7 +49,7 @@ public class StudentDAO extends GenericDAO<Student> {
     public boolean update(Student student) {
 
         try {
-            PreparedStatement ps = con.prepareStatement("UPDATE " + tableName + " SET linuxid=?,userid=?,anrede=?,vorname=?,nachname=?,gebdatum=? WHERE linuxid=" + student.getLinuxID());
+            PreparedStatement ps = con.prepareStatement("UPDATE " + tableName + " SET linuxid=?,userid=?,anrede=?,vorname=?,nachname=?,gebdatum=? WHERE linuxid='" + student.getLinuxID() +"'");
             return createps(student, ps);
 
         } catch (SQLException ex) {
