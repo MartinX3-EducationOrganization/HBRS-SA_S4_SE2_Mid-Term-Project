@@ -17,7 +17,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
     }
 
     @Override
-    public Anzeige readByID(int id) {
+    public Anzeige getByID(int id) {
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " WHERE anzeigeid=" + id);
@@ -30,7 +30,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
     }
 
     @Override
-    public Set<Anzeige> getAllbyId(int id) {
+    public Set<Anzeige> getAllByID(int id) {
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " WHERE userid=" + id);

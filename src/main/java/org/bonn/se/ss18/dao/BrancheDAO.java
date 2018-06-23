@@ -15,12 +15,12 @@ public class BrancheDAO extends GenericDAO<Branche> {
     }
 
     @Override
-    public Branche readByID(int id) throws SQLException {
+    public Branche getByID(int id) throws SQLException {
         return null;
     }
 
     @Override
-    public Set<Branche> getAllbyId(int id) throws SQLException {
+    public Set<Branche> getAllByID(int id) throws SQLException {
         return null;
     }
 

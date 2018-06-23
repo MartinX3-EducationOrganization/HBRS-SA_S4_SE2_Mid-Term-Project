@@ -15,7 +15,7 @@ public class StudentDAO extends GenericDAO<Student> {
 
 
     @Override
-    public Student readByID(int id) {
+    public Student getByID(int id) {
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM table_user INNER JOIN table_student ss ON table_user.userid = ss.userid " +
@@ -29,7 +29,7 @@ public class StudentDAO extends GenericDAO<Student> {
 
     //  Macht kein Sinn vorerst da man immer nur einen Studenten bekommen würde.
     @Override
-    public Set<Student> getAllbyId(int id) {
+    public Set<Student> getAllByID(int id) {
         return null;
     }
 

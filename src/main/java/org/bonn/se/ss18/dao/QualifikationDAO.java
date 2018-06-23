@@ -15,12 +15,12 @@ public class QualifikationDAO extends GenericDAO<Qualifikation> {
     }
 
     @Override
-    public Qualifikation readByID(int id) throws SQLException {
+    public Qualifikation getByID(int id) throws SQLException {
         return null;
     }
 
     @Override
-    public Set<Qualifikation> getAllbyId(int id) throws SQLException {
+    public Set<Qualifikation> getAllByID(int id) throws SQLException {
         return null;
     }
 

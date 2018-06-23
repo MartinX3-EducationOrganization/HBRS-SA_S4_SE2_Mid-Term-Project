@@ -15,12 +15,12 @@ public class DokumentDAO extends GenericDAO<Dokument> {
     }
 
     @Override
-    public Dokument readByID(int id) throws SQLException {
+    public Dokument getByID(int id) throws SQLException {
         return null;
     }
 
     @Override
-    public Set<Dokument> getAllbyId(int id) throws SQLException {
+    public Set<Dokument> getAllByID(int id) throws SQLException {
         return null;
     }
 

@@ -61,10 +61,10 @@ public class LoginController {
 
         {
             id = uDAO.readbyString("email", usernamme).getId();
-            if (sDAO.readByID(id) != null) {
-                UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, sDAO.readByID(id));
-            } else if (untDAO.readByID(id) != null) {
-                UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, untDAO.readByID(id));
+            if (sDAO.getByID(id) != null) {
+                UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, sDAO.getByID(id));
+            } else if (untDAO.getByID(id) != null) {
+                UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, untDAO.getByID(id));
             } else {
                 throw new NoSuchUserOrPasswort();
             }
@@ -73,7 +73,7 @@ public class LoginController {
         }
 
 
-        if ((uDAO.readByID(id).
+        if ((uDAO.getByID(id).
 
                 getPasswort().
 

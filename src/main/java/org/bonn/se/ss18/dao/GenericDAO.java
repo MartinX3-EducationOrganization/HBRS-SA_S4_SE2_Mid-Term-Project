@@ -23,10 +23,10 @@ public abstract class GenericDAO<T> {
     }
 
     //  SELECT FROM
-    public abstract T readByID(int id) throws SQLException;
+    public abstract T getByID(int id) throws SQLException;
 
     // SELECT FROM List all
-    public abstract Set<T> getAllbyId(int id) throws SQLException;
+    public abstract Set<T> getAllByID(int id) throws SQLException;
 
     //  INSERT INTO
     public abstract boolean create(T user) throws SQLException;

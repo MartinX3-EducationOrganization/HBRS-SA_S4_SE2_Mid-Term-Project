@@ -63,11 +63,11 @@ public class UserDaoTest {
     @Test
     public void testreadbyId() {
 
-        User user = dao.readByID(7);
+        User user = dao.getByID(7);
         Assert.assertEquals(null, user);
-        User user1 = dao.readByID(2);
+        User user1 = dao.getByID(2);
         Assert.assertEquals("email@unternehmen.de", user1.getEmail());
-        User user2 = dao.readByID(1);
+        User user2 = dao.getByID(1);
         Assert.assertEquals("Sankt Augustin", user2.getOrt());
 
         Assert.assertTrue(user1 != null);
@@ -77,16 +77,16 @@ public class UserDaoTest {
     @Test
     public void testupdate() {
 
-        // User user = dao.readByID(1);
+        // User user = dao.getByID(1);
         //user.setKurzVorstellung("neuer");
         //Assert.assertTrue(dao.update(user));
 
-        User user1 = dao.readByID(1);
+        User user1 = dao.getByID(1);
         Assert.assertFalse(user1 == null);
         Assert.assertEquals("53757", user1.getPlz());
 
 
-        //  User user2=dao.readByID(1);
+        //  User user2=dao.getByID(1);
         //Assert.assertEquals("neuerwert",user2.getKurzVorstellung());
 
 

@@ -15,7 +15,7 @@ public class UserDAO extends GenericDAO<User> {
 
 
     @Override
-    public User readByID(int id) {
+    public User getByID(int id) {
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " WHERE userid=" + id);
@@ -38,7 +38,7 @@ public class UserDAO extends GenericDAO<User> {
     }
 
     @Override
-    public Set<User> getAllbyId(int id) {
+    public Set<User> getAllByID(int id) {
         return null;
     }
 

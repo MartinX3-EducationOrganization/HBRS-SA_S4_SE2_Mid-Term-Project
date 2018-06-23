@@ -15,12 +15,12 @@ public class BewerbungDAO extends GenericDAO<Bewerbung> {
     }
 
     @Override
-    public Bewerbung readByID(int id) throws SQLException {
+    public Bewerbung getByID(int id) throws SQLException {
         return null;
     }
 
     @Override
-    public Set<Bewerbung> getAllbyId(int id) throws SQLException {
+    public Set<Bewerbung> getAllByID(int id) throws SQLException {
         return null;
     }
 

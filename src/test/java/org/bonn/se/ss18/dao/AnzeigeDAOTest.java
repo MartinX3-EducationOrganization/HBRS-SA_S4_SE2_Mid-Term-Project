@@ -53,7 +53,7 @@ public class AnzeigeDAOTest {
 
     @Test
     public void testReadbyId() {
-        Anzeige anzeige2 = adao.readByID(6);
+        Anzeige anzeige2 = adao.getByID(6);
         Assert.assertEquals(6, anzeige2.getId());
         Assert.assertEquals(1, anzeige2.getUserid());
        // Assert.assertEquals(new Date(2000, 1, 1), Date.valueOf(anzeige.getDatum()));
@@ -71,11 +71,11 @@ public class AnzeigeDAOTest {
 
     @Test
     public void testGetAllbyId() {
-        // Set<Anzeige> result = dao.getAllbyId(1);
+        // Set<Anzeige> result = dao.getAllByID(1);
         //a Assert.assertEquals(4,result.size());
 
         // Was macht GetAllById und wofür wird es gebraucht????
-        //Set<Anzeige> result1 = adao.getAllbyId(100);
+        //Set<Anzeige> result1 = adao.getAllByID(100);
        // Assert.assertEquals(18, result1.size());
 
 
@@ -87,13 +87,13 @@ public class AnzeigeDAOTest {
     @Test
     public void testUpadate() {
 
-        Anzeige anzeige = adao.readByID(6);
+        Anzeige anzeige = adao.getByID(6);
 
         anzeige.setTyp("Gesuch");
         Assert.assertTrue(adao.update(anzeige));
 
 //  Neue Werte die du updaten möchtest.
-//  Teste auf True dat update geklappt, danach adao.readByID(id) ob es geklappt hat.
+//  Teste auf True dat update geklappt, danach adao.getByID(id) ob es geklappt hat.
 
     }
 
@@ -114,7 +114,7 @@ public class AnzeigeDAOTest {
         adao.create(anzeige);
         Assert.assertTrue(adao.delete(anzeige));
         // Gibt es noch eine Anzeige mit der Id 100 ? Wenn nicht Null.
-       // Assert.assertNull(adao.readByID(100));
+        // Assert.assertNull(adao.getByID(100));
 
 
     }

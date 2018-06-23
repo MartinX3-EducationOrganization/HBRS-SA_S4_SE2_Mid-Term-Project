@@ -96,7 +96,7 @@ public class StellenausschreibungUnternehmen extends Abstract {
             ConnectionFactory dao = ConnectionFactory.getInstance();
             AnzeigeDAO aDAO = (AnzeigeDAO) dao.getDAO(Tables.table_anzeige);
             Unternehmer ut = (Unternehmer) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
-            grid.setItems(aDAO.getAllbyId(ut.getId()));
+            grid.setItems(aDAO.getAllByID(ut.getId()));
             grid.removeColumn("userid");
             grid.removeColumn("brancheid");
         } catch (SQLException e) {
