@@ -26,7 +26,7 @@ public class UserDAO extends GenericDAO<User> {
         return null;
     }
 
-    public User readbyString(String column, String keyword) {
+    public User getByColumnValue(String column, String keyword) {
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " WHERE " + column + "=" + " \'" + keyword + "\'");
@@ -67,21 +67,6 @@ public class UserDAO extends GenericDAO<User> {
         }
         return false;
     }
-
-    @Override
-    public boolean delete(User user) {
-        try {
-            Statement stmt = con.createStatement();
-            int i = stmt.executeUpdate("DELETE FROM " + tableName + " WHERE id=" + user.getId());
-            if (i == 1) {
-                return true;
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return false;
-    }
-
 
     private boolean createps(User user, PreparedStatement ps) throws SQLException {
         ps.setInt(1, user.getId());

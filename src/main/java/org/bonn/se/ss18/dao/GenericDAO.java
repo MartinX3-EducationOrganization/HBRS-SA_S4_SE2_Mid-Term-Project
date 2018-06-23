@@ -1,8 +1,10 @@
 package org.bonn.se.ss18.dao;
 
+import org.bonn.se.ss18.entity.AbstractEntity;
+
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Set;
+import java.sql.Statement;
 
 /**
  * @author rjourd2s
@@ -11,10 +13,9 @@ import java.util.Set;
 CRUD: Create Read Update Delete
  */
 
-public abstract class GenericDAO<T> {
-
+public abstract class GenericDAO<T extends AbstractEntity> implements IGenericDAO<T> {
     //Protected
-    protected final String tableName;
+    final String tableName;
     protected Connection con;
 
     public GenericDAO(Connection con, String tableName) {
@@ -22,29 +23,17 @@ public abstract class GenericDAO<T> {
         this.con = con;
     }
 
-    //  SELECT FROM
-    public abstract T getByID(int id) throws SQLException;
-
-    // SELECT FROM List all
-    public abstract Set<T> getAllByID(int id) throws SQLException;
-
-    //  INSERT INTO
-    public abstract boolean create(T user) throws SQLException;
-
-    //  UPDATE ..SET
-    public abstract boolean update(T user) throws SQLException;
-
     //  DELETE FROM
-    public abstract boolean delete(T user) throws SQLException;
-
+    public boolean delete(T entity) {
+        try {
+            Statement stmt = con.createStatement();
+            int i = stmt.executeUpdate("DELETE FROM " + tableName + " WHERE id=" + entity.getId());
+            if (i == 1) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
 }
-
-//public interface GenericDao<T extends AbstractEntity> {
-//    boolean create(T t);
-//
-//    T read(int id);
-//
-//    boolean update(T t);
-//
-//    boolean delete(T t);
-//}

@@ -9,7 +9,6 @@ import java.util.Set;
  * @author rjourd2s
  */
 public class UnternehmerDAO extends GenericDAO<Unternehmer> {
-
     public UnternehmerDAO(Connection con) {
         super(con, "table_unternehmen");
     }
@@ -50,21 +49,6 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
             PreparedStatement ps = con.prepareStatement("UPDATE " + tableName + " SET unternehmenid=?,userid=?,firmenname=?,website=?,brancheid=?,ansprechpartner=? WHERE unternehmenid=" + unternehmer.getUnternehmerid());
             return createps(unternehmer, ps);
 
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return false;
-    }
-
-
-    @Override
-    public boolean delete(Unternehmer unternehmer) {
-        try {
-            Statement stmt = con.createStatement();
-            int i = stmt.executeUpdate("DELETE FROM " + tableName + " WHERE id=" + unternehmer.getId());
-            if (i == 1) {
-                return true;
-            }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

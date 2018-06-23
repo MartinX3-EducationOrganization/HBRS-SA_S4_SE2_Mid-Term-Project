@@ -7,18 +7,21 @@ package org.bonn.se.ss18.view;
  */
 
 import com.vaadin.annotations.Title;
+import com.vaadin.data.HasValue;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinService;
 import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.*;
+import org.bonn.se.ss18.controller.RegistrationController;
+import org.bonn.se.ss18.dto.UnternehmerDTO;
 
 import java.io.File;
 
-import static com.vaadin.ui.themes.ValoTheme.OPTIONGROUP_HORIZONTAL;
-
 @Title("Registrierung")
 public class RegistrationUnternehmen extends Abstract {
+    UnternehmerDTO unternehmerDTO = new UnternehmerDTO();
+
     public RegistrationUnternehmen() {
 //HauptLayout
         VerticalLayout layout = new VerticalLayout();
@@ -58,7 +61,7 @@ public class RegistrationUnternehmen extends Abstract {
         layout.setComponentAlignment(form, Alignment.MIDDLE_CENTER);
 
 //Nutzungsbedingungen
-        CheckBoxGroup<String> useConditionsCheckbox = setItemGroup(new CheckBoxGroup<>(), null, "");
+        CheckBoxGroup<String> useConditionsCheckbox = setItemGroup(new CheckBoxGroup<>(), null);
         useConditionsCheckbox.setRequiredIndicatorVisible(true);
         HorizontalLayout fittingLayout = setLayout(
                 new HorizontalLayout(
@@ -76,10 +79,11 @@ public class RegistrationUnternehmen extends Abstract {
         Button regestrieren =  new Button(
                 "Registrieren",
                 event -> {
-                    UI.getCurrent().getNavigator().navigateTo(ProfilUnternehmen.getName());
+                    new RegistrationController().registration(unternehmerDTO);
+                    UI.getCurrent().getNavigator().navigateTo(Login.getName());
                     Notification.show("Vielen Dank");
                 });
-        regestrieren.setId("regestrieren");
+        regestrieren.setId("registrieren");
         HorizontalLayout buttonlayout = setLayout(
                 new HorizontalLayout(regestrieren)
         );
@@ -106,28 +110,22 @@ public class RegistrationUnternehmen extends Abstract {
     }
 
     private FormLayout setForm() {
-        FormLayout form = setLayout(
+        return setLayout(
                 new FormLayout(
-                        setItemGroup(new RadioButtonGroup<>("Anrede"), OPTIONGROUP_HORIZONTAL, "Herr", "Frau"),
-                        setFormularItem(new TextField(), "Name, Vorname", VaadinIcons.USER),
-                        setFormularItem(new TextField(), "Unternehmen", VaadinIcons.OFFICE),
-                        setFormularItem(new DateField(), "Geburtstag", VaadinIcons.CALENDAR_USER),
-                        setFormularItem(new TextField(), "Email", VaadinIcons.MAILBOX),
-                        setFormularItem(new TextField(), "Telefon", VaadinIcons.PHONE)
+                        setFormularItem(new TextField(), "Unternehmen", VaadinIcons.OFFICE, x -> unternehmerDTO.setFirmenname(x.getValue().getValue())),
+                        setFormularItem(new TextField(), "Email", VaadinIcons.MAILBOX, x -> unternehmerDTO.setEmail(x.getValue().getValue())),
+                        setFormularItem(new TextField(), "Telefon", VaadinIcons.PHONE, x -> unternehmerDTO.setTelNr(x.getValue().getValue())),
+                        setFormularItem(new TextField(), "Ort", VaadinIcons.HOME, x -> unternehmerDTO.setOrt(x.getValue().getValue())),
+                        setFormularItem(new TextField(), "PLZ", VaadinIcons.HOME, x -> unternehmerDTO.setPlz(x.getValue().getValue()))
                 )
         );
-
-//PLZ
-        AbstractField<String> plz = setFormularItem(new TextField(), "Ort, PLZ", VaadinIcons.HOME);
-        form.addComponent(plz);
-        form.setComponentAlignment(plz, Alignment.MIDDLE_CENTER);
-        return form;
     }
 
-    private <T extends AbstractField> T setFormularItem(T item, String title, VaadinIcons icon) {
+    private <T extends AbstractField> T setFormularItem(T item, String title, VaadinIcons icon, HasValue.ValueChangeListener<T> listener) {
         item.setCaption(title);
         item.setIcon(icon);
         item.setRequiredIndicatorVisible(true);
+        item.addValueChangeListener(listener);
 
         return item;
     }

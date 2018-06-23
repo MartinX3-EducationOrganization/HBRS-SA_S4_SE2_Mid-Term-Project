@@ -58,21 +58,6 @@ public class StudentDAO extends GenericDAO<Student> {
         return false;
     }
 
-
-    @Override
-    public boolean delete(Student student) {
-        try {
-            Statement stmt = con.createStatement();
-            int i = stmt.executeUpdate("DELETE FROM " + tableName + " WHERE id=" + student.getId());
-            if (i == 1) {
-                return true;
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return false;
-    }
-
     /*
         Methoden die zusätzlich dazukommen
      */
