@@ -12,12 +12,12 @@ import java.sql.SQLException;
  * @author rjourd2s
  */
 public class ConnectionFactory {
-    private static ConnectionFactory instance;
-    private Connection connection;
-    private DataSource dsource;
    private static final String url = "jdbc:postgresql://dumbo.inf.h-brs.de:5432/amoham2s";
    private static final String username = "amoham2s";
    private static final String password = "amoham2s";
+    private static ConnectionFactory instance;
+    private Connection connection;
+    private DataSource dsource;
   // private static final String url = "jdbc:postgresql://dumbo.inf.h-brs.de:5432/nbala2s";
   //  private static final String username = "nbala2s";
   //  private static final String password = "nbala2s";
@@ -26,24 +26,24 @@ public class ConnectionFactory {
     private ConnectionFactory() throws SQLException {
         try {
             Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection(url, username, password);
+            connection = DriverManager.getConnection(ConnectionFactory.url, ConnectionFactory.username, ConnectionFactory.password);
         } catch (ClassNotFoundException ex) {
             System.out.println("Database Connection Creation Failed : " + ex.getMessage());
         }
     }
 
-    public Connection getConnection() {
-        return connection;
-    }
-
     public static ConnectionFactory getInstance() throws SQLException {
-        if (instance == null) {
-            instance = new ConnectionFactory();
-        } else if (instance.getConnection().isClosed()) {
-            instance = new ConnectionFactory();
+        if (ConnectionFactory.instance == null) {
+            ConnectionFactory.instance = new ConnectionFactory();
+        } else if (ConnectionFactory.instance.getConnection().isClosed()) {
+            ConnectionFactory.instance = new ConnectionFactory();
         }
 
-        return instance;
+        return ConnectionFactory.instance;
+    }
+
+    public Connection getConnection() {
+        return connection;
     }
 
     public GenericDAO getDAO(Tables t) throws SQLException {
@@ -78,9 +78,7 @@ public class ConnectionFactory {
                 return new AnzeigeDAO(connection);
             default:
                 throw new SQLException("Trying to link to an unexistant table.");
-
         }
-
     }
 
     protected void open() throws SQLException {

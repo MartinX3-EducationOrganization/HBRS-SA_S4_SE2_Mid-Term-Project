@@ -15,7 +15,7 @@ public class UserDAO extends GenericDAO<User> {
 
 
     @Override
-    public User readbyId(int id) {
+    public User readByID(int id) {
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " WHERE userid=" + id);

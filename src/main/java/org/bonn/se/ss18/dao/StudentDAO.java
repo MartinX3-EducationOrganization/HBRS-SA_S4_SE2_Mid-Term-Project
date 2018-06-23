@@ -15,7 +15,7 @@ public class StudentDAO extends GenericDAO<Student> {
 
 
     @Override
-    public Student readbyId(int id) {
+    public Student readByID(int id) {
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM table_user INNER JOIN table_student ss ON table_user.userid = ss.userid " +

@@ -17,7 +17,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
     }
 
     @Override
-    public Anzeige readbyId(int id) {
+    public Anzeige readByID(int id) {
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " WHERE anzeigeid=" + id);

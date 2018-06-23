@@ -27,7 +27,7 @@ public class StudentDAOTest {
 
     @Test
     public void readbyId() throws SQLException {
-        Student student = dao.readbyId(1);
+        Student student = dao.readByID(1);
 
         Assert.assertEquals("Sascha", student.getVorname());
 

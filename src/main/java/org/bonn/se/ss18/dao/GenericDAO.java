@@ -13,8 +13,17 @@ CRUD: Create Read Update Delete
 
 public abstract class GenericDAO<T> {
 
+    //Protected
+    protected final String tableName;
+    protected Connection con;
+
+    public GenericDAO(Connection con, String tableName) {
+        this.tableName = tableName;
+        this.con = con;
+    }
+
     //  SELECT FROM
-    public abstract T readbyId(int id) throws SQLException;
+    public abstract T readByID(int id) throws SQLException;
 
     // SELECT FROM List all
     public abstract Set<T> getAllbyId(int id) throws SQLException;
@@ -27,16 +36,6 @@ public abstract class GenericDAO<T> {
 
     //  DELETE FROM
     public abstract boolean delete(T user) throws SQLException;
-
-
-    //Protected
-    protected final String tableName;
-    protected Connection con;
-
-    public GenericDAO(Connection con, String tableName) {
-        this.tableName = tableName;
-        this.con = con;
-    }
 
 }
 

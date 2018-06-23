@@ -2,20 +2,17 @@ package org.bonn.se.ss18.dao;
 
 import org.bonn.se.ss18.controller.ConnectionFactory;
 import org.bonn.se.ss18.entity.Anzeige;
-import org.bonn.se.ss18.service.Tables;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Date;
-import java.sql.SQLException;
-import java.util.Set;
 
 public class AnzeigeDAOTest {
+    private final Anzeige anzeige = new Anzeige();
     private AnzeigeDAO adao;
     private ConnectionFactory dao;
-    private final Anzeige anzeige = new Anzeige();
 
     @Before
     public void setUp() throws Exception {
@@ -56,7 +53,7 @@ public class AnzeigeDAOTest {
 
     @Test
     public void testReadbyId() {
-        Anzeige anzeige2 = adao.readbyId(6);
+        Anzeige anzeige2 = adao.readByID(6);
         Assert.assertEquals(6, anzeige2.getId());
         Assert.assertEquals(1, anzeige2.getUserid());
        // Assert.assertEquals(new Date(2000, 1, 1), Date.valueOf(anzeige.getDatum()));
@@ -90,13 +87,13 @@ public class AnzeigeDAOTest {
     @Test
     public void testUpadate() {
 
-        Anzeige anzeige = adao.readbyId(6);
+        Anzeige anzeige = adao.readByID(6);
 
         anzeige.setTyp("Gesuch");
         Assert.assertTrue(adao.update(anzeige));
 
 //  Neue Werte die du updaten möchtest.
-//  Teste auf True dat update geklappt, danach adao.readbyId(id) ob es geklappt hat.
+//  Teste auf True dat update geklappt, danach adao.readByID(id) ob es geklappt hat.
 
     }
 
@@ -117,7 +114,7 @@ public class AnzeigeDAOTest {
         adao.create(anzeige);
         Assert.assertTrue(adao.delete(anzeige));
         // Gibt es noch eine Anzeige mit der Id 100 ? Wenn nicht Null.
-       // Assert.assertNull(adao.readbyId(100));
+       // Assert.assertNull(adao.readByID(100));
 
 
     }

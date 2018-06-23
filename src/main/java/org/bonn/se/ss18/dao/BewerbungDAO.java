@@ -15,7 +15,7 @@ public class BewerbungDAO extends GenericDAO<Bewerbung> {
     }
 
     @Override
-    public Bewerbung readbyId(int id) throws SQLException {
+    public Bewerbung readByID(int id) throws SQLException {
         return null;
     }
 
