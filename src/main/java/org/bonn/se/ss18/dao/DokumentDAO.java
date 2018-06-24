@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class DokumentDAO extends GenericDAO<Dokument> {
     public DokumentDAO(Connection con) {
-        super(con, "table_dokument");
+        super(con, "table_dokument", "dokumentid");
     }
 
     @Override
@@ -31,11 +31,6 @@ public class DokumentDAO extends GenericDAO<Dokument> {
 
     @Override
     public boolean update(Dokument user) throws SQLException {
-        return false;
-    }
-
-    @Override
-    public boolean delete(Dokument user) throws SQLException {
         return false;
     }
 }

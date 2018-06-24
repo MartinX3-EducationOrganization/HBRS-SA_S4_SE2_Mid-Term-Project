@@ -1,8 +1,14 @@
 package org.bonn.se.ss18.dao;
 
+import org.bonn.se.ss18.controller.ConnectionFactory;
 import org.bonn.se.ss18.entity.Unternehmer;
+import org.bonn.se.ss18.entity.User;
+import org.bonn.se.ss18.service.Tables;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Set;
 
 /**
@@ -10,20 +16,25 @@ import java.util.Set;
  */
 public class UnternehmerDAO extends GenericDAO<Unternehmer> {
     public UnternehmerDAO(Connection con) {
-        super(con, "table_unternehmen");
+        super(con, "table_unternehmen", "unternehmenid");
     }
 
     @Override
     public Unternehmer getByID(int id) {
         try {
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " WHERE userid=" + id);
-            return readResults(rs);
+            return readResults(
+                    super.getRsByID(id),
+                    ((UserDAO) ConnectionFactory.getInstance().getDAO(Tables.table_user))
+                            .getByID(
+                                    con.createStatement()
+                                            .executeQuery("SELECT userid FROM table_student WHERE " + super.primaryKey + "=" + id)
+                                            .getInt(1)
+                            )
+            );
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
-
     }
 
     @Override
@@ -44,7 +55,6 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
 
     @Override
     public boolean update(Unternehmer unternehmer) {
-
         try {
             PreparedStatement ps = con.prepareStatement("UPDATE " + tableName + " SET unternehmenid=?,userid=?,firmenname=?,website=?,brancheid=?,ansprechpartner=? WHERE unternehmenid=" + unternehmer.getUnternehmerid());
             return createps(unternehmer, ps);
@@ -71,9 +81,9 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
         return i == 1;
     }
 
-    private Unternehmer readResults(ResultSet rs) throws SQLException {
+    private Unternehmer readResults(ResultSet rs, User user) throws SQLException {
         if (rs.next()) {
-            Unternehmer unternehmer = new Unternehmer();
+            Unternehmer unternehmer = (Unternehmer) user;
             unternehmer.setUnternehmerid(rs.getInt(1));
             unternehmer.setId(rs.getInt(2));
             unternehmer.setFirmenname(rs.getString(3));

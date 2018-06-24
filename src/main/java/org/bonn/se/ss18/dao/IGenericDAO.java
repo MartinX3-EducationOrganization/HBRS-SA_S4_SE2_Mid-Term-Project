@@ -7,6 +7,7 @@
 
 package org.bonn.se.ss18.dao;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Set;
 
@@ -15,15 +16,13 @@ import java.util.Set;
  * @project wi-inf_se2_2018_grundgeruest
  */
 public interface IGenericDAO<T> {
-    //  SELECT FROM
+    ResultSet getRsByID(int id) throws SQLException;
+
     T getByID(int id) throws SQLException;
 
-    // SELECT FROM List all
     Set<T> getAllByID(int id) throws SQLException;
 
-    //  INSERT INTO
     boolean create(T entity) throws SQLException;
 
-    //  UPDATE ..SET
     boolean update(T entity) throws SQLException;
 }

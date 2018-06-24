@@ -13,20 +13,17 @@ import java.util.Set;
 public class AnzeigeDAO extends GenericDAO<Anzeige> {
 
     public AnzeigeDAO(Connection con) {
-        super(con, "table_anzeige");
+        super(con, "table_anzeige", "anzeigeid");
     }
 
     @Override
     public Anzeige getByID(int id) {
         try {
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " WHERE anzeigeid=" + id);
-            return readResults(rs);
+            return readResults(super.getRsByID(id));
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
-
     }
 
     @Override
@@ -71,20 +68,6 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
                     + "WHERE anzeigeid = " + stelle.getId());
             return createps(stelle, ps);
 
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return false;
-    }
-
-    @Override
-    public boolean delete(Anzeige stelle) {
-        try {
-            Statement stmt = con.createStatement();
-            int i = stmt.executeUpdate("DELETE FROM " + tableName + " WHERE anzeigeid=" + stelle.getId());
-            if (i == 1) {
-                return true;
-            }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class BrancheDAO extends GenericDAO<Branche> {
     public BrancheDAO(Connection con) {
-        super(con, "table_branche");
+        super(con, "table_branche", "brancheid");
     }
 
     @Override
@@ -31,11 +31,6 @@ public class BrancheDAO extends GenericDAO<Branche> {
 
     @Override
     public boolean update(Branche user) throws SQLException {
-        return false;
-    }
-
-    @Override
-    public boolean delete(Branche user) throws SQLException {
         return false;
     }
 }

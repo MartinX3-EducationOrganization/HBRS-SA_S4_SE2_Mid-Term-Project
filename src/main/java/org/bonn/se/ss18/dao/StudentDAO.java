@@ -1,6 +1,9 @@
 package org.bonn.se.ss18.dao;
 
+import org.bonn.se.ss18.controller.ConnectionFactory;
 import org.bonn.se.ss18.entity.Student;
+import org.bonn.se.ss18.entity.User;
+import org.bonn.se.ss18.service.Tables;
 
 import java.sql.*;
 import java.util.Set;
@@ -10,17 +13,21 @@ import java.util.Set;
  */
 public class StudentDAO extends GenericDAO<Student> {
     public StudentDAO(Connection con) {
-        super(con, "table_student");
+        super(con, "table_student", "linuxid");
     }
 
-
     @Override
-    public Student getByID(int id) {
+    public Student getByID(int userID) {
         try {
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM table_user INNER JOIN table_student ss ON table_user.userid = ss.userid " +
-                    "WHERE table_user.userid=" + id);
-            return readResults(rs);
+            return readResults(
+                    super.getRsByID(userID),
+                    ((UserDAO) ConnectionFactory.getInstance().getDAO(Tables.table_user))
+                            .getByID(
+                                    con.createStatement()
+                                            .executeQuery("SELECT userid FROM table_student WHERE userid=" + userID)
+                                            .getInt(1)
+                            )
+            );
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -63,10 +70,16 @@ public class StudentDAO extends GenericDAO<Student> {
      */
     public Student read(String linuxid) {
         try {
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM table_user INNER JOIN table_student ss ON table_user.userid = ss.userid " +
-                    "WHERE ss.linuxid=" + "\'" + linuxid + "\'");
-            return readResults(rs);
+            int id = con.createStatement().executeQuery("SELECT userid FROM table_student WHERE " + super.primaryKey + "=" + linuxid).getInt(1);
+            return readResults(
+                    super.getRsByID(id),
+                    ((UserDAO) ConnectionFactory.getInstance().getDAO(Tables.table_user))
+                            .getByID(
+                                    con.createStatement()
+                                            .executeQuery("SELECT userid FROM table_student WHERE userid=" + id)
+                                            .getInt(1)
+                            )
+            );
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -88,9 +101,9 @@ public class StudentDAO extends GenericDAO<Student> {
         return i == 1;
     }
 
-    private Student readResults(ResultSet rs) throws SQLException {
+    private Student readResults(ResultSet rs, User user) throws SQLException {
         if (rs.next()) {
-            Student student = new Student();
+            Student student = (Student) user;
             student.setId(rs.getInt(1));
             student.setPasswort(rs.getString(2));
             student.setStrasse(rs.getString(3));

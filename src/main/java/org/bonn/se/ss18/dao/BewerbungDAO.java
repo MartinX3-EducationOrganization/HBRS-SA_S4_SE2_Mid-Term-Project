@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class BewerbungDAO extends GenericDAO<Bewerbung> {
     public BewerbungDAO(Connection con) {
-        super(con, "table_bewerbung");
+        super(con, "table_bewerbung", "bewerbungid");
     }
 
     @Override
@@ -31,11 +31,6 @@ public class BewerbungDAO extends GenericDAO<Bewerbung> {
 
     @Override
     public boolean update(Bewerbung user) throws SQLException {
-        return false;
-    }
-
-    @Override
-    public boolean delete(Bewerbung user) throws SQLException {
         return false;
     }
 }

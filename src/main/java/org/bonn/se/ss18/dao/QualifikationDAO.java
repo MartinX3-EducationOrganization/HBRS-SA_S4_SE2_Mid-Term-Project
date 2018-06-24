@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class QualifikationDAO extends GenericDAO<Qualifikation> {
     public QualifikationDAO(Connection con) {
-        super(con, "table_qualifikation");
+        super(con, "table_qualifikation", "qualifikationid");
     }
 
     @Override
@@ -31,11 +31,6 @@ public class QualifikationDAO extends GenericDAO<Qualifikation> {
 
     @Override
     public boolean update(Qualifikation user) throws SQLException {
-        return false;
-    }
-
-    @Override
-    public boolean delete(Qualifikation user) throws SQLException {
         return false;
     }
 }

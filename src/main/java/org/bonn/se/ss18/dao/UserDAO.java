@@ -10,16 +10,13 @@ import java.util.Set;
  */
 public class UserDAO extends GenericDAO<User> {
     public UserDAO(Connection con) {
-        super(con, "table_user");
+        super(con, "table_user", "userid");
     }
-
 
     @Override
     public User getByID(int id) {
         try {
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " WHERE userid=" + id);
-            return readResults(rs);
+            return readResults(super.getRsByID(id));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -53,7 +50,6 @@ public class UserDAO extends GenericDAO<User> {
 
         return false;
     }
-
 
     @Override
     public boolean update(User user) {
