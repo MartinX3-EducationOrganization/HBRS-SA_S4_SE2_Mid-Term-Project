@@ -104,7 +104,9 @@ public class MainUI extends UI {
 
         Image logo = new Image(
                 null,
-                new FileResource(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/WEB-INF/classes/logo.png"))
+                new FileResource(
+                        new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/WEB-INF/classes/logo.png")
+                )
         );
         logo.setHeight(37, Unit.PIXELS);
 

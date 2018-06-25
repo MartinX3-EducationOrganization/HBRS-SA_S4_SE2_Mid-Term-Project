@@ -104,8 +104,7 @@ public class RegistrationUnternehmen extends Abstract {
                         new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/WEB-INF/classes/logo.png")
                 )
         );
-        logo.setWidth(200, Unit.PIXELS);
-        logo.setHeight(200, Unit.PIXELS);
+        logo.setHeight(100, Unit.PIXELS);
         return logo;
     }
 
