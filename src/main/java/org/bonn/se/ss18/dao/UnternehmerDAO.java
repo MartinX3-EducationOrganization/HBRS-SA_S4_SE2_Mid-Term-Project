@@ -23,7 +23,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
     public Unternehmer getByID(int id) {
         try {
             return readResults(
-                    super.getRsByID(id),
+                    super.getRsByID(id + ""),
                     ((UserDAO) ConnectionFactory.getInstance().getDAO(Tables.table_user))
                             .getByID(
                                     con.createStatement()

@@ -19,7 +19,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
     @Override
     public Anzeige getByID(int id) {
         try {
-            return readResults(super.getRsByID(id));
+            return readResults(super.getRsByID(id + ""));
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -15,25 +15,19 @@ public class StudentDAOTest {
 
     @Before
     public void setUp() throws Exception {
-
         dao = new StudentDAO(ConnectionFactory.getInstance().getConnection());
     }
 
     @After
     public void tearDown() throws Exception {
-
     }
-
 
     @Test
     public void readbyId() throws SQLException {
         Student student = dao.getByID(1);
 
         Assert.assertEquals("Sascha", student.getVorname());
-
-
     }
-
 
    /* @Test
     public void getAllByID() {
@@ -47,6 +41,7 @@ public class StudentDAOTest {
     public void create() {
         Student student = new Student();
         student.setLinuxID("ux2s");
+        student.setPasswort("1111");
         student.setId(1);
         student.setAnrede("Herr");
         student.setVorname("muster");
@@ -57,19 +52,16 @@ public class StudentDAOTest {
 
     @Test
     public void update() {
-
-        Student student = dao.read("ux2s");
+        Student student = dao.getByUserAndPass("ux2s", "1111");
         student.setVorname("Alda");
         Assert.assertTrue(dao.update(student));
-
-
     }
 
     @Test
     public void delete() {
-
         Student student = new Student();
         student.setLinuxID("hmn2s");
+        student.setPasswort("1111");
         student.setId(2);
         student.setAnrede("Herr");
         student.setVorname("beni");
@@ -81,7 +73,7 @@ public class StudentDAOTest {
 
     @Test
     public void read() {
-        Student student = dao.read("ux2s");
+        Student student = dao.getByUserAndPass("ux2s", "1111");
 
         Assert.assertFalse(student == null);
         Assert.assertTrue(student != null);

@@ -27,7 +27,7 @@ public class LoginController {
      *   LOGIN via Linuxid
      *
      */
-    public boolean login(String usernamme, String password) throws NoSuchUserOrPasswort {
+    public boolean login(String username, String password) throws NoSuchUserOrPasswort {
         ConnectionFactory dao;
         try {
             dao = ConnectionFactory.getInstance();
@@ -48,49 +48,37 @@ public class LoginController {
             return false;
         }
 
-        int id = 0;
-
-
-        if (sDAO.read(usernamme) != null)
-
-        {
-            id = sDAO.read(usernamme).getId();
-            UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, sDAO.read(usernamme));
-
-        } else if (uDAO.getByColumnValue("email", usernamme) != null)
-
-        {
-            id = uDAO.getByColumnValue("email", usernamme).getId();
-            if (sDAO.getByID(id) != null) {
-                UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, sDAO.getByID(id));
-            } else if (untDAO.getByID(id) != null) {
-                UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, untDAO.getByID(id));
+        int id;
+        Student user = sDAO.getByUserAndPass(username, password);
+        if (user != null) {
+            UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, user);
+        } else if (uDAO.getByColumnValue("email", username) != null) {
+            id = uDAO.getByColumnValue("email", username).getId();
+            Student student = sDAO.getByID(id);
+            if (student != null) {
+                if (student.getPasswort().equals(password)) {
+                    UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, student);
+                } else {
+                    throw new NoSuchUserOrPasswort();
+                }
             } else {
-                throw new NoSuchUserOrPasswort();
+                Unternehmer unternehmer = untDAO.getByID(id);
+                if (unternehmer != null && unternehmer.getPasswort().equals(password)) {
+                    UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, unternehmer);
+                } else {
+                    throw new NoSuchUserOrPasswort();
+                }
             }
         } else {
             throw new NoSuchUserOrPasswort();
         }
 
-
-        if ((uDAO.getByID(id).
-
-                getPasswort().
-
-                equals(password)))
-
-        {
-            if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) instanceof Student) {
-                UI.getCurrent().getNavigator().navigateTo(ProfilStudent.getName());
-                return true;
-            } else if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) instanceof Unternehmer) {
-                UI.getCurrent().getNavigator().navigateTo(ProfilUnternehmen.getName());
-                return true;
-            }
-        } else
-
-        {
-            throw new NoSuchUserOrPasswort();
+        if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) instanceof Student) {
+            UI.getCurrent().getNavigator().navigateTo(ProfilStudent.getName());
+            return true;
+        } else if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) instanceof Unternehmer) {
+            UI.getCurrent().getNavigator().navigateTo(ProfilUnternehmen.getName());
+            return true;
         }
         return false;
     }

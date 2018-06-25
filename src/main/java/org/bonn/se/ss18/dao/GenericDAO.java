@@ -26,9 +26,9 @@ public abstract class GenericDAO<T extends AbstractEntity> implements IGenericDA
     }
 
     @Override
-    public ResultSet getRsByID(int id) {
+    public ResultSet getRsByID(String id) {
         try {
-            return con.createStatement().executeQuery("SELECT * FROM " + tableName + " WHERE " + primaryKey + "=" + id);
+            return con.createStatement().executeQuery(String.format("SELECT * FROM %s WHERE %s='%s'", tableName, primaryKey, id));
         } catch (SQLException e) {
             e.printStackTrace();
         }

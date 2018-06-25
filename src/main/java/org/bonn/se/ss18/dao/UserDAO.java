@@ -16,7 +16,7 @@ public class UserDAO extends GenericDAO<User> {
     @Override
     public User getByID(int id) {
         try {
-            return readResults(super.getRsByID(id));
+            return readResults(super.getRsByID(id + ""));
         } catch (SQLException e) {
             e.printStackTrace();
         }

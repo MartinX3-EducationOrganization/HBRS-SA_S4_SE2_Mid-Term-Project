@@ -11,6 +11,24 @@ public class Unternehmer extends User {
     private int branchenid;
     private String ansprechpartner;
 
+    public Unternehmer() {
+    }
+
+    public Unternehmer(User user) {
+        super();
+        setId(user.getId());
+        setEmail(user.getEmail());
+        setOrt(user.getOrt());
+        setPasswort(user.getPasswort());
+        setPlz(user.getPlz());
+        setFaxNr(user.getFaxNr());
+        setFoto(user.getFoto());
+        setHausnr(user.getHausnr());
+        setKurzVorstellung(user.getKurzVorstellung());
+        setStrasse(user.getStrasse());
+        setTelNr(user.getTelNr());
+    }
+
     public String getAnsprechpartner() {
         return ansprechpartner;
     }

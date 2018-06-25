@@ -13,6 +13,24 @@ public class Student extends User {
     private String nachname;
     private LocalDate gebDatum;
 
+    public Student() {
+    }
+
+    public Student(User user) {
+        super();
+        setId(user.getId());
+        setEmail(user.getEmail());
+        setOrt(user.getOrt());
+        setPasswort(user.getPasswort());
+        setPlz(user.getPlz());
+        setFaxNr(user.getFaxNr());
+        setFoto(user.getFoto());
+        setHausnr(user.getHausnr());
+        setKurzVorstellung(user.getKurzVorstellung());
+        setStrasse(user.getStrasse());
+        setTelNr(user.getTelNr());
+    }
+
     public String getLinuxID() {
         return linuxID;
     }

@@ -19,15 +19,27 @@ public class StudentDAO extends GenericDAO<Student> {
     @Override
     public Student getByID(int userID) {
         try {
-            return readResults(
-                    super.getRsByID(userID),
-                    ((UserDAO) ConnectionFactory.getInstance().getDAO(Tables.table_user))
-                            .getByID(
-                                    con.createStatement()
-                                            .executeQuery("SELECT userid FROM table_student WHERE userid=" + userID)
-                                            .getInt(1)
-                            )
-            );
+            ResultSet resultSet = con.createStatement().executeQuery("SELECT userid FROM table_student WHERE userid=" + userID);
+            if (resultSet.next()) {
+                return readResults(
+                        getRsByID(userID + ""),
+                        ((UserDAO) ConnectionFactory.getInstance().getDAO(Tables.table_user))
+                                .getByID(
+                                        resultSet
+                                                .getInt(1)
+                                )
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public ResultSet getRsByID(String id) {
+        try {
+            return con.createStatement().executeQuery(String.format("SELECT * FROM %s WHERE userid='%s'", tableName, id));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -43,7 +55,7 @@ public class StudentDAO extends GenericDAO<Student> {
     @Override
     public boolean create(Student student) {
         try {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO " + tableName + " VALUES (?, ?, ?, ?, ?, ?)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO " + super.tableName + " VALUES (?, ?, ?, ?, ?, ?)");
             return createps(student, ps);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -54,9 +66,8 @@ public class StudentDAO extends GenericDAO<Student> {
 
     @Override
     public boolean update(Student student) {
-
         try {
-            PreparedStatement ps = con.prepareStatement("UPDATE " + tableName + " SET linuxid=?,userid=?,anrede=?,vorname=?,nachname=?,gebdatum=? WHERE linuxid='" + student.getLinuxID() +"'");
+            PreparedStatement ps = con.prepareStatement("UPDATE " + super.tableName + " SET linuxid=?,userid=?,anrede=?,vorname=?,nachname=?,gebdatum=? WHERE linuxid='" + student.getLinuxID() + "'");
             return createps(student, ps);
 
         } catch (SQLException ex) {
@@ -68,18 +79,23 @@ public class StudentDAO extends GenericDAO<Student> {
     /*
         Methoden die zusätzlich dazukommen
      */
-    public Student read(String linuxid) {
+    public Student getByUserAndPass(String linuxid, String password) {
         try {
-            int id = con.createStatement().executeQuery("SELECT userid FROM table_student WHERE " + super.primaryKey + "=" + linuxid).getInt(1);
-            return readResults(
-                    super.getRsByID(id),
-                    ((UserDAO) ConnectionFactory.getInstance().getDAO(Tables.table_user))
-                            .getByID(
-                                    con.createStatement()
-                                            .executeQuery("SELECT userid FROM table_student WHERE userid=" + id)
-                                            .getInt(1)
-                            )
-            );
+            ResultSet resultSet = con.createStatement().executeQuery(String.format("SELECT table_user.userid FROM %s JOIN table_user ON %s.userid=table_user.userid WHERE %s.%s='%s' AND table_user.passwort='%s'", super.tableName, super.tableName, super.tableName, super.primaryKey, linuxid, password));
+            if (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                ResultSet studentResultSet = con.createStatement().executeQuery("SELECT userid FROM table_student WHERE userid=" + id);
+                if (studentResultSet.next()) {
+                    return readResults(
+                            super.getRsByID(linuxid),
+                            ((UserDAO) ConnectionFactory.getInstance().getDAO(Tables.table_user))
+                                    .getByID(
+                                            studentResultSet
+                                                    .getInt(1)
+                                    )
+                    );
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -103,24 +119,13 @@ public class StudentDAO extends GenericDAO<Student> {
 
     private Student readResults(ResultSet rs, User user) throws SQLException {
         if (rs.next()) {
-            Student student = (Student) user;
-            student.setId(rs.getInt(1));
-            student.setPasswort(rs.getString(2));
-            student.setStrasse(rs.getString(3));
-            student.setHausnr(rs.getString(4));
-            student.setPlz(rs.getString(5));
-            student.setOrt(rs.getString(6));
-            student.setEmail(rs.getString(7));
-            student.setTelNr(rs.getString(8));
-            student.setFaxNr(rs.getString(9));
-            student.setFoto(rs.getBytes(10));
-            student.setKurzVorstellung(rs.getString(11));
-            student.setLinuxID(rs.getString(12));
-            student.setId(rs.getInt(13));
-            student.setAnrede(rs.getString(14));
-            student.setVorname(rs.getString(15));
-            student.setNachname(rs.getString(16));
-            student.setGebDatum(rs.getDate(17));
+            Student student = new Student(user);
+            student.setLinuxID(rs.getString(1));
+            student.setId(rs.getInt(2));
+            student.setAnrede(rs.getString(3));
+            student.setVorname(rs.getString(4));
+            student.setNachname(rs.getString(5));
+            student.setGebDatum(rs.getDate(6));
             return student;
         }
         return null;

@@ -16,7 +16,7 @@ import java.util.Set;
  * @project wi-inf_se2_2018_grundgeruest
  */
 public interface IGenericDAO<T> {
-    ResultSet getRsByID(int id) throws SQLException;
+    ResultSet getRsByID(String id) throws SQLException;
 
     T getByID(int id) throws SQLException;
 
