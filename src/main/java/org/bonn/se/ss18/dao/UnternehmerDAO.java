@@ -22,15 +22,17 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
     @Override
     public Unternehmer getByID(int id) {
         try {
-            return readResults(
-                    super.getRsByID(id + ""),
-                    ((UserDAO) ConnectionFactory.getInstance().getDAO(Tables.table_user))
-                            .getByID(
-                                    con.createStatement()
-                                            .executeQuery(String.format("SELECT userid FROM %s WHERE %s=%s", super.tableName, super.primaryKey, id))
-                                            .getInt(1)
-                            )
-            );
+            ResultSet resultSet = con.createStatement().executeQuery(String.format("SELECT userid FROM %s WHERE %s=%s", super.tableName, super.primaryKey, id));
+            if (resultSet.next()) {
+                return readResults(
+                        getRsByID(id + ""),
+                        ((UserDAO) ConnectionFactory.getInstance().getDAO(Tables.table_user))
+                                .getByID(
+                                        resultSet
+                                                .getInt(1)
+                                )
+                );
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
