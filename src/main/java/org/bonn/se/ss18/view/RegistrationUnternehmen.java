@@ -61,8 +61,9 @@ public class RegistrationUnternehmen extends Abstract {
         layout.setComponentAlignment(form, Alignment.MIDDLE_CENTER);
 
 //Nutzungsbedingungen
-        CheckBoxGroup<String> useConditionsCheckbox = setItemGroup(new CheckBoxGroup<>(), null);
+        CheckBox useConditionsCheckbox = new CheckBox(null, false);
         useConditionsCheckbox.setRequiredIndicatorVisible(true);
+        useConditionsCheckbox.addValueChangeListener(x -> unternehmerDTO.setCheckboxAGB(x.getValue()));
         HorizontalLayout fittingLayout = setLayout(
                 new HorizontalLayout(
                         useConditionsCheckbox,
@@ -76,16 +77,20 @@ public class RegistrationUnternehmen extends Abstract {
         layout.setComponentAlignment(fittingLayout, Alignment.BOTTOM_CENTER);
 
 //Button Registrieren
-        Button regestrieren =  new Button(
+        Button registrieren = new Button(
                 "Registrieren",
                 event -> {
-                    new RegistrationController().registration(unternehmerDTO);
-                    UI.getCurrent().getNavigator().navigateTo(Login.getName());
-                    Notification.show("Vielen Dank");
+                    if (unternehmerDTO.isCheckboxAGB()) {
+                        new RegistrationController().registration(unternehmerDTO);
+                        UI.getCurrent().getNavigator().navigateTo(Login.getName());
+                        Notification.show("Vielen Dank");
+                    } else {
+                        Notification.show("Bitte AGB's bestätigen!");
+                    }
                 });
-        regestrieren.setId("registrieren");
+        registrieren.setId("registrieren");
         HorizontalLayout buttonlayout = setLayout(
-                new HorizontalLayout(regestrieren)
+                new HorizontalLayout(registrieren)
         );
         layout.addComponent(buttonlayout);
         layout.setComponentAlignment(buttonlayout, Alignment.BOTTOM_CENTER);
@@ -113,6 +118,7 @@ public class RegistrationUnternehmen extends Abstract {
                 new FormLayout(
                         setFormularItem(new TextField(), "Unternehmen", VaadinIcons.OFFICE, x -> unternehmerDTO.setFirmenname(x.getValue().getValue())),
                         setFormularItem(new TextField(), "Email", VaadinIcons.MAILBOX, x -> unternehmerDTO.setEmail(x.getValue().getValue())),
+                        setFormularItem(new PasswordField(), "Passwort", VaadinIcons.PASSWORD, x -> unternehmerDTO.setPasswort(x.getValue().getValue())),
                         setFormularItem(new TextField(), "Telefon", VaadinIcons.PHONE, x -> unternehmerDTO.setTelNr(x.getValue().getValue())),
                         setFormularItem(new TextField(), "Ort", VaadinIcons.HOME, x -> unternehmerDTO.setOrt(x.getValue().getValue())),
                         setFormularItem(new TextField(), "PLZ", VaadinIcons.HOME, x -> unternehmerDTO.setPlz(x.getValue().getValue()))

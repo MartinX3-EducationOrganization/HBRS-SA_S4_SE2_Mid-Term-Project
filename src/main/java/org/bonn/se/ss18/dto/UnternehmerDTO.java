@@ -17,6 +17,7 @@ public class UnternehmerDTO extends UserDTO {
     private String website;
     private int branchenid;
     private String ansprechpartner;
+    private boolean checkboxAGB;
 
     public String getAnsprechpartner() {
         return ansprechpartner;
@@ -58,4 +59,11 @@ public class UnternehmerDTO extends UserDTO {
         this.branchenid = branchenid;
     }
 
+    public boolean isCheckboxAGB() {
+        return checkboxAGB;
+    }
+
+    public void setCheckboxAGB(boolean checkboxAGB) {
+        this.checkboxAGB = checkboxAGB;
+    }
 }
