@@ -26,11 +26,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
             if (resultSet.next()) {
                 return readResults(
                         getRsByID(id + ""),
-                        ((UserDAO) ConnectionFactory.getInstance().getDAO(Tables.table_user))
-                                .getByID(
-                                        resultSet
-                                                .getInt(1)
-                                )
+                        ((UserDAO) ConnectionFactory.getInstance().getDAO(Tables.table_user)).getByID(id)
                 );
             }
         } catch (SQLException e) {
