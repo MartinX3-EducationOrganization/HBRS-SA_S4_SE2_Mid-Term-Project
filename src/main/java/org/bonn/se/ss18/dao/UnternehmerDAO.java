@@ -22,7 +22,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
     @Override
     public Unternehmer getByID(int id) {
         try {
-            ResultSet resultSet = con.createStatement().executeQuery(String.format("SELECT userid FROM %s WHERE %s=%s", super.tableName, super.primaryKey, id));
+            ResultSet resultSet = con.createStatement().executeQuery(String.format("SELECT userid FROM %s WHERE %s=%s", super.tableName, "userid", id));
             if (resultSet.next()) {
                 return readResults(
                         getRsByID(id + ""),
