@@ -27,7 +27,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
                     ((UserDAO) ConnectionFactory.getInstance().getDAO(Tables.table_user))
                             .getByID(
                                     con.createStatement()
-                                            .executeQuery("SELECT userid FROM table_student WHERE " + super.primaryKey + "=" + id)
+                                            .executeQuery(String.format("SELECT userid FROM %s WHERE %s=%s", super.tableName, super.primaryKey, id))
                                             .getInt(1)
                             )
             );
