@@ -36,6 +36,16 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
     }
 
     @Override
+    public ResultSet getRsByID(String id) {
+        try {
+            return con.createStatement().executeQuery(String.format("SELECT * FROM %s WHERE userid='%s'", tableName, id));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public Set<Unternehmer> getAllByID(int id) {
         return null;
     }
