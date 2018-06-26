@@ -91,7 +91,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
 
     private Unternehmer readResults(ResultSet rs, User user) throws SQLException {
         if (rs.next()) {
-            Unternehmer unternehmer = (Unternehmer) user;
+            Unternehmer unternehmer = new Unternehmer(user);
             unternehmer.setUnternehmerid(rs.getInt(1));
             unternehmer.setId(rs.getInt(2));
             unternehmer.setFirmenname(rs.getString(3));
