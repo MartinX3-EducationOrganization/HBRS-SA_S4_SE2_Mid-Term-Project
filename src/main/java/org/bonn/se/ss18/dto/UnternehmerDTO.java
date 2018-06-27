@@ -8,6 +8,8 @@
 package org.bonn.se.ss18.dto;
 
 
+import org.bonn.se.ss18.entity.Unternehmer;
+
 /**
  * @author rjourd2s
  */
@@ -65,5 +67,15 @@ public class UnternehmerDTO extends UserDTO {
 
     public void setCheckboxAGB(boolean checkboxAGB) {
         this.checkboxAGB = checkboxAGB;
+    }
+
+    public Unternehmer toEntity() {
+        Unternehmer unternehmer = new Unternehmer();
+        unternehmer.setFirmenname(getFirmenname());
+        unternehmer.setEmail(getEmail());
+        unternehmer.setTelNr(getTelNr());
+        unternehmer.setOrt(getOrt());
+        unternehmer.setPlz(getPlz());
+        return unternehmer;
     }
 }
