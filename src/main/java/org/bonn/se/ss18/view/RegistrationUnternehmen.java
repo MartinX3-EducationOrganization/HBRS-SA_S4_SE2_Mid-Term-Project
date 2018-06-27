@@ -130,17 +130,17 @@ public class RegistrationUnternehmen extends Abstract {
 
         return setLayout(
                 new FormLayout(
-                        setFormularItem(unternehmer, "Unternehmen", VaadinIcons.OFFICE, x -> unternehmerDTO.setFirmenname(x.getValue().getValue())),
-                        setFormularItem(email, "Email", VaadinIcons.MAILBOX, x -> unternehmerDTO.setEmail(x.getValue().getValue())),
-                        setFormularItem(passwort, "Passwort", VaadinIcons.PASSWORD, x -> unternehmerDTO.setPasswort(x.getValue().getValue())),
-                        setFormularItem(telefon, "Telefon", VaadinIcons.PHONE, x -> unternehmerDTO.setTelNr(x.getValue().getValue())),
-                        setFormularItem(ort, "Ort", VaadinIcons.HOME, x -> unternehmerDTO.setOrt(x.getValue().getValue())),
-                        setFormularItem(plz, "PLZ", VaadinIcons.HOME, x -> unternehmerDTO.setPlz(x.getValue().getValue()))
+                        setFormularItem(unternehmer, "Unternehmen", VaadinIcons.OFFICE, x -> unternehmerDTO.setFirmenname(x.getValue())),
+                        setFormularItem(email, "Email", VaadinIcons.MAILBOX, x -> unternehmerDTO.setEmail(x.getValue())),
+                        setFormularItem(passwort, "Passwort", VaadinIcons.PASSWORD, x -> unternehmerDTO.setPasswort(x.getValue())),
+                        setFormularItem(telefon, "Telefon", VaadinIcons.PHONE, x -> unternehmerDTO.setTelNr(x.getValue())),
+                        setFormularItem(ort, "Ort", VaadinIcons.HOME, x -> unternehmerDTO.setOrt(x.getValue())),
+                        setFormularItem(plz, "PLZ", VaadinIcons.HOME, x -> unternehmerDTO.setPlz(x.getValue()))
                 )
         );
     }
 
-    private <T extends AbstractField> T setFormularItem(T item, String title, VaadinIcons icon, HasValue.ValueChangeListener<T> listener) {
+    private TextField setFormularItem(TextField item, String title, VaadinIcons icon, HasValue.ValueChangeListener<String> listener) {
         item.setCaption(title);
         item.setIcon(icon);
         item.setRequiredIndicatorVisible(true);
