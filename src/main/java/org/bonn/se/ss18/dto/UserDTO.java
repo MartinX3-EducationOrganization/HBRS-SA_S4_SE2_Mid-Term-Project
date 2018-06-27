@@ -9,6 +9,7 @@ package org.bonn.se.ss18.dto;
 
 
 import org.bonn.se.ss18.entity.AbstractEntity;
+import org.bonn.se.ss18.entity.User;
 
 /**
  * @author rjourd2s
@@ -104,5 +105,21 @@ public class UserDTO extends AbstractEntity {
 
     public void setKurzVorstellung(String kurzVorstellung) {
         this.kurzVorstellung = kurzVorstellung;
+    }
+
+    public User toEntity() {
+        User user = new User();
+        user.setEmail(getEmail());
+        user.setFaxNr(getFaxNr());
+        user.setFoto(getFoto());
+        user.setHausnr(getHausnr());
+        user.setKurzVorstellung(getKurzVorstellung());
+        user.setOrt(getOrt());
+        user.setPasswort(getPasswort());
+        user.setPlz(getPlz());
+        user.setStrasse(getStrasse());
+        user.setTelNr(getTelNr());
+        user.setId(getId());
+        return user;
     }
 }
