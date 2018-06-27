@@ -116,17 +116,17 @@ public class RegistrationUnternehmen extends Abstract {
     private FormLayout setForm() {
         return setLayout(
                 new FormLayout(
-                        setFormularItem(new TextField(), "Unternehmen", VaadinIcons.OFFICE, x -> unternehmerDTO.setFirmenname(x.getValue().getValue())),
-                        setFormularItem(new TextField(), "Email", VaadinIcons.MAILBOX, x -> unternehmerDTO.setEmail(x.getValue().getValue())),
-                        setFormularItem(new PasswordField(), "Passwort", VaadinIcons.PASSWORD, x -> unternehmerDTO.setPasswort(x.getValue().getValue())),
-                        setFormularItem(new TextField(), "Telefon", VaadinIcons.PHONE, x -> unternehmerDTO.setTelNr(x.getValue().getValue())),
-                        setFormularItem(new TextField(), "Ort", VaadinIcons.HOME, x -> unternehmerDTO.setOrt(x.getValue().getValue())),
-                        setFormularItem(new TextField(), "PLZ", VaadinIcons.HOME, x -> unternehmerDTO.setPlz(x.getValue().getValue()))
+                        setFormularItem(new TextField(), "Unternehmen", VaadinIcons.OFFICE, x -> unternehmerDTO.setFirmenname(x.getValue())),
+                        setFormularItem(new TextField(), "Email", VaadinIcons.MAILBOX, x -> unternehmerDTO.setEmail(x.getValue())),
+                        setFormularItem(new PasswordField(), "Passwort", VaadinIcons.PASSWORD, x -> unternehmerDTO.setPasswort(x.getValue())),
+                        setFormularItem(new TextField(), "Telefon", VaadinIcons.PHONE, x -> unternehmerDTO.setTelNr(x.getValue())),
+                        setFormularItem(new TextField(), "Ort", VaadinIcons.HOME, x -> unternehmerDTO.setOrt(x.getValue())),
+                        setFormularItem(new TextField(), "PLZ", VaadinIcons.HOME, x -> unternehmerDTO.setPlz(x.getValue()))
                 )
         );
     }
 
-    private <T extends AbstractField> T setFormularItem(T item, String title, VaadinIcons icon, HasValue.ValueChangeListener<T> listener) {
+    private TextField setFormularItem(TextField item, String title, VaadinIcons icon, HasValue.ValueChangeListener<String> listener) {
         item.setCaption(title);
         item.setIcon(icon);
         item.setRequiredIndicatorVisible(true);
@@ -140,12 +140,5 @@ public class RegistrationUnternehmen extends Abstract {
         layout.setWidth(null);
 
         return layout;
-    }
-
-    private <T extends AbstractListing> T setItemGroup(T group, String style, String... items) {
-        group.setItems(items);
-        group.addStyleName(style);
-
-        return group;
     }
 }
