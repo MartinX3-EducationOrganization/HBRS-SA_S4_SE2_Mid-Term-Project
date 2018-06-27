@@ -62,6 +62,7 @@ public class RegistrationUnternehmen extends Abstract {
 
 //Nutzungsbedingungen
         CheckBox useConditionsCheckbox = new CheckBox(null, false);
+        useConditionsCheckbox.setId("agb");
         useConditionsCheckbox.setRequiredIndicatorVisible(true);
         useConditionsCheckbox.addValueChangeListener(x -> unternehmerDTO.setCheckboxAGB(x.getValue()));
         HorizontalLayout fittingLayout = setLayout(
@@ -114,14 +115,27 @@ public class RegistrationUnternehmen extends Abstract {
     }
 
     private FormLayout setForm() {
+          TextField unternehmer   = new TextField();
+          unternehmer.setId("unternehmer");
+          TextField  email        = new TextField();
+          email.setId("email");
+          PasswordField passwort  = new PasswordField();
+          passwort.setId("passwort");
+          TextField telefon       = new TextField();
+          telefon.setId("telefon");
+          TextField ort           = new TextField();
+          ort.setId("ort");
+          TextField plz           = new TextField();
+          plz.setId("plz");
+
         return setLayout(
                 new FormLayout(
-                        setFormularItem(new TextField(), "Unternehmen", VaadinIcons.OFFICE, x -> unternehmerDTO.setFirmenname(x.getValue().getValue())),
-                        setFormularItem(new TextField(), "Email", VaadinIcons.MAILBOX, x -> unternehmerDTO.setEmail(x.getValue().getValue())),
-                        setFormularItem(new PasswordField(), "Passwort", VaadinIcons.PASSWORD, x -> unternehmerDTO.setPasswort(x.getValue().getValue())),
-                        setFormularItem(new TextField(), "Telefon", VaadinIcons.PHONE, x -> unternehmerDTO.setTelNr(x.getValue().getValue())),
-                        setFormularItem(new TextField(), "Ort", VaadinIcons.HOME, x -> unternehmerDTO.setOrt(x.getValue().getValue())),
-                        setFormularItem(new TextField(), "PLZ", VaadinIcons.HOME, x -> unternehmerDTO.setPlz(x.getValue().getValue()))
+                        setFormularItem(unternehmer, "Unternehmen", VaadinIcons.OFFICE, x -> unternehmerDTO.setFirmenname(x.getValue().getValue())),
+                        setFormularItem(email, "Email", VaadinIcons.MAILBOX, x -> unternehmerDTO.setEmail(x.getValue().getValue())),
+                        setFormularItem(passwort, "Passwort", VaadinIcons.PASSWORD, x -> unternehmerDTO.setPasswort(x.getValue().getValue())),
+                        setFormularItem(telefon, "Telefon", VaadinIcons.PHONE, x -> unternehmerDTO.setTelNr(x.getValue().getValue())),
+                        setFormularItem(ort, "Ort", VaadinIcons.HOME, x -> unternehmerDTO.setOrt(x.getValue().getValue())),
+                        setFormularItem(plz, "PLZ", VaadinIcons.HOME, x -> unternehmerDTO.setPlz(x.getValue().getValue()))
                 )
         );
     }

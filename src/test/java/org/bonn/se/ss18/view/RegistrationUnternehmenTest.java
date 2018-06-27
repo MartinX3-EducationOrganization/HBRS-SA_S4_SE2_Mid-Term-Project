@@ -36,15 +36,15 @@ public class RegistrationUnternehmenTest extends TestCase {
     public void setUp() throws Exception {
         dao = (UnternehmerDAO) (ConnectionFactory.getInstance().getDAO(Tables.table_unternehmen));
 
-        unternehmer.setAnsprechpartner("Thomas Zimmermann");
-        unternehmer.setFirmenname("Mann");
+       // unternehmer.setAnsprechpartner("Herr Musteransprechpartner");
+        unternehmer.setFirmenname("Musterfirma");
 
 
-        unternehmer.setWebsite("mann.de");
+      //  unternehmer.setWebsite("google.com");
         //unternehmer.setUnternehmerid(4);
         unternehmer.setEmail("mail@unternehmen.de");
         unternehmer.setTelNr("023456");
-        // unternehmer.setPasswort("123");
+         unternehmer.setPasswort("123");
         //unternehmer.setStrasse("berungstr");
         //unternehmer.setHausnr("12a");
         unternehmer.setPlz("31567");
@@ -72,47 +72,60 @@ public class RegistrationUnternehmenTest extends TestCase {
         // element = driver.findElement(By.id("gwt-uid-27"));
 
 
-        element = driver.findElement(By.id("gwt-uid-14"));
-        element.sendKeys(unternehmer.getAnsprechpartner());
+       // element = driver.findElement(By.id("gwt-uid-14"));
+       //element.sendKeys(unternehmer.getAnsprechpartner());
 
 
 
         //element.sendKeys("Thomas Zimmermann");
 
-        element = driver.findElement(By.id("gwt-uid-16"));
+        element = driver.findElement(By.id("unternehmer"));
         element.sendKeys(unternehmer.getFirmenname());
+
+        element = driver.findElement(By.id("email"));
+        element.sendKeys(unternehmer.getEmail());
+
+        element = driver.findElement(By.id("passwort"));
+        element.sendKeys(unternehmer.getPasswort());
+
+        element = driver.findElement(By.id("telefon"));
+        element.sendKeys(unternehmer.getTelNr());
+
+        element = driver.findElement(By.id("ort"));
+        // element.sendKeys("52117, Bonn");
+        element.sendKeys(unternehmer.getOrt());
+
+        element = driver.findElement(By.id("plz"));
+        element.sendKeys(unternehmer.getPlz());
 
       //  element = driver.findElement(By.id("gwt-uid-18"));
       //  element.sendKeys("16.04.10");
 
 
-        element = driver.findElement(By.id("gwt-uid-20"));
-        element.sendKeys(unternehmer.getEmail());
+
 
         //element.sendKeys("Zimmermann@gmail.de");
 
 
-        element = driver.findElement(By.id("gwt-uid-22"));
-        element.sendKeys(unternehmer.getTelNr());
+
 
         //element.sendKeys("020287654");
 
 
-        element = driver.findElement(By.id("gwt-uid-24"));
-       // element.sendKeys("52117, Bonn");
-        element.sendKeys(unternehmer.getOrt());
 
 
-        element = driver.findElement(By.id("gwt-uid-28"));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].checked = true;", element);
+
+        element = driver.findElement(By.id("agb"));
+        element.click();
+       // ((JavascriptExecutor) driver).executeScript("arguments[0].checked = true;", element);
 
         //element.click();
-        element = driver.findElement(By.id("gwt-uid-26"));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].checked = true;", element);
+      //  element = driver.findElement(By.id("gwt-uid-26"));
+        //((JavascriptExecutor) driver).executeScript("arguments[0].checked = true;", element);
        // element.click();
 
 
-        element = driver.findElement(By.id("regestrieren"));
+        element = driver.findElement(By.id("registrieren"));
         element.click();
 
 
@@ -145,11 +158,11 @@ public class RegistrationUnternehmenTest extends TestCase {
 
     }
 
-  // @After
-  // public void tearDown(){
+  //@After
+  //public void tearDown(){
 
-       // driver.close();
- //   }
+      //  driver.close();
+   // }
 
 
 }
