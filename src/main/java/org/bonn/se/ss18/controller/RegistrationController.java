@@ -10,7 +10,7 @@ package org.bonn.se.ss18.controller;
 import org.bonn.se.ss18.dao.UnternehmerDAO;
 import org.bonn.se.ss18.dao.UserDAO;
 import org.bonn.se.ss18.dto.UnternehmerDTO;
-import org.bonn.se.ss18.dto.UserDTO;
+import org.bonn.se.ss18.entity.User;
 import org.bonn.se.ss18.service.Tables;
 
 import java.sql.SQLException;
@@ -36,7 +36,7 @@ public class RegistrationController {
             return false;
         }
 
-        userDAO.create(((UserDTO) unternehmerDTO).toEntity());
+        userDAO.create(new User(unternehmerDTO));
         unternehmerDAO.create(unternehmerDTO.toEntity());
 
         return true;
