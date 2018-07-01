@@ -10,14 +10,13 @@ import org.bonn.se.ss18.entity.Student;
 import org.bonn.se.ss18.service.Roles;
 
 import java.io.File;
-import java.util.Date;
 
 /**
  * @author rjourd2s
  */
 
 public class ProfilStudent extends Abstract {
-  private final Student user = (Student) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
+    private final Student user = (Student) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
     boolean read;
     FormLayout form = new FormLayout();
 
@@ -43,7 +42,7 @@ public class ProfilStudent extends Abstract {
 
         TextField vorname = new TextField("Vorame");
         vorname.setId("firstname");
-       vorname.setValue(user.getVorname());
+        vorname.setValue(user.getVorname());
         vorname.setWidth("50%");
         form.addComponent(vorname);
 
@@ -108,7 +107,7 @@ public class ProfilStudent extends Abstract {
 
         TextField fax = new TextField("Faxnummer");
         fax.setId("fax");
-         fax.setValue(user.getFaxNr());
+        fax.setValue(user.getFaxNr());
         fax.setWidth("50%");
         form.addComponent(fax);
 
@@ -122,36 +121,27 @@ public class ProfilStudent extends Abstract {
         RichTextArea bio = new RichTextArea("Kurzvorstellung");
         bio.setId("bio");
         bio.setWidth("100%");
-        bio.setValue("test");
+        bio.setValue(user.getKurzVorstellung());
         form.addComponent(bio);
         readOnly(true);
         read = true;
 
-        Button edit = new Button("Edit", new Button.ClickListener() {
-
-            @Override
-            public void buttonClick(Button.ClickEvent event) {
-                if (read) {
-                    bio.setReadOnly(false);
-                    readOnly(false);
-                    form.removeStyleName(ValoTheme.FORMLAYOUT_LIGHT);
-                    event.getButton().setCaption("Save");
-                    event.getButton().addStyleName(ValoTheme.BUTTON_PRIMARY);
-                } else {
-                    bio.setReadOnly(true);
-                    readOnly(true);
-                    form.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
-                    event.getButton().setCaption("Edit");
-                    event.getButton().removeStyleName(ValoTheme.BUTTON_PRIMARY);
-                }
-
-
+        Button edit = new Button("Edit", (Button.ClickListener) event -> {
+            if (read) {
+                bio.setReadOnly(false);
+                readOnly(false);
+                form.removeStyleName(ValoTheme.FORMLAYOUT_LIGHT);
+                event.getButton().setCaption("Save");
+                event.getButton().addStyleName(ValoTheme.BUTTON_PRIMARY);
+            } else {
+                bio.setReadOnly(true);
+                readOnly(true);
+                form.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
+                event.getButton().setCaption("Edit");
+                event.getButton().removeStyleName(ValoTheme.BUTTON_PRIMARY);
             }
         });
         edit.setId("edit");
-        
-        
-
 
         HorizontalLayout footer = new HorizontalLayout();
         footer.setMargin(new MarginInfo(true, false, true, false));
@@ -159,35 +149,24 @@ public class ProfilStudent extends Abstract {
         footer.setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
         form.addComponent(footer);
         footer.addComponent(edit);
-        
+
         section = new Label("Fähigkeiten und Skills");
         section.addStyleName(ValoTheme.LABEL_H3);
         section.addStyleName(ValoTheme.LABEL_COLORED);
         form.addComponent(section);
-        
+
         Button b = new Button("Add", new Button.ClickListener() {
-         int i =1;
+            int i = 1;
+
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                TextField a = new TextField();
-                
                 TextField skill = new TextField("Skill");
-                skill.setCaption("Skill" + this.i++);
-               
-                
-                
-               
-                
+                skill.setCaption("Skill" + i++);
+
                 form.addComponent(skill);
-                
-                
             }
         });
         form.addComponent(b);
-        
-        
-        
-        
 
         setContent(
                 new VerticalLayout(
@@ -195,11 +174,10 @@ public class ProfilStudent extends Abstract {
                         form
                 )
         );
-
     }
 
     public static String getName() {
-         return "";
+        return "ProfilStudent";
     }
 
     private void readOnly(boolean isReadonly) {
