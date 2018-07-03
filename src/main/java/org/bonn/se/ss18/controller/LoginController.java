@@ -12,7 +12,7 @@ import org.bonn.se.ss18.entity.Unternehmer;
 import org.bonn.se.ss18.exception.NoSuchUserOrPasswort;
 import org.bonn.se.ss18.service.Roles;
 import org.bonn.se.ss18.service.Tables;
-import org.bonn.se.ss18.view.Login;
+import org.bonn.se.ss18.view.LoginView;
 import org.bonn.se.ss18.view.ProfilStudent;
 import org.bonn.se.ss18.view.ProfilUnternehmen;
 
@@ -84,7 +84,7 @@ public class LoginController {
     }
 
     public void logout() {
-        UI.getCurrent().getNavigator().navigateTo(Login.getName());
+        UI.getCurrent().getNavigator().navigateTo(LoginView.getName());
         UI.getCurrent().getSession().close();
         Page.getCurrent().reload();
     }

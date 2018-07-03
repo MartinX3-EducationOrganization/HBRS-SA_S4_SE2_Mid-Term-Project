@@ -12,7 +12,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.concurrent.TimeUnit;
 
-public class LoginTest extends TestCase {
+public class LoginViewTest extends TestCase {
     //Webseite URL
     private static String URL = "http://localhost:8080/";
     //systemproperty key

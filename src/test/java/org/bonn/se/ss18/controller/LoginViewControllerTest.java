@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 import static org.junit.Assert.*;
 
-public class LoginControllerTest {
+public class LoginViewControllerTest {
 
    private LoginController login;
 

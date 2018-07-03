@@ -48,7 +48,7 @@ public class MainUI extends UI {
 
         UI.getCurrent().setNavigator(new Navigator(this, viewContainer));
         addViews();
-        UI.getCurrent().getNavigator().navigateTo(Login.getName());
+        UI.getCurrent().getNavigator().navigateTo(LoginView.getName());
 
         UI.getCurrent().getNavigator().addViewChangeListener(
                 event -> rebuildMenu(event, viewContainer)
@@ -274,7 +274,7 @@ public class MainUI extends UI {
 
     private void addViews() {
         UI.getCurrent().getNavigator().addView(BewerbenStudent.getName(), BewerbenStudent.class);
-        UI.getCurrent().getNavigator().addView(Login.getName(), Login.class);
+        UI.getCurrent().getNavigator().addView(LoginView.getName(), LoginView.class);
         UI.getCurrent().getNavigator().addView(ProfilStudent.getName(), ProfilStudent.class);
         UI.getCurrent().getNavigator().addView(ProfilUnternehmen.getName(), ProfilUnternehmen.class);
         UI.getCurrent().getNavigator().addView(RegistrationUnternehmen.getName(), RegistrationUnternehmen.class);

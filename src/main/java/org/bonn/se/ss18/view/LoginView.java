@@ -18,11 +18,11 @@ import org.bonn.se.ss18.exception.NoSuchUserOrPasswort;
 import java.io.File;
 
 @Title("Grundgerüst - Login")
-public class Login extends Abstract {
+public class LoginView extends Abstract {
     // Link zum Backend
     private final LoginController loginController = new LoginController();
 
-    public Login() {
+    public LoginView() {
         VerticalLayout layoutCentre = getLayoutCentre();
 
         Button register = new Button("Jetzt registrieren!",
