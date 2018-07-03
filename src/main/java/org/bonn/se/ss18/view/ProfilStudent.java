@@ -21,15 +21,17 @@ public class ProfilStudent extends Abstract {
     FormLayout form = new FormLayout();
 
     public ProfilStudent() {
-        Label title = new Label("ProfilStudent");
+        Label title = new Label("Profil (Student)");
         title.addStyleName(ValoTheme.LABEL_H1);
 
+        setContent(new VerticalLayout(title, form));
+        
         form.setMargin(false);
         form.setWidth("800px");
         form.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
 
         Label section = new Label("Persönliche Informationen");
-        section.addStyleName(ValoTheme.LABEL_H2);
+        section.addStyleName(ValoTheme.LABEL_H3);
         section.addStyleName(ValoTheme.LABEL_COLORED);
         form.addComponent(section);
 
@@ -54,14 +56,14 @@ public class ProfilStudent extends Abstract {
         form.addComponent(nachname);
 
 
-        DateField birthday = new DateField("Birthday");
+        DateField birthday = new DateField("Geburtstag");
         birthday.setId("birthday");
         birthday.setValue(user.getGebDatum());
         birthday.setReadOnly(true);
         form.addComponent(birthday);
 
 
-        section = new Label("Kontakt Informationen");
+        section = new Label("Kontakt");
         section.addStyleName(ValoTheme.LABEL_H3);
         section.addStyleName(ValoTheme.LABEL_COLORED);
         form.addComponent(section);
@@ -113,7 +115,7 @@ public class ProfilStudent extends Abstract {
 
 
         section = new Label("Zusätzliche Informationen");
-        section.addStyleName(ValoTheme.LABEL_H4);
+        section.addStyleName(ValoTheme.LABEL_H3);
         section.addStyleName(ValoTheme.LABEL_COLORED);
         form.addComponent(section);
 
@@ -126,18 +128,18 @@ public class ProfilStudent extends Abstract {
         readOnly(true);
         read = true;
 
-        Button edit = new Button("Edit", (Button.ClickListener) event -> {
+        Button edit = new Button("Bearbeiten", (Button.ClickListener) event -> {
             if (read) {
                 bio.setReadOnly(false);
                 readOnly(false);
                 form.removeStyleName(ValoTheme.FORMLAYOUT_LIGHT);
-                event.getButton().setCaption("Save");
+                event.getButton().setCaption("Speichern");
                 event.getButton().addStyleName(ValoTheme.BUTTON_PRIMARY);
             } else {
                 bio.setReadOnly(true);
                 readOnly(true);
                 form.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
-                event.getButton().setCaption("Edit");
+                event.getButton().setCaption("Bearbeiten");
                 event.getButton().removeStyleName(ValoTheme.BUTTON_PRIMARY);
             }
         });
@@ -155,7 +157,7 @@ public class ProfilStudent extends Abstract {
         section.addStyleName(ValoTheme.LABEL_COLORED);
         form.addComponent(section);
 
-        Button b = new Button("Add", new Button.ClickListener() {
+        Button b = new Button("Hinzufügen", new Button.ClickListener() {
             int i = 1;
 
             @Override
@@ -167,13 +169,6 @@ public class ProfilStudent extends Abstract {
             }
         });
         form.addComponent(b);
-
-        setContent(
-                new VerticalLayout(
-                        title,
-                        form
-                )
-        );
     }
 
     public static String getName() {
