@@ -96,8 +96,8 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
             unternehmer.setId(rs.getInt(2));
             unternehmer.setFirmenname(rs.getString(3));
             unternehmer.setWebsite(rs.getString(4));
-            unternehmer.setBranchenid(rs.getInt(5));
-            unternehmer.setAnsprechpartner(rs.getString(6));
+            unternehmer.setAnsprechpartner(rs.getString(5));
+            unternehmer.setBranchenid(rs.getInt(6));
             return unternehmer;
         }
         return null;
