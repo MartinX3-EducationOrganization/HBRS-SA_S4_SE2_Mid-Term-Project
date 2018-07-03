@@ -29,7 +29,7 @@
 		<!-- If there are no local customizations, this can also be "fetch" or "cdn" -->
 		<vaadin.widgetset.mode>local</vaadin.widgetset.mode>
 
-        <sonar.junit.reportPaths>target/surefire-reports, org.bonn.se.meinhotelapp.ui/target/surefire-reports
+        <sonar.junit.reportPaths>target/surefire-reports, org.bonn.se.ss18/target/surefire-reports
         </sonar.junit.reportPaths>
         <sonar.jacoco.reportPaths>target/jacoco.exec, target/jacoco-it.exec</sonar.jacoco.reportPaths>
         <sonar.jacoco.itReportPath>${project.basedir}/../target/jacoco-it.exec</sonar.jacoco.itReportPath>
