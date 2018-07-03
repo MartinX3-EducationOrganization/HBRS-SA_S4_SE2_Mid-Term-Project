@@ -14,24 +14,25 @@ import java.util.concurrent.TimeUnit;
 
 public class LoginViewTest extends TestCase {
     //Webseite URL
-    private static String URL = "http://localhost:8080/";
+    private static final String URL = "http://localhost:8080/";
     //systemproperty key
-    private static String SYSTEM_PATH = "webdriver.chrome.driver";
+    private static final String SYSTEM_PATH = "webdriver.chrome.driver";
     //pfad zu Chrome driver
-    private static String CHROME_PATH = "driver/chromedriver.exe";
+    private static final String CHROME_PATH = "driver/chromedriver.exe";
 
     private WebDriver driver;
 
+    @Override
     @Before
     public void setUp(){
         //setzen den Chrome driver in system umgebung
-        System.setProperty(SYSTEM_PATH, CHROME_PATH);
+        System.setProperty(LoginViewTest.SYSTEM_PATH, LoginViewTest.CHROME_PATH);
         //erzeugen den Chrome driver
         driver = new ChromeDriver();
         //nach auführung einer Action warte von 15s
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         //URL aufrufen
-        driver.get(URL);
+        driver.get(LoginViewTest.URL);
     }
 
     @Test
@@ -63,6 +64,7 @@ public class LoginViewTest extends TestCase {
 
     }
 
+    @Override
     @After
     public void tearDown(){
 

@@ -1,15 +1,12 @@
 package org.bonn.se.ss18.controller;
 
 import org.bonn.se.ss18.exception.NoSuchUserOrPasswort;
-import org.bonn.se.ss18.service.Tables;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.SQLException;
-
-import static org.junit.Assert.*;
 
 public class LoginViewControllerTest {
 
