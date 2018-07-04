@@ -52,8 +52,8 @@ public class StudentDAOTest {
 
     @Test
     public void update() {
-        Student student = dao.getByUserAndPass("ux2s", "1111");
-        student.setVorname("Alda");
+        Student student = dao.getByUserAndPass("salda2s", "123");
+        student.setVorname("Sascha");
         Assert.assertTrue(dao.update(student));
     }
 
@@ -73,11 +73,11 @@ public class StudentDAOTest {
 
     @Test
     public void read() {
-        Student student = dao.getByUserAndPass("ux2s", "1111");
+        Student student = dao.getByUserAndPass("salda2s", "123");
 
         Assert.assertFalse(student == null);
         Assert.assertTrue(student != null);
-        Assert.assertEquals("mustermann", student.getNachname());
+        Assert.assertEquals("Alda", student.getNachname());
 
 
     }

@@ -53,6 +53,8 @@ public class UnternehmerDAOTest {
     public void update() {
         Unternehmer unternehmer = dao.getByID(2);
         Assert.assertFalse(unternehmer == null);
+        unternehmer.setFirmenname("Musterfirma");
+        Assert.assertTrue(dao.update(unternehmer));
         Assert.assertEquals("Musterfirma", unternehmer.getFirmenname());
     }
 

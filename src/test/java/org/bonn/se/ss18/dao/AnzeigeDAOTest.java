@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Date;
+import java.util.Set;
 
 public class AnzeigeDAOTest {
     private final Anzeige anzeige = new Anzeige();
@@ -62,7 +63,7 @@ public class AnzeigeDAOTest {
         Assert.assertEquals("Gesuch", anzeige2.getTyp());
         Assert.assertEquals("Praktikum", anzeige2.getAnstellungsart());
         Assert.assertEquals("Minijob", anzeige2.getArbeitszeit());
-        Assert.assertEquals(1, anzeige2.getBrancheid());
+        Assert.assertEquals(62, anzeige2.getBrancheid());
        // Assert.assertEquals(new Date(2000, 1, 1), Date.valueOf(anzeige.getDatum()));
        // Assert.assertTrue(anzeige2.getBrancheid());
         Assert.assertEquals("Text----- bllal", anzeige2.getText());
@@ -71,12 +72,12 @@ public class AnzeigeDAOTest {
 
     @Test
     public void testGetAllbyId() {
-        // Set<Anzeige> result = dao.getAllByID(1);
-        //a Assert.assertEquals(4,result.size());
+        Set<Anzeige> result = adao.getAllByID(100);
+        Assert.assertEquals(17,result.size());
 
         // Was macht GetAllById und wofür wird es gebraucht????
-        //Set<Anzeige> result1 = adao.getAllByID(100);
-       // Assert.assertEquals(18, result1.size());
+     Set<Anzeige> result1 = adao.getAllByID(2);
+     Assert.assertEquals(1, result1.size());
 
 
 

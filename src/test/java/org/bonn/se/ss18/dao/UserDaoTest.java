@@ -27,7 +27,7 @@ public class UserDaoTest {
     @Test
     public void testcreate() {
         User user = new User();
-        user.setId(3);
+        user.setId(2);
         user.setPasswort("123");
         user.setStrasse("Weg");
         user.setHausnr("23");
@@ -54,7 +54,7 @@ public class UserDaoTest {
         newUser.setFoto(null);
         newUser.setKurzVorstellung("blabla");
 
-        Assert.assertFalse(dao.create(newUser));
+        Assert.assertTrue(dao.create(newUser));
         // dao.delete(newUser);
 
 
@@ -77,11 +77,12 @@ public class UserDaoTest {
     @Test
     public void testupdate() {
 
-        // User user = dao.getByID(1);
-        //user.setKurzVorstellung("neuer");
-        //Assert.assertTrue(dao.update(user));
+         User user = dao.getByID(1);
+        user.setKurzVorstellung("neuer");
+        Assert.assertTrue(dao.update(user));
 
         User user1 = dao.getByID(1);
+
         Assert.assertFalse(user1 == null);
         Assert.assertEquals("53757", user1.getPlz());
 
@@ -108,7 +109,7 @@ public class UserDaoTest {
         newUser.setFoto(null);
         newUser.setKurzVorstellung("blabla");
 
-        Assert.assertFalse(dao.delete(newUser));
+        Assert.assertTrue(dao.delete(newUser));
 
 
     }
