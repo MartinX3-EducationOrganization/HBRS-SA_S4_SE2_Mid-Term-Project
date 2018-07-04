@@ -74,7 +74,6 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
     }
 
     private boolean createps(Anzeige anzeige, PreparedStatement ps) throws SQLException {
-        //ps.setInt(1, anzeige.getId());
         ps.setInt(1, anzeige.getUserid());
         ps.setDate(2, Date.valueOf(anzeige.getDatum()));
         ps.setString(3, anzeige.getTitel());
@@ -87,9 +86,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
         ps.setBoolean(10, anzeige.getAktiv());
         ps.setString(11, anzeige.getText());
         ps.setInt(12, anzeige.getId());
-
         int i = ps.executeUpdate();
-        // Eine Reihe(ROW)
         return i == 1;
     }
 
@@ -98,7 +95,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
         HashSet<Anzeige> result = new HashSet<>();
         while (rs.next()) {
             Anzeige anzeige = new Anzeige();
-
+            
             anzeige.setId(rs.getInt("anzeigeid"));
             anzeige.setUserid(rs.getInt("userid"));
             anzeige.setDatum(rs.getDate("datum"));

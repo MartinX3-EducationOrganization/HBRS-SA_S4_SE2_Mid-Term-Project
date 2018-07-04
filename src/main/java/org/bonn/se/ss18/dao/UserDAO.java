@@ -42,14 +42,16 @@ public class UserDAO extends GenericDAO<User> {
     @Override
     public boolean create(User user) {
         try {
-                PreparedStatement ps = con.prepareStatement("INSERT INTO " + tableName + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                return createps(user, ps);
+            PreparedStatement ps = con.prepareStatement("INSERT INTO " + tableName + "(passwort,strasse,hausnr,plz,ort,email,telnr,faxnr,foto,kurzvorstellung)"
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
+            return createps(user, ps);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return false;
     }
+
 
     @Override
     public boolean update(User user) {
@@ -65,17 +67,16 @@ public class UserDAO extends GenericDAO<User> {
     }
 
     private boolean createps(User user, PreparedStatement ps) throws SQLException {
-        ps.setInt(1, user.getId());
-        ps.setString(2, user.getPasswort());
-        ps.setString(3, user.getStrasse());
-        ps.setString(4, user.getHausnr());
-        ps.setString(5, user.getPlz());
-        ps.setString(6, user.getOrt());
-        ps.setString(7, user.getEmail());
-        ps.setString(8, user.getTelNr());
-        ps.setString(9, user.getFaxNr());
-        ps.setBytes(10, user.getFoto());
-        ps.setString(11, user.getKurzVorstellung());
+        ps.setString(1, user.getPasswort());
+        ps.setString(2, user.getStrasse());
+        ps.setString(3, user.getHausnr());
+        ps.setString(4, user.getPlz());
+        ps.setString(5, user.getOrt());
+        ps.setString(6, user.getEmail());
+        ps.setString(7, user.getTelNr());
+        ps.setString(8, user.getFaxNr());
+        ps.setBytes(9, user.getFoto());
+        ps.setString(10, user.getKurzVorstellung());
         int i = ps.executeUpdate();
         // Eine Reihe(ROW)
         return i == 1;

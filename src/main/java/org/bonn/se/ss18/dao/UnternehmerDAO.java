@@ -53,7 +53,8 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
     @Override
     public boolean create(Unternehmer unternehmer) {
         try {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO " + tableName + " VALUES (?, ?, ?, ?, ?, ?,?)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO " + tableName + "(userid,firmenname,website,ansprechpartner,brancheid)"
+                    + " VALUES (?, ?, ?, ?, ?)");
             return createps(unternehmer, ps);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -78,14 +79,12 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
      */
 
     private boolean createps(Unternehmer unternehmer, PreparedStatement ps) throws SQLException {
-        ps.setInt(1, unternehmer.getUnternehmerid());
-        ps.setInt(2, unternehmer.getId());
-        ps.setString(3, unternehmer.getFirmenname());
-        ps.setString(4, unternehmer.getWebsite());
-        ps.setString(5, unternehmer.getAnsprechpartner());
-        ps.setInt(6, unternehmer.getBranchenid());
+        ps.setInt(1, unternehmer.getId());
+        ps.setString(2, unternehmer.getFirmenname());
+        ps.setString(3, unternehmer.getWebsite());
+        ps.setString(4, unternehmer.getAnsprechpartner());
+        ps.setInt(5, unternehmer.getBranchenid());
         int i = ps.executeUpdate();
-        // Eine Reihe(ROW)
         return i == 1;
     }
 
