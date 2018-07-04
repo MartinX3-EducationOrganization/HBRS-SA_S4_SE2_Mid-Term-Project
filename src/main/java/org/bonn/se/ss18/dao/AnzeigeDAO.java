@@ -97,7 +97,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
 
     private HashSet<Anzeige> readResults(ResultSet rs) throws SQLException {
         HashSet<Anzeige> result = new HashSet<>();
-        if (rs.next()) {
+        while (rs.next()) {
             Anzeige anzeige = new Anzeige();
 
             anzeige.setId(rs.getInt("anzeigeid"));
