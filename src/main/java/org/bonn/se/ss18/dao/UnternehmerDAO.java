@@ -82,8 +82,8 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
         ps.setInt(2, unternehmer.getId());
         ps.setString(3, unternehmer.getFirmenname());
         ps.setString(4, unternehmer.getWebsite());
-        ps.setInt(5, unternehmer.getBranchenid());
-        ps.setString(6, unternehmer.getAnsprechpartner());
+        ps.setString(5, unternehmer.getAnsprechpartner());
+        ps.setInt(6, unternehmer.getBranchenid());
         int i = ps.executeUpdate();
         // Eine Reihe(ROW)
         return i == 1;
