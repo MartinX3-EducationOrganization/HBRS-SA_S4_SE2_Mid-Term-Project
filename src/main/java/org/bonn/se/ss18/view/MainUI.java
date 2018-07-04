@@ -182,16 +182,6 @@ public class MainUI extends UI {
         buttons.add(button);
 
         button = new Button(
-                "Persönliche Daten",
-                e -> getNavigator().navigateTo("")//TODO: Persönliche Daten
-        );
-        button.addStyleNames(
-                ValoTheme.BUTTON_LINK,
-                ValoTheme.MENU_ITEM
-        );
-        buttons.add(button);
-
-        button = new Button(
                 "Profileinstellungen",
                 e -> getNavigator().navigateTo("")//TODO: Profileinstellungen
         );

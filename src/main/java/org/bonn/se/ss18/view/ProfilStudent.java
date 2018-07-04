@@ -25,7 +25,7 @@ public class ProfilStudent extends Abstract {
         title.addStyleName(ValoTheme.LABEL_H1);
 
         setContent(new VerticalLayout(title, form));
-        
+
         form.setMargin(false);
         form.setWidth("800px");
         form.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
@@ -48,20 +48,17 @@ public class ProfilStudent extends Abstract {
         vorname.setWidth("50%");
         form.addComponent(vorname);
 
-
         TextField nachname = new TextField("Nachame");
         nachname.setId("lastname");
         nachname.setValue(user.getNachname());
         nachname.setWidth("50%");
         form.addComponent(nachname);
 
-
         DateField birthday = new DateField("Geburtstag");
         birthday.setId("birthday");
         birthday.setValue(user.getGebDatum());
         birthday.setReadOnly(true);
         form.addComponent(birthday);
-
 
         section = new Label("Kontakt");
         section.addStyleName(ValoTheme.LABEL_H3);
@@ -86,20 +83,17 @@ public class ProfilStudent extends Abstract {
         plz.setWidth("10%");
         form.addComponent(plz);
 
-
         TextField ort = new TextField("Ort");
         ort.setId("ort");
         ort.setValue(user.getOrt());
         ort.setWidth("50%");
         form.addComponent(ort);
 
-
         TextField email = new TextField("Email");
         email.setId("email");
         email.setValue(user.getEmail());
         email.setWidth("50%");
         form.addComponent(email);
-
 
         TextField phone = new TextField("Telefonnummer");
         phone.setId("tel");
@@ -113,12 +107,10 @@ public class ProfilStudent extends Abstract {
         fax.setWidth("50%");
         form.addComponent(fax);
 
-
         section = new Label("Zusätzliche Informationen");
         section.addStyleName(ValoTheme.LABEL_H3);
         section.addStyleName(ValoTheme.LABEL_COLORED);
         form.addComponent(section);
-
 
         RichTextArea bio = new RichTextArea("Kurzvorstellung");
         bio.setId("bio");
@@ -162,10 +154,7 @@ public class ProfilStudent extends Abstract {
 
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                TextField skill = new TextField("Skill");
-                skill.setCaption("Skill" + i++);
-
-                form.addComponent(skill);
+                form.addComponent(new TextField("Skill " + i++));
             }
         });
         form.addComponent(b);

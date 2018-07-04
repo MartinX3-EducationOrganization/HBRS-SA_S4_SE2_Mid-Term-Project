@@ -53,7 +53,6 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return false;
     }
 
@@ -64,7 +63,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
                     + "SET userid = ?, datum = ? , titel = ?, ort = ?, "
                     + "typ = ?, anstellungsart = ?, arbeitszeit = ?, "
                     + "brancheid = ?, beginn = ?, aktiv = ?, text = ?, "
-                    +   "anzeigeid = ?"
+                    + "anzeigeid = ?"
                     + "WHERE anzeigeid = " + stelle.getId());
             return createps(stelle, ps);
 

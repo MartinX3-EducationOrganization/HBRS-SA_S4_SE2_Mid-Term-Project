@@ -59,8 +59,8 @@ public class LoginView extends Abstract {
                 pass.setValue("");
                 Notification.show("Logindaten wurden nicht richtig eingeben.", Notification.Type.ERROR_MESSAGE);
             }
-
         });
+
         loginButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         loginButton.setId("log-in");
         VerticalLayout centre = new VerticalLayout(
