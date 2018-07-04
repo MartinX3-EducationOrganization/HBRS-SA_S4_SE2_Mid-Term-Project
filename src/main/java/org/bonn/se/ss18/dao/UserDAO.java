@@ -4,6 +4,7 @@ import org.bonn.se.ss18.entity.User;
 
 import java.sql.*;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * @author rjourd2s
@@ -14,7 +15,7 @@ public class UserDAO extends GenericDAO<User> {
     }
 
     @Override
-    public User getByID(int id) {
+    public User getByID(UUID id) {
         try {
             return readResults(super.getRsByID(id + ""));
         } catch (SQLException e) {
@@ -35,7 +36,7 @@ public class UserDAO extends GenericDAO<User> {
     }
 
     @Override
-    public Set<User> getAllByID(int id) {
+    public Set<User> getAllByID(UUID id) {
         return null;
     }
 
@@ -65,7 +66,7 @@ public class UserDAO extends GenericDAO<User> {
     }
 
     private boolean createps(User user, PreparedStatement ps) throws SQLException {
-        ps.setInt(1, user.getId());
+        ps.setString(1, user.getId().toString());
         ps.setString(2, user.getPasswort());
         ps.setString(3, user.getStrasse());
         ps.setString(4, user.getHausnr());
@@ -84,7 +85,7 @@ public class UserDAO extends GenericDAO<User> {
     private User readResults(ResultSet rs) throws SQLException {
         if (rs.next()) {
             User user = new User();
-            user.setId(rs.getInt(1));
+            user.setId(UUID.fromString(rs.getString(1)));
             user.setPasswort(rs.getString(2));
             user.setStrasse(rs.getString(3));
             user.setHausnr(rs.getString(4));

@@ -10,6 +10,7 @@ package org.bonn.se.ss18.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * @author martin on 23.06.18
@@ -18,9 +19,9 @@ import java.util.Set;
 public interface IGenericDAO<T> {
     ResultSet getRsByID(String id) throws SQLException;
 
-    T getByID(int id) throws SQLException;
+    T getByID(UUID id) throws SQLException;
 
-    Set<T> getAllByID(int id) throws SQLException;
+    Set<T> getAllByID(UUID id) throws SQLException;
 
     boolean create(T entity) throws SQLException;
 

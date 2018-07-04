@@ -9,6 +9,7 @@ import org.bonn.se.ss18.entity.Anzeige;
 import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 public class AnzeigeDAO extends GenericDAO<Anzeige> {
 
@@ -17,7 +18,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
     }
 
     @Override
-    public Anzeige getByID(int id) {
+    public Anzeige getByID(UUID id) {
         try {
             HashSet<Anzeige> set = readResults(super.getRsByID(id + ""));
             return set.isEmpty() ? null : set.iterator().next();
@@ -28,7 +29,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
     }
 
     @Override
-    public Set<Anzeige> getAllByID(int id) {
+    public Set<Anzeige> getAllByID(UUID id) {
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " WHERE userid=" + id);
@@ -86,7 +87,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
         ps.setDate(9, Date.valueOf(anzeige.getBeginn()));
         ps.setBoolean(10, anzeige.getAktiv());
         ps.setString(11, anzeige.getText());
-        ps.setInt(12, anzeige.getId());
+        ps.setString(12, anzeige.getId().toString());
 
         int i = ps.executeUpdate();
         // Eine Reihe(ROW)
@@ -99,7 +100,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
         if (rs.next()) {
             Anzeige anzeige = new Anzeige();
 
-            anzeige.setId(rs.getInt("anzeigeid"));
+            anzeige.setId(UUID.fromString(rs.getString("anzeigeid")));
             anzeige.setUserid(rs.getInt("userid"));
             anzeige.setDatum(rs.getDate("datum"));
             anzeige.setTitel(rs.getString("titel"));

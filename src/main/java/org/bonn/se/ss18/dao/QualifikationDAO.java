@@ -5,6 +5,7 @@ import org.bonn.se.ss18.entity.Qualifikation;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * @author rjourd2s
@@ -15,12 +16,12 @@ public class QualifikationDAO extends GenericDAO<Qualifikation> {
     }
 
     @Override
-    public Qualifikation getByID(int id) throws SQLException {
+    public Qualifikation getByID(UUID id) throws SQLException {
         return null;
     }
 
     @Override
-    public Set<Qualifikation> getAllByID(int id) throws SQLException {
+    public Set<Qualifikation> getAllByID(UUID id) throws SQLException {
         return null;
     }
 

@@ -5,6 +5,7 @@ import org.bonn.se.ss18.entity.Branche;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * @author rjourd2s
@@ -15,12 +16,12 @@ public class BrancheDAO extends GenericDAO<Branche> {
     }
 
     @Override
-    public Branche getByID(int id) throws SQLException {
+    public Branche getByID(UUID id) throws SQLException {
         return null;
     }
 
     @Override
-    public Set<Branche> getAllByID(int id) throws SQLException {
+    public Set<Branche> getAllByID(UUID id) throws SQLException {
         return null;
     }
 
