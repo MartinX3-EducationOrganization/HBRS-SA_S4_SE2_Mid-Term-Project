@@ -67,17 +67,17 @@ public class ProfilStudent extends Abstract {
 
         TextField strasse = new TextField("Straße");
         strasse.setId("street");
-        strasse.setValue(user.getStrasse());
+        if(user.getStrasse() != null) strasse.setValue(user.getStrasse());
         strasse.setWidth("50%");
         form.addComponent(strasse);
 
         TextField hnr = new TextField("Hausnummer");
         hnr.setId("hs");
-        hnr.setValue(user.getHausnr());
+        if(user.getHausnr() != null) hnr.setValue(user.getHausnr());
         hnr.setWidth("10%");
         form.addComponent(hnr);
 
-        TextField plz = new TextField("Plz");
+        TextField plz = new TextField("PLZ");
         plz.setId("plz");
         plz.setValue(user.getPlz());
         plz.setWidth("10%");
@@ -97,13 +97,13 @@ public class ProfilStudent extends Abstract {
 
         TextField phone = new TextField("Telefonnummer");
         phone.setId("tel");
-        phone.setValue(user.getTelNr());
+        if(user.getTelNr() != null) phone.setValue(user.getTelNr());
         phone.setWidth("50%");
         form.addComponent(phone);
 
         TextField fax = new TextField("Faxnummer");
         fax.setId("fax");
-        fax.setValue(user.getFaxNr());
+        if(user.getFaxNr() != null) fax.setValue(user.getFaxNr());
         fax.setWidth("50%");
         form.addComponent(fax);
 
@@ -115,7 +115,7 @@ public class ProfilStudent extends Abstract {
         RichTextArea bio = new RichTextArea("Kurzvorstellung");
         bio.setId("bio");
         bio.setWidth("100%");
-        bio.setValue(user.getKurzVorstellung());
+        if(user.getKurzVorstellung() != null) bio.setValue(user.getKurzVorstellung());
         form.addComponent(bio);
         readOnly(true);
         read = true;

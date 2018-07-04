@@ -7,7 +7,6 @@
 
 package org.bonn.se.ss18.view;
 
-import com.vaadin.annotations.Title;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinService;
 import com.vaadin.shared.ui.MarginInfo;
@@ -17,13 +16,12 @@ import java.io.File;
 import org.bonn.se.ss18.entity.Unternehmer;
 import org.bonn.se.ss18.service.Roles;
 
-@Title("Grundgerüst - Profil - Unternehmen")
 public class ProfilUnternehmen extends Abstract {
     
     private final Unternehmer user = (Unternehmer) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
     boolean formReadOnly = true; // toggle read only or read/write mode
     FormLayout form = new FormLayout();
-            
+                
     public ProfilUnternehmen() {
         Label title = new Label("Profil (Unternehmen)");
         title.addStyleName(ValoTheme.LABEL_H1);
@@ -53,7 +51,7 @@ public class ProfilUnternehmen extends Abstract {
         firmenname.setWidth("50%");
         form.addComponent(firmenname);
         
-        TextField branche = new TextField("branche");
+        TextField branche = new TextField("Branche");
         branche.setId("branche");
         // branche.setValue(user.getBranche(); // TODO: Branche anstatt BranchenID holen
         branche.setWidth("50%");
@@ -64,20 +62,20 @@ public class ProfilUnternehmen extends Abstract {
         section.addStyleName(ValoTheme.LABEL_H3);
         section.addStyleName(ValoTheme.LABEL_COLORED);
         form.addComponent(section);
-        
+         
         TextField strasse = new TextField("Straße");
         strasse.setId("street");
-        strasse.setValue(user.getStrasse());
+        if(user.getStrasse() != null) strasse.setValue(user.getStrasse());
         strasse.setWidth("50%");
         form.addComponent(strasse);
 
         TextField hnr = new TextField("Hausnummer");
         hnr.setId("hs");
-        hnr.setValue(user.getHausnr());
+        if(user.getHausnr() != null) hnr.setValue(user.getHausnr());
         hnr.setWidth("10%");
         form.addComponent(hnr);
 
-        TextField plz = new TextField("Plz");
+        TextField plz = new TextField("PLZ");
         plz.setId("plz");
         plz.setValue(user.getPlz());
         plz.setWidth("10%");
@@ -91,7 +89,7 @@ public class ProfilUnternehmen extends Abstract {
         
         TextField website = new TextField("Website");
         website.setId("website");
-        website.setValue(user.getWebsite());
+        if(user.getWebsite() != null) website.setValue(user.getWebsite());
         website.setWidth("50%");
         form.addComponent(website);
         
@@ -103,19 +101,19 @@ public class ProfilUnternehmen extends Abstract {
 
         TextField phone = new TextField("Telefonnummer");
         phone.setId("tel");
-        phone.setValue(user.getTelNr());
+        if(user.getTelNr() != null) phone.setValue(user.getTelNr());
         phone.setWidth("50%");
         form.addComponent(phone);
 
         TextField fax = new TextField("Faxnummer");
         fax.setId("fax");
-        fax.setValue(user.getFaxNr());
+        if(user.getFaxNr() != null) fax.setValue(user.getFaxNr());
         fax.setWidth("50%");
         form.addComponent(fax);
-        
-        TextField ansprechpartner = new TextField("ansprechpartner");
+    
+        TextField ansprechpartner = new TextField("Ansprechpartner");
         ansprechpartner.setId("ansprechpartner");
-        ansprechpartner.setValue(user.getAnsprechpartner());
+        if(user.getAnsprechpartner() != null) ansprechpartner.setValue(user.getAnsprechpartner());
         ansprechpartner.setWidth("50%");
         form.addComponent(ansprechpartner);
 
@@ -128,7 +126,7 @@ public class ProfilUnternehmen extends Abstract {
         RichTextArea bio = new RichTextArea("Kurzvorstellung");
         bio.setId("bio");
         bio.setWidth("100%");
-        bio.setValue(user.getKurzVorstellung());
+        if(user.getKurzVorstellung() != null) bio.setValue(user.getKurzVorstellung());
         form.addComponent(bio);
         
         // Footer
