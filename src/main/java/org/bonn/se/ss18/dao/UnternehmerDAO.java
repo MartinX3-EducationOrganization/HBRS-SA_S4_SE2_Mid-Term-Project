@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Set;
-import java.util.UUID;
 
 /**
  * @author rjourd2s
@@ -21,7 +20,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
     }
 
     @Override
-    public Unternehmer getByID(UUID id) {
+    public Unternehmer getByID(int id) {
         try {
             ResultSet resultSet = con.createStatement().executeQuery(String.format("SELECT userid FROM %s WHERE %s=%s", super.tableName, "userid", id));
             if (resultSet.next()) {
@@ -47,7 +46,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
     }
 
     @Override
-    public Set<Unternehmer> getAllByID(UUID id) {
+    public Set<Unternehmer> getAllByID(int id) {
         return null;
     }
 
@@ -80,13 +79,12 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
 
     private boolean createps(Unternehmer unternehmer, PreparedStatement ps) throws SQLException {
         ps.setInt(1, unternehmer.getUnternehmerid());
-        ps.setString(2, unternehmer.getId().toString());
+        ps.setInt(2, unternehmer.getId());
         ps.setString(3, unternehmer.getFirmenname());
         ps.setString(4, unternehmer.getWebsite());
         ps.setString(5, unternehmer.getAnsprechpartner());
         ps.setInt(6, unternehmer.getBranchenid());
         int i = ps.executeUpdate();
-
         // Eine Reihe(ROW)
         return i == 1;
     }
@@ -95,7 +93,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
         if (rs.next()) {
             Unternehmer unternehmer = new Unternehmer(user);
             unternehmer.setUnternehmerid(rs.getInt(1));
-            unternehmer.setId(UUID.fromString(rs.getString(2)));
+            unternehmer.setId(rs.getInt(2));
             unternehmer.setFirmenname(rs.getString(3));
             unternehmer.setWebsite(rs.getString(4));
             unternehmer.setAnsprechpartner(rs.getString(5));

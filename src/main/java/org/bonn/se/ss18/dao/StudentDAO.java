@@ -7,7 +7,6 @@ import org.bonn.se.ss18.service.Tables;
 
 import java.sql.*;
 import java.util.Set;
-import java.util.UUID;
 
 /**
  * @author rjourd2s
@@ -18,14 +17,17 @@ public class StudentDAO extends GenericDAO<Student> {
     }
 
     @Override
-    public Student getByID(UUID userID) {
+    public Student getByID(int userID) {
         try {
             ResultSet resultSet = con.createStatement().executeQuery("SELECT userid FROM table_student WHERE userid=" + userID);
             if (resultSet.next()) {
                 return readResults(
                         getRsByID(userID + ""),
                         ((UserDAO) ConnectionFactory.getInstance().getDAO(Tables.table_user))
-                                .getByID(UUID.fromString(resultSet.getString(1)))
+                                .getByID(
+                                        resultSet
+                                                .getInt(1)
+                                )
                 );
             }
         } catch (SQLException e) {
@@ -46,7 +48,7 @@ public class StudentDAO extends GenericDAO<Student> {
 
     //  Macht kein Sinn vorerst da man immer nur einen Studenten bekommen würde.
     @Override
-    public Set<Student> getAllByID(UUID id) {
+    public Set<Student> getAllByID(int id) {
         return null;
     }
 
@@ -87,7 +89,10 @@ public class StudentDAO extends GenericDAO<Student> {
                     return readResults(
                             super.getRsByID(linuxid),
                             ((UserDAO) ConnectionFactory.getInstance().getDAO(Tables.table_user))
-                                    .getByID(UUID.fromString(studentResultSet.getString(1)))
+                                    .getByID(
+                                            studentResultSet
+                                                    .getInt(1)
+                                    )
                     );
                 }
             }
@@ -102,7 +107,7 @@ public class StudentDAO extends GenericDAO<Student> {
      */
     private boolean createps(Student student, PreparedStatement ps) throws SQLException {
         ps.setString(1, student.getLinuxID());
-        ps.setString(2, student.getId().toString());
+        ps.setInt(2, student.getId());
         ps.setString(3, student.getAnrede());
         ps.setString(4, student.getVorname());
         ps.setString(5, student.getNachname());
@@ -116,7 +121,7 @@ public class StudentDAO extends GenericDAO<Student> {
         if (rs.next()) {
             Student student = new Student(user);
             student.setLinuxID(rs.getString(1));
-            student.setId(UUID.fromString(rs.getString(2)));
+            student.setId(rs.getInt(2));
             student.setAnrede(rs.getString(3));
             student.setVorname(rs.getString(4));
             student.setNachname(rs.getString(5));

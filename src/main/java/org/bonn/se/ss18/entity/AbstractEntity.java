@@ -1,22 +1,16 @@
 package org.bonn.se.ss18.entity;
 
-import java.util.UUID;
-
 /**
  * @author rjourd2s
  */
 public class AbstractEntity {
-    private UUID id;
+    private int id;
 
-    public AbstractEntity() {
-        id = UUID.randomUUID();
-    }
-
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(int id) {
         this.id = id;
     }
 }
