@@ -17,7 +17,6 @@ import org.bonn.se.ss18.view.ProfilStudent;
 import org.bonn.se.ss18.view.ProfilUnternehmen;
 
 import java.sql.SQLException;
-import java.util.UUID;
 
 /**
  * @author rjourd2s
@@ -49,7 +48,7 @@ public class LoginController {
             return false;
         }
 
-        UUID id;
+        int id;
         Student user = sDAO.getByUserAndPass(username, password);
         if (user != null) {
             UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, user);
