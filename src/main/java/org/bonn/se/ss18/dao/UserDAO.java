@@ -42,8 +42,14 @@ public class UserDAO extends GenericDAO<User> {
     @Override
     public boolean create(User user) {
         try {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO " + tableName + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            return createps(user, ps);
+            if(this.getByID(user.getId()) == null) {
+                PreparedStatement ps = con.prepareStatement("INSERT INTO " + tableName + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                return createps(user, ps);
+            }
+            else {
+                return false;
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

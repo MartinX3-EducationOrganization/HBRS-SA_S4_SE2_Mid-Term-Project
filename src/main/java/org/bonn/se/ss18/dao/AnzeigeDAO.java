@@ -19,7 +19,8 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
     @Override
     public Anzeige getByID(int id) {
         try {
-            return readResults(super.getRsByID(id + ""));
+            HashSet<Anzeige> set = readResults(super.getRsByID(id + ""));
+            return set.isEmpty() ? null : set.iterator().next();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -33,8 +34,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
             ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " WHERE userid=" + id);
             Set stellen = new HashSet();
             while (rs.next()) {
-                Anzeige st = readResults(rs);
-                stellen.add(st);
+                stellen = readResults(rs);
             }
             return stellen;
         } catch (SQLException ex) {
@@ -95,9 +95,11 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
     }
 
 
-    private Anzeige readResults(ResultSet rs) throws SQLException {
+    private HashSet<Anzeige> readResults(ResultSet rs) throws SQLException {
+        HashSet<Anzeige> result = new HashSet<>();
         if (rs.next()) {
             Anzeige anzeige = new Anzeige();
+
             anzeige.setId(rs.getInt("anzeigeid"));
             anzeige.setUserid(rs.getInt("userid"));
             anzeige.setDatum(rs.getDate("datum"));
@@ -111,8 +113,8 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
             anzeige.setAktiv(rs.getBoolean("aktiv"));
             anzeige.setText(rs.getString("text"));
 
-            return anzeige;
+            result.add(anzeige);
         }
-        return null;
+        return result;
     }
 }
