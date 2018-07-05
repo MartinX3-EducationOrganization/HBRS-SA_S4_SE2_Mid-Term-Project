@@ -20,7 +20,7 @@ public class StudentDTO extends UserDTO {
     private String vorname;
     private String nachname;
     private LocalDate gebDatum;
-    private String socialMediaLink;
+    private String socialMediaLink = "";
 
     public StudentDTO() {
         super();
