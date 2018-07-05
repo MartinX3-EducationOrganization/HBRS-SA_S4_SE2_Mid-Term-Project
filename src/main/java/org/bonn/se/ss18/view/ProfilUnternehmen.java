@@ -18,6 +18,7 @@ import org.bonn.se.ss18.dto.UnternehmerDTO;
 import org.bonn.se.ss18.dto.UserDTO;
 import org.bonn.se.ss18.service.Roles;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 public class ProfilUnternehmen extends Abstract {
@@ -47,6 +48,11 @@ public class ProfilUnternehmen extends Abstract {
                 new FileResource(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/WEB-INF/classes/profile_default.jpg"))
             )
         );
+
+        Upload upload = new Upload("Upload Profilbild", (Upload.Receiver) (filename, mimeType) -> new ByteArrayOutputStream());
+        upload.setImmediateMode(false);
+        upload.addSucceededListener((Upload.SucceededListener) event -> ((UnternehmerDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER)).setFoto(((ByteArrayOutputStream) upload.getReceiver().receiveUpload(event.getFilename(), event.getMIMEType())).toByteArray()));
+        form.addComponent(upload);
         
         TextField firmenname = new TextField("Firmenname");
         firmenname.setId("firmenname");
