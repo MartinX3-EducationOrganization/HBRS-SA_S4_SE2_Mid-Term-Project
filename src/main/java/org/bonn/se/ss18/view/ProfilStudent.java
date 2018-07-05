@@ -12,6 +12,7 @@ import org.bonn.se.ss18.dto.StudentDTO;
 import org.bonn.se.ss18.dto.UserDTO;
 import org.bonn.se.ss18.service.Roles;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 /**
@@ -45,14 +46,19 @@ public class ProfilStudent extends Abstract {
                 )
         );
 
-        TextField vorname = new TextField("Vorame");
+        Upload upload = new Upload("Upload Profilbild", (Upload.Receiver) (filename, mimeType) -> new ByteArrayOutputStream());
+        upload.setImmediateMode(false);
+        upload.addSucceededListener((Upload.SucceededListener) event -> ((StudentDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER)).setFoto(((ByteArrayOutputStream) upload.getReceiver().receiveUpload(event.getFilename(), event.getMIMEType())).toByteArray()));
+        form.addComponent(upload);
+
+        TextField vorname = new TextField("Vorname");
         vorname.setId("firstname");
         StudentDTO studentDTO = (StudentDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
         vorname.setValue(studentDTO.getVorname());
         vorname.setWidth("50%");
         form.addComponent(vorname);
 
-        TextField nachname = new TextField("Nachame");
+        TextField nachname = new TextField("Nachname");
         nachname.setId("lastname");
         nachname.setValue(studentDTO.getNachname());
         nachname.setWidth("50%");
