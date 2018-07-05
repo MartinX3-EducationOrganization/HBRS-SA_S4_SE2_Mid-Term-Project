@@ -233,16 +233,6 @@ public class MainUI extends UI {
         );
         buttons.add(button);
 
-        button = new Button(
-                "Profileinstellungen",
-                e -> getNavigator().navigateTo("")//TODO: Profileinstellungen
-        );
-        button.addStyleNames(
-                ValoTheme.BUTTON_LINK,
-                ValoTheme.MENU_ITEM
-        );
-        buttons.add(button);
-
         return buttons.toArray(new Button[0]);
     }
 
