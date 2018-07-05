@@ -7,6 +7,8 @@ import com.vaadin.ui.UI;
 import org.bonn.se.ss18.dao.StudentDAO;
 import org.bonn.se.ss18.dao.UnternehmerDAO;
 import org.bonn.se.ss18.dao.UserDAO;
+import org.bonn.se.ss18.dto.StudentDTO;
+import org.bonn.se.ss18.dto.UnternehmerDTO;
 import org.bonn.se.ss18.entity.Student;
 import org.bonn.se.ss18.entity.Unternehmer;
 import org.bonn.se.ss18.exception.NoSuchUserOrPasswort;
@@ -49,22 +51,22 @@ public class LoginController {
         }
 
         int id;
-        Student user = sDAO.getByUserAndPass(username, password);
-        if (user != null) {
-            UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, user);
+        Student student = sDAO.getByUserAndPass(username, password);
+        if (student != null) {
+            UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, new StudentDTO(student));
         } else if (uDAO.getByColumnValue("email", username) != null) {
             id = uDAO.getByColumnValue("email", username).getId();
-            Student student = sDAO.getByID(id);
+            student = sDAO.getByID(id);
             if (student != null) {
                 if (student.getPasswort().equals(password)) {
-                    UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, student);
+                    UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, new StudentDTO(student));
                 } else {
                     throw new NoSuchUserOrPasswort();
                 }
             } else {
                 Unternehmer unternehmer = untDAO.getByID(id);
                 if (unternehmer != null && unternehmer.getPasswort().equals(password)) {
-                    UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, unternehmer);
+                    UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, new UnternehmerDTO(unternehmer));
                 } else {
                     throw new NoSuchUserOrPasswort();
                 }
@@ -73,10 +75,10 @@ public class LoginController {
             throw new NoSuchUserOrPasswort();
         }
 
-        if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) instanceof Student) {
+        if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) instanceof StudentDTO) {
             UI.getCurrent().getNavigator().navigateTo(ProfilStudent.getName());
             return true;
-        } else if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) instanceof Unternehmer) {
+        } else if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) instanceof UnternehmerDTO) {
             UI.getCurrent().getNavigator().navigateTo(ProfilUnternehmen.getName());
             return true;
         }

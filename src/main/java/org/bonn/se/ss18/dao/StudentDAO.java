@@ -129,4 +129,20 @@ public class StudentDAO extends GenericDAO<Student> {
         }
         return null;
     }
+
+    @Override
+    public boolean delete(Student entity) {
+        try {
+            if (con.createStatement().executeUpdate(String.format("DELETE FROM %s WHERE %s='%s'", tableName, primaryKey, entity.getLinuxID())) == 1) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean deleteByUserID(int id) {
+        return delete(getByID(id));
+    }
 }

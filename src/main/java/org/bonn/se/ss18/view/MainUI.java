@@ -19,8 +19,8 @@ import com.vaadin.server.VaadinService;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import org.bonn.se.ss18.controller.LoginController;
-import org.bonn.se.ss18.entity.Student;
-import org.bonn.se.ss18.entity.Unternehmer;
+import org.bonn.se.ss18.dto.StudentDTO;
+import org.bonn.se.ss18.dto.UnternehmerDTO;
 import org.bonn.se.ss18.service.Roles;
 
 import java.io.File;
@@ -145,9 +145,9 @@ public class MainUI extends UI {
     private CssLayout getLeftSideMenu() {
         Button[] buttons = null;
 
-        if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) instanceof Student) {
+        if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) instanceof StudentDTO) {
             buttons = getStudentMenu();
-        } else if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) instanceof Unternehmer) {
+        } else if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) instanceof UnternehmerDTO) {
             buttons = getUnternehmerMenu();
         }
 

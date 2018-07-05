@@ -1,13 +1,12 @@
 package org.bonn.se.ss18.entity;
 
 
-import org.bonn.se.ss18.dto.UnternehmerDTO;
+import org.bonn.se.ss18.dto.UserDTO;
 
 /**
  * @author rjourd2s
  */
 public class User extends AbstractEntity {
-
     private String passwort;
     private String strasse;
     private String hausnr;
@@ -22,18 +21,18 @@ public class User extends AbstractEntity {
     public User() {
     }
 
-    public User(UnternehmerDTO unternehmerDTO) {
-        setId(unternehmerDTO.getId());
-        setTelNr(unternehmerDTO.getTelNr());
-        setStrasse(unternehmerDTO.getStrasse());
-        setPasswort(unternehmerDTO.getPasswort());
-        setOrt(unternehmerDTO.getOrt());
-        setKurzVorstellung(unternehmerDTO.getKurzVorstellung());
-        setHausnr(unternehmerDTO.getHausnr());
-        setFoto(unternehmerDTO.getFoto());
-        setFaxNr(unternehmerDTO.getFaxNr());
-        setEmail(unternehmerDTO.getEmail());
-        setPlz(unternehmerDTO.getPlz());
+    public User(UserDTO userDTO) {
+        setId(userDTO.getId());
+        setTelNr(userDTO.getTelNr());
+        setStrasse(userDTO.getStrasse());
+        setPasswort(userDTO.getPasswort());
+        setOrt(userDTO.getOrt());
+        setKurzVorstellung(userDTO.getKurzVorstellung());
+        setHausnr(userDTO.getHausnr());
+        setFoto(userDTO.getFoto());
+        setFaxNr(userDTO.getFaxNr());
+        setEmail(userDTO.getEmail());
+        setPlz(userDTO.getPlz());
     }
 
     public String getPasswort() {

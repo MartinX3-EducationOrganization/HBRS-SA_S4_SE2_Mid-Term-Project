@@ -100,4 +100,8 @@ public class UserDAO extends GenericDAO<User> {
         }
         return null;
     }
+
+    public boolean delete(int id) {
+        return delete(getByID(id));
+    }
 }

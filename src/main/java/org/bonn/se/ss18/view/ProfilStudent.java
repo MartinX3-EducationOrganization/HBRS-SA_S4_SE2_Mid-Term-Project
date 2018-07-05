@@ -6,7 +6,10 @@ import com.vaadin.server.VaadinService;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
-import org.bonn.se.ss18.entity.Student;
+import org.bonn.se.ss18.controller.LoginController;
+import org.bonn.se.ss18.controller.StudentController;
+import org.bonn.se.ss18.dto.StudentDTO;
+import org.bonn.se.ss18.dto.UserDTO;
 import org.bonn.se.ss18.service.Roles;
 
 import java.io.File;
@@ -17,6 +20,8 @@ import java.io.File;
 
 public class ProfilStudent extends Abstract {
     private final FormLayout form = new FormLayout();
+    private final StudentController studentController = new StudentController();
+    private final LoginController loginController = new LoginController();
 
     public ProfilStudent() {
         Label title = new Label("Profil (Student)");
@@ -42,20 +47,20 @@ public class ProfilStudent extends Abstract {
 
         TextField vorname = new TextField("Vorame");
         vorname.setId("firstname");
-        Student user = (Student) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
-        vorname.setValue(user.getVorname());
+        StudentDTO studentDTO = (StudentDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
+        vorname.setValue(studentDTO.getVorname());
         vorname.setWidth("50%");
         form.addComponent(vorname);
 
         TextField nachname = new TextField("Nachame");
         nachname.setId("lastname");
-        nachname.setValue(user.getNachname());
+        nachname.setValue(studentDTO.getNachname());
         nachname.setWidth("50%");
         form.addComponent(nachname);
 
         DateField birthday = new DateField("Geburtstag");
         birthday.setId("birthday");
-        birthday.setValue(user.getGebDatum());
+        birthday.setValue(studentDTO.getGebDatum());
         birthday.setReadOnly(true);
         form.addComponent(birthday);
 
@@ -66,50 +71,50 @@ public class ProfilStudent extends Abstract {
 
         TextField strasse = new TextField("Straße");
         strasse.setId("street");
-        if (user.getStrasse() != null) {
-            strasse.setValue(user.getStrasse());
+        if (studentDTO.getStrasse() != null) {
+            strasse.setValue(studentDTO.getStrasse());
         }
         strasse.setWidth("50%");
         form.addComponent(strasse);
 
         TextField hnr = new TextField("Hausnummer");
         hnr.setId("hs");
-        if (user.getHausnr() != null) {
-            hnr.setValue(user.getHausnr());
+        if (studentDTO.getHausnr() != null) {
+            hnr.setValue(studentDTO.getHausnr());
         }
         hnr.setWidth("10%");
         form.addComponent(hnr);
 
         TextField plz = new TextField("PLZ");
         plz.setId("plz");
-        plz.setValue(user.getPlz());
+        plz.setValue(studentDTO.getPlz());
         plz.setWidth("10%");
         form.addComponent(plz);
 
         TextField ort = new TextField("Ort");
         ort.setId("ort");
-        ort.setValue(user.getOrt());
+        ort.setValue(studentDTO.getOrt());
         ort.setWidth("50%");
         form.addComponent(ort);
 
         TextField email = new TextField("Email");
         email.setId("email");
-        email.setValue(user.getEmail());
+        email.setValue(studentDTO.getEmail());
         email.setWidth("50%");
         form.addComponent(email);
 
         TextField phone = new TextField("Telefonnummer");
         phone.setId("tel");
-        if (user.getTelNr() != null) {
-            phone.setValue(user.getTelNr());
+        if (studentDTO.getTelNr() != null) {
+            phone.setValue(studentDTO.getTelNr());
         }
         phone.setWidth("50%");
         form.addComponent(phone);
 
         TextField fax = new TextField("Faxnummer");
         fax.setId("fax");
-        if (user.getFaxNr() != null) {
-            fax.setValue(user.getFaxNr());
+        if (studentDTO.getFaxNr() != null) {
+            fax.setValue(studentDTO.getFaxNr());
         }
         fax.setWidth("50%");
         form.addComponent(fax);
@@ -122,8 +127,8 @@ public class ProfilStudent extends Abstract {
         RichTextArea bio = new RichTextArea("Kurzvorstellung");
         bio.setId("bio");
         bio.setWidth("100%");
-        if (user.getKurzVorstellung() != null) {
-            bio.setValue(user.getKurzVorstellung());
+        if (studentDTO.getKurzVorstellung() != null) {
+            bio.setValue(studentDTO.getKurzVorstellung());
         }
         form.addComponent(bio);
 
@@ -141,9 +146,6 @@ public class ProfilStudent extends Abstract {
             }
         });
         form.addComponent(skillButton);
-
-        // Ausgangszustand: read-only
-        setFormReadOnly(true);
 
         // Footer
         HorizontalLayout footer = new HorizontalLayout();
@@ -168,6 +170,19 @@ public class ProfilStudent extends Abstract {
         });
         editButton.setId("editButton");
         footer.addComponent(editButton);
+
+        Button deleteButton = new Button(
+                "Löschen",
+                (Button.ClickListener) event -> {
+                    studentController.removeProfil((new UserDTO((StudentDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER))).getId());
+                    loginController.logout();
+                }
+        );
+        deleteButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
+        footer.addComponent(deleteButton);
+
+        // Ausgangszustand: read-only
+        setFormReadOnly(true);
     }
 
     public static String getName() {

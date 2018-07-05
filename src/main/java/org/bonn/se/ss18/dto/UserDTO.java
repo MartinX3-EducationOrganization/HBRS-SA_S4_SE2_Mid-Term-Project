@@ -8,14 +8,12 @@
 package org.bonn.se.ss18.dto;
 
 
-import org.bonn.se.ss18.entity.AbstractEntity;
 import org.bonn.se.ss18.entity.User;
 
 /**
- * @author rjourd2s
+ * @author mduenk2s
  */
-public class UserDTO extends AbstractEntity {
-
+public class UserDTO extends AbstractDTO {
     private String passwort;
     private String strasse;
     private String hausnr;
@@ -26,6 +24,25 @@ public class UserDTO extends AbstractEntity {
     private String faxNr;
     private byte[] foto;
     private String kurzVorstellung;
+
+    public UserDTO() {
+        super();
+    }
+
+    public UserDTO(UserDTO userDTO) {
+        super();
+        setPasswort(userDTO.getPasswort());
+        setStrasse(userDTO.getStrasse());
+        setHausnr(userDTO.getHausnr());
+        setPlz(userDTO.getPlz());
+        setOrt(userDTO.getOrt());
+        setEmail(userDTO.getEmail());
+        setTelNr(userDTO.getTelNr());
+        setFaxNr(userDTO.getFaxNr());
+        setFoto(userDTO.getFoto());
+        setKurzVorstellung(userDTO.getKurzVorstellung());
+        setId(userDTO.getId());
+    }
 
     public String getPasswort() {
         return passwort;

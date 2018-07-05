@@ -11,7 +11,7 @@ package org.bonn.se.ss18.dto;
 import org.bonn.se.ss18.entity.Unternehmer;
 
 /**
- * @author rjourd2s
+ * @author mduenk2s
  */
 public class UnternehmerDTO extends UserDTO {
     private int unternehmerid;
@@ -20,6 +20,31 @@ public class UnternehmerDTO extends UserDTO {
     private int branchenid;
     private String ansprechpartner;
     private boolean checkboxAGB;
+
+    public UnternehmerDTO() {
+        super();
+    }
+
+    public UnternehmerDTO(Unternehmer unternehmer) {
+        super();
+        setAnsprechpartner(unternehmer.getAnsprechpartner());
+        setUnternehmerid(unternehmer.getUnternehmerid());
+        setFirmenname(unternehmer.getFirmenname());
+        setWebsite(unternehmer.getWebsite());
+        setBranchenid(unternehmer.getBranchenid());
+        setCheckboxAGB(false);
+        setPasswort(unternehmer.getPasswort());
+        setStrasse(unternehmer.getStrasse());
+        setHausnr(unternehmer.getHausnr());
+        setPlz(unternehmer.getPlz());
+        setOrt(unternehmer.getOrt());
+        setEmail(unternehmer.getEmail());
+        setTelNr(unternehmer.getTelNr());
+        setFaxNr(unternehmer.getFaxNr());
+        setFoto(unternehmer.getFoto());
+        setKurzVorstellung(unternehmer.getKurzVorstellung());
+        setId(unternehmer.getId());
+    }
 
     public String getAnsprechpartner() {
         return ansprechpartner;
@@ -69,6 +94,7 @@ public class UnternehmerDTO extends UserDTO {
         this.checkboxAGB = checkboxAGB;
     }
 
+    @Override
     public Unternehmer toEntity() {
         Unternehmer unternehmer = new Unternehmer();
         unternehmer.setFirmenname(getFirmenname());

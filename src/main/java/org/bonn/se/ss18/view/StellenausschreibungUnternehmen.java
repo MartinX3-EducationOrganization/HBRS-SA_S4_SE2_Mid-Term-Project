@@ -5,8 +5,8 @@ import com.vaadin.shared.ui.grid.HeightMode;
 import com.vaadin.ui.*;
 import org.bonn.se.ss18.controller.ConnectionFactory;
 import org.bonn.se.ss18.dao.AnzeigeDAO;
+import org.bonn.se.ss18.dto.UnternehmerDTO;
 import org.bonn.se.ss18.entity.Anzeige;
-import org.bonn.se.ss18.entity.Unternehmer;
 import org.bonn.se.ss18.service.Roles;
 import org.bonn.se.ss18.service.Tables;
 
@@ -95,8 +95,8 @@ public class StellenausschreibungUnternehmen extends Abstract {
         try {
             ConnectionFactory dao = ConnectionFactory.getInstance();
             AnzeigeDAO aDAO = (AnzeigeDAO) dao.getDAO(Tables.table_anzeige);
-            Unternehmer ut = (Unternehmer) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
-            grid.setItems(aDAO.getAllByID(ut.getId()));
+            UnternehmerDTO unternehmerDTO = (UnternehmerDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
+            grid.setItems(aDAO.getAllByID(unternehmerDTO.getId()));
             grid.removeColumn("userid");
             grid.removeColumn("brancheid");
         } catch (SQLException e) {

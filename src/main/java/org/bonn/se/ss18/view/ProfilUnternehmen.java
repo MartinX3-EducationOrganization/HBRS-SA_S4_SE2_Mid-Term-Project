@@ -12,13 +12,18 @@ import com.vaadin.server.VaadinService;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
-import org.bonn.se.ss18.entity.Unternehmer;
+import org.bonn.se.ss18.controller.LoginController;
+import org.bonn.se.ss18.controller.UnternehmenController;
+import org.bonn.se.ss18.dto.UnternehmerDTO;
+import org.bonn.se.ss18.dto.UserDTO;
 import org.bonn.se.ss18.service.Roles;
 
 import java.io.File;
 
 public class ProfilUnternehmen extends Abstract {
     private final FormLayout form = new FormLayout();
+    private final UnternehmenController unternehmenController = new UnternehmenController();
+    private final LoginController loginController = new LoginController();
                 
     public ProfilUnternehmen() {
         Label title = new Label("Profil (Unternehmen)");
@@ -45,14 +50,14 @@ public class ProfilUnternehmen extends Abstract {
         
         TextField firmenname = new TextField("Firmenname");
         firmenname.setId("firmenname");
-        Unternehmer user = (Unternehmer) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
-        firmenname.setValue(user.getFirmenname());
+        UnternehmerDTO unternehmerDTO = (UnternehmerDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
+        firmenname.setValue(unternehmerDTO.getFirmenname());
         firmenname.setWidth("50%");
         form.addComponent(firmenname);
         
         TextField branche = new TextField("Branche");
         branche.setId("branche");
-        // branche.setValue(user.getBranche(); // TODO: Branche anstatt BranchenID holen
+        // branche.setValue(unternehmerDTO.getBranche(); // TODO: Branche anstatt BranchenID holen
         branche.setWidth("50%");
         form.addComponent(branche);
         
@@ -64,66 +69,66 @@ public class ProfilUnternehmen extends Abstract {
          
         TextField strasse = new TextField("Straße");
         strasse.setId("street");
-        if (user.getStrasse() != null) {
-            strasse.setValue(user.getStrasse());
+        if (unternehmerDTO.getStrasse() != null) {
+            strasse.setValue(unternehmerDTO.getStrasse());
         }
         strasse.setWidth("50%");
         form.addComponent(strasse);
 
         TextField hnr = new TextField("Hausnummer");
         hnr.setId("hs");
-        if (user.getHausnr() != null) {
-            hnr.setValue(user.getHausnr());
+        if (unternehmerDTO.getHausnr() != null) {
+            hnr.setValue(unternehmerDTO.getHausnr());
         }
         hnr.setWidth("10%");
         form.addComponent(hnr);
 
         TextField plz = new TextField("PLZ");
         plz.setId("plz");
-        plz.setValue(user.getPlz());
+        plz.setValue(unternehmerDTO.getPlz());
         plz.setWidth("10%");
         form.addComponent(plz);
 
         TextField ort = new TextField("Ort");
         ort.setId("ort");
-        ort.setValue(user.getOrt());
+        ort.setValue(unternehmerDTO.getOrt());
         ort.setWidth("50%");
         form.addComponent(ort);
         
         TextField website = new TextField("Website");
         website.setId("website");
-        if (user.getWebsite() != null) {
-            website.setValue(user.getWebsite());
+        if (unternehmerDTO.getWebsite() != null) {
+            website.setValue(unternehmerDTO.getWebsite());
         }
         website.setWidth("50%");
         form.addComponent(website);
         
         TextField email = new TextField("Email");
         email.setId("email");
-        email.setValue(user.getEmail());
+        email.setValue(unternehmerDTO.getEmail());
         email.setWidth("50%");
         form.addComponent(email);
 
         TextField phone = new TextField("Telefonnummer");
         phone.setId("tel");
-        if (user.getTelNr() != null) {
-            phone.setValue(user.getTelNr());
+        if (unternehmerDTO.getTelNr() != null) {
+            phone.setValue(unternehmerDTO.getTelNr());
         }
         phone.setWidth("50%");
         form.addComponent(phone);
 
         TextField fax = new TextField("Faxnummer");
         fax.setId("fax");
-        if (user.getFaxNr() != null) {
-            fax.setValue(user.getFaxNr());
+        if (unternehmerDTO.getFaxNr() != null) {
+            fax.setValue(unternehmerDTO.getFaxNr());
         }
         fax.setWidth("50%");
         form.addComponent(fax);
     
         TextField ansprechpartner = new TextField("Ansprechpartner");
         ansprechpartner.setId("ansprechpartner");
-        if (user.getAnsprechpartner() != null) {
-            ansprechpartner.setValue(user.getAnsprechpartner());
+        if (unternehmerDTO.getAnsprechpartner() != null) {
+            ansprechpartner.setValue(unternehmerDTO.getAnsprechpartner());
         }
         ansprechpartner.setWidth("50%");
         form.addComponent(ansprechpartner);
@@ -137,13 +142,10 @@ public class ProfilUnternehmen extends Abstract {
         RichTextArea bio = new RichTextArea("Kurzvorstellung");
         bio.setId("bio");
         bio.setWidth("100%");
-        if (user.getKurzVorstellung() != null) {
-            bio.setValue(user.getKurzVorstellung());
+        if (unternehmerDTO.getKurzVorstellung() != null) {
+            bio.setValue(unternehmerDTO.getKurzVorstellung());
         }
         form.addComponent(bio);
-
-        // Ausgangszustand: read-only
-        setFormReadOnly(true);
         
         // Footer
         HorizontalLayout footer = new HorizontalLayout();
@@ -167,8 +169,20 @@ public class ProfilUnternehmen extends Abstract {
             }
         });
         editButton.setId("editButton");
-        editButton.setEnabled(true);
         footer.addComponent(editButton);
+
+        Button deleteButton = new Button(
+                "Löschen",
+                (Button.ClickListener) event -> {
+                    unternehmenController.removeProfil((new UserDTO((UnternehmerDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER))).getId());
+                    loginController.logout();
+                }
+        );
+        deleteButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
+        footer.addComponent(deleteButton);
+
+        // Ausgangszustand: read-only
+        setFormReadOnly(true);
     }
 
     public static String getName() {

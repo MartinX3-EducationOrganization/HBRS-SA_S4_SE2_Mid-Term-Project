@@ -101,4 +101,20 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
         }
         return null;
     }
+
+    @Override
+    public boolean delete(Unternehmer entity) {
+        try {
+            if (con.createStatement().executeUpdate("DELETE FROM " + tableName + " WHERE " + primaryKey + "=" + entity.getUnternehmerid()) == 1) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean deleteByUserID(int id) {
+        return delete(getByID(id));
+    }
 }

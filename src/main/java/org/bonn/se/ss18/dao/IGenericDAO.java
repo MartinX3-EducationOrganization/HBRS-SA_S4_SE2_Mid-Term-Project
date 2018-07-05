@@ -25,4 +25,6 @@ public interface IGenericDAO<T> {
     boolean create(T entity) throws SQLException;
 
     boolean update(T entity) throws SQLException;
+
+    boolean delete(T entity) throws SQLException;
 }
