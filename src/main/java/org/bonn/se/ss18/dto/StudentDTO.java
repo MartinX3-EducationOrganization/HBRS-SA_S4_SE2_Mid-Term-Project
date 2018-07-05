@@ -20,6 +20,7 @@ public class StudentDTO extends UserDTO {
     private String vorname;
     private String nachname;
     private LocalDate gebDatum;
+    private String socialMediaLink;
 
     public StudentDTO() {
         super();
@@ -85,4 +86,11 @@ public class StudentDTO extends UserDTO {
         this.gebDatum = gebDatum;
     }
 
+    public String getSocialMediaLink() {
+        return socialMediaLink;
+    }
+
+    public void setSocialMediaLink(String socialMediaLink) {
+        this.socialMediaLink = socialMediaLink;
+    }
 }

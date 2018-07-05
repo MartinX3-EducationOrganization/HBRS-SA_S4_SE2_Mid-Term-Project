@@ -124,6 +124,13 @@ public class ProfilStudent extends Abstract {
         section.addStyleName(ValoTheme.LABEL_COLORED);
         form.addComponent(section);
 
+        TextField social_media_link = new TextField("Social Media Link");
+        social_media_link.setId("socialmedialink");
+        social_media_link.setValue(studentDTO.getSocialMediaLink());
+        social_media_link.setWidth("50%");
+        social_media_link.setMaxLength(30);
+        form.addComponent(social_media_link);
+
         RichTextArea bio = new RichTextArea("Kurzvorstellung");
         bio.setId("bio");
         bio.setWidth("100%");
