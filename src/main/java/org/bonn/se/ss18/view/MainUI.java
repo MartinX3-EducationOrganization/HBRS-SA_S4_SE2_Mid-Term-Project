@@ -130,14 +130,9 @@ public class MainUI extends UI {
                 null
         );
         MenuBar.MenuItem item = menuBar.addItem(
-                "Logout", event -> {
-                    loginController.logout();
-                   // menuBar.setId("logout");
-                }
+                "Logout", event -> loginController.logout()
         );
         item.setStyleName("log-out");
-
-
 
         return menuBar;
     }
@@ -180,26 +175,6 @@ public class MainUI extends UI {
         );
         buttons.add(button);
 
-        button = new Button(
-                "Profileinstellungen",
-                e -> getNavigator().navigateTo("")//TODO: Profileinstellungen
-        );
-        button.addStyleNames(
-                ValoTheme.BUTTON_LINK,
-                ValoTheme.MENU_ITEM
-        );
-        buttons.add(button);
-
-        button = new Button(
-                "Dokumente",
-                e -> getNavigator().navigateTo("")//TODO: Dokumente
-        );
-        button.addStyleNames(
-                ValoTheme.BUTTON_LINK,
-                ValoTheme.MENU_ITEM
-        );
-        buttons.add(button);
-
         return buttons.toArray(new Button[0]);
     }
 
@@ -210,12 +185,6 @@ public class MainUI extends UI {
                 "Profil",
                 e -> getNavigator().navigateTo(ProfilUnternehmen.getName())
         );
-        button.addStyleNames(
-                ValoTheme.BUTTON_LINK,
-                ValoTheme.MENU_ITEM
-        );
-        buttons.add(button);
-
         button.addStyleNames(
                 ValoTheme.BUTTON_LINK,
                 ValoTheme.MENU_ITEM
