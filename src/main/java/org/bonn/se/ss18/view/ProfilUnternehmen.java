@@ -12,22 +12,20 @@ import com.vaadin.server.VaadinService;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
-import java.io.File;
 import org.bonn.se.ss18.entity.Unternehmer;
 import org.bonn.se.ss18.service.Roles;
 
+import java.io.File;
+
 public class ProfilUnternehmen extends Abstract {
-    
-    private final Unternehmer user = (Unternehmer) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
-    boolean formReadOnly = true; // toggle read only or read/write mode
-    FormLayout form = new FormLayout();
+    private final FormLayout form = new FormLayout();
                 
     public ProfilUnternehmen() {
         Label title = new Label("Profil (Unternehmen)");
         title.addStyleName(ValoTheme.LABEL_H1);
-        
+
         setContent(new VerticalLayout(title, form));
-        
+
         form.setMargin(false);
         form.setWidth("800px");
         form.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
@@ -37,7 +35,7 @@ public class ProfilUnternehmen extends Abstract {
         section.addStyleName(ValoTheme.LABEL_H3);
         section.addStyleName(ValoTheme.LABEL_COLORED);
         form.addComponent(section);
-        
+
         form.addComponent(
             new Image(
                 null,
@@ -47,6 +45,7 @@ public class ProfilUnternehmen extends Abstract {
         
         TextField firmenname = new TextField("Firmenname");
         firmenname.setId("firmenname");
+        Unternehmer user = (Unternehmer) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
         firmenname.setValue(user.getFirmenname());
         firmenname.setWidth("50%");
         form.addComponent(firmenname);
@@ -65,13 +64,17 @@ public class ProfilUnternehmen extends Abstract {
          
         TextField strasse = new TextField("Straße");
         strasse.setId("street");
-        if(user.getStrasse() != null) strasse.setValue(user.getStrasse());
+        if (user.getStrasse() != null) {
+            strasse.setValue(user.getStrasse());
+        }
         strasse.setWidth("50%");
         form.addComponent(strasse);
 
         TextField hnr = new TextField("Hausnummer");
         hnr.setId("hs");
-        if(user.getHausnr() != null) hnr.setValue(user.getHausnr());
+        if (user.getHausnr() != null) {
+            hnr.setValue(user.getHausnr());
+        }
         hnr.setWidth("10%");
         form.addComponent(hnr);
 
@@ -89,7 +92,9 @@ public class ProfilUnternehmen extends Abstract {
         
         TextField website = new TextField("Website");
         website.setId("website");
-        if(user.getWebsite() != null) website.setValue(user.getWebsite());
+        if (user.getWebsite() != null) {
+            website.setValue(user.getWebsite());
+        }
         website.setWidth("50%");
         form.addComponent(website);
         
@@ -101,19 +106,25 @@ public class ProfilUnternehmen extends Abstract {
 
         TextField phone = new TextField("Telefonnummer");
         phone.setId("tel");
-        if(user.getTelNr() != null) phone.setValue(user.getTelNr());
+        if (user.getTelNr() != null) {
+            phone.setValue(user.getTelNr());
+        }
         phone.setWidth("50%");
         form.addComponent(phone);
 
         TextField fax = new TextField("Faxnummer");
         fax.setId("fax");
-        if(user.getFaxNr() != null) fax.setValue(user.getFaxNr());
+        if (user.getFaxNr() != null) {
+            fax.setValue(user.getFaxNr());
+        }
         fax.setWidth("50%");
         form.addComponent(fax);
     
         TextField ansprechpartner = new TextField("Ansprechpartner");
         ansprechpartner.setId("ansprechpartner");
-        if(user.getAnsprechpartner() != null) ansprechpartner.setValue(user.getAnsprechpartner());
+        if (user.getAnsprechpartner() != null) {
+            ansprechpartner.setValue(user.getAnsprechpartner());
+        }
         ansprechpartner.setWidth("50%");
         form.addComponent(ansprechpartner);
 
@@ -126,33 +137,38 @@ public class ProfilUnternehmen extends Abstract {
         RichTextArea bio = new RichTextArea("Kurzvorstellung");
         bio.setId("bio");
         bio.setWidth("100%");
-        if(user.getKurzVorstellung() != null) bio.setValue(user.getKurzVorstellung());
+        if (user.getKurzVorstellung() != null) {
+            bio.setValue(user.getKurzVorstellung());
+        }
         form.addComponent(bio);
+
+        // Ausgangszustand: read-only
+        setFormReadOnly(true);
         
         // Footer
         HorizontalLayout footer = new HorizontalLayout();
         footer.setMargin(new MarginInfo(true, false, true, false));
         footer.setSpacing(true);
         footer.setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
+        footer.setId("footer");
         form.addComponent(footer);
                 
         Button editButton = new Button("Bearbeiten", (Button.ClickListener) event -> {
-            if(formReadOnly){
+            if (event.getButton().getCaption().equals("Bearbeiten")) {
+                setFormReadOnly(false);
+                form.removeStyleName(ValoTheme.FORMLAYOUT_LIGHT);
                 event.getButton().setCaption("Speichern");
                 event.getButton().addStyleName(ValoTheme.BUTTON_PRIMARY);
-            }
-            else{
+            } else {
+                setFormReadOnly(true);
+                form.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
                 event.getButton().setCaption("Bearbeiten");
                 event.getButton().removeStyleName(ValoTheme.BUTTON_PRIMARY);
             }
-            bio.setReadOnly(!formReadOnly);
-            setFormReadOnly(!formReadOnly);
         });
         editButton.setId("editButton");
+        editButton.setEnabled(true);
         footer.addComponent(editButton);
-        
-        // Ausgangszustand: read-only
-        setFormReadOnly(true); 
     }
 
     public static String getName() {
@@ -171,15 +187,10 @@ public class ProfilUnternehmen extends Abstract {
     }*/
 
     private void setFormReadOnly(boolean bool) {
-        if(bool == formReadOnly) return; // if aspired mode is already set, return
-        
-        for(Component c : form) {
-                if(c instanceof AbstractField) {
-                    AbstractField field = (AbstractField) c;
-                    field.setReadOnly(bool);
-                }
+        for (Component c : form) {
+            if (c instanceof AbstractComponent && !"footer".equals(c.getId())) {
+                c.setEnabled(!bool);
+            }
         }
-        formReadOnly = bool;
     }
-
 }
