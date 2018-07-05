@@ -40,7 +40,7 @@ import java.util.List;
 @PreserveOnRefresh
 @Theme("maintheme")
 public class MainUI extends UI {
-    LoginController loginController = new LoginController();
+    private final LoginController loginController = new LoginController();
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -48,7 +48,6 @@ public class MainUI extends UI {
 
         UI.getCurrent().setNavigator(new Navigator(this, viewContainer));
         addViews();
-        UI.getCurrent().getNavigator().navigateTo(BewerbungUnternehmen.getName());
 
         UI.getCurrent().getNavigator().addViewChangeListener(
                 event -> rebuildMenu(event, viewContainer)

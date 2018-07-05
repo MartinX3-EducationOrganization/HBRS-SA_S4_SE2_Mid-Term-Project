@@ -9,7 +9,10 @@ package org.bonn.se.ss18.view;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.Page;
 import com.vaadin.ui.Panel;
+import com.vaadin.ui.UI;
+import org.bonn.se.ss18.service.Roles;
 
 /**
  * @author martin on 26.05.18
@@ -22,9 +25,10 @@ public abstract class Abstract extends Panel implements View {
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
-        /*  if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) == null) {
-         UI.getCurrent().getNavigator().navigateTo(LoginView.getName());
-         Page.getCurrent().reload();
-         }*/
+        if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) == null
+                && !UI.getCurrent().getNavigator().getState().equals(LoginView.getName())) {
+            UI.getCurrent().getNavigator().navigateTo(LoginView.getName());
+            Page.getCurrent().reload();
+        }
     }
 }
