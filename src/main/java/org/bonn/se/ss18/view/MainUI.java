@@ -243,34 +243,11 @@ public class MainUI extends UI {
         );
         buttons.add(button);
 
-        button = new Button(
-                "Stellen",
-                e -> getNavigator().navigateTo("Stellenausschreibung")//TODO: Stellen
-        );
-        button.setId("stellen");
-        button.addStyleNames(
-                ValoTheme.BUTTON_LINK,
-                ValoTheme.MENU_ITEM
-        );
-        //
-        button = new Button(
-                "Bewerbungen",
-                e -> getNavigator().navigateTo(BewerbungUnternehmen.getName())//TODO: Stellen
-        );
-        button.setId("stellen");
-        button.addStyleNames(
-                ValoTheme.BUTTON_LINK,
-                ValoTheme.MENU_ITEM
-        );
-        //
-        buttons.add(button);
-
         return buttons.toArray(new Button[0]);
     }
 
     private void addViews() {
         UI.getCurrent().getNavigator().addView(BewerbenStudent.getName(), BewerbenStudent.class);
-         UI.getCurrent().getNavigator().addView(BewerbungUnternehmen.getName(), BewerbungUnternehmen.class);
         UI.getCurrent().getNavigator().addView(LoginView.getName(), LoginView.class);
         UI.getCurrent().getNavigator().addView(ProfilStudent.getName(), ProfilStudent.class);
         UI.getCurrent().getNavigator().addView(ProfilUnternehmen.getName(), ProfilUnternehmen.class);
