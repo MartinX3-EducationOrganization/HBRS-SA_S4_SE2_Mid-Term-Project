@@ -191,17 +191,6 @@ public class MainUI extends UI {
         buttons.add(button);
 
         button = new Button(
-                "Bewerben",
-                e -> getNavigator().navigateTo(BewerbenStudent.getName())
-        );
-        button.setId("bewerben");
-        button.addStyleNames(
-                ValoTheme.BUTTON_LINK,
-                ValoTheme.MENU_ITEM
-        );
-        buttons.add(button);
-
-        button = new Button(
                 "Dokumente",
                 e -> getNavigator().navigateTo("")//TODO: Dokumente
         );
@@ -237,7 +226,6 @@ public class MainUI extends UI {
     }
 
     private void addViews() {
-        UI.getCurrent().getNavigator().addView(BewerbenStudent.getName(), BewerbenStudent.class);
         UI.getCurrent().getNavigator().addView(LoginView.getName(), LoginView.class);
         UI.getCurrent().getNavigator().addView(ProfilStudent.getName(), ProfilStudent.class);
         UI.getCurrent().getNavigator().addView(ProfilUnternehmen.getName(), ProfilUnternehmen.class);
