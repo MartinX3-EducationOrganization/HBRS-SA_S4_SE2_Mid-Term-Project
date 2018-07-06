@@ -6,7 +6,10 @@ import org.bonn.se.ss18.dao.AnzeigeDAO;
 import org.bonn.se.ss18.entity.Anzeige;
 import org.bonn.se.ss18.service.Tables;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author rjourd2s
@@ -16,6 +19,22 @@ public class StellenaussgabeDataView extends Window {
 
     public StellenaussgabeDataView(Anzeige documentData) {
         this.documentData = documentData;
+
+        List<String> anstellungslist = new ArrayList<>();
+        anstellungslist.add("Ausbildung");
+        anstellungslist.add("befristete Antellung");
+        anstellungslist.add("Festanstellung");
+        anstellungslist.add("Praktikum");
+        anstellungslist.add("Werkstudent/-in");
+
+        List<String> arbeitszeiten = new ArrayList<>();
+        arbeitszeiten.add("Minijob");
+        arbeitszeiten.add("Teilzeit");
+        arbeitszeiten.add("Vollzeit");
+
+        List<String> typlist = new ArrayList<>();
+        typlist.add("Angebot");
+        typlist.add("Gesuch");
 
         //Create a form layout which holds all components
         FormLayout layout = new FormLayout();
@@ -45,27 +64,22 @@ public class StellenaussgabeDataView extends Window {
         }
         layout.addComponent(ort);
 
-        TextField typ = new TextField();
-        typ.setCaption("Typ");
-        if (documentData.getTyp() != null) {
-            typ.setValue(documentData.getTyp());
-        }
-        layout.addComponent(typ);
+        ComboBox<String> selectType = new ComboBox<>("Wählen Sie aus");
+        selectType.setValue(documentData.getTyp());
+        selectType.setItems(typlist);
+        layout.addComponent(selectType);
 
 
-        TextField anstellung = new TextField();
-        anstellung.setCaption("Anstellungsart");
-        if (documentData.getAnstellungsart() != null) {
-            anstellung.setValue(documentData.getAnstellungsart());
-        }
-        layout.addComponent(anstellung);
+        ComboBox<String> selectAnstellung = new ComboBox<>("Wählen Sie aus");
+        selectAnstellung.setItems(anstellungslist);
+        selectAnstellung.setValue(documentData.getAnstellungsart());
+        layout.addComponent(selectAnstellung);
 
-        TextField arbeitszeit = new TextField();
-        arbeitszeit.setCaption("Arbeitszeiten");
-        if (documentData.getArbeitszeit() != null) {
-            arbeitszeit.setValue(documentData.getArbeitszeit());
-        }
-        layout.addComponent(arbeitszeit);
+
+        ComboBox<String> selectArbeitszeit = new ComboBox<>("Wählen Sie aus");
+        selectArbeitszeit.setItems(arbeitszeiten);
+        selectArbeitszeit.setValue(documentData.getArbeitszeit());
+        layout.addComponent(selectArbeitszeit);
 
         DateField beginn = new DateField();
         beginn.setCaption("Beginn");
@@ -83,7 +97,6 @@ public class StellenaussgabeDataView extends Window {
         layout.addComponent(description);
 
         layout.setSizeUndefined();
-        //Add save and cancel buttons
         HorizontalLayout buttonLayout = new HorizontalLayout();
         Button save = new Button("save");
         save.setStyleName("friendly");
@@ -99,7 +112,15 @@ public class StellenaussgabeDataView extends Window {
                 Notification.show("Sie können nichts leeres speichern!");
             } else {
                 documentData.setTitel(title.getValue());
+                documentData.setDatum(Date.valueOf(datum.getValue()));
+                documentData.setOrt(ort.getValue());
+                documentData.setTyp(selectType.getValue());
+                documentData.setAnstellungsart(selectAnstellung.getValue());
+                documentData.setArbeitszeit(selectArbeitszeit.getValue());
+                documentData.setBeginn(Date.valueOf(beginn.getValue()));
                 documentData.setText(description.getValue());
+
+
                 ConnectionFactory dao = null;
                 try {
                     dao = ConnectionFactory.getInstance();
@@ -113,18 +134,10 @@ public class StellenaussgabeDataView extends Window {
                     e.printStackTrace();
                 }
                 aDAO.update(documentData);
-                //Mark the object as changed
-                //documentData.setChanged(true);
-
-                //Close window
                 close();
             }
         });
-
-        //Set the layout as content of the hole window
         setContent(layout);
-
-        //Configure position and caption of the window
         setCaption("Stellenausschreibung");
         center();
 

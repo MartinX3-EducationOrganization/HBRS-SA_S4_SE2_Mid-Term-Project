@@ -57,7 +57,7 @@ public class UserDAO extends GenericDAO<User> {
     public boolean update(User user) {
 
         try {
-            PreparedStatement ps = con.prepareStatement("UPDATE " + tableName + " SET userid=?,passwort=?,strasse=?,hausnr=?,plz=?,ort=?,email=?,telnr=?,faxnr=?,foto=?,kurzvorstellung=? WHERE userid=" + user.getId());
+            PreparedStatement ps = con.prepareStatement("UPDATE " + tableName + " SET passwort=?,strasse=?,hausnr=?,plz=?,ort=?,email=?,telnr=?,faxnr=?,foto=?,kurzvorstellung=? WHERE userid=" + user.getId());
             return createps(user, ps);
 
         } catch (SQLException ex) {

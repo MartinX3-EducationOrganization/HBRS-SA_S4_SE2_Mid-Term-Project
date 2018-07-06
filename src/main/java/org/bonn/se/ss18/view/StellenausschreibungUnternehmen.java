@@ -26,18 +26,10 @@ public class StellenausschreibungUnternehmen extends Abstract {
         setContent(content);
 
         HorizontalLayout titleBar = new HorizontalLayout();
-        titleBar.setWidth("100%");
         content.addComponent(titleBar);
 
-        Label title = new Label("Eine gute Stelle!");
+        Label title = new Label("Eine Liste ihrer Anzeigen");
         titleBar.addComponent(title);
-        title.setId("gut");
-        // titleBar.setExpandRatio(title, 1.0f);
-
-        Label titleComment = new Label("Schlechte Bezahlung!");
-        titleBar.addComponent(titleComment);
-        titleComment.setId("schlecht");
-
 
         HorizontalLayout center = new HorizontalLayout();
         content.addComponent(center);
@@ -45,23 +37,16 @@ public class StellenausschreibungUnternehmen extends Abstract {
 
         Panel matter = new Panel();
         center.addComponent(matter);
+        matter.setSizeFull();
         matter.setContent(grid);
-
-        content.setWidth("100%");
-
-        //grid.setColumns("title");
-        // grid.setColumns("datum");
-        // grid.addColumn("text", new
-
-        //        HtmlRenderer());
-
+        
 
         updateGrid();
         grid.setLocale(Locale.GERMAN);
         grid.setHeightMode(HeightMode.UNDEFINED);
 
         center.setSizeUndefined();
-        //matter.setSizeUndefined();
+
         grid.setSizeFull();
 
         grid.addItemClickListener(event ->
@@ -97,8 +82,6 @@ public class StellenausschreibungUnternehmen extends Abstract {
             AnzeigeDAO aDAO = (AnzeigeDAO) dao.getDAO(Tables.table_anzeige);
             UnternehmerDTO unternehmerDTO = (UnternehmerDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
             grid.setItems(aDAO.getAllByID(unternehmerDTO.getId()));
-            grid.removeColumn("userid");
-            grid.removeColumn("brancheid");
         } catch (SQLException e) {
             e.printStackTrace();
         }

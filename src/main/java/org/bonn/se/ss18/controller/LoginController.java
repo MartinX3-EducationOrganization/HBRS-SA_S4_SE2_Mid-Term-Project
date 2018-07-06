@@ -25,10 +25,6 @@ import java.sql.SQLException;
  */
 public class LoginController {
 
-    /*
-     *   LOGIN via Linuxid
-     *
-     */
     public boolean login(String username, String password) throws NoSuchUserOrPasswort {
         ConnectionFactory dao;
         try {
