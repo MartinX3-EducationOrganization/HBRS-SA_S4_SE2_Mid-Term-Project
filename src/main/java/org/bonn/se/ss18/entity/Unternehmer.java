@@ -1,6 +1,8 @@
 package org.bonn.se.ss18.entity;
 
 
+import org.bonn.se.ss18.dto.UnternehmerDTO;
+
 /**
  * @author rjourd2s
  */
@@ -27,6 +29,15 @@ public class Unternehmer extends User {
         setKurzVorstellung(user.getKurzVorstellung());
         setStrasse(user.getStrasse());
         setTelNr(user.getTelNr());
+    }
+
+    public Unternehmer(UnternehmerDTO unternehmerDTO) {
+        setId(unternehmerDTO.getId());
+        setUnternehmerid(unternehmerDTO.getUnternehmerid());
+        setFirmenname(unternehmerDTO.getFirmenname());
+        setWebsite(unternehmerDTO.getWebsite());
+        setAnsprechpartner(unternehmerDTO.getAnsprechpartner());
+        setBranchenid(unternehmerDTO.getBranchenid());
     }
 
     public String getAnsprechpartner() {

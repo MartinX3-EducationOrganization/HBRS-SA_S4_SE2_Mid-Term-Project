@@ -1,5 +1,7 @@
 package org.bonn.se.ss18.entity;
 
+import org.bonn.se.ss18.dto.StudentDTO;
+
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -29,6 +31,15 @@ public class Student extends User {
         setKurzVorstellung(user.getKurzVorstellung());
         setStrasse(user.getStrasse());
         setTelNr(user.getTelNr());
+    }
+
+    public Student(StudentDTO studentDTO) {
+        setId(studentDTO.getId());
+        setLinuxID(studentDTO.getLinuxID());
+        setAnrede(studentDTO.getAnrede());
+        setVorname(studentDTO.getVorname());
+        setNachname(studentDTO.getNachname());
+        setGebDatum(Date.valueOf(studentDTO.getGebDatum()));
     }
 
     public String getLinuxID() {

@@ -11,6 +11,7 @@ import com.vaadin.ui.Notification;
 import org.bonn.se.ss18.dao.StudentDAO;
 import org.bonn.se.ss18.dao.UserDAO;
 import org.bonn.se.ss18.dto.StudentDTO;
+import org.bonn.se.ss18.entity.Student;
 import org.bonn.se.ss18.service.Tables;
 
 import java.sql.SQLException;
@@ -61,7 +62,6 @@ public class StudentController {
             return false;
         }
 
-           return uDAO.update(studentDTO.toEntity());
-        //&& sDAO.update(new User(studentDTO()));
+        return uDAO.update(studentDTO.toEntity()) && sDAO.update(new Student(studentDTO));
     }
 }
