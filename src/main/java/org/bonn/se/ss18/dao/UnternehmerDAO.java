@@ -65,7 +65,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
     @Override
     public boolean update(Unternehmer unternehmer) {
         try {
-            PreparedStatement ps = con.prepareStatement("UPDATE " + tableName + " SET userid=?,firmenname=?,website=?,brancheid=?,ansprechpartner=? WHERE unternehmenid=" + unternehmer.getUnternehmerid());
+            PreparedStatement ps = con.prepareStatement("UPDATE " + tableName + " SET userid=?,firmenname=?,website=?,ansprechpartner=?,brancheid=? WHERE unternehmenid=" + unternehmer.getUnternehmerid());
             return createps(unternehmer, ps);
 
         } catch (SQLException ex) {

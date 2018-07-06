@@ -93,15 +93,4 @@ public class UnternehmerDTO extends UserDTO {
     public void setCheckboxAGB(boolean checkboxAGB) {
         this.checkboxAGB = checkboxAGB;
     }
-
-    @Override
-    public Unternehmer toEntity() {
-        Unternehmer unternehmer = new Unternehmer();
-        unternehmer.setFirmenname(getFirmenname());
-        unternehmer.setEmail(getEmail());
-        unternehmer.setTelNr(getTelNr());
-        unternehmer.setOrt(getOrt());
-        unternehmer.setPlz(getPlz());
-        return unternehmer;
-    }
 }

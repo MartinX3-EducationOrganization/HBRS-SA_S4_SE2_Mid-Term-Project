@@ -7,6 +7,9 @@
 
 package org.bonn.se.ss18.view;
 
+import com.vaadin.data.Binder;
+import com.vaadin.data.ValidationException;
+import com.vaadin.data.converter.StringToIntegerConverter;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinService;
 import com.vaadin.shared.ui.MarginInfo;
@@ -25,7 +28,7 @@ public class ProfilUnternehmen extends Abstract {
     private final FormLayout form = new FormLayout();
     private final UnternehmenController unternehmenController = new UnternehmenController();
     private final LoginController loginController = new LoginController();
-                
+
     public ProfilUnternehmen() {
         Label title = new Label("Profil (Unternehmen)");
         title.addStyleName(ValoTheme.LABEL_H1);
@@ -35,7 +38,7 @@ public class ProfilUnternehmen extends Abstract {
         form.setMargin(false);
         form.setWidth("800px");
         form.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
-        
+
         // Section 1
         Label section = new Label("Unternehmen");
         section.addStyleName(ValoTheme.LABEL_H3);
@@ -43,99 +46,93 @@ public class ProfilUnternehmen extends Abstract {
         form.addComponent(section);
 
         form.addComponent(
-            new Image(
-                null,
-                new FileResource(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/WEB-INF/classes/profile_default.jpg"))
-            )
+                new Image(
+                        null,
+                        new FileResource(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/WEB-INF/classes/profile_default.jpg"))
+                )
         );
 
         Upload upload = new Upload("Upload Profilbild", (Upload.Receiver) (filename, mimeType) -> new ByteArrayOutputStream());
         upload.setImmediateMode(false);
         upload.addSucceededListener((Upload.SucceededListener) event -> ((UnternehmerDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER)).setFoto(((ByteArrayOutputStream) upload.getReceiver().receiveUpload(event.getFilename(), event.getMIMEType())).toByteArray()));
         form.addComponent(upload);
-        
-        TextField firmenname = new TextField("Firmenname");
-        firmenname.setId("firmenname");
         UnternehmerDTO unternehmerDTO = (UnternehmerDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
-        firmenname.setValue(unternehmerDTO.getFirmenname());
+        Binder<UnternehmerDTO> binder = new Binder<>();
+
+        TextField firmenname = new TextField("Firmenname");
+        binder.bind(firmenname, UnternehmerDTO::getFirmenname, UnternehmerDTO::setFirmenname);
+        firmenname.setId("firmenname");
         firmenname.setWidth("50%");
         form.addComponent(firmenname);
-        
+
+
         TextField branche = new TextField("Branche");
+        binder.forField(branche)
+                .withConverter(
+                        new StringToIntegerConverter("Must enter a number"))
+                .bind(UnternehmerDTO::getBranchenid, UnternehmerDTO::setBranchenid);
         branche.setId("branche");
         // branche.setValue(unternehmerDTO.getBranche(); // TODO: Branche anstatt BranchenID holen
         branche.setWidth("50%");
         form.addComponent(branche);
-        
+
         // Section 2
         section = new Label("Kontakt");
         section.addStyleName(ValoTheme.LABEL_H3);
         section.addStyleName(ValoTheme.LABEL_COLORED);
         form.addComponent(section);
-         
+
         TextField strasse = new TextField("Straße");
+        binder.bind(strasse, UnternehmerDTO::getStrasse, UnternehmerDTO::setStrasse);
         strasse.setId("street");
-        if (unternehmerDTO.getStrasse() != null) {
-            strasse.setValue(unternehmerDTO.getStrasse());
-        }
         strasse.setWidth("50%");
         form.addComponent(strasse);
 
         TextField hnr = new TextField("Hausnummer");
+        binder.bind(hnr, UnternehmerDTO::getHausnr, UnternehmerDTO::setHausnr);
         hnr.setId("hs");
-        if (unternehmerDTO.getHausnr() != null) {
-            hnr.setValue(unternehmerDTO.getHausnr());
-        }
         hnr.setWidth("10%");
         form.addComponent(hnr);
 
         TextField plz = new TextField("PLZ");
+        binder.bind(plz, UnternehmerDTO::getPlz, UnternehmerDTO::setPlz);
         plz.setId("plz");
-        plz.setValue(unternehmerDTO.getPlz());
         plz.setWidth("10%");
         form.addComponent(plz);
 
         TextField ort = new TextField("Ort");
+        binder.bind(ort, UnternehmerDTO::getOrt, UnternehmerDTO::setOrt);
         ort.setId("ort");
-        ort.setValue(unternehmerDTO.getOrt());
         ort.setWidth("50%");
         form.addComponent(ort);
-        
+
         TextField website = new TextField("Website");
+        binder.bind(website, UnternehmerDTO::getWebsite, UnternehmerDTO::setWebsite);
         website.setId("website");
-        if (unternehmerDTO.getWebsite() != null) {
-            website.setValue(unternehmerDTO.getWebsite());
-        }
         website.setWidth("50%");
         form.addComponent(website);
-        
+
         TextField email = new TextField("Email");
+        binder.bind(email, UnternehmerDTO::getEmail, UnternehmerDTO::setEmail);
         email.setId("email");
-        email.setValue(unternehmerDTO.getEmail());
         email.setWidth("50%");
         form.addComponent(email);
 
         TextField phone = new TextField("Telefonnummer");
+        binder.bind(phone, UnternehmerDTO::getTelNr, UnternehmerDTO::setTelNr);
         phone.setId("tel");
-        if (unternehmerDTO.getTelNr() != null) {
-            phone.setValue(unternehmerDTO.getTelNr());
-        }
         phone.setWidth("50%");
         form.addComponent(phone);
 
         TextField fax = new TextField("Faxnummer");
+        binder.bind(fax, UnternehmerDTO::getFaxNr, UnternehmerDTO::setFaxNr);
         fax.setId("fax");
-        if (unternehmerDTO.getFaxNr() != null) {
-            fax.setValue(unternehmerDTO.getFaxNr());
-        }
         fax.setWidth("50%");
         form.addComponent(fax);
-    
+
         TextField ansprechpartner = new TextField("Ansprechpartner");
+        binder.bind(ansprechpartner, UnternehmerDTO::getAnsprechpartner, UnternehmerDTO::setAnsprechpartner);
         ansprechpartner.setId("ansprechpartner");
-        if (unternehmerDTO.getAnsprechpartner() != null) {
-            ansprechpartner.setValue(unternehmerDTO.getAnsprechpartner());
-        }
         ansprechpartner.setWidth("50%");
         form.addComponent(ansprechpartner);
 
@@ -146,13 +143,12 @@ public class ProfilUnternehmen extends Abstract {
         form.addComponent(section);
 
         RichTextArea bio = new RichTextArea("Kurzvorstellung");
+        binder.bind(bio, UnternehmerDTO::getKurzVorstellung, UnternehmerDTO::setKurzVorstellung);
         bio.setId("bio");
         bio.setWidth("100%");
-        if (unternehmerDTO.getKurzVorstellung() != null) {
-            bio.setValue(unternehmerDTO.getKurzVorstellung());
-        }
         form.addComponent(bio);
-        
+
+        binder.readBean(unternehmerDTO);
         // Footer
         HorizontalLayout footer = new HorizontalLayout();
         footer.setMargin(new MarginInfo(true, false, true, false));
@@ -160,7 +156,7 @@ public class ProfilUnternehmen extends Abstract {
         footer.setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
         footer.setId("footer");
         form.addComponent(footer);
-                
+
         Button editButton = new Button("Bearbeiten", (Button.ClickListener) event -> {
             if (event.getButton().getCaption().equals("Bearbeiten")) {
                 setFormReadOnly(false);
@@ -170,6 +166,12 @@ public class ProfilUnternehmen extends Abstract {
             } else {
                 setFormReadOnly(true);
                 form.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
+                try {
+                    binder.writeBean(unternehmerDTO);
+                } catch (ValidationException e) {
+                    e.printStackTrace();
+                }
+                unternehmenController.updateProfil(unternehmerDTO);
                 event.getButton().setCaption("Bearbeiten");
                 event.getButton().removeStyleName(ValoTheme.BUTTON_PRIMARY);
             }
