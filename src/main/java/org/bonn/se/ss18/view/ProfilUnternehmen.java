@@ -181,18 +181,46 @@ public class ProfilUnternehmen extends Abstract {
         footer.addComponent(editButton);
 
         Button deleteButton = new Button(
-                "Löschen",
+                "Profil Löschen",
                 (Button.ClickListener) event -> {
-                    unternehmenController.removeProfil((new UserDTO((UnternehmerDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER))).getId());
-                    loginController.logout();
+                    deletProfil();
                 }
         );
+        
         deleteButton.setId("delete");
         deleteButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
         footer.addComponent(deleteButton);
 
         // Ausgangszustand: read-only
         setFormReadOnly(true);
+    }
+
+    private void deletProfil() {
+        Window deletWarning = new Window("Warnung löschen des eigenen Profils");
+        VerticalLayout deletWarningContent = new VerticalLayout();
+        HorizontalLayout buttons = new HorizontalLayout();
+        deletWarning.setContent(deletWarningContent);
+
+        Label warning = new Label("Wollen Sie wirklich ihr Profil löschen?");
+        Button yes = new Button("Ja");
+        yes.setId("yes");
+        Button cancel = new Button("Abbrechen");
+        cancel.setId("cancel");
+        yes.addStyleName(ValoTheme.BUTTON_DANGER);
+        deletWarningContent.addComponent(warning);
+        buttons.addComponent(yes);
+        buttons.addComponent(cancel);
+        deletWarningContent.addComponent(buttons);
+        deletWarningContent.addComponent(buttons);
+        yes.addClickListener(clickEvent -> {
+            unternehmenController.removeProfil((new UserDTO((UnternehmerDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER))).getId());
+            loginController.logout();
+        });
+        cancel.addClickListener(clickEvent -> {
+            deletWarning.close();
+        });
+        deletWarning.center();
+        getUI().addWindow(deletWarning);
     }
 
     public static String getName() {
