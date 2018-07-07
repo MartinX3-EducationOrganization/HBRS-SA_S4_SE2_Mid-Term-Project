@@ -25,8 +25,8 @@ public class UnternehmerDAOTest {
 
     @Test
     public void readbyId() {
-        Unternehmer unternehmer = dao.getByID(2);
-        Assert.assertEquals("Musterfirma", unternehmer.getFirmenname());
+        Unternehmer unternehmer = dao.getByID(53);
+        Assert.assertEquals("ZFirma", unternehmer.getFirmenname());
 
     }
 
@@ -51,11 +51,11 @@ public class UnternehmerDAOTest {
 
     @Test
     public void update() {
-        Unternehmer unternehmer = dao.getByID(2);
+        Unternehmer unternehmer = dao.getByID(0);
         Assert.assertFalse(unternehmer == null);
-        unternehmer.setFirmenname("Musterfirma");
-        Assert.assertTrue(dao.update(unternehmer));
-        Assert.assertEquals("Musterfirma", unternehmer.getFirmenname());
+       unternehmer.setFirmenname("Example Consulting new");
+       Assert.assertTrue(dao.update(unternehmer));
+        Assert.assertEquals("Example Consulting new", unternehmer.getFirmenname());
     }
 
     @Test

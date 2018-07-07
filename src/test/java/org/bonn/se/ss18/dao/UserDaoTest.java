@@ -7,6 +7,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.UUID;
+
 public class UserDaoTest {
     // Connection connection ;
 
@@ -26,8 +28,11 @@ public class UserDaoTest {
 
     @Test
     public void testcreate() {
+        //UUID id ;
         User user = new User();
-        user.setId(2);
+        user.setId(5);
+
+
         user.setPasswort("123");
         user.setStrasse("Weg");
         user.setHausnr("23");
@@ -54,7 +59,7 @@ public class UserDaoTest {
         newUser.setFoto(null);
         newUser.setKurzVorstellung("blabla");
 
-        Assert.assertTrue(dao.create(newUser));
+        Assert.assertFalse(dao.create(newUser));
         // dao.delete(newUser);
 
 
@@ -63,7 +68,7 @@ public class UserDaoTest {
     @Test
     public void testreadbyId() {
 
-        User user = dao.getByID(7);
+      User user = dao.getByID(7);
         Assert.assertEquals(null, user);
         User user1 = dao.getByID(2);
         Assert.assertEquals("email@unternehmen.de", user1.getEmail());
@@ -109,7 +114,7 @@ public class UserDaoTest {
         newUser.setFoto(null);
         newUser.setKurzVorstellung("blabla");
 
-        Assert.assertTrue(dao.delete(newUser));
+        Assert.assertFalse(dao.delete(newUser));
 
 
     }

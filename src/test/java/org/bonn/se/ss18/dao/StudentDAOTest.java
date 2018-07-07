@@ -24,9 +24,9 @@ public class StudentDAOTest {
 
     @Test
     public void readbyId() throws SQLException {
-        Student student = dao.getByID(1);
+        Student student = dao.getByID(45);
 
-        Assert.assertEquals("Sascha", student.getVorname());
+        Assert.assertEquals("Heike", student.getVorname());
     }
 
    /* @Test
@@ -41,19 +41,19 @@ public class StudentDAOTest {
     public void create() {
         Student student = new Student();
         student.setLinuxID("ux2s");
-        student.setPasswort("1111");
-        student.setId(1);
-        student.setAnrede("Herr");
-        student.setVorname("muster");
-        student.setNachname("mustermann");
+        student.setPasswort("123");
+        student.setId(45);
+        student.setAnrede("Frau");
+        student.setVorname("Heike");
+        student.setNachname("Baumann");
         student.setGebDatum(new Date(1l));
         Assert.assertFalse(dao.create(student));
     }
 
     @Test
     public void update() {
-        Student student = dao.getByUserAndPass("salda2s", "123");
-        student.setVorname("Sascha");
+        Student student = dao.getByUserAndPass("ux2s", "123");
+        student.setVorname("Heike");
         Assert.assertTrue(dao.update(student));
     }
 
@@ -75,9 +75,9 @@ public class StudentDAOTest {
     public void read() {
         Student student = dao.getByUserAndPass("salda2s", "123");
 
-        Assert.assertFalse(student == null);
-        Assert.assertTrue(student != null);
-        Assert.assertEquals("Alda", student.getNachname());
+        Assert.assertTrue(student == null);
+        Assert.assertFalse(student != null);
+       //    Assert.assertEquals("Bauman", student.getNachname());
 
 
     }
