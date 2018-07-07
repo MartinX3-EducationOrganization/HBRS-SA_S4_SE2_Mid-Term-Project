@@ -17,14 +17,13 @@ import com.vaadin.ui.themes.ValoTheme;
 import org.bonn.se.ss18.controller.LoginController;
 import org.bonn.se.ss18.controller.TableController;
 import org.bonn.se.ss18.controller.UnternehmenController;
+import org.bonn.se.ss18.dto.BrancheDTO;
 import org.bonn.se.ss18.dto.UnternehmerDTO;
 import org.bonn.se.ss18.dto.UserDTO;
 import org.bonn.se.ss18.service.Roles;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ProfilUnternehmen extends Abstract {
     private final FormLayout form = new FormLayout();
@@ -69,24 +68,13 @@ public class ProfilUnternehmen extends Abstract {
         firmenname.setWidth("50%");
         form.addComponent(firmenname);
 
-        HashMap<Integer, String> branchenlist = tablecontroller.brancheTable();
-        Binder<Map<Integer, String>> binder2;
-
-        ComboBox branche = new ComboBox("Branchen", branchenlist.values());
+        ComboBox<BrancheDTO> branche = new ComboBox<>("Branchen", tablecontroller.getBranches());
         branche.setEmptySelectionAllowed(false);
         branche.setSizeFull();
+        // Use the name property for item captions
+        branche.setItemCaptionGenerator(BrancheDTO::getBezeichnung);
         form.addComponent(branche);
-
-//        TextField branche = new TextField("Branche");
-//        binder.forField(branche)
-//                .withConverter(
-//                        new StringToIntegerConverter("Must enter a number"))
-//                .bind(UnternehmerDTO::getBranchenid, UnternehmerDTO::setBranchenid);
-//
-//        branche.setId("branche");
-//        // branche.setValue(unternehmerDTO.getBranche(); // TODO: Branche anstatt BranchenID holen
-//        branche.setWidth("50%");
-//        form.addComponent(branche);
+        branche.addValueChangeListener(x -> unternehmerDTO.setBranchenid(x.getValue().getId()));
 
         // Section 2
         section = new Label("Kontakt");

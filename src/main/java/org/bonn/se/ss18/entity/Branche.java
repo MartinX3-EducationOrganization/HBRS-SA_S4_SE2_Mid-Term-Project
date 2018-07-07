@@ -6,6 +6,12 @@ package org.bonn.se.ss18.entity;
 public class Branche extends AbstractEntity {
     private String bezeichnung;
 
+    public Branche(int brancheid, String bezeichnung) {
+        super();
+        setId(brancheid);
+        setBezeichnung(bezeichnung);
+    }
+
     public String getBezeichnung() {
         return bezeichnung;
     }
@@ -14,3 +20,4 @@ public class Branche extends AbstractEntity {
         this.bezeichnung = bezeichnung;
     }
 }
+

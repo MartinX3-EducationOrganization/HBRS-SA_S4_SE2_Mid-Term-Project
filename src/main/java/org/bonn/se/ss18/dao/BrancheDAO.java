@@ -6,7 +6,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -37,18 +38,17 @@ public class BrancheDAO extends GenericDAO<Branche> {
         return false;
     }
 
-    public HashMap<Integer, String> getTable() {
+    public List<Branche> getBranches() {
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName);
-            HashMap<Integer, String> branchenlist = new HashMap<>();
+            List<Branche> branchenlist = new ArrayList<>();
             while (rs.next()) {
-                branchenlist.put(rs.getInt("brancheid"), rs.getString("bezeichnung"));
+                branchenlist.add(new Branche(rs.getInt("brancheid"), rs.getString("bezeichnung")));
             }
             return branchenlist;
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            return null;
         }
-        return null;
     }
 }
