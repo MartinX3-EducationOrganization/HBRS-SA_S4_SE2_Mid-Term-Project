@@ -9,13 +9,13 @@ package org.bonn.se.ss18.view;
 
 import com.vaadin.data.Binder;
 import com.vaadin.data.ValidationException;
-import com.vaadin.data.converter.StringToIntegerConverter;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinService;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import org.bonn.se.ss18.controller.LoginController;
+import org.bonn.se.ss18.controller.TableController;
 import org.bonn.se.ss18.controller.UnternehmenController;
 import org.bonn.se.ss18.dto.UnternehmerDTO;
 import org.bonn.se.ss18.dto.UserDTO;
@@ -23,11 +23,14 @@ import org.bonn.se.ss18.service.Roles;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProfilUnternehmen extends Abstract {
     private final FormLayout form = new FormLayout();
     private final UnternehmenController unternehmenController = new UnternehmenController();
     private final LoginController loginController = new LoginController();
+    private final TableController tablecontroller = new TableController();
 
     public ProfilUnternehmen() {
         Label title = new Label("Profil (Unternehmen)");
@@ -65,16 +68,24 @@ public class ProfilUnternehmen extends Abstract {
         firmenname.setWidth("50%");
         form.addComponent(firmenname);
 
+        HashMap<Integer, String> branchenlist = tablecontroller.brancheTable();
+        Binder<Map<Integer, String>> binder2;
 
-        TextField branche = new TextField("Branche");
-        binder.forField(branche)
-                .withConverter(
-                        new StringToIntegerConverter("Must enter a number"))
-                .bind(UnternehmerDTO::getBranchenid, UnternehmerDTO::setBranchenid);
-        branche.setId("branche");
-        // branche.setValue(unternehmerDTO.getBranche(); // TODO: Branche anstatt BranchenID holen
-        branche.setWidth("50%");
+        ComboBox branche = new ComboBox("Branchen", branchenlist.values());
+        branche.setEmptySelectionAllowed(false);
+        branche.setSizeFull();
         form.addComponent(branche);
+
+//        TextField branche = new TextField("Branche");
+//        binder.forField(branche)
+//                .withConverter(
+//                        new StringToIntegerConverter("Must enter a number"))
+//                .bind(UnternehmerDTO::getBranchenid, UnternehmerDTO::setBranchenid);
+//
+//        branche.setId("branche");
+//        // branche.setValue(unternehmerDTO.getBranche(); // TODO: Branche anstatt BranchenID holen
+//        branche.setWidth("50%");
+//        form.addComponent(branche);
 
         // Section 2
         section = new Label("Kontakt");

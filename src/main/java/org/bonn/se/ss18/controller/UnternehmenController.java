@@ -64,5 +64,4 @@ public class UnternehmenController {
 
         return uDAO.update(unternehmerDTO.toEntity()) && unterDAO.update(new Unternehmer(unternehmerDTO));
     }
-
 }

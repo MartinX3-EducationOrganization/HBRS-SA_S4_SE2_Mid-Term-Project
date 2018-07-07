@@ -66,18 +66,24 @@ public class StellenaussgabeDataView extends Window {
 
         ComboBox<String> selectType = new ComboBox<>("Wählen Sie aus");
         selectType.setValue(documentData.getTyp());
+        selectType.setEmptySelectionAllowed(false);
+        selectType.setTextInputAllowed(false);
         selectType.setItems(typlist);
         layout.addComponent(selectType);
 
 
         ComboBox<String> selectAnstellung = new ComboBox<>("Wählen Sie aus");
         selectAnstellung.setItems(anstellungslist);
+        selectAnstellung.setEmptySelectionAllowed(false);
+        selectAnstellung.setTextInputAllowed(false);
         selectAnstellung.setValue(documentData.getAnstellungsart());
         layout.addComponent(selectAnstellung);
 
 
         ComboBox<String> selectArbeitszeit = new ComboBox<>("Wählen Sie aus");
         selectArbeitszeit.setItems(arbeitszeiten);
+        selectArbeitszeit.setEmptySelectionAllowed(false);
+        selectArbeitszeit.setTextInputAllowed(false);
         selectArbeitszeit.setValue(documentData.getArbeitszeit());
         layout.addComponent(selectArbeitszeit);
 

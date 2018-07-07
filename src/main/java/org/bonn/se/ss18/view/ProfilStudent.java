@@ -3,6 +3,7 @@ package org.bonn.se.ss18.view;
 
 import com.vaadin.data.Binder;
 import com.vaadin.data.ValidationException;
+import com.vaadin.data.validator.EmailValidator;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinService;
 import com.vaadin.shared.ui.MarginInfo;
@@ -57,20 +58,26 @@ public class ProfilStudent extends Abstract {
         Binder<StudentDTO> binder = new Binder<>();
 
         TextField vorname = new TextField("Vorname");
-        binder.bind(vorname, StudentDTO::getVorname, StudentDTO::setVorname);
+        binder.forField(vorname)
+                .asRequired("Bitte geben sie ihren Vornamen an!")
+                .bind(StudentDTO::getVorname, StudentDTO::setVorname);
         vorname.setId("firstname");
         vorname.setWidth("50%");
         form.addComponent(vorname);
 
 
         TextField nachname = new TextField("Nachname");
-        binder.bind(nachname, StudentDTO::getNachname, StudentDTO::setNachname);
+        binder.forField(nachname)
+                .asRequired("Bitte geben sie ihren Nachnamen an!")
+                .bind(StudentDTO::getNachname, StudentDTO::setNachname);
         nachname.setId("lastname");
         nachname.setWidth("50%");
         form.addComponent(nachname);
 
         DateField birthday = new DateField("Geburtstag");
-        binder.bind(birthday, StudentDTO::getGebDatum, StudentDTO::setGebDatum);
+        binder.forField(birthday)
+                .asRequired("Bitte geben sie ihren Geburtstag an!")
+                .bind(StudentDTO::getGebDatum, StudentDTO::setGebDatum);
         birthday.setId("birthday");
         form.addComponent(birthday);
 
@@ -92,19 +99,27 @@ public class ProfilStudent extends Abstract {
         form.addComponent(hnr);
 
         TextField plz = new TextField("PLZ");
-        binder.bind(plz, StudentDTO::getPlz, StudentDTO::setPlz);
+        binder.forField(plz)
+                .asRequired("Bitte geben sie eine Postleitzahl an!")
+                .bind(StudentDTO::getPlz, StudentDTO::setPlz);
+        plz.setMaxLength(5);
         plz.setId("plz");
         plz.setWidth("10%");
         form.addComponent(plz);
 
         TextField ort = new TextField("Ort");
-        binder.bind(ort, StudentDTO::getOrt, StudentDTO::setOrt);
+        binder.forField(ort)
+                .asRequired("Bitte geben sie einen Ort an!")
+                .bind(StudentDTO::getOrt, StudentDTO::setOrt);
         ort.setId("ort");
         ort.setWidth("50%");
         form.addComponent(ort);
 
         TextField email = new TextField("Email");
-        binder.bind(email, StudentDTO::getEmail, StudentDTO::setEmail);
+        binder.forField(email)
+                .withValidator(new EmailValidator("Das sieht nicht nach einer Email aus"))
+                .asRequired()
+                .bind(StudentDTO::getEmail, StudentDTO::setEmail);
         email.setId("email");
         email.setWidth("50%");
         form.addComponent(email);

@@ -3,7 +3,10 @@ package org.bonn.se.ss18.dao;
 import org.bonn.se.ss18.entity.Branche;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashMap;
 import java.util.Set;
 
 /**
@@ -32,5 +35,20 @@ public class BrancheDAO extends GenericDAO<Branche> {
     @Override
     public boolean update(Branche user) throws SQLException {
         return false;
+    }
+
+    public HashMap<Integer, String> getTable() {
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName);
+            HashMap<Integer, String> branchenlist = new HashMap<>();
+            while (rs.next()) {
+                branchenlist.put(rs.getInt("brancheid"), rs.getString("bezeichnung"));
+            }
+            return branchenlist;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 }
