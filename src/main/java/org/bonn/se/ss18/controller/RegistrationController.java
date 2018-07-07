@@ -38,6 +38,8 @@ public class RegistrationController {
         }
 
         userDAO.create(new User(unternehmerDTO));
+        User neu = userDAO.getByColumnValue("email", unternehmerDTO.getEmail());
+        unternehmerDTO.setId(neu.getId());
         unternehmerDAO.create(new Unternehmer(unternehmerDTO));
 
         return true;

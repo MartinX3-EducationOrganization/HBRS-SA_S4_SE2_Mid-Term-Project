@@ -26,9 +26,9 @@ public class LoginView extends Abstract {
         VerticalLayout layoutCentre = getLayoutCentre();
 
         Button register = new Button("Jetzt registrieren!",
-                event -> {
-            UI.getCurrent().getNavigator().navigateTo(RegistrationUnternehmen.getName());
-            //UI.getCurrent().getNavigator().navigateTo(RegistrationUnternehmen.getName());
+                (Button.ClickListener) event -> {
+                    UI.getCurrent().getNavigator().navigateTo(RegistrationUnternehmen.getName());
+                    //UI.getCurrent().getNavigator().navigateTo(RegistrationUnternehmen.getName());
                 }
         );
         register.setId("registrieren_in");

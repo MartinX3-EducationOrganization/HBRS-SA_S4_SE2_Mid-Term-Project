@@ -2,7 +2,6 @@
 package org.bonn.se.ss18.view;
 
 /**
- *
  * @author Abdullah.Mohamad
  */
 
@@ -14,6 +13,8 @@ import com.vaadin.server.VaadinService;
 import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.*;
 import org.bonn.se.ss18.controller.RegistrationController;
+import org.bonn.se.ss18.controller.TableController;
+import org.bonn.se.ss18.dto.BrancheDTO;
 import org.bonn.se.ss18.dto.UnternehmerDTO;
 
 import java.io.File;
@@ -21,6 +22,7 @@ import java.io.File;
 @Title("Registrierung")
 public class RegistrationUnternehmen extends Abstract {
     UnternehmerDTO unternehmerDTO = new UnternehmerDTO();
+    private final TableController tablecontroller = new TableController();
 
     public RegistrationUnternehmen() {
 //HauptLayout
@@ -59,7 +61,14 @@ public class RegistrationUnternehmen extends Abstract {
         FormLayout form = setForm();
         layout.addComponent(form);
         layout.setComponentAlignment(form, Alignment.MIDDLE_CENTER);
-
+//Combobox
+        ComboBox<BrancheDTO> branche = new ComboBox<>("Branchen", tablecontroller.getBranches());
+        branche.setEmptySelectionAllowed(false);
+        branche.setWidth("300");
+        branche.setItemCaptionGenerator(BrancheDTO::getBezeichnung);
+        branche.addValueChangeListener(x -> unternehmerDTO.setBranchenid(x.getValue().getId()));
+        layout.addComponent(branche);
+        layout.setComponentAlignment(form, Alignment.MIDDLE_CENTER);
 //Nutzungsbedingungen
         CheckBox useConditionsCheckbox = new CheckBox(null, false);
         useConditionsCheckbox.setId("agb");
@@ -115,18 +124,19 @@ public class RegistrationUnternehmen extends Abstract {
     }
 
     private FormLayout setForm() {
-          TextField unternehmer   = new TextField();
-          unternehmer.setId("unternehmer");
-          TextField  email        = new TextField();
-          email.setId("email");
-          PasswordField passwort  = new PasswordField();
-          passwort.setId("passwort");
-          TextField telefon       = new TextField();
-          telefon.setId("telefon");
-          TextField ort           = new TextField();
-          ort.setId("ort");
-          TextField plz           = new TextField();
-          plz.setId("plz");
+        TextField unternehmer = new TextField();
+        unternehmer.setId("unternehmer");
+        TextField email = new TextField();
+        email.setId("email");
+        PasswordField passwort = new PasswordField();
+        passwort.setId("passwort");
+        TextField telefon = new TextField();
+        telefon.setId("telefon");
+        TextField ort = new TextField();
+        ort.setId("ort");
+        TextField plz = new TextField();
+        plz.setId("plz");
+
 
         return setLayout(
                 new FormLayout(
