@@ -60,6 +60,7 @@ public class ProfilUnternehmen extends Abstract {
         Binder<UnternehmerDTO> binder = new Binder<>();
 
         TextField firmenname = new TextField("Firmenname");
+
         binder.bind(firmenname, UnternehmerDTO::getFirmenname, UnternehmerDTO::setFirmenname);
         firmenname.setId("firmenname");
         firmenname.setWidth("50%");
@@ -185,7 +186,7 @@ public class ProfilUnternehmen extends Abstract {
                     unternehmenController.removeProfil((new UserDTO((UnternehmerDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER))).getId());
                     loginController.logout();
                 }
-        );
+        );deleteButton.setId("delete");
         deleteButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
         footer.addComponent(deleteButton);
 

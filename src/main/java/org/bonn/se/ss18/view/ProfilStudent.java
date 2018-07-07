@@ -147,6 +147,7 @@ public class ProfilStudent extends Abstract {
         Button skillButton = new Button("Hinzufügen", new Button.ClickListener() {
             int i = 1;
 
+
             @Override
             public void buttonClick(Button.ClickEvent event) {
                 form.addComponent(new TextField("" + i++));
@@ -192,6 +193,7 @@ public class ProfilStudent extends Abstract {
                     deletProfil();
                 }
         );
+        deleteButton.setId("delete");
         deleteButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
         footer.addComponent(deleteButton);
 
@@ -207,7 +209,9 @@ public class ProfilStudent extends Abstract {
 
         Label warning = new Label("Wollen Sie wirklich ihr Profil löschen?");
         Button yes = new Button("Ja");
+        yes.setId("yes");
         Button cancel = new Button("Abbrechen");
+        cancel.setId("cancel");
         yes.addStyleName(ValoTheme.BUTTON_DANGER);
         deletWarningContent.addComponent(warning);
         buttons.addComponent(yes);

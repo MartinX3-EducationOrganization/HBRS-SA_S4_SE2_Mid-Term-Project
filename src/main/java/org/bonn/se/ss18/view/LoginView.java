@@ -26,7 +26,10 @@ public class LoginView extends Abstract {
         VerticalLayout layoutCentre = getLayoutCentre();
 
         Button register = new Button("Jetzt registrieren!",
-                event -> UI.getCurrent().getNavigator().navigateTo(RegistrationUnternehmen.getName())
+                event -> {
+            UI.getCurrent().getNavigator().navigateTo(RegistrationUnternehmen.getName());
+            //UI.getCurrent().getNavigator().navigateTo(RegistrationUnternehmen.getName());
+                }
         );
         register.setId("registrieren_in");
         VerticalLayout layoutRight = new VerticalLayout(
@@ -50,7 +53,9 @@ public class LoginView extends Abstract {
 
     private VerticalLayout getLayoutCentre() {
         TextField user = new TextField("Linux-Kennung / Benutzername");
+        user.setId("user");
         PasswordField pass = new PasswordField("Passwort");
+        pass.setId("passwort");
         Button loginButton = new Button("Anmelden", (Button.ClickListener) event -> {
             try {
                 loginController.login(user.getValue(), pass.getValue());
@@ -60,6 +65,7 @@ public class LoginView extends Abstract {
                 Notification.show("Logindaten wurden nicht richtig eingeben.", Notification.Type.ERROR_MESSAGE);
             }
         });
+        //loginButton.setId("anmenlden");
 
         loginButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         loginButton.setId("log-in");

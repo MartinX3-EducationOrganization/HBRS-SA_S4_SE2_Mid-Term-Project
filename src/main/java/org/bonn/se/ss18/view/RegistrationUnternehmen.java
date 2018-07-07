@@ -84,7 +84,7 @@ public class RegistrationUnternehmen extends Abstract {
                     if (unternehmerDTO.isCheckboxAGB()) {
                         new RegistrationController().registration(unternehmerDTO);
                         UI.getCurrent().getNavigator().navigateTo(LoginView.getName());
-                        Notification.show("Vielen Dank");
+                        Notification.show("Vielen Dank für die Registrierung");
                     } else {
                         Notification.show("Bitte AGB's bestätigen!");
                     }
