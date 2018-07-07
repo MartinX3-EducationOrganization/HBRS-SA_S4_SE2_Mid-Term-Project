@@ -62,13 +62,13 @@ public class RegistrationUnternehmen extends Abstract {
         layout.addComponent(form);
         layout.setComponentAlignment(form, Alignment.MIDDLE_CENTER);
 //Combobox
-        ComboBox<BrancheDTO> branche = new ComboBox<>("Branchen", tablecontroller.getBranches());
+        ComboBox<BrancheDTO> branche = new ComboBox<>("Branchenauswahl", tablecontroller.getBranches());
         branche.setEmptySelectionAllowed(false);
         branche.setWidth("300");
         branche.setItemCaptionGenerator(BrancheDTO::getBezeichnung);
         branche.addValueChangeListener(x -> unternehmerDTO.setBranchenid(x.getValue().getId()));
         layout.addComponent(branche);
-        layout.setComponentAlignment(form, Alignment.MIDDLE_CENTER);
+        layout.setComponentAlignment(branche, Alignment.MIDDLE_CENTER);
 //Nutzungsbedingungen
         CheckBox useConditionsCheckbox = new CheckBox(null, false);
         useConditionsCheckbox.setId("agb");
