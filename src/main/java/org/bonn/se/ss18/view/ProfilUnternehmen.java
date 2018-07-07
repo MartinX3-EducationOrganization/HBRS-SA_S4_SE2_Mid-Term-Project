@@ -71,6 +71,7 @@ public class ProfilUnternehmen extends Abstract {
         ComboBox<BrancheDTO> branche = new ComboBox<>("Branchen", tablecontroller.getBranches());
         branche.setEmptySelectionAllowed(false);
         branche.setSizeFull();
+        branche.setSelectedItem(tablecontroller.getBranches().get(unternehmerDTO.getBranchenid() - 1));
         // Use the name property for item captions
         branche.setItemCaptionGenerator(BrancheDTO::getBezeichnung);
         form.addComponent(branche);
@@ -185,7 +186,8 @@ public class ProfilUnternehmen extends Abstract {
                     unternehmenController.removeProfil((new UserDTO((UnternehmerDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER))).getId());
                     loginController.logout();
                 }
-        );deleteButton.setId("delete");
+        );
+        deleteButton.setId("delete");
         deleteButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
         footer.addComponent(deleteButton);
 
