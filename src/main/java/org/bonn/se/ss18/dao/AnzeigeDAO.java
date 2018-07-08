@@ -16,10 +16,9 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
         super(con, "table_anzeige", "anzeigeid");
     }
 
-    @Override
     public Anzeige getByID(int id) {
         try {
-            HashSet<Anzeige> set = readResults(super.getRsByID(id + ""));
+            HashSet<Anzeige> set = readResults(super.getRsByID(String.format("%d", id)));
             return set.isEmpty() ? null : set.iterator().next();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -31,7 +30,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
     public Set<Anzeige> getAllByID(int id) {
         try {
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " WHERE userid=" + id);
+            ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM %s WHERE userid=%d", tableName, id));
             Set stellen = new HashSet();
             while (rs.next()) {
                 stellen = readResults(rs);
@@ -46,9 +45,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
     @Override
     public boolean create(Anzeige stelle) {
         try {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO " + tableName +
-                    "(userid,datum,titel,ort,typ,anstellungsart,arbeitszeit,brancheid,beginn,aktiv,text, anzeigeid)"
-                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement ps = con.prepareStatement(String.format("INSERT INTO %s(userid,datum,titel,ort,typ,anstellungsart,arbeitszeit,brancheid,beginn,aktiv,text, anzeigeid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", tableName));
             return createps(stelle, ps);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,12 +56,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
     @Override
     public boolean update(Anzeige stelle) {
         try {
-            PreparedStatement ps = con.prepareStatement("UPDATE " + tableName + " "
-                    + "SET userid = ?, datum = ? , titel = ?, ort = ?, "
-                    + "typ = ?, anstellungsart = ?, arbeitszeit = ?, "
-                    + "brancheid = ?, beginn = ?, aktiv = ?, text = ?, "
-                    + "anzeigeid = ?"
-                    + "WHERE anzeigeid = " + stelle.getId());
+            PreparedStatement ps = con.prepareStatement(String.format("UPDATE %s SET userid = ?, datum = ? , titel = ?, ort = ?, typ = ?, anstellungsart = ?, arbeitszeit = ?, brancheid = ?, beginn = ?, aktiv = ?, text = ?, anzeigeid = ?WHERE anzeigeid = %d", tableName, stelle.getId()));
             return createps(stelle, ps);
 
         } catch (SQLException ex) {

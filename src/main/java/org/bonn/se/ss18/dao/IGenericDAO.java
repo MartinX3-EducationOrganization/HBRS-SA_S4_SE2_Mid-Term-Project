@@ -7,6 +7,7 @@
 
 package org.bonn.se.ss18.dao;
 
+import java.io.Closeable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Set;
@@ -15,10 +16,8 @@ import java.util.Set;
  * @author martin on 23.06.18
  * @project wi-inf_se2_2018_grundgeruest
  */
-public interface IGenericDAO<T> {
+public interface IGenericDAO<T> extends Closeable {
     ResultSet getRsByID(String id) throws SQLException;
-
-    T getByID(int id) throws SQLException;
 
     Set<T> getAllByID(int id) throws SQLException;
 

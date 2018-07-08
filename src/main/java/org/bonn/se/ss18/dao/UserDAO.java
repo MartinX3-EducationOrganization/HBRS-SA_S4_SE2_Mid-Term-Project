@@ -13,7 +13,6 @@ public class UserDAO extends GenericDAO<User> {
         super(con, "table_user", "userid");
     }
 
-    @Override
     public User getByID(int id) {
         try {
             return readResults(super.getRsByID(id + ""));
@@ -26,7 +25,7 @@ public class UserDAO extends GenericDAO<User> {
     public User getByColumnValue(String column, String keyword) {
         try {
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " WHERE " + column + "=" + " \'" + keyword + "\'");
+            ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM %s WHERE %s= '%s'", tableName, column, keyword));
             return readResults(rs);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -42,8 +41,7 @@ public class UserDAO extends GenericDAO<User> {
     @Override
     public boolean create(User user) {
         try {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO " + tableName + "(passwort,strasse,hausnr,plz,ort,email,telnr,faxnr,foto,kurzvorstellung)"
-                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
+            PreparedStatement ps = con.prepareStatement(String.format("INSERT INTO %s(passwort,strasse,hausnr,plz,ort,email,telnr,faxnr,foto,kurzvorstellung) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)", tableName));
             return createps(user, ps);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -57,7 +55,7 @@ public class UserDAO extends GenericDAO<User> {
     public boolean update(User user) {
 
         try {
-            PreparedStatement ps = con.prepareStatement("UPDATE " + tableName + " SET passwort=?,strasse=?,hausnr=?,plz=?,ort=?,email=?,telnr=?,faxnr=?,foto=?,kurzvorstellung=? WHERE userid=" + user.getId());
+            PreparedStatement ps = con.prepareStatement(String.format("UPDATE %s SET passwort=?,strasse=?,hausnr=?,plz=?,ort=?,email=?,telnr=?,faxnr=?,foto=?,kurzvorstellung=? WHERE userid=%d", tableName, user.getId()));
             return createps(user, ps);
 
         } catch (SQLException ex) {

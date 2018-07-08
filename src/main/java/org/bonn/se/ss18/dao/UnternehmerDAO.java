@@ -1,9 +1,8 @@
 package org.bonn.se.ss18.dao;
 
-import org.bonn.se.ss18.controller.ConnectionFactory;
+import com.vaadin.ui.Notification;
 import org.bonn.se.ss18.entity.Unternehmer;
 import org.bonn.se.ss18.entity.User;
-import org.bonn.se.ss18.service.Tables;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,18 +18,18 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
         super(con, "table_unternehmen", "unternehmenid");
     }
 
-    @Override
-    public Unternehmer getByID(int id) {
+    public Unternehmer getByID(int id, UserDAO userDAO) {
         try {
             ResultSet resultSet = con.createStatement().executeQuery(String.format("SELECT userid FROM %s WHERE %s=%s", super.tableName, "userid", id));
             if (resultSet.next()) {
                 return readResults(
                         getRsByID(id + ""),
-                        ((UserDAO) ConnectionFactory.getInstance().getDAO(Tables.table_user)).getByID(id)
+                        userDAO.getByID(id)
                 );
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            Notification.show("Keine Verbindung zur Datenbank!", Notification.Type.ERROR_MESSAGE);
         }
         return null;
     }
@@ -53,8 +52,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
     @Override
     public boolean create(Unternehmer unternehmer) {
         try {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO " + tableName + "(userid,firmenname,website,ansprechpartner,brancheid)"
-                    + " VALUES (?, ?, ?, ?, ?)");
+            PreparedStatement ps = con.prepareStatement(String.format("INSERT INTO %s(userid,firmenname,website,ansprechpartner,brancheid) VALUES (?, ?, ?, ?, ?)", tableName));
             return createps(unternehmer, ps);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -65,7 +63,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
     @Override
     public boolean update(Unternehmer unternehmer) {
         try {
-            PreparedStatement ps = con.prepareStatement("UPDATE " + tableName + " SET userid=?,firmenname=?,website=?,ansprechpartner=?,brancheid=? WHERE unternehmenid=" + unternehmer.getUnternehmerid());
+            PreparedStatement ps = con.prepareStatement(String.format("UPDATE %s SET userid=?,firmenname=?,website=?,ansprechpartner=?,brancheid=? WHERE unternehmenid=%d", tableName, unternehmer.getUnternehmerid()));
             return createps(unternehmer, ps);
 
         } catch (SQLException ex) {
@@ -105,7 +103,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
     @Override
     public boolean delete(Unternehmer entity) {
         try {
-            if (con.createStatement().executeUpdate("DELETE FROM " + tableName + " WHERE " + primaryKey + "=" + entity.getUnternehmerid()) == 1) {
+            if (con.createStatement().executeUpdate(String.format("DELETE FROM %s WHERE %s=%d", tableName, primaryKey, entity.getUnternehmerid())) == 1) {
                 return true;
             }
         } catch (SQLException ex) {
@@ -114,7 +112,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
         return false;
     }
 
-    public boolean deleteByUserID(int id) {
-        return delete(getByID(id));
+    public boolean deleteByUserID(int id, UserDAO userDAO) {
+        return delete(getByID(id, userDAO));
     }
 }

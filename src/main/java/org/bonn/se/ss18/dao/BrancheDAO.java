@@ -18,7 +18,6 @@ public class BrancheDAO extends GenericDAO<Branche> {
         super(con, "table_branche", "brancheid");
     }
 
-    @Override
     public Branche getByID(int id) throws SQLException {
         return null;
     }

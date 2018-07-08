@@ -2,6 +2,7 @@ package org.bonn.se.ss18.dao;
 
 import org.bonn.se.ss18.controller.ConnectionFactory;
 import org.bonn.se.ss18.entity.Student;
+import org.bonn.se.ss18.service.Tables;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -11,20 +12,24 @@ import java.sql.Date;
 import java.sql.SQLException;
 
 public class StudentDAOTest {
-    private StudentDAO dao;
+    private UserDAO userDAO;
+    private StudentDAO studentDAO;
 
     @Before
     public void setUp() throws Exception {
-        dao = new StudentDAO(ConnectionFactory.getInstance().getConnection());
+        userDAO = (UserDAO) ConnectionFactory.getDAO(Tables.table_user);
+        studentDAO = (StudentDAO) ConnectionFactory.getDAO(Tables.table_student);
     }
 
     @After
     public void tearDown() throws Exception {
+        studentDAO.close();
+        userDAO.close();
     }
 
     @Test
     public void readbyId() throws SQLException {
-        Student student = dao.getByID(45);
+        Student student = studentDAO.getByID(45, userDAO);
 
         Assert.assertEquals("Heike", student.getVorname());
     }
@@ -47,14 +52,14 @@ public class StudentDAOTest {
         student.setVorname("Heike");
         student.setNachname("Baumann");
         student.setGebDatum(new Date(1l));
-        Assert.assertFalse(dao.create(student));
+        Assert.assertFalse(studentDAO.create(student));
     }
 
     @Test
     public void update() {
-        Student student = dao.getByUserAndPass("ux2s", "123");
+        Student student = studentDAO.getByUserAndPass("ux2s", "123");
         student.setVorname("Heike");
-        Assert.assertTrue(dao.update(student));
+        Assert.assertTrue(studentDAO.update(student));
     }
 
     @Test
@@ -68,12 +73,12 @@ public class StudentDAOTest {
         student.setNachname("Müller");
         student.setGebDatum(new Date(1l));
 
-        Assert.assertFalse(dao.delete(student));
+        Assert.assertFalse(studentDAO.delete(student));
     }
 
     @Test
     public void read() {
-        Student student = dao.getByUserAndPass("salda2s", "123");
+        Student student = studentDAO.getByUserAndPass("salda2s", "123");
 
         Assert.assertTrue(student == null);
         Assert.assertFalse(student != null);

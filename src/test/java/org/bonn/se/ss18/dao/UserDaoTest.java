@@ -2,28 +2,23 @@ package org.bonn.se.ss18.dao;
 
 import org.bonn.se.ss18.controller.ConnectionFactory;
 import org.bonn.se.ss18.entity.User;
+import org.bonn.se.ss18.service.Tables;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.UUID;
-
 public class UserDaoTest {
-    // Connection connection ;
-
     private UserDAO dao;
 
     @Before
     public void setUp() throws Exception {
-
-        dao = new UserDAO(ConnectionFactory.getInstance().getConnection());
-        //connection = ConnectionFactory.getConnection();
+        dao = (UserDAO) ConnectionFactory.getDAO(Tables.table_user);
     }
 
     @After
     public void tearDown() throws Exception {
-        dao = null;
+        dao.close();
     }
 
     @Test

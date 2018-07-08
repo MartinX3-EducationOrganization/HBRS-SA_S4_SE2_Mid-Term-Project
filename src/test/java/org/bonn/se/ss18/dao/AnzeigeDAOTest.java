@@ -2,6 +2,7 @@ package org.bonn.se.ss18.dao;
 
 import org.bonn.se.ss18.controller.ConnectionFactory;
 import org.bonn.se.ss18.entity.Anzeige;
+import org.bonn.se.ss18.service.Tables;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -9,32 +10,24 @@ import org.junit.Test;
 
 import java.sql.Date;
 import java.util.Set;
-import java.util.UUID;
 
 public class AnzeigeDAOTest {
     private final Anzeige anzeige = new Anzeige();
-    private AnzeigeDAO adao;
-    private ConnectionFactory dao;
-   // private UUID id;
+    private AnzeigeDAO dao;
 
     @Before
     public void setUp() throws Exception {
-        adao = new AnzeigeDAO(ConnectionFactory.getInstance().getConnection());
-
-
+        dao = (AnzeigeDAO) ConnectionFactory.getDAO(Tables.table_anzeige);
     }
 
     @After
     public void tearDown() throws Exception {
-
+        dao.close();
     }
 
     @Test
     public void testCreate() {
-
-
         //Tested ob es geklappt hat.
-        //anzeige.setId(100);
         anzeige.setUserid(100);
         anzeige.setDatum(new Date(2000, 1, 1));
         anzeige.setTitel("Titel");
@@ -46,13 +39,13 @@ public class AnzeigeDAOTest {
         anzeige.setBeginn(new Date(2000, 1, 1));
         anzeige.setAktiv(true);
         anzeige.setText("Text");
-        Assert.assertFalse(adao.create(anzeige));
-        adao.delete(anzeige);
+        Assert.assertFalse(dao.create(anzeige));
+        dao.delete(anzeige);
     }
 
     @Test
     public void testReadbyId() {
-        Anzeige anzeige2 = adao.getByID(6);
+        Anzeige anzeige2 = dao.getByID(6);
         Assert.assertEquals(6, anzeige2.getId());
         Assert.assertEquals(1, anzeige2.getUserid());
        // Assert.assertEquals(new Date(2000, 1, 1), Date.valueOf(anzeige.getDatum()));
@@ -70,11 +63,11 @@ public class AnzeigeDAOTest {
 
     @Test
     public void testGetAllbyId() {
-        Set<Anzeige> result = adao.getAllByID(100);
+        Set<Anzeige> result = dao.getAllByID(100);
         Assert.assertEquals(0,result.size());
 
         // Was macht GetAllById und wofür wird es gebraucht????
-     Set<Anzeige> result1 = adao.getAllByID(2);
+        Set<Anzeige> result1 = dao.getAllByID(2);
      Assert.assertEquals(1, result1.size());
 
 
@@ -86,13 +79,13 @@ public class AnzeigeDAOTest {
     @Test
     public void testUpadate() {
 
-        Anzeige anzeige = adao.getByID(6);
+        Anzeige anzeige = dao.getByID(6);
 
         anzeige.setTyp("Gesuch");
-        Assert.assertTrue(adao.update(anzeige));
+        Assert.assertTrue(dao.update(anzeige));
 
 //  Neue Werte die du updaten möchtest.
-//  Teste auf True dat update geklappt, danach adao.getByID(id) ob es geklappt hat.
+//  Teste auf True dat update geklappt, danach dao.getByID(id) ob es geklappt hat.
 
     }
 
@@ -110,10 +103,10 @@ public class AnzeigeDAOTest {
         anzeige.setBeginn(new Date(2000, 1, 1));
         anzeige.setAktiv(true);
         anzeige.setText("Text");
-        adao.create(anzeige);
-        Assert.assertFalse(adao.delete(anzeige));
+        dao.create(anzeige);
+        Assert.assertFalse(dao.delete(anzeige));
         // Gibt es noch eine Anzeige mit der Id 100 ? Wenn nicht Null.
-        // Assert.assertNull(adao.getByID(100));
+        // Assert.assertNull(dao.getByID(100));
 
 
     }

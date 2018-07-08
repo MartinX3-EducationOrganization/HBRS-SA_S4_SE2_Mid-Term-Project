@@ -22,46 +22,26 @@ import java.sql.SQLException;
  */
 public class StudentController {
     public boolean removeProfil(int id) {
-        ConnectionFactory dao;
-        try {
-            dao = ConnectionFactory.getInstance();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-        UserDAO uDAO;
-        StudentDAO sDAO;
-        try {
-            uDAO = (UserDAO) dao.getDAO(Tables.table_user);
-            sDAO = (StudentDAO) dao.getDAO(Tables.table_student);
+        try (UserDAO userDAO = (UserDAO) ConnectionFactory.getDAO(Tables.table_user)) {
+            try (StudentDAO studentDAO = (StudentDAO) ConnectionFactory.getDAO(Tables.table_student)) {
+                return studentDAO.deleteByUserID(id, userDAO) && userDAO.delete(id);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             Notification.show("Keine Verbindung zur Datenbank!", Notification.Type.ERROR_MESSAGE);
             return false;
         }
-
-        return sDAO.deleteByUserID(id) && uDAO.delete(id);
     }
 
     public boolean updateProfil(StudentDTO studentDTO) {
-        ConnectionFactory dao;
-        try {
-            dao = ConnectionFactory.getInstance();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-        UserDAO uDAO;
-        StudentDAO sDAO;
-        try {
-            uDAO = (UserDAO) dao.getDAO(Tables.table_user);
-            sDAO = (StudentDAO) dao.getDAO(Tables.table_student);
+        try (UserDAO userDAO = (UserDAO) ConnectionFactory.getDAO(Tables.table_user)) {
+            try (StudentDAO studentDAO = (StudentDAO) ConnectionFactory.getDAO(Tables.table_student)) {
+                return userDAO.update(studentDTO.toEntity()) && studentDAO.update(new Student(studentDTO));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             Notification.show("Keine Verbindung zur Datenbank!", Notification.Type.ERROR_MESSAGE);
             return false;
         }
-
-        return uDAO.update(studentDTO.toEntity()) && sDAO.update(new Student(studentDTO));
     }
 }

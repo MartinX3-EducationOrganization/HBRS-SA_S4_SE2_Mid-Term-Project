@@ -1,13 +1,10 @@
 package org.bonn.se.ss18.view;
 
 import com.vaadin.ui.*;
-import org.bonn.se.ss18.controller.ConnectionFactory;
-import org.bonn.se.ss18.dao.AnzeigeDAO;
+import org.bonn.se.ss18.controller.UnternehmenController;
 import org.bonn.se.ss18.entity.Anzeige;
-import org.bonn.se.ss18.service.Tables;
 
 import java.sql.Date;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +13,7 @@ import java.util.List;
  */
 public class StellenaussgabeDataView extends Window {
     private final Anzeige documentData;
+    private final UnternehmenController unternehmenController = new UnternehmenController();
 
     public StellenaussgabeDataView(Anzeige documentData) {
         this.documentData = documentData;
@@ -126,20 +124,7 @@ public class StellenaussgabeDataView extends Window {
                 documentData.setBeginn(Date.valueOf(beginn.getValue()));
                 documentData.setText(description.getValue());
 
-
-                ConnectionFactory dao = null;
-                try {
-                    dao = ConnectionFactory.getInstance();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                AnzeigeDAO aDAO = null;
-                try {
-                    aDAO = (AnzeigeDAO) dao.getDAO(Tables.table_anzeige);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                aDAO.update(documentData);
+                unternehmenController.updateAnzeige(documentData);
                 close();
             }
         });

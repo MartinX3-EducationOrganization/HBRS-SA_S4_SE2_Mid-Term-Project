@@ -14,15 +14,24 @@ CRUD: Create Read Update Delete
  */
 
 public abstract class GenericDAO<T extends AbstractEntity> implements IGenericDAO<T> {
-    protected final String primaryKey;
-    //Protected
+    final String primaryKey;
     final String tableName;
     protected Connection con;
-
     public GenericDAO(Connection con, String tableName, String primaryKey) {
         this.con = con;
         this.tableName = tableName;
         this.primaryKey = primaryKey;
+    }
+
+    @Override
+    public void close() {
+        try {
+            if (con != null && !con.isClosed()) {
+                con.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -35,9 +44,10 @@ public abstract class GenericDAO<T extends AbstractEntity> implements IGenericDA
         return null;
     }
 
+    @Override
     public boolean delete(T entity) {
         try {
-            if (con.createStatement().executeUpdate("DELETE FROM " + tableName + " WHERE " + primaryKey + "=" + entity.getId()) == 1) {
+            if (con.createStatement().executeUpdate(String.format("DELETE FROM %s WHERE %s=%d", tableName, primaryKey, entity.getId())) == 1) {
                 return true;
             }
         } catch (SQLException ex) {

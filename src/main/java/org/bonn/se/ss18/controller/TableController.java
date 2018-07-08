@@ -14,22 +14,16 @@ import java.util.List;
  */
 public class TableController {
     public List<BrancheDTO> getBranches() {
-        ConnectionFactory dao;
-        BrancheDAO bDAO = null;
-        List<BrancheDTO> brancheDTOList = new ArrayList<>();
+        try (BrancheDAO brancheDAO = (BrancheDAO) ConnectionFactory.getDAO(Tables.table_branche)) {
+            List<BrancheDTO> brancheDTOList = new ArrayList<>();
 
-        try {
-            dao = ConnectionFactory.getInstance();
-            bDAO = (BrancheDAO) dao.getDAO(Tables.table_branche);
+            brancheDAO.getBranches().forEach(x -> brancheDTOList.add(new BrancheDTO(x)));
+
+            return brancheDTOList;
         } catch (SQLException e) {
             e.printStackTrace();
             Notification.show("Keine Verbindung zur Datenbank!", Notification.Type.ERROR_MESSAGE);
+            return null;
         }
-
-        if (bDAO != null) {
-            bDAO.getBranches().forEach(x -> brancheDTOList.add(new BrancheDTO(x)));
-        }
-
-        return brancheDTOList;
     }
 }

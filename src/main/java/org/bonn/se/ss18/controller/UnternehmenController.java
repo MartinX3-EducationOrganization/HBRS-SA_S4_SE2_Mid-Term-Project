@@ -8,13 +8,16 @@
 package org.bonn.se.ss18.controller;
 
 import com.vaadin.ui.Notification;
+import org.bonn.se.ss18.dao.AnzeigeDAO;
 import org.bonn.se.ss18.dao.UnternehmerDAO;
 import org.bonn.se.ss18.dao.UserDAO;
 import org.bonn.se.ss18.dto.UnternehmerDTO;
+import org.bonn.se.ss18.entity.Anzeige;
 import org.bonn.se.ss18.entity.Unternehmer;
 import org.bonn.se.ss18.service.Tables;
 
 import java.sql.SQLException;
+import java.util.Set;
 
 /**
  * @author martin on 05.07.18
@@ -22,46 +25,45 @@ import java.sql.SQLException;
  */
 public class UnternehmenController {
     public boolean removeProfil(int id) {
-        ConnectionFactory dao;
-        try {
-            dao = ConnectionFactory.getInstance();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-        UserDAO uDAO;
-        UnternehmerDAO untDAO;
-        try {
-            uDAO = (UserDAO) dao.getDAO(Tables.table_user);
-            untDAO = (UnternehmerDAO) dao.getDAO(Tables.table_unternehmen);
+        try (UserDAO userDAO = (UserDAO) ConnectionFactory.getDAO(Tables.table_user)) {
+            try (UnternehmerDAO unternehmerDAO = (UnternehmerDAO) ConnectionFactory.getDAO(Tables.table_unternehmen)) {
+                return unternehmerDAO.deleteByUserID(id, userDAO) && userDAO.delete(id);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             Notification.show("Keine Verbindung zur Datenbank!", Notification.Type.ERROR_MESSAGE);
             return false;
         }
-
-        return untDAO.deleteByUserID(id) && uDAO.delete(id);
     }
 
     public boolean updateProfil(UnternehmerDTO unternehmerDTO) {
-        ConnectionFactory dao;
-        try {
-            dao = ConnectionFactory.getInstance();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-        UserDAO uDAO;
-        UnternehmerDAO unterDAO;
-        try {
-            uDAO = (UserDAO) dao.getDAO(Tables.table_user);
-            unterDAO = (UnternehmerDAO) dao.getDAO(Tables.table_unternehmen);
+        try (UserDAO userDAO = (UserDAO) ConnectionFactory.getDAO(Tables.table_user)) {
+            try (UnternehmerDAO unternehmerDAO = (UnternehmerDAO) ConnectionFactory.getDAO(Tables.table_unternehmen)) {
+                return userDAO.update(unternehmerDTO.toEntity()) && unternehmerDAO.update(new Unternehmer(unternehmerDTO));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             Notification.show("Keine Verbindung zur Datenbank!", Notification.Type.ERROR_MESSAGE);
             return false;
         }
+    }
 
-        return uDAO.update(unternehmerDTO.toEntity()) && unterDAO.update(new Unternehmer(unternehmerDTO));
+    public void updateAnzeige(Anzeige documentData) {
+        try (AnzeigeDAO anzeigeDAO = (AnzeigeDAO) ConnectionFactory.getDAO(Tables.table_anzeige)) {
+            anzeigeDAO.update(documentData);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Notification.show("Keine Verbindung zur Datenbank!", Notification.Type.ERROR_MESSAGE);
+        }
+    }
+
+    public Set<Anzeige> getAllAnzeigenByID(int id) {
+        try (AnzeigeDAO anzeigeDAO = (AnzeigeDAO) ConnectionFactory.getDAO(Tables.table_anzeige)) {
+            return anzeigeDAO.getAllByID(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Notification.show("Keine Verbindung zur Datenbank!", Notification.Type.ERROR_MESSAGE);
+            return null;
+        }
     }
 }
