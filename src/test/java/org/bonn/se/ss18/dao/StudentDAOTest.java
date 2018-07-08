@@ -34,14 +34,6 @@ public class StudentDAOTest {
         Assert.assertEquals("Heike", student.getVorname());
     }
 
-   /* @Test
-    public void getAllByID() {
-        Student student = new Student();
-        student.setLinuxID(null);
-        Assert.assertEquals(null,null);*/
-
-//}
-
     @Test
     public void create() {
         Student student = new Student();
@@ -57,7 +49,7 @@ public class StudentDAOTest {
 
     @Test
     public void update() {
-        Student student = studentDAO.getByUserAndPass("ux2s", "123");
+        Student student = studentDAO.getByUserAndPass("ux2s", "123", userDAO);
         student.setVorname("Heike");
         Assert.assertTrue(studentDAO.update(student));
     }
@@ -78,12 +70,9 @@ public class StudentDAOTest {
 
     @Test
     public void read() {
-        Student student = studentDAO.getByUserAndPass("salda2s", "123");
+        Student student = studentDAO.getByUserAndPass("salda2s", "123", userDAO);
 
         Assert.assertTrue(student == null);
         Assert.assertFalse(student != null);
-       //    Assert.assertEquals("Bauman", student.getNachname());
-
-
     }
 }

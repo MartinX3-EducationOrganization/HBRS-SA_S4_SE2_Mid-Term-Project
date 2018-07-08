@@ -12,43 +12,43 @@ public class Qualifikation extends AbstractEntity {
     private LocalDate von;
     private LocalDate bis;
 
-    public String getInuxid() {
+    final public String getInuxid() {
         return inuxid;
     }
 
-    public void setInuxid(String inuxid) {
+    final public void setInuxid(String inuxid) {
         this.inuxid = inuxid;
     }
 
-    public String getTyp() {
+    final public String getTyp() {
         return typ;
     }
 
-    public void setTyp(String typ) {
+    final public void setTyp(String typ) {
         this.typ = typ;
     }
 
-    public String getBezeichnung() {
+    final public String getBezeichnung() {
         return bezeichnung;
     }
 
-    public void setBezeichnung(String bezeichnung) {
+    final public void setBezeichnung(String bezeichnung) {
         this.bezeichnung = bezeichnung;
     }
 
-    public LocalDate getVon() {
+    final public LocalDate getVon() {
         return von;
     }
 
-    public void setVon(LocalDate von) {
+    final public void setVon(LocalDate von) {
         this.von = von;
     }
 
-    public LocalDate getBis() {
+    final public LocalDate getBis() {
         return bis;
     }
 
-    public void setBis(LocalDate bis) {
+    final public void setBis(LocalDate bis) {
         this.bis = bis;
     }
 }

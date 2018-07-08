@@ -8,27 +8,27 @@ public class Dokument extends AbstractEntity {
     private String dateiname;
     private byte[] datei;
 
-    public int getUserid() {
+    final public int getUserid() {
         return userid;
     }
 
-    public void setUserid(int userid) {
+    final public void setUserid(int userid) {
         this.userid = userid;
     }
 
-    public String getDateiname() {
+    final public String getDateiname() {
         return dateiname;
     }
 
-    public void setDateiname(String dateiname) {
+    final public void setDateiname(String dateiname) {
         this.dateiname = dateiname;
     }
 
-    public byte[] getDatei() {
+    final public byte[] getDatei() {
         return datei;
     }
 
-    public void setDatei(byte[] datei) {
+    final public void setDatei(byte[] datei) {
         this.datei = datei;
     }
 }

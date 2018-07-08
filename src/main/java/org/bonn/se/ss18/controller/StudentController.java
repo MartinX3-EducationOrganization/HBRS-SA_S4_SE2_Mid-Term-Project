@@ -36,7 +36,7 @@ public class StudentController {
     public boolean updateProfil(StudentDTO studentDTO) {
         try (UserDAO userDAO = (UserDAO) ConnectionFactory.getDAO(Tables.table_user)) {
             try (StudentDAO studentDAO = (StudentDAO) ConnectionFactory.getDAO(Tables.table_student)) {
-                return userDAO.update(studentDTO.toEntity()) && studentDAO.update(new Student(studentDTO));
+                return userDAO.update(new Student(studentDTO)) && studentDAO.update(new Student(studentDTO));
             }
         } catch (SQLException e) {
             e.printStackTrace();

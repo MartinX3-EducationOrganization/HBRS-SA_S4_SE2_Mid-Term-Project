@@ -46,51 +46,51 @@ public class UnternehmerDTO extends UserDTO {
         setId(unternehmer.getId());
     }
 
-    public String getAnsprechpartner() {
+    final public String getAnsprechpartner() {
         return ansprechpartner;
     }
 
-    public void setAnsprechpartner(String ansprechpartner) {
+    final public void setAnsprechpartner(String ansprechpartner) {
         this.ansprechpartner = ansprechpartner;
     }
 
-    public int getUnternehmerid() {
+    final public int getUnternehmerid() {
         return unternehmerid;
     }
 
-    public void setUnternehmerid(int unternehmerid) {
+    final public void setUnternehmerid(int unternehmerid) {
         this.unternehmerid = unternehmerid;
     }
 
-    public String getFirmenname() {
+    final public String getFirmenname() {
         return firmenname;
     }
 
-    public void setFirmenname(String firmenname) {
+    final public void setFirmenname(String firmenname) {
         this.firmenname = firmenname;
     }
 
-    public String getWebsite() {
+    final public String getWebsite() {
         return website;
     }
 
-    public void setWebsite(String website) {
+    final public void setWebsite(String website) {
         this.website = website;
     }
 
-    public int getBranchenid() {
+    final public int getBranchenid() {
         return branchenid;
     }
 
-    public void setBranchenid(int branchenid) {
+    final public void setBranchenid(int branchenid) {
         this.branchenid = branchenid;
     }
 
-    public boolean isCheckboxAGB() {
+    final public boolean isCheckboxAGB() {
         return checkboxAGB;
     }
 
-    public void setCheckboxAGB(boolean checkboxAGB) {
+    final public void setCheckboxAGB(boolean checkboxAGB) {
         this.checkboxAGB = checkboxAGB;
     }
 }

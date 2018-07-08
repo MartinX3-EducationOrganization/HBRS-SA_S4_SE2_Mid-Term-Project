@@ -6,11 +6,11 @@ package org.bonn.se.ss18.entity;
 public class AbstractEntity {
     private int id;
 
-    public int getId() {
+    final public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    final public void setId(int id) {
         this.id = id;
     }
 }

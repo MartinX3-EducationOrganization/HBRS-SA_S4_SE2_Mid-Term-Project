@@ -19,93 +19,91 @@ public class Anzeige extends AbstractEntity {
     private boolean aktiv;
     private String text;
 
-
-    public String getTitel() {
+    final public String getTitel() {
         return titel;
     }
 
-    public void setTitel(String titel) {
+    final public void setTitel(String titel) {
         this.titel = titel;
     }
 
-    public String getText() {
+    final public String getText() {
         return text;
     }
 
-    public void setText(String text) {
+    final public void setText(String text) {
         this.text = text;
     }
 
-
-    public int getUserid() {
+    final public int getUserid() {
         return userid;
     }
 
-    public void setUserid(int userid) {
+    final public void setUserid(int userid) {
         this.userid = userid;
     }
 
-    public LocalDate getDatum() {
+    final public LocalDate getDatum() {
         return datum;
     }
 
-    public void setDatum(Date datum) {
+    final public void setDatum(Date datum) {
         this.datum = datum.toLocalDate();
     }
 
-    public String getOrt() {
+    final public String getOrt() {
         return ort;
     }
 
-    public void setOrt(String ort) {
+    final public void setOrt(String ort) {
         this.ort = ort;
     }
 
-    public String getTyp() {
+    final public String getTyp() {
         return typ;
     }
 
-    public void setTyp(String typ) {
+    final public void setTyp(String typ) {
         this.typ = typ;
     }
 
-    public String getAnstellungsart() {
+    final public String getAnstellungsart() {
         return anstellungsart;
     }
 
-    public void setAnstellungsart(String anstellungsart) {
+    final public void setAnstellungsart(String anstellungsart) {
         this.anstellungsart = anstellungsart;
     }
 
-    public String getArbeitszeit() {
+    final public String getArbeitszeit() {
         return arbeitszeit;
     }
 
-    public void setArbeitszeit(String arbeitszeit) {
+    final public void setArbeitszeit(String arbeitszeit) {
         this.arbeitszeit = arbeitszeit;
     }
 
-    public int getBrancheid() {
+    final public int getBrancheid() {
         return brancheid;
     }
 
-    public void setBrancheid(int brancheid) {
+    final public void setBrancheid(int brancheid) {
         this.brancheid = brancheid;
     }
 
-    public LocalDate getBeginn() {
+    final public LocalDate getBeginn() {
         return beginn;
     }
 
-    public void setBeginn(Date beginn) {
+    final public void setBeginn(Date beginn) {
         this.beginn = beginn.toLocalDate();
     }
 
-    public boolean getAktiv() {
+    final public boolean getAktiv() {
         return aktiv;
     }
 
-    public void setAktiv(boolean aktiv) {
+    final public void setAktiv(boolean aktiv) {
         this.aktiv = aktiv;
     }
 }

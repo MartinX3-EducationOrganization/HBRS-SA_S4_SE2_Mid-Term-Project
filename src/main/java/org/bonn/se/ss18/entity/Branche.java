@@ -12,11 +12,11 @@ public class Branche extends AbstractEntity {
         setBezeichnung(bezeichnung);
     }
 
-    public String getBezeichnung() {
+    final public String getBezeichnung() {
         return bezeichnung;
     }
 
-    public void setBezeichnung(String bezeichnung) {
+    final public void setBezeichnung(String bezeichnung) {
         this.bezeichnung = bezeichnung;
     }
 }

@@ -13,11 +13,11 @@ package org.bonn.se.ss18.dto;
 public class AbstractDTO {
     private int id;
 
-    public int getId() {
+    final public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    final public void setId(int id) {
         this.id = id;
     }
 }

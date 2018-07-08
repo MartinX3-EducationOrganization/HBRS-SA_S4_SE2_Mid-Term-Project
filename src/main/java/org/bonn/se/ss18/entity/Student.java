@@ -42,43 +42,43 @@ public class Student extends User {
         setGebDatum(Date.valueOf(studentDTO.getGebDatum()));
     }
 
-    public String getLinuxID() {
+    final public String getLinuxID() {
         return linuxID;
     }
 
-    public void setLinuxID(String linuxID) {
+    final public void setLinuxID(String linuxID) {
         this.linuxID = linuxID;
     }
 
-    public String getAnrede() {
+    final public String getAnrede() {
         return anrede;
     }
 
-    public void setAnrede(String anrede) {
+    final public void setAnrede(String anrede) {
         this.anrede = anrede;
     }
 
-    public String getVorname() {
+    final public String getVorname() {
         return vorname;
     }
 
-    public void setVorname(String vorname) {
+    final public void setVorname(String vorname) {
         this.vorname = vorname;
     }
 
-    public String getNachname() {
+    final public String getNachname() {
         return nachname;
     }
 
-    public void setNachname(String nachname) {
+    final public void setNachname(String nachname) {
         this.nachname = nachname;
     }
 
-    public LocalDate getGebDatum() {
+    final public LocalDate getGebDatum() {
         return gebDatum;
     }
 
-    public void setGebDatum(Date gebDatum) {
+    final public void setGebDatum(Date gebDatum) {
         this.gebDatum = gebDatum.toLocalDate();
     }
 

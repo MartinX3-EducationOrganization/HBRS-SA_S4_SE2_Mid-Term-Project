@@ -12,43 +12,43 @@ public class Bewerbung extends AbstractEntity {
     private byte[] anschreiben;
     private byte[] lebenslauf;
 
-    public String getLinuxid() {
+    final public String getLinuxid() {
         return linuxid;
     }
 
-    public void setLinuxid(String linuxid) {
+    final public void setLinuxid(String linuxid) {
         this.linuxid = linuxid;
     }
 
-    public int getUnternehmenid() {
+    final public int getUnternehmenid() {
         return unternehmenid;
     }
 
-    public void setUnternehmenid(int unternehmenid) {
+    final public void setUnternehmenid(int unternehmenid) {
         this.unternehmenid = unternehmenid;
     }
 
-    public LocalDate getDatum() {
+    final public LocalDate getDatum() {
         return datum;
     }
 
-    public void setDatum(LocalDate datum) {
+    final public void setDatum(LocalDate datum) {
         this.datum = datum;
     }
 
-    public byte[] getAnschreiben() {
+    final public byte[] getAnschreiben() {
         return anschreiben;
     }
 
-    public void setAnschreiben(byte[] anschreiben) {
+    final public void setAnschreiben(byte[] anschreiben) {
         this.anschreiben = anschreiben;
     }
 
-    public byte[] getLebenslauf() {
+    final public byte[] getLebenslauf() {
         return lebenslauf;
     }
 
-    public void setLebenslauf(byte[] lebenslauf) {
+    final public void setLebenslauf(byte[] lebenslauf) {
         this.lebenslauf = lebenslauf;
     }
 }

@@ -39,7 +39,7 @@ public class UnternehmenController {
     public boolean updateProfil(UnternehmerDTO unternehmerDTO) {
         try (UserDAO userDAO = (UserDAO) ConnectionFactory.getDAO(Tables.table_user)) {
             try (UnternehmerDAO unternehmerDAO = (UnternehmerDAO) ConnectionFactory.getDAO(Tables.table_unternehmen)) {
-                return userDAO.update(unternehmerDTO.toEntity()) && unternehmerDAO.update(new Unternehmer(unternehmerDTO));
+                return userDAO.update(new Unternehmer(unternehmerDTO)) && unternehmerDAO.update(new Unternehmer(unternehmerDTO));
             }
         } catch (SQLException e) {
             e.printStackTrace();

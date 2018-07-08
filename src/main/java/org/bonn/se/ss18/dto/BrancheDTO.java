@@ -23,11 +23,11 @@ public class BrancheDTO extends AbstractDTO {
         setId(branche.getId());
     }
 
-    public String getBezeichnung() {
+    final public String getBezeichnung() {
         return bezeichnung;
     }
 
-    public void setBezeichnung(String bezeichnung) {
+    final public void setBezeichnung(String bezeichnung) {
         this.bezeichnung = bezeichnung;
     }
 }
