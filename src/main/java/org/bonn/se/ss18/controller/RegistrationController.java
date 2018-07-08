@@ -38,7 +38,7 @@ public class RegistrationController {
             }
         } catch (SQLException e) {
             Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
-            return false;
         }
+        return false;
     }
 }

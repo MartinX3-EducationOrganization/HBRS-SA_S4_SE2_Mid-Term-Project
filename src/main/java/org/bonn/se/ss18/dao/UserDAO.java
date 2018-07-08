@@ -47,7 +47,6 @@ public class UserDAO extends GenericDAO<User> {
         } catch (SQLException e) {
             Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
-
         return false;
     }
 

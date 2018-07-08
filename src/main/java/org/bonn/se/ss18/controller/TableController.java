@@ -22,7 +22,7 @@ public class TableController {
             return brancheDTOList;
         } catch (SQLException e) {
             Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
-            return null;
         }
+        return null;
     }
 }

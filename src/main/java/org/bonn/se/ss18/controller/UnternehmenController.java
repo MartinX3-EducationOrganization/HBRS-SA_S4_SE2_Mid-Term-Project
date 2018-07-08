@@ -31,8 +31,8 @@ public class UnternehmenController {
             }
         } catch (SQLException e) {
             Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
-            return false;
         }
+        return false;
     }
 
     public boolean updateProfil(UnternehmerDTO unternehmerDTO) {
@@ -42,8 +42,8 @@ public class UnternehmenController {
             }
         } catch (SQLException e) {
             Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
-            return false;
         }
+        return false;
     }
 
     public void updateAnzeige(Anzeige documentData) {
@@ -59,7 +59,7 @@ public class UnternehmenController {
             return anzeigeDAO.getAllByID(id);
         } catch (SQLException e) {
             Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
-            return null;
         }
+        return null;
     }
 }

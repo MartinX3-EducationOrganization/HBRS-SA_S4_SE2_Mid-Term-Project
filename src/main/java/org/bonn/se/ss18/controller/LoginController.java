@@ -26,37 +26,51 @@ public class LoginController {
         try (UserDAO userDAO = (UserDAO) ConnectionFactory.getDAO(Tables.table_user)) {
             try (UnternehmerDAO unternehmerDAO = (UnternehmerDAO) ConnectionFactory.getDAO(Tables.table_unternehmen)) {
                 try (StudentDAO studentDAO = (StudentDAO) ConnectionFactory.getDAO(Tables.table_student)) {
-                    int id;
-                    Student student = studentDAO.getByUserAndPass(username, password, userDAO);
-                    if (student != null) {
-                        UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, new StudentDTO(student));
-                    } else if (userDAO.getByColumnValue("email", username) != null) {
-                        id = userDAO.getByColumnValue("email", username).getId();
-                        student = studentDAO.getByID(id, userDAO);
-                        if (student != null) {
-                            if (student.getPasswort().equals(password)) {
-                                UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, new StudentDTO(student));
-                            } else {
-                                throw new NoSuchUserOrPasswort();
-                            }
-                        } else {
-                            Unternehmer unternehmer = unternehmerDAO.getByID(id, userDAO);
-                            if (unternehmer != null && unternehmer.getPasswort().equals(password)) {
-                                UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, new UnternehmerDTO(unternehmer));
-                            } else {
-                                throw new NoSuchUserOrPasswort();
-                            }
-                        }
-                    } else {
-                        throw new NoSuchUserOrPasswort();
-                    }
+                    loginStudent(username, password, userDAO, unternehmerDAO, studentDAO);
                 }
             }
+            return navigateToProfil();
         } catch (SQLException e) {
             Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
-            return false;
         }
+        return false;
+    }
 
+    private void loginStudent(String username, String password, UserDAO userDAO, UnternehmerDAO unternehmerDAO, StudentDAO studentDAO) throws NoSuchUserOrPasswort {
+        Student student = studentDAO.getByUserAndPass(username, password, userDAO);
+        if (student != null) {
+            UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, new StudentDTO(student));
+        } else if (userDAO.getByColumnValue("email", username) != null) {
+            int id = userDAO.getByColumnValue("email", username).getId();
+            student = studentDAO.getByID(id, userDAO);
+            if (student != null) {
+                loginStudent(password, student);
+            } else {
+                loginUnternehmer(password, userDAO, unternehmerDAO, id);
+            }
+        } else {
+            throw new NoSuchUserOrPasswort();
+        }
+    }
+
+    private void loginStudent(String password, Student student) throws NoSuchUserOrPasswort {
+        if (student.getPasswort().equals(password)) {
+            UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, new StudentDTO(student));
+        } else {
+            throw new NoSuchUserOrPasswort();
+        }
+    }
+
+    private void loginUnternehmer(String password, UserDAO userDAO, UnternehmerDAO unternehmerDAO, int id) throws NoSuchUserOrPasswort {
+        Unternehmer unternehmer = unternehmerDAO.getByID(id, userDAO);
+        if (unternehmer != null && unternehmer.getPasswort().equals(password)) {
+            UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, new UnternehmerDTO(unternehmer));
+        } else {
+            throw new NoSuchUserOrPasswort();
+        }
+    }
+
+    private boolean navigateToProfil() {
         if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) instanceof StudentDTO) {
             UI.getCurrent().getNavigator().navigateTo(Views.ProfilStudent);
             return true;

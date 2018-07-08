@@ -28,8 +28,8 @@ public class StudentController {
             }
         } catch (SQLException e) {
             Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
-            return false;
         }
+        return false;
     }
 
     public boolean updateProfil(StudentDTO studentDTO) {
@@ -39,7 +39,7 @@ public class StudentController {
             }
         } catch (SQLException e) {
             Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
-            return false;
         }
+        return false;
     }
 }
