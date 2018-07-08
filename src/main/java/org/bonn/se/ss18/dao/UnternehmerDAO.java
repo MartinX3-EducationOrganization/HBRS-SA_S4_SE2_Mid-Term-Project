@@ -66,7 +66,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
             return createps(unternehmer, ps);
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
         return false;
     }
@@ -106,7 +106,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
                 return true;
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
         return false;
     }

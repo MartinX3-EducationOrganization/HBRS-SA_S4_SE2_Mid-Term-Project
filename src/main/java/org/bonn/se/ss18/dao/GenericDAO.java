@@ -52,7 +52,7 @@ public abstract class GenericDAO<T extends AbstractEntity> implements IGenericDA
                 return true;
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
         return false;
     }

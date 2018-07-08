@@ -24,8 +24,7 @@ public class UserDAO extends GenericDAO<User> {
     }
 
     public User getByColumnValue(String column, String keyword) {
-        try {
-            Statement stmt = con.createStatement();
+        try (Statement stmt = con.createStatement()) {
             ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM %s WHERE %s= '%s'", tableName, column, keyword));
             return readResults(rs);
         } catch (SQLException e) {
@@ -58,7 +57,7 @@ public class UserDAO extends GenericDAO<User> {
             return createps(user, ps);
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
         return false;
     }

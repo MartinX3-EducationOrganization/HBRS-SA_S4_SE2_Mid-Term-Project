@@ -63,7 +63,7 @@ public class StudentDAO extends GenericDAO<Student> {
             PreparedStatement ps = con.prepareStatement(String.format("UPDATE %s SET linuxid=?,userid=?,anrede=?,vorname=?,nachname=?,gebdatum=? WHERE linuxid='%s'", super.tableName, student.getLinuxID()));
             return createps(student, ps);
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
         return false;
     }
@@ -125,7 +125,7 @@ public class StudentDAO extends GenericDAO<Student> {
                 return true;
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
         return false;
     }

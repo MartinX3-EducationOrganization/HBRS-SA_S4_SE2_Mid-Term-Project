@@ -29,16 +29,15 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
 
     @Override
     public Set<Anzeige> getAllByID(int id) {
-        try {
-            Statement stmt = con.createStatement();
+        try (Statement stmt = con.createStatement()) {
             ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM %s WHERE userid=%d", tableName, id));
-            Set stellen = new HashSet();
+            Set<Anzeige> stellen = new HashSet<>();
             while (rs.next()) {
                 stellen = readResults(rs);
             }
             return stellen;
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
         return null;
     }
@@ -61,7 +60,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
             return createps(stelle, ps);
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
         return false;
     }

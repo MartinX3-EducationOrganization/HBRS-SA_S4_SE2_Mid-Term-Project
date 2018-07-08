@@ -38,8 +38,7 @@ public class BrancheDAO extends GenericDAO<Branche> {
     }
 
     public List<Branche> getBranches() {
-        try {
-            Statement stmt = con.createStatement();
+        try (Statement stmt = con.createStatement()) {
             ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName);
             List<Branche> branchenlist = new ArrayList<>(rs.getFetchSize());
             while (rs.next()) {
