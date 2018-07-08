@@ -12,15 +12,15 @@ import java.sql.SQLException;
  * @author rjourd2s
  */
 public class ConnectionFactory {
-   private static final String url = "jdbc:postgresql://dumbo.inf.h-brs.de:5432/amoham2s";
-   private static final String username = "amoham2s";
-   private static final String password = "amoham2s";
+    private static final String url = "jdbc:postgresql://dumbo.inf.h-brs.de:5432/amoham2s";
+    private static final String username = "amoham2s";
+    private static final String password = "amoham2s";
     private static ConnectionFactory instance;
     private Connection connection;
     private DataSource dsource;
-  // private static final String url = "jdbc:postgresql://dumbo.inf.h-brs.de:5432/nbala2s";
-  //  private static final String username = "nbala2s";
-  //  private static final String password = "nbala2s";
+    // private static final String url = "jdbc:postgresql://dumbo.inf.h-brs.de:5432/nbala2s";
+    //  private static final String username = "nbala2s";
+    //  private static final String password = "nbala2s";
 
 
     private ConnectionFactory() throws SQLException {
@@ -72,8 +72,6 @@ public class ConnectionFactory {
                 return new BrancheDAO(connection);
             case table_bewerbunganlage:
                 return new BewerbunganlageDAO(connection);
-            case table_bewerbung:
-                return new BewerbungDAO(connection);
             case table_anzeige:
                 return new AnzeigeDAO(connection);
             default:
