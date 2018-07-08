@@ -1,5 +1,6 @@
 package org.bonn.se.ss18.dao;
 
+import com.vaadin.ui.Notification;
 import org.bonn.se.ss18.controller.ConnectionFactory;
 import org.bonn.se.ss18.entity.Unternehmer;
 import org.bonn.se.ss18.entity.User;
@@ -21,16 +22,17 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
 
     @Override
     public Unternehmer getByID(int id) {
-        try {
+        try (UserDAO userDAO = (UserDAO) ConnectionFactory.getDAO(Tables.table_user)) {
             ResultSet resultSet = con.createStatement().executeQuery(String.format("SELECT userid FROM %s WHERE %s=%s", super.tableName, "userid", id));
             if (resultSet.next()) {
                 return readResults(
                         getRsByID(id + ""),
-                        ((UserDAO) ConnectionFactory.getInstance().getDAO(Tables.table_user)).getByID(id)
+                        userDAO.getByID(id)
                 );
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            Notification.show("Keine Verbindung zur Datenbank!", Notification.Type.ERROR_MESSAGE);
         }
         return null;
     }

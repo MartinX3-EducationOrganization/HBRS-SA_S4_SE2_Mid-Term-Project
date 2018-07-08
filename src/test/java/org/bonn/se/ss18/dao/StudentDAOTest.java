@@ -2,6 +2,7 @@ package org.bonn.se.ss18.dao;
 
 import org.bonn.se.ss18.controller.ConnectionFactory;
 import org.bonn.se.ss18.entity.Student;
+import org.bonn.se.ss18.service.Tables;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,11 +16,12 @@ public class StudentDAOTest {
 
     @Before
     public void setUp() throws Exception {
-        dao = new StudentDAO(ConnectionFactory.getInstance().getConnection());
+        dao = (StudentDAO) ConnectionFactory.getDAO(Tables.table_student);
     }
 
     @After
     public void tearDown() throws Exception {
+        dao.close();
     }
 
     @Test

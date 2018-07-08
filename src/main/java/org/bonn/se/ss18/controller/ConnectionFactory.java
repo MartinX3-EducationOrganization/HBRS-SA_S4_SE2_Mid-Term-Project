@@ -1,9 +1,14 @@
 package org.bonn.se.ss18.controller;
 
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.fasterxml.jackson.dataformat.yaml.YAMLParser;
+import com.vaadin.server.VaadinService;
+import com.vaadin.ui.Notification;
 import org.bonn.se.ss18.dao.*;
 import org.bonn.se.ss18.service.Tables;
 
-import javax.sql.DataSource;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,52 +17,45 @@ import java.sql.SQLException;
  * @author rjourd2s
  */
 public class ConnectionFactory {
-   private static final String url = "jdbc:postgresql://dumbo.inf.h-brs.de:5432/amoham2s";
-   private static final String username = "amoham2s";
-   private static final String password = "amoham2s";
-    private static ConnectionFactory instance;
-    private Connection connection;
-    private DataSource dsource;
-  // private static final String url = "jdbc:postgresql://dumbo.inf.h-brs.de:5432/nbala2s";
-  //  private static final String username = "nbala2s";
-  //  private static final String password = "nbala2s";
+    public static GenericDAO getDAO(Tables tables) throws SQLException {
+        String url = null;
+        String username = null;
+        String password = null;
 
+        YAMLParser parser;
+        try {
+            parser = new YAMLFactory().createParser(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/WEB-INF/classes/properties.yaml"));
+            while (parser.nextToken() != null) {
+                if ("VALUE_STRING".equals(parser.getCurrentToken().toString())) {
+                    switch (parser.getCurrentName()) {
+                        case "url": {
+                            url = parser.getText();
+                            break;
+                        }
+                        case "username": {
+                            username = parser.getText();
+                            break;
+                        }
+                        case "password": {
+                            password = parser.getText();
+                            break;
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            Notification.show("/WEB-INF/classes/properties.yaml konnte nicht gelesen werden!", Notification.Type.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
 
-    private ConnectionFactory() throws SQLException {
+        Connection connection = null;
         try {
             Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection(ConnectionFactory.url, ConnectionFactory.username, ConnectionFactory.password);
+            connection = DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException ex) {
             System.out.println("Database Connection Creation Failed : " + ex.getMessage());
         }
-    }
-
-    public static ConnectionFactory getInstance() throws SQLException {
-        if (ConnectionFactory.instance == null) {
-            ConnectionFactory.instance = new ConnectionFactory();
-        } else if (ConnectionFactory.instance.getConnection().isClosed()) {
-            ConnectionFactory.instance = new ConnectionFactory();
-        }
-
-        return ConnectionFactory.instance;
-    }
-
-    public Connection getConnection() {
-        return connection;
-    }
-
-    public GenericDAO getDAO(Tables t) throws SQLException {
-
-        try {
-            if (connection == null || connection.isClosed()) //Let's ensure our connection is open
-            {
-                open();
-            }
-        } catch (SQLException e) {
-            throw e;
-        }
-
-        switch (t) {
+        switch (tables) {
             case table_user:
                 return new UserDAO(connection);
             case table_student:
@@ -79,41 +77,5 @@ public class ConnectionFactory {
             default:
                 throw new SQLException("Trying to link to an unexistant table.");
         }
-    }
-
-    protected void open() throws SQLException {
-        try {
-            if (connection == null || connection.isClosed()) {
-                connection = dsource.getConnection();
-            }
-        } catch (SQLException e) {
-            throw e;
-        }
-
-    }
-
-    protected void close() throws SQLException {
-        try {
-            if (connection != null && !connection.isClosed()) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            throw e;
-        }
-    }
-
-    @Override
-    protected void finalize() throws SQLException {
-
-        try {
-            close();
-        } finally {
-            try {
-                super.finalize();
-            } catch (Throwable throwable) {
-                throwable.printStackTrace();
-            }
-        }
-
     }
 }

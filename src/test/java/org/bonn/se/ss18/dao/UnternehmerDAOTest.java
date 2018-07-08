@@ -2,6 +2,7 @@ package org.bonn.se.ss18.dao;
 
 import org.bonn.se.ss18.controller.ConnectionFactory;
 import org.bonn.se.ss18.entity.Unternehmer;
+import org.bonn.se.ss18.service.Tables;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,13 +15,12 @@ public class UnternehmerDAOTest {
 
     @Before
     public void setUp() throws Exception {
-
-        dao = new UnternehmerDAO(ConnectionFactory.getInstance().getConnection());
+        dao = (UnternehmerDAO) ConnectionFactory.getDAO(Tables.table_unternehmen);
     }
 
     @After
     public void tearDown() throws Exception {
-        dao = null;
+        dao.close();
     }
 
     @Test

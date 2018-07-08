@@ -1,0 +1,4 @@
+-  database:
+    url: jdbc:postgresql://dumbo.inf.h-brs.de:5432/amoham2s
+    username: amoham2s
+    password: amoham2s

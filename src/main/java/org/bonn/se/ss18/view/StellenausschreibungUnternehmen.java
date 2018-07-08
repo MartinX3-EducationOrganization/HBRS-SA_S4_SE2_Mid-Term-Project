@@ -3,14 +3,11 @@ package org.bonn.se.ss18.view;
 import com.vaadin.annotations.Title;
 import com.vaadin.shared.ui.grid.HeightMode;
 import com.vaadin.ui.*;
-import org.bonn.se.ss18.controller.ConnectionFactory;
-import org.bonn.se.ss18.dao.AnzeigeDAO;
+import org.bonn.se.ss18.controller.UnternehmenController;
 import org.bonn.se.ss18.dto.UnternehmerDTO;
 import org.bonn.se.ss18.entity.Anzeige;
 import org.bonn.se.ss18.service.Roles;
-import org.bonn.se.ss18.service.Tables;
 
-import java.sql.SQLException;
 import java.util.Locale;
 
 /**
@@ -18,6 +15,7 @@ import java.util.Locale;
  */
 @Title("Grundgerüst - Unternehmen - Stellenausschreibung")
 public class StellenausschreibungUnternehmen extends Abstract {
+    private final UnternehmenController unternehmenController = new UnternehmenController();
     private final Grid<Anzeige> grid = new Grid<>(Anzeige.class);
 
     public StellenausschreibungUnternehmen() {
@@ -39,7 +37,7 @@ public class StellenausschreibungUnternehmen extends Abstract {
         center.addComponent(matter);
         matter.setSizeFull();
         matter.setContent(grid);
-        
+
 
         updateGrid();
         grid.setLocale(Locale.GERMAN);
@@ -65,11 +63,6 @@ public class StellenausschreibungUnternehmen extends Abstract {
                 });
             }
         });
-
-        Panel footer = new Panel();
-        footer.setWidth("100%");
-        //content.addComponent(footer);
-
     }
 
     public static String getName() {
@@ -77,13 +70,6 @@ public class StellenausschreibungUnternehmen extends Abstract {
     }
 
     private void updateGrid() {
-        try {
-            ConnectionFactory dao = ConnectionFactory.getInstance();
-            AnzeigeDAO aDAO = (AnzeigeDAO) dao.getDAO(Tables.table_anzeige);
-            UnternehmerDTO unternehmerDTO = (UnternehmerDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
-            grid.setItems(aDAO.getAllByID(unternehmerDTO.getId()));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        grid.setItems(unternehmenController.getAllAnzeigenByID(((UnternehmerDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER)).getId()));
     }
 }

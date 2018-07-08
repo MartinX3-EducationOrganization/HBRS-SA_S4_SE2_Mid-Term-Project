@@ -1,5 +1,6 @@
 package org.bonn.se.ss18.dao;
 
+import com.vaadin.ui.Notification;
 import org.bonn.se.ss18.controller.ConnectionFactory;
 import org.bonn.se.ss18.entity.Student;
 import org.bonn.se.ss18.entity.User;
@@ -18,20 +19,17 @@ public class StudentDAO extends GenericDAO<Student> {
 
     @Override
     public Student getByID(int userID) {
-        try {
+        try (UserDAO userDAO = (UserDAO) ConnectionFactory.getDAO(Tables.table_user)) {
             ResultSet resultSet = con.createStatement().executeQuery("SELECT userid FROM table_student WHERE userid=" + userID);
             if (resultSet.next()) {
                 return readResults(
                         getRsByID(userID + ""),
-                        ((UserDAO) ConnectionFactory.getInstance().getDAO(Tables.table_user))
-                                .getByID(
-                                        resultSet
-                                                .getInt(1)
-                                )
+                        userDAO.getByID(resultSet.getInt(1))
                 );
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            Notification.show("Keine Verbindung zur Datenbank!", Notification.Type.ERROR_MESSAGE);
         }
         return null;
     }
@@ -60,7 +58,6 @@ public class StudentDAO extends GenericDAO<Student> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return false;
     }
 
@@ -80,7 +77,7 @@ public class StudentDAO extends GenericDAO<Student> {
         Methoden die zusätzlich dazukommen
      */
     public Student getByUserAndPass(String linuxid, String password) {
-        try {
+        try (UserDAO userDAO = (UserDAO) ConnectionFactory.getDAO(Tables.table_user)) {
             ResultSet resultSet = con.createStatement().executeQuery(String.format("SELECT table_user.userid FROM %s JOIN table_user ON %s.userid=table_user.userid WHERE %s.%s='%s' AND table_user.passwort='%s'", super.tableName, super.tableName, super.tableName, super.primaryKey, linuxid, password));
             if (resultSet.next()) {
                 int id = resultSet.getInt(1);
@@ -88,16 +85,13 @@ public class StudentDAO extends GenericDAO<Student> {
                 if (studentResultSet.next()) {
                     return readResults(
                             super.getRsByID(linuxid),
-                            ((UserDAO) ConnectionFactory.getInstance().getDAO(Tables.table_user))
-                                    .getByID(
-                                            studentResultSet
-                                                    .getInt(1)
-                                    )
+                            userDAO.getByID(studentResultSet.getInt(1))
                     );
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            Notification.show("Keine Verbindung zur Datenbank!", Notification.Type.ERROR_MESSAGE);
         }
         return null;
     }
