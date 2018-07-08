@@ -16,8 +16,8 @@ public class StudentDAO extends GenericDAO<Student> {
     }
 
     public Student getByID(int userID, UserDAO userDAO) {
-        try {
-            ResultSet resultSet = con.createStatement().executeQuery(String.format("SELECT userid FROM table_student WHERE userid=%d", userID));
+        try (Statement statement = con.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(String.format("SELECT userid FROM table_student WHERE userid=%d", userID));
             if (resultSet.next()) {
                 return readResults(
                         getRsByID(userID + ""),
@@ -32,8 +32,8 @@ public class StudentDAO extends GenericDAO<Student> {
 
     @Override
     public ResultSet getRsByID(String id) {
-        try {
-            return con.createStatement().executeQuery(String.format("SELECT * FROM %s WHERE userid='%s'", tableName, id));
+        try (Statement statement = con.createStatement()) {
+            return statement.executeQuery(String.format("SELECT * FROM %s WHERE userid='%s'", tableName, id));
         } catch (SQLException e) {
             Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
@@ -69,19 +69,21 @@ public class StudentDAO extends GenericDAO<Student> {
     }
 
     /*
-        Methoden die zusätzlich dazukommen
-     */
+    Methoden die zusätzlich dazukommen
+    */
     public Student getByUserAndPass(String linuxid, String password, UserDAO userDAO) {
-        try {
-            ResultSet resultSet = con.createStatement().executeQuery(String.format("SELECT table_user.userid FROM %s JOIN table_user ON %s.userid=table_user.userid WHERE %s.%s='%s' AND table_user.passwort='%s'", super.tableName, super.tableName, super.tableName, super.primaryKey, linuxid, password));
+        try (Statement statement1 = con.createStatement()) {
+            ResultSet resultSet = statement1.executeQuery(String.format("SELECT table_user.userid FROM %s JOIN table_user ON %s.userid=table_user.userid WHERE %s.%s='%s' AND table_user.passwort='%s'", super.tableName, super.tableName, super.tableName, super.primaryKey, linuxid, password));
             if (resultSet.next()) {
                 int id = resultSet.getInt(1);
-                ResultSet studentResultSet = con.createStatement().executeQuery(String.format("SELECT userid FROM table_student WHERE userid=%d", id));
-                if (studentResultSet.next()) {
-                    return readResults(
-                            super.getRsByID(linuxid),
-                            userDAO.getByID(studentResultSet.getInt(1))
-                    );
+                try (Statement statement2 = con.createStatement()) {
+                    ResultSet studentResultSet = statement2.executeQuery(String.format("SELECT userid FROM table_student WHERE userid=%d", id));
+                    if (studentResultSet.next()) {
+                        return readResults(
+                                super.getRsByID(linuxid),
+                                userDAO.getByID(studentResultSet.getInt(1))
+                        );
+                    }
                 }
             }
         } catch (SQLException e) {
@@ -91,8 +93,8 @@ public class StudentDAO extends GenericDAO<Student> {
     }
 
     /*
-        Statements für Student
-     */
+    Statements für Student
+    */
     private boolean createps(Student student, PreparedStatement ps) throws SQLException {
         ps.setString(1, student.getLinuxID());
         ps.setInt(2, student.getId());
@@ -120,8 +122,8 @@ public class StudentDAO extends GenericDAO<Student> {
 
     @Override
     public boolean delete(Student entity) {
-        try {
-            if (con.createStatement().executeUpdate(String.format("DELETE FROM %s WHERE %s='%s'", tableName, primaryKey, entity.getLinuxID())) == 1) {
+        try (Statement statement = con.createStatement()) {
+            if (statement.executeUpdate(String.format("DELETE FROM %s WHERE %s='%s'", tableName, primaryKey, entity.getLinuxID())) == 1) {
                 return true;
             }
         } catch (SQLException ex) {

@@ -4,10 +4,7 @@ import com.vaadin.ui.Notification;
 import org.bonn.se.ss18.entity.Unternehmer;
 import org.bonn.se.ss18.entity.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Set;
 
 /**
@@ -19,8 +16,8 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
     }
 
     public Unternehmer getByID(int id, UserDAO userDAO) {
-        try {
-            ResultSet resultSet = con.createStatement().executeQuery(String.format("SELECT userid FROM %s WHERE %s=%s", super.tableName, "userid", id));
+        try (Statement statement = con.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(String.format("SELECT userid FROM %s WHERE %s=%s", super.tableName, "userid", id));
             if (resultSet.next()) {
                 return readResults(
                         getRsByID(id + ""),
@@ -35,8 +32,8 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
 
     @Override
     public ResultSet getRsByID(String id) {
-        try {
-            return con.createStatement().executeQuery(String.format("SELECT * FROM %s WHERE userid='%s'", tableName, id));
+        try (Statement statement = con.createStatement()) {
+            return statement.executeQuery(String.format("SELECT * FROM %s WHERE userid='%s'", tableName, id));
         } catch (SQLException e) {
             Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
@@ -101,8 +98,8 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
 
     @Override
     public boolean delete(Unternehmer entity) {
-        try {
-            if (con.createStatement().executeUpdate(String.format("DELETE FROM %s WHERE %s=%d", tableName, primaryKey, entity.getUnternehmerid())) == 1) {
+        try (Statement statement = con.createStatement()) {
+            if (statement.executeUpdate(String.format("DELETE FROM %s WHERE %s=%d", tableName, primaryKey, entity.getUnternehmerid())) == 1) {
                 return true;
             }
         } catch (SQLException ex) {
