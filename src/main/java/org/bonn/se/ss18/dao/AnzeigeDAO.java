@@ -4,6 +4,7 @@ package org.bonn.se.ss18.dao;
  * @author rjourd2s
  */
 
+import com.vaadin.ui.Notification;
 import org.bonn.se.ss18.entity.Anzeige;
 
 import java.sql.*;
@@ -21,7 +22,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
             HashSet<Anzeige> set = readResults(super.getRsByID(String.format("%d", id)));
             return set.isEmpty() ? null : set.iterator().next();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
         return null;
     }
@@ -48,7 +49,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
             PreparedStatement ps = con.prepareStatement(String.format("INSERT INTO %s(userid,datum,titel,ort,typ,anstellungsart,arbeitszeit,brancheid,beginn,aktiv,text, anzeigeid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", tableName));
             return createps(stelle, ps);
         } catch (SQLException e) {
-            e.printStackTrace();
+            Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
         return false;
     }

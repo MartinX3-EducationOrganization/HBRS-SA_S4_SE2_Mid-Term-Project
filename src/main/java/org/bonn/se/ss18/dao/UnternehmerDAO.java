@@ -28,8 +28,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
                 );
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            Notification.show("Keine Verbindung zur Datenbank!", Notification.Type.ERROR_MESSAGE);
+            Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
         return null;
     }
@@ -39,7 +38,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
         try {
             return con.createStatement().executeQuery(String.format("SELECT * FROM %s WHERE userid='%s'", tableName, id));
         } catch (SQLException e) {
-            e.printStackTrace();
+            Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
         return null;
     }
@@ -55,7 +54,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
             PreparedStatement ps = con.prepareStatement(String.format("INSERT INTO %s(userid,firmenname,website,ansprechpartner,brancheid) VALUES (?, ?, ?, ?, ?)", tableName));
             return createps(unternehmer, ps);
         } catch (SQLException e) {
-            e.printStackTrace();
+            Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
         return false;
     }

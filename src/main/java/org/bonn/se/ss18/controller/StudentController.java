@@ -27,8 +27,7 @@ public class StudentController {
                 return studentDAO.deleteByUserID(id, userDAO) && userDAO.delete(id);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            Notification.show("Keine Verbindung zur Datenbank!", Notification.Type.ERROR_MESSAGE);
+            Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
             return false;
         }
     }
@@ -39,8 +38,7 @@ public class StudentController {
                 return userDAO.update(new Student(studentDTO)) && studentDAO.update(new Student(studentDTO));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            Notification.show("Keine Verbindung zur Datenbank!", Notification.Type.ERROR_MESSAGE);
+            Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
             return false;
         }
     }

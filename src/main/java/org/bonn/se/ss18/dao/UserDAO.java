@@ -1,5 +1,6 @@
 package org.bonn.se.ss18.dao;
 
+import com.vaadin.ui.Notification;
 import org.bonn.se.ss18.entity.User;
 
 import java.sql.*;
@@ -17,7 +18,7 @@ public class UserDAO extends GenericDAO<User> {
         try {
             return readResults(super.getRsByID(id + ""));
         } catch (SQLException e) {
-            e.printStackTrace();
+            Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
         return null;
     }
@@ -28,7 +29,7 @@ public class UserDAO extends GenericDAO<User> {
             ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM %s WHERE %s= '%s'", tableName, column, keyword));
             return readResults(rs);
         } catch (SQLException e) {
-            e.printStackTrace();
+            Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
         return null;
     }
@@ -44,7 +45,7 @@ public class UserDAO extends GenericDAO<User> {
             PreparedStatement ps = con.prepareStatement(String.format("INSERT INTO %s(passwort,strasse,hausnr,plz,ort,email,telnr,faxnr,foto,kurzvorstellung) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)", tableName));
             return createps(user, ps);
         } catch (SQLException e) {
-            e.printStackTrace();
+            Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
 
         return false;

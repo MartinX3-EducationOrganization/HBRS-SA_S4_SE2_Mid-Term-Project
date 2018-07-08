@@ -25,8 +25,7 @@ public class StudentDAO extends GenericDAO<Student> {
                 );
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            Notification.show("Keine Verbindung zur Datenbank!", Notification.Type.ERROR_MESSAGE);
+            Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
         return null;
     }
@@ -36,7 +35,7 @@ public class StudentDAO extends GenericDAO<Student> {
         try {
             return con.createStatement().executeQuery(String.format("SELECT * FROM %s WHERE userid='%s'", tableName, id));
         } catch (SQLException e) {
-            e.printStackTrace();
+            Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
         return null;
     }
@@ -53,7 +52,7 @@ public class StudentDAO extends GenericDAO<Student> {
             PreparedStatement ps = con.prepareStatement(String.format("INSERT INTO %s VALUES (?, ?, ?, ?, ?, ?)", super.tableName));
             return createps(student, ps);
         } catch (SQLException e) {
-            e.printStackTrace();
+            Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
         return false;
     }
@@ -86,8 +85,7 @@ public class StudentDAO extends GenericDAO<Student> {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            Notification.show("Keine Verbindung zur Datenbank!", Notification.Type.ERROR_MESSAGE);
+            Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
         return null;
     }

@@ -40,12 +40,13 @@ public class ConnectionFactory {
                             password = parser.getText();
                             break;
                         }
+                        default:
+                            break;
                     }
                 }
             }
         } catch (IOException e) {
-            Notification.show("/WEB-INF/classes/properties.yaml konnte nicht gelesen werden!", Notification.Type.ERROR_MESSAGE);
-            e.printStackTrace();
+            Notification.show("/WEB-INF/classes/properties.yaml konnte nicht gelesen werden!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
 
         Connection connection = null;

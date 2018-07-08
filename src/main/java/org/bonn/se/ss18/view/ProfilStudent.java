@@ -192,7 +192,7 @@ public class ProfilStudent extends Abstract {
                 try {
                     binder.writeBean(studentDTO);
                 } catch (ValidationException e) {
-                    e.printStackTrace();
+                    Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
                 }
                 studentController.updateProfil(studentDTO);
                 event.getButton().setCaption("Bearbeiten");

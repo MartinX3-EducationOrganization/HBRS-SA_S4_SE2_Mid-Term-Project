@@ -172,7 +172,7 @@ public class ProfilUnternehmen extends Abstract {
                 try {
                     binder.writeBean(unternehmerDTO);
                 } catch (ValidationException e) {
-                    e.printStackTrace();
+                    Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
                 }
                 unternehmenController.updateProfil(unternehmerDTO);
                 event.getButton().setCaption("Bearbeiten");

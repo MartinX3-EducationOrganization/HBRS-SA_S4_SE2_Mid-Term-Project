@@ -53,8 +53,7 @@ public class LoginController {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            Notification.show("Keine Verbindung zur Datenbank!", Notification.Type.ERROR_MESSAGE);
+            Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
             return false;
         }
 

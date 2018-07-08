@@ -30,8 +30,7 @@ public class UnternehmenController {
                 return unternehmerDAO.deleteByUserID(id, userDAO) && userDAO.delete(id);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            Notification.show("Keine Verbindung zur Datenbank!", Notification.Type.ERROR_MESSAGE);
+            Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
             return false;
         }
     }
@@ -42,8 +41,7 @@ public class UnternehmenController {
                 return userDAO.update(new Unternehmer(unternehmerDTO)) && unternehmerDAO.update(new Unternehmer(unternehmerDTO));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            Notification.show("Keine Verbindung zur Datenbank!", Notification.Type.ERROR_MESSAGE);
+            Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
             return false;
         }
     }
@@ -52,8 +50,7 @@ public class UnternehmenController {
         try (AnzeigeDAO anzeigeDAO = (AnzeigeDAO) ConnectionFactory.getDAO(Tables.table_anzeige)) {
             anzeigeDAO.update(documentData);
         } catch (SQLException e) {
-            e.printStackTrace();
-            Notification.show("Keine Verbindung zur Datenbank!", Notification.Type.ERROR_MESSAGE);
+            Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
     }
 
@@ -61,8 +58,7 @@ public class UnternehmenController {
         try (AnzeigeDAO anzeigeDAO = (AnzeigeDAO) ConnectionFactory.getDAO(Tables.table_anzeige)) {
             return anzeigeDAO.getAllByID(id);
         } catch (SQLException e) {
-            e.printStackTrace();
-            Notification.show("Keine Verbindung zur Datenbank!", Notification.Type.ERROR_MESSAGE);
+            Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
             return null;
         }
     }

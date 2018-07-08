@@ -1,5 +1,6 @@
 package org.bonn.se.ss18.dao;
 
+import com.vaadin.ui.Notification;
 import org.bonn.se.ss18.entity.AbstractEntity;
 
 import java.sql.Connection;
@@ -30,7 +31,7 @@ public abstract class GenericDAO<T extends AbstractEntity> implements IGenericDA
                 con.close();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
     }
 
@@ -39,7 +40,7 @@ public abstract class GenericDAO<T extends AbstractEntity> implements IGenericDA
         try {
             return con.createStatement().executeQuery(String.format("SELECT * FROM %s WHERE %s='%s'", tableName, primaryKey, id));
         } catch (SQLException e) {
-            e.printStackTrace();
+            Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
         return null;
     }
