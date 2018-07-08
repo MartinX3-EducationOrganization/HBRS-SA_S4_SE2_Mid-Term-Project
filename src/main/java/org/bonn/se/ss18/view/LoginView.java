@@ -14,6 +14,7 @@ import com.vaadin.server.VaadinService;
 import com.vaadin.ui.*;
 import org.bonn.se.ss18.controller.LoginController;
 import org.bonn.se.ss18.exception.NoSuchUserOrPasswort;
+import org.bonn.se.ss18.service.Views;
 
 import java.io.File;
 
@@ -27,8 +28,7 @@ public class LoginView extends Abstract {
 
         Button register = new Button("Jetzt registrieren!",
                 (Button.ClickListener) event -> {
-                    UI.getCurrent().getNavigator().navigateTo(RegistrationUnternehmen.getName());
-                    //UI.getCurrent().getNavigator().navigateTo(RegistrationUnternehmen.getName());
+                    UI.getCurrent().getNavigator().navigateTo(Views.RegistrationUnternehmen);
                 }
         );
         register.setId("registrieren_in");
@@ -45,10 +45,6 @@ public class LoginView extends Abstract {
         layout.setComponentAlignment(layoutCentre, Alignment.MIDDLE_CENTER);
         layout.setComponentAlignment(layoutRight, Alignment.TOP_RIGHT);
         setContent(layout);
-    }
-
-    public static String getName() {
-        return "";
     }
 
     private VerticalLayout getLayoutCentre() {

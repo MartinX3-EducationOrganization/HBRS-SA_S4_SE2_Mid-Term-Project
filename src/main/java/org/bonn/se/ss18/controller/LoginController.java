@@ -14,6 +14,7 @@ import org.bonn.se.ss18.entity.Unternehmer;
 import org.bonn.se.ss18.exception.NoSuchUserOrPasswort;
 import org.bonn.se.ss18.service.Roles;
 import org.bonn.se.ss18.service.Tables;
+import org.bonn.se.ss18.service.Views;
 
 import java.sql.SQLException;
 
@@ -58,10 +59,10 @@ public class LoginController {
         }
 
         if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) instanceof StudentDTO) {
-            UI.getCurrent().getNavigator().navigateTo("ProfilStudent");
+            UI.getCurrent().getNavigator().navigateTo(Views.ProfilStudent);
             return true;
         } else if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) instanceof UnternehmerDTO) {
-            UI.getCurrent().getNavigator().navigateTo("ProfilUnternehmen");
+            UI.getCurrent().getNavigator().navigateTo(Views.ProfilUnternehmen);
             return true;
         }
         return false;

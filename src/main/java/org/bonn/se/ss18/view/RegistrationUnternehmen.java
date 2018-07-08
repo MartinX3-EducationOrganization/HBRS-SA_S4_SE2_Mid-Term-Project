@@ -16,6 +16,7 @@ import org.bonn.se.ss18.controller.RegistrationController;
 import org.bonn.se.ss18.controller.TableController;
 import org.bonn.se.ss18.dto.BrancheDTO;
 import org.bonn.se.ss18.dto.UnternehmerDTO;
+import org.bonn.se.ss18.service.Views;
 
 import java.io.File;
 
@@ -92,7 +93,7 @@ public class RegistrationUnternehmen extends Abstract {
                 event -> {
                     if (unternehmerDTO.isCheckboxAGB()) {
                         new RegistrationController().registration(unternehmerDTO);
-                        UI.getCurrent().getNavigator().navigateTo(LoginView.getName());
+                        UI.getCurrent().getNavigator().navigateTo(Views.LoginView);
                         Notification.show("Vielen Dank für die Registrierung");
                     } else {
                         Notification.show("Bitte AGB's bestätigen!");
@@ -106,10 +107,6 @@ public class RegistrationUnternehmen extends Abstract {
         layout.setComponentAlignment(buttonlayout, Alignment.BOTTOM_CENTER);
 
         setContent(layout);
-    }
-
-    public static String getName() {
-        return "RegistrationUnternehmen";
     }
 
     private Image setLogo() {
@@ -164,12 +161,5 @@ public class RegistrationUnternehmen extends Abstract {
         layout.setWidth(null);
 
         return layout;
-    }
-
-    private <T extends AbstractListing> T setItemGroup(T group, String style, String... items) {
-        group.setItems(items);
-        group.addStyleName(style);
-
-        return group;
     }
 }

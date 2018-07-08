@@ -22,6 +22,7 @@ import org.bonn.se.ss18.controller.LoginController;
 import org.bonn.se.ss18.dto.StudentDTO;
 import org.bonn.se.ss18.dto.UnternehmerDTO;
 import org.bonn.se.ss18.service.Roles;
+import org.bonn.se.ss18.service.Views;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -166,7 +167,7 @@ public class MainUI extends UI {
 
         Button button = new Button(
                 "Profil",
-                e -> getNavigator().navigateTo(ProfilStudent.getName())
+                e -> getNavigator().navigateTo(Views.ProfilStudent)
         );
         button.setId("profil");
         button.addStyleNames(
@@ -183,7 +184,7 @@ public class MainUI extends UI {
 
         Button button = new Button(
                 "Profil",
-                e -> getNavigator().navigateTo(ProfilUnternehmen.getName())
+                e -> getNavigator().navigateTo(Views.ProfilUnternehmen)
         );
         button.addStyleNames(
                 ValoTheme.BUTTON_LINK,
@@ -195,10 +196,10 @@ public class MainUI extends UI {
     }
 
     private void addViews() {
-        UI.getCurrent().getNavigator().addView(LoginView.getName(), LoginView.class);
-        UI.getCurrent().getNavigator().addView(ProfilStudent.getName(), ProfilStudent.class);
-        UI.getCurrent().getNavigator().addView(ProfilUnternehmen.getName(), ProfilUnternehmen.class);
-        UI.getCurrent().getNavigator().addView(RegistrationUnternehmen.getName(), RegistrationUnternehmen.class);
-        UI.getCurrent().getNavigator().addView(StellenausschreibungUnternehmen.getName(), StellenausschreibungUnternehmen.class);
+        UI.getCurrent().getNavigator().addView(Views.LoginView, LoginView.class);
+        UI.getCurrent().getNavigator().addView(Views.ProfilStudent, ProfilStudent.class);
+        UI.getCurrent().getNavigator().addView(Views.ProfilUnternehmen, ProfilUnternehmen.class);
+        UI.getCurrent().getNavigator().addView(Views.RegistrationUnternehmen, RegistrationUnternehmen.class);
+        UI.getCurrent().getNavigator().addView(Views.StellenausschreibungUnternehmen, StellenausschreibungUnternehmen.class);
     }
 }

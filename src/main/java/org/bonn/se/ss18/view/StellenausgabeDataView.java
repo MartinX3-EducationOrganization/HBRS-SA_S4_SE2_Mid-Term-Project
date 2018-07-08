@@ -11,10 +11,10 @@ import java.util.List;
 /**
  * @author rjourd2s
  */
-public class StellenaussgabeDataView extends Window {
+public class StellenausgabeDataView extends Window {
     private final UnternehmenController unternehmenController = new UnternehmenController();
 
-    public StellenaussgabeDataView(Anzeige documentData) {
+    public StellenausgabeDataView(Anzeige documentData) {
         List<String> anstellungslist = new ArrayList<>();
         anstellungslist.add("Ausbildung");
         anstellungslist.add("befristete Antellung");

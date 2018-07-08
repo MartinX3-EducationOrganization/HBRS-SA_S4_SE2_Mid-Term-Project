@@ -244,10 +244,6 @@ public class ProfilStudent extends Abstract {
         getUI().addWindow(deletWarning);
     }
 
-    public static String getName() {
-        return "ProfilStudent";
-    }
-
     private void setFormReadOnly(boolean bool) {
         for (Component c : form) {
             if (c instanceof AbstractComponent && !"footer".equals(c.getId())) {

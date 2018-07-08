@@ -196,11 +196,6 @@ public class ProfilUnternehmen extends Abstract {
         // Ausgangszustand: read-only
         setFormReadOnly(true);
     }
-
-    public static String getName() {
-        return "ProfilUnternehmen";
-    }
-
     private void deletProfil() {
         Window deletWarning = new Window("Warnung löschen des eigenen Profils");
         VerticalLayout deletWarningContent = new VerticalLayout();

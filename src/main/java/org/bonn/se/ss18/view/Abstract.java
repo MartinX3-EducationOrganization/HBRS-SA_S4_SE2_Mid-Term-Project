@@ -13,24 +13,21 @@ import com.vaadin.server.Page;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
 import org.bonn.se.ss18.service.Roles;
+import org.bonn.se.ss18.service.Views;
 
 /**
  * @author martin on 26.05.18
  * @project wi-inf_se2_2018_grundgeruest
  */
 public abstract class Abstract extends Panel implements View {
-    public static String getName() {
-        throw new IllegalArgumentException("Child class did not override getName() method.  This must be done in order for the class to be used!");
-    }
-
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
         if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) != null
-                || UI.getCurrent().getNavigator().getState().equals(LoginView.getName())
-                || UI.getCurrent().getNavigator().getState().equals(RegistrationUnternehmen.getName())) {
+                || UI.getCurrent().getNavigator().getState().equals(Views.LoginView)
+                || UI.getCurrent().getNavigator().getState().equals(Views.RegistrationUnternehmen)) {
             return;
         }
-        UI.getCurrent().getNavigator().navigateTo(LoginView.getName());
+        UI.getCurrent().getNavigator().navigateTo(Views.LoginView);
         Page.getCurrent().reload();
     }
 }

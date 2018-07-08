@@ -55,7 +55,7 @@ public class StellenausschreibungUnternehmen extends Abstract {
                 //get the item which has been clicked
                 Anzeige documentData = event.getItem();
                 //open the item in a window
-                StellenaussgabeDataView window = new StellenaussgabeDataView(documentData);
+                StellenausgabeDataView window = new StellenausgabeDataView(documentData);
                 getUI().addWindow(window);
                 //add a listener, which will be executed when the window will be closed
                 window.addCloseListener(closeEvent -> {
@@ -63,10 +63,6 @@ public class StellenausschreibungUnternehmen extends Abstract {
                 });
             }
         });
-    }
-
-    public static String getName() {
-        return "Stellenausschreibung";
     }
 
     private void updateGrid() {
