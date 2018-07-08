@@ -53,7 +53,6 @@ public class UserDAO extends GenericDAO<User> {
 
     @Override
     public boolean update(User user) {
-
         try {
             PreparedStatement ps = con.prepareStatement(String.format("UPDATE %s SET passwort=?,strasse=?,hausnr=?,plz=?,ort=?,email=?,telnr=?,faxnr=?,foto=?,kurzvorstellung=? WHERE userid=%d", tableName, user.getId()));
             return createps(user, ps);

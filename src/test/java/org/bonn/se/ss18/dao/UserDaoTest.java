@@ -23,10 +23,8 @@ public class UserDaoTest {
 
     @Test
     public void testcreate() {
-        //UUID id ;
         User user = new User();
         user.setId(5);
-
 
         user.setPasswort("123");
         user.setStrasse("Weg");
@@ -39,7 +37,6 @@ public class UserDaoTest {
         user.setFoto(null);
         user.setKurzVorstellung(null);
         Assert.assertFalse(dao.create(user));
-
 
         User newUser = new User();
         newUser.setId(8);
@@ -55,48 +52,36 @@ public class UserDaoTest {
         newUser.setKurzVorstellung("blabla");
 
         Assert.assertFalse(dao.create(newUser));
-        // dao.delete(newUser);
-
-
     }
 
     @Test
     public void testreadbyId() {
-
-      User user = dao.getByID(7);
-        Assert.assertEquals(null, user);
+        User user = dao.getByID(7);
+        Assert.assertNull(user);
         User user1 = dao.getByID(2);
         Assert.assertEquals("email@unternehmen.de", user1.getEmail());
         User user2 = dao.getByID(1);
         Assert.assertEquals("Sankt Augustin", user2.getOrt());
 
-        Assert.assertTrue(user1 != null);
-        Assert.assertFalse(user1 == null);
+        Assert.assertNotNull(user1);
+        Assert.assertNotNull(user1);
     }
 
     @Test
     public void testupdate() {
-
-         User user = dao.getByID(1);
+        User user = dao.getByID(1);
         user.setKurzVorstellung("neuer");
         Assert.assertTrue(dao.update(user));
 
-        User user1 = dao.getByID(1);
-
-        Assert.assertFalse(user1 == null);
-        Assert.assertEquals("53757", user1.getPlz());
-
-
-        //  User user2=dao.getByID(1);
-        //Assert.assertEquals("neuerwert",user2.getKurzVorstellung());
-
-
+        user = dao.getByID(1);
+        Assert.assertNotNull(user);
+        Assert.assertEquals("53757", user.getPlz());
     }
 
     @Test
     public void testdelete() {
-
         User newUser = new User();
+
         newUser.setId(8);
         newUser.setPasswort("üü8ää");
         newUser.setStrasse("Wieg");
@@ -110,7 +95,5 @@ public class UserDaoTest {
         newUser.setKurzVorstellung("blabla");
 
         Assert.assertFalse(dao.delete(newUser));
-
-
     }
 }

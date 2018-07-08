@@ -23,12 +23,10 @@ public class UserDTO extends AbstractDTO {
     private byte[] foto;
     private String kurzVorstellung;
 
-    public UserDTO() {
-        super();
+    UserDTO() {
     }
 
     public UserDTO(UserDTO userDTO) {
-        super();
         setPasswort(userDTO.getPasswort());
         setStrasse(userDTO.getStrasse());
         setHausnr(userDTO.getHausnr());

@@ -22,11 +22,9 @@ public class UnternehmerDTO extends UserDTO {
     private boolean checkboxAGB;
 
     public UnternehmerDTO() {
-        super();
     }
 
     public UnternehmerDTO(Unternehmer unternehmer) {
-        super();
         setAnsprechpartner(unternehmer.getAnsprechpartner());
         setUnternehmerid(unternehmer.getUnternehmerid());
         setFirmenname(unternehmer.getFirmenname());

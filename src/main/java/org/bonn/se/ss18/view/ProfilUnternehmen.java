@@ -24,6 +24,7 @@ import org.bonn.se.ss18.service.Roles;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.List;
 
 public class ProfilUnternehmen extends Abstract {
     private final FormLayout form = new FormLayout();
@@ -68,10 +69,11 @@ public class ProfilUnternehmen extends Abstract {
         firmenname.setWidth("50%");
         form.addComponent(firmenname);
 
-        ComboBox<BrancheDTO> branche = new ComboBox<>("Branchen", tablecontroller.getBranches());
+        List<BrancheDTO> branches = tablecontroller.getBranches();
+        ComboBox<BrancheDTO> branche = new ComboBox<>("Branchen", branches);
         branche.setEmptySelectionAllowed(false);
         branche.setSizeFull();
-        branche.setSelectedItem(tablecontroller.getBranches().get(unternehmerDTO.getBranchenid() - 1));
+        branche.setSelectedItem(branches.get(unternehmerDTO.getBranchenid() - 1));
         // Use the name property for item captions
         branche.setItemCaptionGenerator(BrancheDTO::getBezeichnung);
         form.addComponent(branche);
@@ -195,6 +197,10 @@ public class ProfilUnternehmen extends Abstract {
         setFormReadOnly(true);
     }
 
+    public static String getName() {
+        return "ProfilUnternehmen";
+    }
+
     private void deletProfil() {
         Window deletWarning = new Window("Warnung löschen des eigenen Profils");
         VerticalLayout deletWarningContent = new VerticalLayout();
@@ -221,10 +227,6 @@ public class ProfilUnternehmen extends Abstract {
         });
         deletWarning.center();
         getUI().addWindow(deletWarning);
-    }
-
-    public static String getName() {
-        return "ProfilUnternehmen";
     }
 
     //TODO: Hier später Profilbild hinzufügen

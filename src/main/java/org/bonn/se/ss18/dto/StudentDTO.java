@@ -22,12 +22,7 @@ public class StudentDTO extends UserDTO {
     private LocalDate gebDatum;
     private String socialMediaLink = "";
 
-    public StudentDTO() {
-        super();
-    }
-
     public StudentDTO(Student student) {
-        super();
         setLinuxID(student.getLinuxID());
         setAnrede(student.getAnrede());
         setVorname(student.getVorname());
