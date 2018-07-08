@@ -21,8 +21,7 @@ import java.io.File;
 
 @Title("Registrierung")
 public class RegistrationUnternehmen extends Abstract {
-    UnternehmerDTO unternehmerDTO = new UnternehmerDTO();
-    private final TableController tablecontroller = new TableController();
+    private final UnternehmerDTO unternehmerDTO = new UnternehmerDTO();
 
     public RegistrationUnternehmen() {
 //HauptLayout
@@ -62,6 +61,7 @@ public class RegistrationUnternehmen extends Abstract {
         layout.addComponent(form);
         layout.setComponentAlignment(form, Alignment.MIDDLE_CENTER);
 //Combobox
+        TableController tablecontroller = new TableController();
         ComboBox<BrancheDTO> branche = new ComboBox<>("Branchenauswahl", tablecontroller.getBranches());
         branche.setEmptySelectionAllowed(false);
         branche.setWidth("300");

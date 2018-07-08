@@ -12,12 +12,9 @@ import java.util.List;
  * @author rjourd2s
  */
 public class StellenaussgabeDataView extends Window {
-    private final Anzeige documentData;
     private final UnternehmenController unternehmenController = new UnternehmenController();
 
     public StellenaussgabeDataView(Anzeige documentData) {
-        this.documentData = documentData;
-
         List<String> anstellungslist = new ArrayList<>();
         anstellungslist.add("Ausbildung");
         anstellungslist.add("befristete Antellung");
@@ -109,7 +106,6 @@ public class StellenaussgabeDataView extends Window {
         cancel.addClickListener(event -> close());
         buttonLayout.addComponent(cancel);
         layout.addComponent(buttonLayout);
-
 
         save.addClickListener(event -> {
             if (title.getValue().equals("") || description.getValue().equals("")) {
