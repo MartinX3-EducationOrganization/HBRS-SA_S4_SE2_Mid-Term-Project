@@ -24,7 +24,7 @@ public class StudentController {
     public boolean removeProfil(int id) {
         try (UserDAO userDAO = (UserDAO) ConnectionFactory.getDAO(Tables.table_user)) {
             try (StudentDAO studentDAO = (StudentDAO) ConnectionFactory.getDAO(Tables.table_student)) {
-                return studentDAO.deleteByUserID(id) && userDAO.delete(id);
+                return studentDAO.deleteByUserID(id, userDAO) && userDAO.delete(id);
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -14,7 +14,6 @@ public class BewerbunganlageDAO extends GenericDAO<Bewerbunganlage> {
         super(con, "table_bewerbunganlage", "bewerbungsanlageid");
     }
 
-    @Override
     public Bewerbunganlage getByID(int id) throws SQLException {
         return null;
     }

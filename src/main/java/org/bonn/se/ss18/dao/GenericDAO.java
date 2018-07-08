@@ -47,7 +47,7 @@ public abstract class GenericDAO<T extends AbstractEntity> implements IGenericDA
     @Override
     public boolean delete(T entity) {
         try {
-            if (con.createStatement().executeUpdate("DELETE FROM " + tableName + " WHERE " + primaryKey + "=" + entity.getId()) == 1) {
+            if (con.createStatement().executeUpdate(String.format("DELETE FROM %s WHERE %s=%d", tableName, primaryKey, entity.getId())) == 1) {
                 return true;
             }
         } catch (SQLException ex) {

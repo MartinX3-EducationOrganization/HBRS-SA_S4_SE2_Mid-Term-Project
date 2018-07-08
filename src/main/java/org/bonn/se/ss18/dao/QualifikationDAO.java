@@ -14,7 +14,6 @@ public class QualifikationDAO extends GenericDAO<Qualifikation> {
         super(con, "table_qualifikation", "qualifikationid");
     }
 
-    @Override
     public Qualifikation getByID(int id) throws SQLException {
         return null;
     }

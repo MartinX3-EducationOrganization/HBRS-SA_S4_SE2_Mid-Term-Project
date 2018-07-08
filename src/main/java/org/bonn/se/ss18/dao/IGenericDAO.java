@@ -19,8 +19,6 @@ import java.util.Set;
 public interface IGenericDAO<T> extends Closeable {
     ResultSet getRsByID(String id) throws SQLException;
 
-    T getByID(int id) throws SQLException;
-
     Set<T> getAllByID(int id) throws SQLException;
 
     boolean create(T entity) throws SQLException;

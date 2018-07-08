@@ -17,10 +17,9 @@ public class StudentDAO extends GenericDAO<Student> {
         super(con, "table_student", "linuxid");
     }
 
-    @Override
-    public Student getByID(int userID) {
-        try (UserDAO userDAO = (UserDAO) ConnectionFactory.getDAO(Tables.table_user)) {
-            ResultSet resultSet = con.createStatement().executeQuery("SELECT userid FROM table_student WHERE userid=" + userID);
+    public Student getByID(int userID, UserDAO userDAO) {
+        try {
+            ResultSet resultSet = con.createStatement().executeQuery(String.format("SELECT userid FROM table_student WHERE userid=%d", userID));
             if (resultSet.next()) {
                 return readResults(
                         getRsByID(userID + ""),
@@ -53,7 +52,7 @@ public class StudentDAO extends GenericDAO<Student> {
     @Override
     public boolean create(Student student) {
         try {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO " + super.tableName + " VALUES (?, ?, ?, ?, ?, ?)");
+            PreparedStatement ps = con.prepareStatement(String.format("INSERT INTO %s VALUES (?, ?, ?, ?, ?, ?)", super.tableName));
             return createps(student, ps);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,9 +63,8 @@ public class StudentDAO extends GenericDAO<Student> {
     @Override
     public boolean update(Student student) {
         try {
-            PreparedStatement ps = con.prepareStatement("UPDATE " + super.tableName + " SET linuxid=?,userid=?,anrede=?,vorname=?,nachname=?,gebdatum=? WHERE linuxid='" + student.getLinuxID() + "'");
+            PreparedStatement ps = con.prepareStatement(String.format("UPDATE %s SET linuxid=?,userid=?,anrede=?,vorname=?,nachname=?,gebdatum=? WHERE linuxid='%s'", super.tableName, student.getLinuxID()));
             return createps(student, ps);
-
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -81,7 +79,7 @@ public class StudentDAO extends GenericDAO<Student> {
             ResultSet resultSet = con.createStatement().executeQuery(String.format("SELECT table_user.userid FROM %s JOIN table_user ON %s.userid=table_user.userid WHERE %s.%s='%s' AND table_user.passwort='%s'", super.tableName, super.tableName, super.tableName, super.primaryKey, linuxid, password));
             if (resultSet.next()) {
                 int id = resultSet.getInt(1);
-                ResultSet studentResultSet = con.createStatement().executeQuery("SELECT userid FROM table_student WHERE userid=" + id);
+                ResultSet studentResultSet = con.createStatement().executeQuery(String.format("SELECT userid FROM table_student WHERE userid=%d", id));
                 if (studentResultSet.next()) {
                     return readResults(
                             super.getRsByID(linuxid),
@@ -136,7 +134,7 @@ public class StudentDAO extends GenericDAO<Student> {
         return false;
     }
 
-    public boolean deleteByUserID(int id) {
-        return delete(getByID(id));
+    public boolean deleteByUserID(int id, UserDAO userDAO) {
+        return delete(getByID(id, userDAO));
     }
 }

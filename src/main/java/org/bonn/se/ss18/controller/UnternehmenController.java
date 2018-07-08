@@ -27,7 +27,7 @@ public class UnternehmenController {
     public boolean removeProfil(int id) {
         try (UserDAO userDAO = (UserDAO) ConnectionFactory.getDAO(Tables.table_user)) {
             try (UnternehmerDAO unternehmerDAO = (UnternehmerDAO) ConnectionFactory.getDAO(Tables.table_unternehmen)) {
-                return unternehmerDAO.deleteByUserID(id) && userDAO.delete(id);
+                return unternehmerDAO.deleteByUserID(id, userDAO) && userDAO.delete(id);
             }
         } catch (SQLException e) {
             e.printStackTrace();

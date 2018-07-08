@@ -11,28 +11,31 @@ import org.junit.Test;
 import java.util.Set;
 
 public class UnternehmerDAOTest {
-    private UnternehmerDAO dao;
+    private UserDAO userDAO;
+    private UnternehmerDAO unternehmerDAO;
 
     @Before
     public void setUp() throws Exception {
-        dao = (UnternehmerDAO) ConnectionFactory.getDAO(Tables.table_unternehmen);
+        userDAO = (UserDAO) ConnectionFactory.getDAO(Tables.table_user);
+        unternehmerDAO = (UnternehmerDAO) ConnectionFactory.getDAO(Tables.table_unternehmen);
     }
 
     @After
     public void tearDown() throws Exception {
-        dao.close();
+        unternehmerDAO.close();
+        userDAO.close();
     }
 
     @Test
     public void readbyId() {
-        Unternehmer unternehmer = dao.getByID(53);
+        Unternehmer unternehmer = unternehmerDAO.getByID(53, userDAO);
         Assert.assertEquals("ZFirma", unternehmer.getFirmenname());
 
     }
 
     @Test
     public void getAllbyId() {
-        Set<Unternehmer> result = dao.getAllByID(0);
+        Set<Unternehmer> result = unternehmerDAO.getAllByID(0);
         Assert.assertEquals(null, result);
     }
 
@@ -44,17 +47,17 @@ public class UnternehmerDAOTest {
         unternehmer.setFirmenname("AG Dümer 2");
         unternehmer.setWebsite("www.ag2.de");
 
-        Assert.assertFalse(dao.create(unternehmer));
+        Assert.assertFalse(unternehmerDAO.create(unternehmer));
 
 
     }
 
     @Test
     public void update() {
-        Unternehmer unternehmer = dao.getByID(0);
+        Unternehmer unternehmer = unternehmerDAO.getByID(0, userDAO);
         Assert.assertFalse(unternehmer == null);
        unternehmer.setFirmenname("Example Consulting new");
-       Assert.assertTrue(dao.update(unternehmer));
+        Assert.assertTrue(unternehmerDAO.update(unternehmer));
         Assert.assertEquals("Example Consulting new", unternehmer.getFirmenname());
     }
 
@@ -66,7 +69,7 @@ public class UnternehmerDAOTest {
         unternehmer.setUnternehmerid(2);
         unternehmer.setFirmenname("AG Dümer 2");
         unternehmer.setWebsite("www.ag2.de");
-        Assert.assertFalse(dao.delete(unternehmer));
+        Assert.assertFalse(unternehmerDAO.delete(unternehmer));
 
     }
 }

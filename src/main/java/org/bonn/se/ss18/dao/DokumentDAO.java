@@ -14,7 +14,6 @@ public class DokumentDAO extends GenericDAO<Dokument> {
         super(con, "table_dokument", "dokumentid");
     }
 
-    @Override
     public Dokument getByID(int id) throws SQLException {
         return null;
     }

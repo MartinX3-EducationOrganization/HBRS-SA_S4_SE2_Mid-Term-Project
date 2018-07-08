@@ -35,7 +35,7 @@ public class LoginController {
                         UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, new StudentDTO(student));
                     } else if (userDAO.getByColumnValue("email", username) != null) {
                         id = userDAO.getByColumnValue("email", username).getId();
-                        student = studentDAO.getByID(id);
+                        student = studentDAO.getByID(id, userDAO);
                         if (student != null) {
                             if (student.getPasswort().equals(password)) {
                                 UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, new StudentDTO(student));
@@ -43,7 +43,7 @@ public class LoginController {
                                 throw new NoSuchUserOrPasswort();
                             }
                         } else {
-                            Unternehmer unternehmer = unternehmerDAO.getByID(id);
+                            Unternehmer unternehmer = unternehmerDAO.getByID(id, userDAO);
                             if (unternehmer != null && unternehmer.getPasswort().equals(password)) {
                                 UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, new UnternehmerDTO(unternehmer));
                             } else {
