@@ -41,7 +41,7 @@ public class BrancheDAO extends GenericDAO<Branche> {
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName);
-            List<Branche> branchenlist = new ArrayList<>();
+            List<Branche> branchenlist = new ArrayList<>(rs.getFetchSize());
             while (rs.next()) {
                 branchenlist.add(new Branche(rs.getInt("brancheid"), rs.getString("bezeichnung")));
             }

@@ -1,10 +1,8 @@
 package org.bonn.se.ss18.dao;
 
 import com.vaadin.ui.Notification;
-import org.bonn.se.ss18.controller.ConnectionFactory;
 import org.bonn.se.ss18.entity.Student;
 import org.bonn.se.ss18.entity.User;
-import org.bonn.se.ss18.service.Tables;
 
 import java.sql.*;
 import java.util.Set;
@@ -74,8 +72,8 @@ public class StudentDAO extends GenericDAO<Student> {
     /*
         Methoden die zusätzlich dazukommen
      */
-    public Student getByUserAndPass(String linuxid, String password) {
-        try (UserDAO userDAO = (UserDAO) ConnectionFactory.getDAO(Tables.table_user)) {
+    public Student getByUserAndPass(String linuxid, String password, UserDAO userDAO) {
+        try {
             ResultSet resultSet = con.createStatement().executeQuery(String.format("SELECT table_user.userid FROM %s JOIN table_user ON %s.userid=table_user.userid WHERE %s.%s='%s' AND table_user.passwort='%s'", super.tableName, super.tableName, super.tableName, super.primaryKey, linuxid, password));
             if (resultSet.next()) {
                 int id = resultSet.getInt(1);

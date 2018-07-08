@@ -14,7 +14,6 @@ import org.bonn.se.ss18.entity.Unternehmer;
 import org.bonn.se.ss18.exception.NoSuchUserOrPasswort;
 import org.bonn.se.ss18.service.Roles;
 import org.bonn.se.ss18.service.Tables;
-import org.bonn.se.ss18.view.LoginView;
 import org.bonn.se.ss18.view.ProfilStudent;
 import org.bonn.se.ss18.view.ProfilUnternehmen;
 
@@ -24,13 +23,12 @@ import java.sql.SQLException;
  * @author rjourd2s
  */
 public class LoginController {
-
     public boolean login(String username, String password) throws NoSuchUserOrPasswort {
         try (UserDAO userDAO = (UserDAO) ConnectionFactory.getDAO(Tables.table_user)) {
             try (UnternehmerDAO unternehmerDAO = (UnternehmerDAO) ConnectionFactory.getDAO(Tables.table_unternehmen)) {
                 try (StudentDAO studentDAO = (StudentDAO) ConnectionFactory.getDAO(Tables.table_student)) {
                     int id;
-                    Student student = studentDAO.getByUserAndPass(username, password);
+                    Student student = studentDAO.getByUserAndPass(username, password, userDAO);
                     if (student != null) {
                         UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, new StudentDTO(student));
                     } else if (userDAO.getByColumnValue("email", username) != null) {
@@ -72,7 +70,6 @@ public class LoginController {
     }
 
     public void logout() {
-        UI.getCurrent().getNavigator().navigateTo(LoginView.getName());
         UI.getCurrent().getSession().close();
         Page.getCurrent().reload();
     }
