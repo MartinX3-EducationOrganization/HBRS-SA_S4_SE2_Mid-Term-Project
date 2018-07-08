@@ -79,22 +79,25 @@ public class UserDAO extends GenericDAO<User> {
     }
 
     private User readResults(ResultSet rs) throws SQLException {
-        if (rs.next()) {
-            User user = new User();
-            user.setId(rs.getInt(1));
-            user.setPasswort(rs.getString(2));
-            user.setStrasse(rs.getString(3));
-            user.setHausnr(rs.getString(4));
-            user.setPlz(rs.getString(5));
-            user.setOrt(rs.getString(6));
-            user.setEmail(rs.getString(7));
-            user.setTelNr(rs.getString(8));
-            user.setFaxNr(rs.getString(9));
-            user.setFoto(rs.getBytes(10));
-            user.setKurzVorstellung(rs.getString(11));
-            return user;
+        if (!rs.next()) {
+            return null;
         }
-        return null;
+
+        User user = new User();
+
+        user.setId(rs.getInt(1));
+        user.setPasswort(rs.getString(2));
+        user.setStrasse(rs.getString(3));
+        user.setHausnr(rs.getString(4));
+        user.setPlz(rs.getString(5));
+        user.setOrt(rs.getString(6));
+        user.setEmail(rs.getString(7));
+        user.setTelNr(rs.getString(8));
+        user.setFaxNr(rs.getString(9));
+        user.setFoto(rs.getBytes(10));
+        user.setKurzVorstellung(rs.getString(11));
+        
+        return user;
     }
 
     public boolean delete(int id) {

@@ -107,17 +107,20 @@ public class StudentDAO extends GenericDAO<Student> {
     }
 
     private Student readResults(ResultSet rs, User user) throws SQLException {
-        if (rs.next()) {
-            Student student = new Student(user);
-            student.setLinuxID(rs.getString(1));
-            student.setId(rs.getInt(2));
-            student.setAnrede(rs.getString(3));
-            student.setVorname(rs.getString(4));
-            student.setNachname(rs.getString(5));
-            student.setGebDatum(rs.getDate(6));
-            return student;
+        if (!rs.next()) {
+            return null;
         }
-        return null;
+
+        Student student = new Student(user);
+        
+        student.setLinuxID(rs.getString(1));
+        student.setId(rs.getInt(2));
+        student.setAnrede(rs.getString(3));
+        student.setVorname(rs.getString(4));
+        student.setNachname(rs.getString(5));
+        student.setGebDatum(rs.getDate(6));
+
+        return student;
     }
 
     @Override
