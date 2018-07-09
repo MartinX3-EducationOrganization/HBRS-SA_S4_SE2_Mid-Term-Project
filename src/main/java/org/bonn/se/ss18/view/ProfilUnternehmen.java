@@ -10,6 +10,7 @@ package org.bonn.se.ss18.view;
 import com.vaadin.data.Binder;
 import com.vaadin.data.ValidationException;
 import com.vaadin.server.FileResource;
+import com.vaadin.server.Page;
 import com.vaadin.server.StreamResource;
 import com.vaadin.server.VaadinService;
 import com.vaadin.shared.ui.MarginInfo;
@@ -69,7 +70,7 @@ public class ProfilUnternehmen extends Abstract {
             profilImage.setSource(new StreamResource((StreamResource.StreamSource) () -> new ByteArrayInputStream(bytes), ""));
 
         });
-        upload.setImmediateMode(false);
+        upload.setImmediateMode(true);
         form.addComponent(upload);
 
         TextField firmenname = new TextField("Firmenname");
@@ -188,6 +189,7 @@ public class ProfilUnternehmen extends Abstract {
                 unternehmenController.updateProfil(unternehmerDTO);
                 event.getButton().setCaption("Bearbeiten");
                 event.getButton().removeStyleName(ValoTheme.BUTTON_PRIMARY);
+                Page.getCurrent().reload();
             }
         });
         editButton.setId("editButton");
@@ -231,17 +233,6 @@ public class ProfilUnternehmen extends Abstract {
         deletWarning.center();
         getUI().addWindow(deletWarning);
     }
-
-//TODO: Hier später Profilbild hinzufügen
-/*private VerticalLayout setProfilePictureLayout() {
-Upload upload = new Upload(
-"Upload it here",
-null
-);
-upload.setImmediateMode(false);
-
-return new VerticalLayout(upload);
-}*/
 
     private void setFormReadOnly(boolean bool) {
         for (Component c : form) {

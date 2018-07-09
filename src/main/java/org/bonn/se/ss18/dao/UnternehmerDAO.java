@@ -57,7 +57,8 @@ Statements für Unternehmen
         ps.setString(2, unternehmer.getFirmenname());
         ps.setString(3, unternehmer.getWebsite());
         ps.setString(4, unternehmer.getAnsprechpartner());
-
+        ps.setInt(5, unternehmer.getBranchenid());
+        
         return ps.executeUpdate() == 1;
     }
 

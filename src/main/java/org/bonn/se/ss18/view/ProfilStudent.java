@@ -5,6 +5,7 @@ import com.vaadin.data.Binder;
 import com.vaadin.data.ValidationException;
 import com.vaadin.data.validator.EmailValidator;
 import com.vaadin.server.FileResource;
+import com.vaadin.server.Page;
 import com.vaadin.server.StreamResource;
 import com.vaadin.server.VaadinService;
 import com.vaadin.shared.ui.MarginInfo;
@@ -64,10 +65,10 @@ public class ProfilStudent extends Abstract {
             profilImage.setSource(new StreamResource((StreamResource.StreamSource) () -> new ByteArrayInputStream(bytes), ""));
 
         });
-        upload.setImmediateMode(false);
+        upload.setImmediateMode(true);
         form.addComponent(upload);
-        Binder<StudentDTO> binder = new Binder<>();
 
+        Binder<StudentDTO> binder = new Binder<>();
         TextField vorname = new TextField("Vorname");
         binder.forField(vorname)
                 .asRequired("Bitte geben sie ihren Vornamen an!")
@@ -199,6 +200,7 @@ public class ProfilStudent extends Abstract {
                 studentController.updateProfil(studentDTO);
                 event.getButton().setCaption("Bearbeiten");
                 event.getButton().removeStyleName(ValoTheme.BUTTON_PRIMARY);
+                Page.getCurrent().reload();
             }
         });
         editButton.setId("editButton");

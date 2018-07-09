@@ -1,6 +1,5 @@
 package org.bonn.se.ss18.controller;
 
-import com.vaadin.server.Page;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import org.bonn.se.ss18.dao.StudentDAO;
@@ -83,7 +82,7 @@ public class LoginController {
 
     public void logout() {
         UI.getCurrent().getSession().close();
-        Page.getCurrent().reload();
+        UI.getCurrent().getNavigator().navigateTo(Views.LoginView);
     }
 }
 
