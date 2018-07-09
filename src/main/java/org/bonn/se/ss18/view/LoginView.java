@@ -19,7 +19,7 @@ import org.bonn.se.ss18.service.Views;
 import java.io.File;
 
 @Title("Grundgerüst - Login")
-public class LoginView extends Abstract {
+class LoginView extends Abstract {
     // Link zum Backend
     private final LoginController loginController = new LoginController();
 
@@ -27,9 +27,7 @@ public class LoginView extends Abstract {
         VerticalLayout layoutCentre = getLayoutCentre();
 
         Button register = new Button("Jetzt registrieren!",
-                (Button.ClickListener) event -> {
-                    UI.getCurrent().getNavigator().navigateTo(Views.RegistrationUnternehmen);
-                }
+                (Button.ClickListener) event -> UI.getCurrent().getNavigator().navigateTo(Views.RegistrationUnternehmen)
         );
         register.setId("registrieren_in");
         VerticalLayout layoutRight = new VerticalLayout(

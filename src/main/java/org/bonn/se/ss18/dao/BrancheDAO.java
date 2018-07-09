@@ -37,16 +37,14 @@ public class BrancheDAO extends GenericDAO<Branche> {
         return false;
     }
 
-    public List<Branche> getBranches() {
+    public List<Branche> getBranches() throws SQLException {
         try (Statement stmt = con.createStatement()) {
-            ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName);
+            ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM %s", tableName));
             List<Branche> branchenlist = new ArrayList<>(rs.getFetchSize());
             while (rs.next()) {
                 branchenlist.add(new Branche(rs.getInt("brancheid"), rs.getString("bezeichnung")));
             }
             return branchenlist;
-        } catch (SQLException ex) {
-            return null;
         }
     }
 }

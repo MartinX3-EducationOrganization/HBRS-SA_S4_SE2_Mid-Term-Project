@@ -16,7 +16,7 @@ public class Branche extends AbstractEntity {
         return bezeichnung;
     }
 
-    final public void setBezeichnung(String bezeichnung) {
+    private void setBezeichnung(String bezeichnung) {
         this.bezeichnung = bezeichnung;
     }
 }

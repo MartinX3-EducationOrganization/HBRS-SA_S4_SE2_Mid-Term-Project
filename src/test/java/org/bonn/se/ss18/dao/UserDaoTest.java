@@ -38,7 +38,11 @@ public class UserDaoTest {
         user.setFaxNr("0781");
         user.setFoto(null);
         user.setKurzVorstellung(null);
-        Assert.assertFalse(dao.create(user));
+        try {
+            Assert.assertFalse(dao.create(user));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         User newUser = new User();
         newUser.setId(8);
@@ -53,16 +57,35 @@ public class UserDaoTest {
         newUser.setFoto(null);
         newUser.setKurzVorstellung("blabla");
 
-        Assert.assertFalse(dao.create(newUser));
+        try {
+            Assert.assertFalse(dao.create(newUser));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     public void testreadbyId() {
-        User user = dao.getByID(7);
+        User user = null;
+        try {
+            user = dao.getByID(7);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         Assert.assertNull(user);
-        User user1 = dao.getByID(2);
+        User user1 = null;
+        try {
+            user1 = dao.getByID(2);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         Assert.assertEquals("email@unternehmen.de", user1.getEmail());
-        User user2 = dao.getByID(1);
+        User user2 = null;
+        try {
+            user2 = dao.getByID(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         Assert.assertEquals("Sankt Augustin", user2.getOrt());
 
         Assert.assertNotNull(user1);
@@ -71,11 +94,26 @@ public class UserDaoTest {
 
     @Test
     public void testupdate() {
-        User user = dao.getByID(1);
-        user.setKurzVorstellung("neuer");
-        Assert.assertTrue(dao.update(user));
+        User user = null;
+        try {
+            user = dao.getByID(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (user != null) {
+            user.setKurzVorstellung("neuer");
+        }
+        try {
+            Assert.assertTrue(dao.update(user));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-        user = dao.getByID(1);
+        try {
+            user = dao.getByID(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         Assert.assertNotNull(user);
         Assert.assertEquals("53757", user.getPlz());
     }

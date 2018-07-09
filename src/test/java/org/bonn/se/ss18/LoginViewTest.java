@@ -12,7 +12,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.concurrent.TimeUnit;
 
-public class LoginViewTest extends TestCase {
+public class LoginViewTest {
     //Webseite URL
     private static final String URL = "http://localhost:8080/";
     //systemproperty key
@@ -22,7 +22,6 @@ public class LoginViewTest extends TestCase {
 
     private WebDriver driver;
 
-    @Override
     @Before
     public void setUp(){
         //setzen den Chrome driver in system umgebung
@@ -64,7 +63,6 @@ public class LoginViewTest extends TestCase {
 
     }
 
-    @Override
     @After
     public void tearDown(){
 

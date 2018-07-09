@@ -13,7 +13,7 @@ import org.bonn.se.ss18.view.MainUI;
 
 import javax.servlet.annotation.WebServlet;
 
-public class Main {
+class Main {
     @WebServlet(urlPatterns = "/*", name = "MainServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = MainUI.class, productionMode = false)
     public static class MainServlet extends VaadinServlet {

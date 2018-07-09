@@ -16,7 +16,7 @@ import java.util.Set;
  * @author martin on 23.06.18
  * @project wi-inf_se2_2018_grundgeruest
  */
-public interface IGenericDAO<T> extends Closeable {
+interface IGenericDAO<T> extends Closeable {
     ResultSet getRsByID(String id) throws SQLException;
 
     Set<T> getAllByID(int id) throws SQLException;

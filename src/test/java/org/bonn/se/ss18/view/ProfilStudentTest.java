@@ -1,11 +1,7 @@
 package org.bonn.se.ss18.view;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import junit.framework.TestCase;
 import org.junit.Before;
@@ -15,27 +11,24 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.*;
-
-public class ProfilStudentTest extends TestCase {
-    //Webseite URL
-    private static String URL = "http://localhost:8080/";
-    //systemproperty key
-    private static String SYSTEM_PATH = "webdriver.chrome.driver";
-    //pfad zu Chrome driver
-    private static String CHROME_PATH = "driver/chromedriver.exe";
+public class ProfilStudentTest {
 
     private WebDriver driver;
 
     @Before
     public void setUp() throws Exception {
         //setzen den Chrome driver in system umgebung
+        //pfad zu Chrome driver
+        String CHROME_PATH = "driver/chromedriver.exe";//systemproperty key
+        String SYSTEM_PATH = "webdriver.chrome.driver";
         System.setProperty(SYSTEM_PATH, CHROME_PATH);
         //erzeugungen den Chrome driver
         driver = new ChromeDriver();
         //nach ausführung einer Action warte von 15s
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         //URL aufrufen
+        //Webseite URL
+        String URL = "http://localhost:8080/";
         driver.get(URL);
     }
 
@@ -66,7 +59,7 @@ public class ProfilStudentTest extends TestCase {
 
 
         element = driver.findElement(By.id("birthday"));
-        Assert.assertEquals(null,element.getAttribute("value")); // DAtum nicht erreichbar
+        Assert.assertNull(element.getAttribute("value")); // DAtum nicht erreichbar
 
         element = driver.findElement(By.id("street"));
         Assert.assertEquals("Hauptstraße",element.getAttribute("value"));

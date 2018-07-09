@@ -14,7 +14,7 @@ import java.util.Locale;
  * @author rjourd2s
  */
 @Title("Grundgerüst - Unternehmen - Stellenausschreibung")
-public class StellenausschreibungUnternehmen extends Abstract {
+class StellenausschreibungUnternehmen extends Abstract {
     private final UnternehmenController unternehmenController = new UnternehmenController();
     private final Grid<Anzeige> grid = new Grid<>(Anzeige.class);
 

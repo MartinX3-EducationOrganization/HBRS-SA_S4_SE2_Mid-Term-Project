@@ -14,7 +14,7 @@ import com.vaadin.ui.*;
  * @author Mohamad
  */
 @Title("Stellensuche")
-public class StellensucheFilter extends Abstract {
+class StellensucheFilter extends Abstract {
 
     public StellensucheFilter() {
         setContent(new VerticalLayout(

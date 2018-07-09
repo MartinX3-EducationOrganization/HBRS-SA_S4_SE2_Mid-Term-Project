@@ -19,7 +19,7 @@ import org.bonn.se.ss18.service.Views;
  * @author martin on 26.05.18
  * @project wi-inf_se2_2018_grundgeruest
  */
-public abstract class Abstract extends Panel implements View {
+abstract class Abstract extends Panel implements View {
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
         if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) != null

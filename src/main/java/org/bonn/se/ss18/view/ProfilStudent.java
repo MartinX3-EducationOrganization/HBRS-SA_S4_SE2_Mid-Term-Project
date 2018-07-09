@@ -22,7 +22,7 @@ import java.io.File;
  * @author rjourd2s
  */
 
-public class ProfilStudent extends Abstract {
+class ProfilStudent extends Abstract {
     private final FormLayout form = new FormLayout();
     private final StudentController studentController = new StudentController();
     private final LoginController loginController = new LoginController();

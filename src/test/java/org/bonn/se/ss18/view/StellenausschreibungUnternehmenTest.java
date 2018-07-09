@@ -11,14 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.*;
-
 public class StellenausschreibungUnternehmenTest  {
-    private static String URL = "http://localhost:8080/";
-    //systemproperty key
-    private static String SYSTEM_PATH = "webdriver.chrome.driver";
-    //pfad zu Chrome driver
-    private static String CHROME_PATH = "driver/chromedriver.exe";
 
     private WebDriver driver;
 
@@ -26,13 +19,17 @@ public class StellenausschreibungUnternehmenTest  {
     public void setUp() throws Exception {
 
             //setzen den Chrome driver in system umgebung
-            System.setProperty(SYSTEM_PATH, CHROME_PATH);
+        //pfad zu Chrome driver
+        String CHROME_PATH = "driver/chromedriver.exe";//systemproperty key
+        String SYSTEM_PATH = "webdriver.chrome.driver";
+        System.setProperty(SYSTEM_PATH, CHROME_PATH);
             //erzeugen den Chrome driver
             driver = new ChromeDriver();
             //nach ausführung einer Action warte von 15s
             driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
             //URL aufrufen
-            driver.get(URL);
+        String URL = "http://localhost:8080/";
+        driver.get(URL);
         }
 
         @Test

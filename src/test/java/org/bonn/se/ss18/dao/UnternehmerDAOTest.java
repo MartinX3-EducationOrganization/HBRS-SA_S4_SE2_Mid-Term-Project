@@ -29,7 +29,12 @@ public class UnternehmerDAOTest {
 
     @Test
     public void readbyId() {
-        Unternehmer unternehmer = unternehmerDAO.getByID(53, userDAO);
+        Unternehmer unternehmer = null;
+        try {
+            unternehmer = unternehmerDAO.getByID(53, userDAO);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         Assert.assertEquals("ZFirma", unternehmer.getFirmenname());
 
     }
@@ -37,7 +42,7 @@ public class UnternehmerDAOTest {
     @Test
     public void getAllbyId() {
         Set<Unternehmer> result = unternehmerDAO.getAllByID(0);
-        Assert.assertEquals(null, result);
+        Assert.assertNull(result);
     }
 
     @Test
@@ -48,17 +53,30 @@ public class UnternehmerDAOTest {
         unternehmer.setFirmenname("AG Dümer 2");
         unternehmer.setWebsite("www.ag2.de");
 
-        Assert.assertFalse(unternehmerDAO.create(unternehmer));
+        try {
+            Assert.assertFalse(unternehmerDAO.create(unternehmer));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
 
     }
 
     @Test
     public void update() {
-        Unternehmer unternehmer = unternehmerDAO.getByID(0, userDAO);
-        Assert.assertFalse(unternehmer == null);
+        Unternehmer unternehmer = null;
+        try {
+            unternehmer = unternehmerDAO.getByID(0, userDAO);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        Assert.assertNotNull(unternehmer);
        unternehmer.setFirmenname("Example Consulting new");
-        Assert.assertTrue(unternehmerDAO.update(unternehmer));
+        try {
+            Assert.assertTrue(unternehmerDAO.update(unternehmer));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         Assert.assertEquals("Example Consulting new", unternehmer.getFirmenname());
     }
 

@@ -18,8 +18,9 @@ CRUD: Create Read Update Delete
 public abstract class GenericDAO<T extends AbstractEntity> implements IGenericDAO<T> {
     final String primaryKey;
     final String tableName;
-    protected Connection con;
-    public GenericDAO(Connection con, String tableName, String primaryKey) {
+    final Connection con;
+
+    GenericDAO(Connection con, String tableName, String primaryKey) {
         this.con = con;
         this.tableName = tableName;
         this.primaryKey = primaryKey;

@@ -45,7 +45,7 @@ public class StudentDTO extends UserDTO {
         return linuxID;
     }
 
-    final public void setLinuxID(String linuxID) {
+    private void setLinuxID(String linuxID) {
         this.linuxID = linuxID;
     }
 
@@ -53,7 +53,7 @@ public class StudentDTO extends UserDTO {
         return anrede;
     }
 
-    final public void setAnrede(String anrede) {
+    private void setAnrede(String anrede) {
         this.anrede = anrede;
     }
 

@@ -56,7 +56,7 @@ public class UnternehmerDTO extends UserDTO {
         return unternehmerid;
     }
 
-    final public void setUnternehmerid(int unternehmerid) {
+    private void setUnternehmerid(int unternehmerid) {
         this.unternehmerid = unternehmerid;
     }
 

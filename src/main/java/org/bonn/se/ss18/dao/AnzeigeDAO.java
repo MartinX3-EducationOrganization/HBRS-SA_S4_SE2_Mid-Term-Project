@@ -1,10 +1,9 @@
 package org.bonn.se.ss18.dao;
 
-/**
- * @author rjourd2s
+/*
+  @author rjourd2s
  */
 
-import com.vaadin.ui.Notification;
 import org.bonn.se.ss18.entity.Anzeige;
 
 import java.sql.*;
@@ -12,23 +11,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class AnzeigeDAO extends GenericDAO<Anzeige> {
-
     public AnzeigeDAO(Connection con) {
         super(con, "table_anzeige", "anzeigeid");
     }
 
-    public Anzeige getByID(int id) {
-        try {
-            HashSet<Anzeige> set = readResults(super.getRsByID(String.format("%d", id)));
-            return set.isEmpty() ? null : set.iterator().next();
-        } catch (SQLException e) {
-            Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
-        }
-        return null;
+    public Anzeige getByID(int id) throws SQLException {
+        HashSet<Anzeige> set = readResults(super.getRsByID(String.format("%d", id)));
+        return set.isEmpty() ? null : set.iterator().next();
     }
 
     @Override
-    public Set<Anzeige> getAllByID(int id) {
+    public Set<Anzeige> getAllByID(int id) throws SQLException {
         try (Statement stmt = con.createStatement()) {
             ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM %s WHERE userid=%d", tableName, id));
             Set<Anzeige> stellen = new HashSet<>();
@@ -36,33 +29,19 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
                 stellen = readResults(rs);
             }
             return stellen;
-        } catch (SQLException ex) {
-            Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
-        return null;
     }
 
     @Override
-    public boolean create(Anzeige stelle) {
-        try {
-            PreparedStatement ps = con.prepareStatement(String.format("INSERT INTO %s(userid,datum,titel,ort,typ,anstellungsart,arbeitszeit,brancheid,beginn,aktiv,text, anzeigeid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", tableName));
-            return createps(stelle, ps);
-        } catch (SQLException e) {
-            Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
-        }
-        return false;
+    public boolean create(Anzeige stelle) throws SQLException {
+        PreparedStatement ps = con.prepareStatement(String.format("INSERT INTO %s(userid,datum,titel,ort,typ,anstellungsart,arbeitszeit,brancheid,beginn,aktiv,text, anzeigeid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", tableName));
+        return createps(stelle, ps);
     }
 
     @Override
-    public boolean update(Anzeige stelle) {
-        try {
-            PreparedStatement ps = con.prepareStatement(String.format("UPDATE %s SET userid = ?, datum = ? , titel = ?, ort = ?, typ = ?, anstellungsart = ?, arbeitszeit = ?, brancheid = ?, beginn = ?, aktiv = ?, text = ?, anzeigeid = ?WHERE anzeigeid = %d", tableName, stelle.getId()));
-            return createps(stelle, ps);
-
-        } catch (SQLException ex) {
-            Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
-        }
-        return false;
+    public boolean update(Anzeige stelle) throws SQLException {
+        PreparedStatement ps = con.prepareStatement(String.format("UPDATE %s SET userid = ?, datum = ? , titel = ?, ort = ?, typ = ?, anstellungsart = ?, arbeitszeit = ?, brancheid = ?, beginn = ?, aktiv = ?, text = ?, anzeigeid = ?WHERE anzeigeid = %d", tableName, stelle.getId()));
+        return createps(stelle, ps);
     }
 
     private boolean createps(Anzeige anzeige, PreparedStatement ps) throws SQLException {
@@ -78,8 +57,8 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
         ps.setBoolean(10, anzeige.getAktiv());
         ps.setString(11, anzeige.getText());
         ps.setInt(12, anzeige.getId());
-        int i = ps.executeUpdate();
-        return i == 1;
+
+        return ps.executeUpdate() == 1;
     }
 
 
@@ -87,7 +66,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
         HashSet<Anzeige> result = new HashSet<>();
         while (rs.next()) {
             Anzeige anzeige = new Anzeige();
-            
+
             anzeige.setId(rs.getInt("anzeigeid"));
             anzeige.setUserid(rs.getInt("userid"));
             anzeige.setDatum(rs.getDate("datum"));

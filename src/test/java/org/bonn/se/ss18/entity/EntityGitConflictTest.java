@@ -13,11 +13,11 @@ import java.time.LocalDate;
  * @author martin on 19.06.18
  * @project wi-inf_se2_2018_grundgeruest
  */
-public class EntityGitConflictTest {
-    int alter;
-    LocalDate bday;
-    String vorname;
-    String nachname;
+class EntityGitConflictTest {
+    private int alter;
+    private LocalDate bday;
+    private String vorname;
+    private String nachname;
 
     public int getAlter() {
         return alter;

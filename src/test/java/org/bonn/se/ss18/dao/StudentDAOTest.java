@@ -43,15 +43,28 @@ public class StudentDAOTest {
         student.setAnrede("Frau");
         student.setVorname("Heike");
         student.setNachname("Baumann");
-        student.setGebDatum(new Date(1l));
-        Assert.assertFalse(studentDAO.create(student));
+        student.setGebDatum(new Date(1L));
+        try {
+            Assert.assertFalse(studentDAO.create(student));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     public void update() {
-        Student student = studentDAO.getByUserAndPass("ux2s", "123", userDAO);
+        Student student = null;
+        try {
+            student = studentDAO.getByUserAndPass("ux2s", "123", userDAO);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         student.setVorname("Heike");
-        Assert.assertTrue(studentDAO.update(student));
+        try {
+            Assert.assertTrue(studentDAO.update(student));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -63,7 +76,7 @@ public class StudentDAOTest {
         student.setAnrede("Herr");
         student.setVorname("beni");
         student.setNachname("Müller");
-        student.setGebDatum(new Date(1l));
+        student.setGebDatum(new Date(1L));
 
         try {
             Assert.assertFalse(studentDAO.delete(student));
@@ -74,9 +87,14 @@ public class StudentDAOTest {
 
     @Test
     public void read() {
-        Student student = studentDAO.getByUserAndPass("salda2s", "123", userDAO);
+        Student student = null;
+        try {
+            student = studentDAO.getByUserAndPass("salda2s", "123", userDAO);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-        Assert.assertTrue(student == null);
-        Assert.assertFalse(student != null);
+        Assert.assertNull(student);
+        Assert.assertNull(student);
     }
 }

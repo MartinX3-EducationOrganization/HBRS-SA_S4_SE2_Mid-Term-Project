@@ -26,11 +26,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.List;
 
-public class ProfilUnternehmen extends Abstract {
+class ProfilUnternehmen extends Abstract {
     private final FormLayout form = new FormLayout();
     private final UnternehmenController unternehmenController = new UnternehmenController();
     private final LoginController loginController = new LoginController();
-    private final TableController tablecontroller = new TableController();
 
     public ProfilUnternehmen() {
         Label title = new Label("Profil (Unternehmen)");
@@ -69,6 +68,7 @@ public class ProfilUnternehmen extends Abstract {
         firmenname.setWidth("50%");
         form.addComponent(firmenname);
 
+        TableController tablecontroller = new TableController();
         List<BrancheDTO> branches = tablecontroller.getBranches();
         ComboBox<BrancheDTO> branche = new ComboBox<>("Branchen", branches);
         branche.setEmptySelectionAllowed(false);
@@ -184,9 +184,7 @@ public class ProfilUnternehmen extends Abstract {
 
         Button deleteButton = new Button(
                 "Profil Löschen",
-                (Button.ClickListener) event -> {
-                    deletProfil();
-                }
+                (Button.ClickListener) event -> deletProfil()
         );
         
         deleteButton.setId("delete");
@@ -217,9 +215,7 @@ public class ProfilUnternehmen extends Abstract {
             unternehmenController.removeProfil((new UserDTO((UnternehmerDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER))).getId());
             loginController.logout();
         });
-        cancel.addClickListener(clickEvent -> {
-            deletWarning.close();
-        });
+        cancel.addClickListener(clickEvent -> deletWarning.close());
         deletWarning.center();
         getUI().addWindow(deletWarning);
     }

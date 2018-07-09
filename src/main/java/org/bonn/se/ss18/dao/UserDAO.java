@@ -1,6 +1,5 @@
 package org.bonn.se.ss18.dao;
 
-import com.vaadin.ui.Notification;
 import org.bonn.se.ss18.entity.User;
 
 import java.sql.*;
@@ -14,23 +13,14 @@ public class UserDAO extends GenericDAO<User> {
         super(con, "table_user", "userid");
     }
 
-    public User getByID(int id) {
-        try {
-            return readResults(super.getRsByID(id + ""));
-        } catch (SQLException e) {
-            Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
-        }
-        return null;
+    public User getByID(int id) throws SQLException {
+        return readResults(super.getRsByID(id + ""));
     }
 
-    public User getByColumnValue(String column, String keyword) {
+    public User getByColumnValue(String column, String keyword) throws SQLException {
         try (Statement stmt = con.createStatement()) {
-            ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM %s WHERE %s= '%s'", tableName, column, keyword));
-            return readResults(rs);
-        } catch (SQLException e) {
-            Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
+            return readResults(stmt.executeQuery(String.format("SELECT * FROM %s WHERE %s= '%s'", tableName, column, keyword)));
         }
-        return null;
     }
 
     @Override
@@ -39,27 +29,16 @@ public class UserDAO extends GenericDAO<User> {
     }
 
     @Override
-    public boolean create(User user) {
-        try {
-            PreparedStatement ps = con.prepareStatement(String.format("INSERT INTO %s(passwort,strasse,hausnr,plz,ort,email,telnr,faxnr,foto,kurzvorstellung) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)", tableName));
-            return createps(user, ps);
-        } catch (SQLException e) {
-            Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
-        }
-        return false;
+    public boolean create(User user) throws SQLException {
+        PreparedStatement ps = con.prepareStatement(String.format("INSERT INTO %s(passwort,strasse,hausnr,plz,ort,email,telnr,faxnr,foto,kurzvorstellung) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)", tableName));
+        return createps(user, ps);
     }
 
 
     @Override
-    public boolean update(User user) {
-        try {
-            PreparedStatement ps = con.prepareStatement(String.format("UPDATE %s SET passwort=?,strasse=?,hausnr=?,plz=?,ort=?,email=?,telnr=?,faxnr=?,foto=?,kurzvorstellung=? WHERE userid=%d", tableName, user.getId()));
-            return createps(user, ps);
-
-        } catch (SQLException ex) {
-            Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
-        }
-        return false;
+    public boolean update(User user) throws SQLException {
+        PreparedStatement ps = con.prepareStatement(String.format("UPDATE %s SET passwort=?,strasse=?,hausnr=?,plz=?,ort=?,email=?,telnr=?,faxnr=?,foto=?,kurzvorstellung=? WHERE userid=%d", tableName, user.getId()));
+        return createps(user, ps);
     }
 
     private boolean createps(User user, PreparedStatement ps) throws SQLException {
@@ -74,7 +53,7 @@ public class UserDAO extends GenericDAO<User> {
         ps.setBytes(9, user.getFoto());
         ps.setString(10, user.getKurzVorstellung());
         int i = ps.executeUpdate();
-        // Eine Reihe(ROW)
+// Eine Reihe(ROW)
         return i == 1;
     }
 

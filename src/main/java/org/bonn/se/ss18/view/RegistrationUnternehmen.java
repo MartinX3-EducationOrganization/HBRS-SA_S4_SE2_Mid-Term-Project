@@ -1,8 +1,8 @@
 
 package org.bonn.se.ss18.view;
 
-/**
- * @author Abdullah.Mohamad
+/*
+  @author Abdullah.Mohamad
  */
 
 import com.vaadin.annotations.Title;
@@ -21,7 +21,7 @@ import org.bonn.se.ss18.service.Views;
 import java.io.File;
 
 @Title("Registrierung")
-public class RegistrationUnternehmen extends Abstract {
+class RegistrationUnternehmen extends Abstract {
     private final UnternehmerDTO unternehmerDTO = new UnternehmerDTO();
 
     public RegistrationUnternehmen() {

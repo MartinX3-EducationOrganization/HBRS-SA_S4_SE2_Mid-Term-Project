@@ -40,7 +40,11 @@ public class AnzeigeDAOTest {
         anzeige.setBeginn(new Date(2000, 1, 1));
         anzeige.setAktiv(true);
         anzeige.setText("Text");
-        Assert.assertFalse(dao.create(anzeige));
+        try {
+            Assert.assertFalse(dao.create(anzeige));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         try {
             dao.delete(anzeige);
         } catch (SQLException e) {
@@ -50,7 +54,12 @@ public class AnzeigeDAOTest {
 
     @Test
     public void testReadbyId() {
-        Anzeige anzeige2 = dao.getByID(6);
+        Anzeige anzeige2 = null;
+        try {
+            anzeige2 = dao.getByID(6);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         Assert.assertEquals(6, anzeige2.getId());
         Assert.assertEquals(1, anzeige2.getUserid());
        // Assert.assertEquals(new Date(2000, 1, 1), Date.valueOf(anzeige.getDatum()));
@@ -68,12 +77,22 @@ public class AnzeigeDAOTest {
 
     @Test
     public void testGetAllbyId() {
-        Set<Anzeige> result = dao.getAllByID(100);
+        Set<Anzeige> result = null;
+        try {
+            result = dao.getAllByID(100);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         Assert.assertEquals(0,result.size());
 
         // Was macht GetAllById und wofür wird es gebraucht????
-        Set<Anzeige> result1 = dao.getAllByID(2);
-     Assert.assertEquals(1, result1.size());
+        Set<Anzeige> result1 = null;
+        try {
+            result1 = dao.getAllByID(2);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        Assert.assertEquals(1, result1.size());
 
 
 
@@ -83,11 +102,21 @@ public class AnzeigeDAOTest {
 
     @Test
     public void testUpadate() {
+        Anzeige anzeige = null;
+        try {
+            anzeige = dao.getByID(6);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-        Anzeige anzeige = dao.getByID(6);
-
-        anzeige.setTyp("Gesuch");
-        Assert.assertTrue(dao.update(anzeige));
+        if (anzeige != null) {
+            anzeige.setTyp("Gesuch");
+        }
+        try {
+            Assert.assertTrue(dao.update(anzeige));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
 //  Neue Werte die du updaten möchtest.
 //  Teste auf True dat update geklappt, danach dao.getByID(id) ob es geklappt hat.
@@ -108,7 +137,11 @@ public class AnzeigeDAOTest {
         anzeige.setBeginn(new Date(2000, 1, 1));
         anzeige.setAktiv(true);
         anzeige.setText("Text");
-        dao.create(anzeige);
+        try {
+            dao.create(anzeige);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         try {
             Assert.assertFalse(dao.delete(anzeige));
         } catch (SQLException e) {

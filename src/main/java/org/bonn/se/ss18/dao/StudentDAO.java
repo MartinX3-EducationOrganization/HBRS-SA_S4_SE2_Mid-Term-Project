@@ -1,6 +1,5 @@
 package org.bonn.se.ss18.dao;
 
-import com.vaadin.ui.Notification;
 import org.bonn.se.ss18.entity.Student;
 import org.bonn.se.ss18.entity.User;
 
@@ -15,7 +14,7 @@ public class StudentDAO extends GenericDAO<Student> {
         super(con, "table_student", "linuxid");
     }
 
-    public Student getByID(int userID, UserDAO userDAO) {
+    public Student getByID(int userID, UserDAO userDAO) throws SQLException {
         try (Statement statement = con.createStatement()) {
             ResultSet resultSet = statement.executeQuery(String.format("SELECT userid FROM table_student WHERE userid=%d", userID));
             if (resultSet.next()) {
@@ -24,10 +23,8 @@ public class StudentDAO extends GenericDAO<Student> {
                         userDAO.getByID(resultSet.getInt(1))
                 );
             }
-        } catch (SQLException e) {
-            Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
+            return null;
         }
-        return null;
     }
 
     @Override
@@ -44,31 +41,21 @@ public class StudentDAO extends GenericDAO<Student> {
     }
 
     @Override
-    public boolean create(Student student) {
-        try {
-            PreparedStatement ps = con.prepareStatement(String.format("INSERT INTO %s VALUES (?, ?, ?, ?, ?, ?)", super.tableName));
-            return createps(student, ps);
-        } catch (SQLException e) {
-            Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
-        }
-        return false;
+    public boolean create(Student student) throws SQLException {
+        PreparedStatement ps = con.prepareStatement(String.format("INSERT INTO %s VALUES (?, ?, ?, ?, ?, ?)", super.tableName));
+        return createps(student, ps);
     }
 
     @Override
-    public boolean update(Student student) {
-        try {
-            PreparedStatement ps = con.prepareStatement(String.format("UPDATE %s SET linuxid=?,userid=?,anrede=?,vorname=?,nachname=?,gebdatum=? WHERE linuxid='%s'", super.tableName, student.getLinuxID()));
-            return createps(student, ps);
-        } catch (SQLException ex) {
-            Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
-        }
-        return false;
+    public boolean update(Student student) throws SQLException {
+        PreparedStatement ps = con.prepareStatement(String.format("UPDATE %s SET linuxid=?,userid=?,anrede=?,vorname=?,nachname=?,gebdatum=? WHERE linuxid='%s'", super.tableName, student.getLinuxID()));
+        return createps(student, ps);
     }
 
     /*
     Methoden die zusätzlich dazukommen
     */
-    public Student getByUserAndPass(String linuxid, String password, UserDAO userDAO) {
+    public Student getByUserAndPass(String linuxid, String password, UserDAO userDAO) throws SQLException {
         try (Statement statement1 = con.createStatement()) {
             ResultSet resultSet = statement1.executeQuery(String.format("SELECT table_user.userid FROM %s JOIN table_user ON %s.userid=table_user.userid WHERE %s.%s='%s' AND table_user.passwort='%s'", super.tableName, super.tableName, super.tableName, super.primaryKey, linuxid, password));
             if (resultSet.next()) {
@@ -83,10 +70,8 @@ public class StudentDAO extends GenericDAO<Student> {
                     }
                 }
             }
-        } catch (SQLException e) {
-            Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
+            return null;
         }
-        return null;
     }
 
     /*
