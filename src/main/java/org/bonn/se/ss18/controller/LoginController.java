@@ -1,6 +1,5 @@
 package org.bonn.se.ss18.controller;
 
-
 import com.vaadin.server.Page;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
@@ -26,7 +25,7 @@ public class LoginController {
         try (UserDAO userDAO = (UserDAO) ConnectionFactory.getDAO(Tables.table_user)) {
             try (UnternehmerDAO unternehmerDAO = (UnternehmerDAO) ConnectionFactory.getDAO(Tables.table_unternehmen)) {
                 try (StudentDAO studentDAO = (StudentDAO) ConnectionFactory.getDAO(Tables.table_student)) {
-                    loginStudent(username, password, userDAO, unternehmerDAO, studentDAO);
+                    login(username, password, userDAO, unternehmerDAO, studentDAO);
                     return navigateToProfil();
                 }
             }
@@ -36,7 +35,7 @@ public class LoginController {
         return false;
     }
 
-    private void loginStudent(String username, String password, UserDAO userDAO, UnternehmerDAO unternehmerDAO, StudentDAO studentDAO) throws NoSuchUserOrPasswort, SQLException {
+    private void login(String username, String password, UserDAO userDAO, UnternehmerDAO unternehmerDAO, StudentDAO studentDAO) throws NoSuchUserOrPasswort, SQLException {
         Student student = studentDAO.getByUserAndPass(username, password, userDAO);
 
         if (student != null) {
