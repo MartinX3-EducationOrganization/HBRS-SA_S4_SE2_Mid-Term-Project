@@ -31,13 +31,10 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
     }
 
     @Override
-    public ResultSet getRsByID(String id) {
+    public ResultSet getRsByID(String id) throws SQLException {
         try (Statement statement = con.createStatement()) {
             return statement.executeQuery(String.format("SELECT * FROM %s WHERE userid='%s'", tableName, id));
-        } catch (SQLException e) {
-            Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
-        return null;
     }
 
     @Override
@@ -102,11 +99,8 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
     @Override
     public boolean delete(Unternehmer entity) throws SQLException {
         try (Statement statement = con.createStatement()) {
-            if (statement.executeUpdate(String.format("DELETE FROM %s WHERE %s=%d", tableName, primaryKey, entity.getUnternehmerid())) == 1) {
-                return true;
-            }
+            return statement.executeUpdate(String.format("DELETE FROM %s WHERE %s=%d", tableName, primaryKey, entity.getUnternehmerid())) == 1;
         }
-        return false;
     }
 
     public boolean deleteByUserID(int id, UserDAO userDAO) throws SQLException {

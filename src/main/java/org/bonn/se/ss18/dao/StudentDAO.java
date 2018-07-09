@@ -31,13 +31,10 @@ public class StudentDAO extends GenericDAO<Student> {
     }
 
     @Override
-    public ResultSet getRsByID(String id) {
+    public ResultSet getRsByID(String id) throws SQLException {
         try (Statement statement = con.createStatement()) {
             return statement.executeQuery(String.format("SELECT * FROM %s WHERE userid='%s'", tableName, id));
-        } catch (SQLException e) {
-            Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
-        return null;
     }
 
     //  Macht kein Sinn vorerst da man immer nur einen Studenten bekommen würde.
@@ -126,11 +123,8 @@ public class StudentDAO extends GenericDAO<Student> {
     @Override
     public boolean delete(Student entity) throws SQLException {
         try (Statement statement = con.createStatement()) {
-            if (statement.executeUpdate(String.format("DELETE FROM %s WHERE %s='%s'", tableName, primaryKey, entity.getLinuxID())) == 1) {
-                return true;
-            }
+            return statement.executeUpdate(String.format("DELETE FROM %s WHERE %s='%s'", tableName, primaryKey, entity.getLinuxID())) == 1;
         }
-        return false;
     }
 
     public boolean deleteByUserID(int id, UserDAO userDAO) throws SQLException {

@@ -37,22 +37,16 @@ public abstract class GenericDAO<T extends AbstractEntity> implements IGenericDA
     }
 
     @Override
-    public ResultSet getRsByID(String id) {
+    public ResultSet getRsByID(String id) throws SQLException {
         try (Statement statement = con.createStatement()) {
             return statement.executeQuery(String.format("SELECT * FROM %s WHERE %s='%s'", tableName, primaryKey, id));
-        } catch (SQLException e) {
-            Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
-        return null;
     }
 
     @Override
     public boolean delete(T entity) throws SQLException {
         try (Statement statement = con.createStatement()) {
-            if (statement.executeUpdate(String.format("DELETE FROM %s WHERE %s=%d", tableName, primaryKey, entity.getId())) == 1) {
-                return true;
-            }
+            return statement.executeUpdate(String.format("DELETE FROM %s WHERE %s=%d", tableName, primaryKey, entity.getId())) == 1;
         }
-        return false;
     }
 }

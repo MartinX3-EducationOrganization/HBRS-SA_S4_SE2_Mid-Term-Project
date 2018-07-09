@@ -159,15 +159,7 @@ public class ProfilStudent extends Abstract {
         section.addStyleName(ValoTheme.LABEL_COLORED);
         form.addComponent(section);
 
-        Button skillButton = new Button("Hinzufügen", new Button.ClickListener() {
-            int i = 1;
-
-            @Override
-            public void buttonClick(Button.ClickEvent event) {
-                form.addComponent(new TextField("" + i++));
-            }
-        });
-        form.addComponent(skillButton);
+        form.addComponent(new Button("Hinzufügen", (Button.ClickListener) event -> form.addComponent(new TextField("Skill"))));
 
         // Footer
         HorizontalLayout footer = new HorizontalLayout();
@@ -203,9 +195,7 @@ public class ProfilStudent extends Abstract {
 
         Button deleteButton = new Button(
                 "Profil Löschen",
-                (Button.ClickListener) event -> {
-                    deletProfil();
-                }
+                (Button.ClickListener) event -> deletProfil()
         );
         deleteButton.setId("delete");
         deleteButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
@@ -236,9 +226,7 @@ public class ProfilStudent extends Abstract {
             studentController.removeProfil((new UserDTO((StudentDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER))).getId());
             loginController.logout();
         });
-        cancel.addClickListener(clickEvent -> {
-            deletWarning.close();
-        });
+        cancel.addClickListener(clickEvent -> deletWarning.close());
         deletWarning.center();
         getUI().addWindow(deletWarning);
     }
