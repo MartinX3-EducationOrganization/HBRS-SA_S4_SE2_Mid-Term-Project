@@ -5,6 +5,7 @@ import com.vaadin.data.Binder;
 import com.vaadin.data.ValidationException;
 import com.vaadin.data.validator.EmailValidator;
 import com.vaadin.server.FileResource;
+import com.vaadin.server.StreamResource;
 import com.vaadin.server.VaadinService;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.*;
@@ -15,8 +16,9 @@ import org.bonn.se.ss18.dto.StudentDTO;
 import org.bonn.se.ss18.dto.UserDTO;
 import org.bonn.se.ss18.service.Roles;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
+import java.nio.file.Paths;
 
 /**
  * @author rjourd2s
@@ -28,6 +30,7 @@ public class ProfilStudent extends Abstract {
     private final LoginController loginController = new LoginController();
 
     public ProfilStudent() {
+        StudentDTO studentDTO = (StudentDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
         Label title = new Label("Profil (Student)");
         title.addStyleName(ValoTheme.LABEL_H1);
 
@@ -42,19 +45,28 @@ public class ProfilStudent extends Abstract {
         section.addStyleName(ValoTheme.LABEL_COLORED);
         form.addComponent(section);
 
-        form.addComponent(
-                new Image(
-                        null,
-                        new FileResource(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/WEB-INF/classes/profile_default.jpg"))
-                )
+        Image profilImage = new Image(
+                null,
+                studentDTO.getFoto() == null
+                        || studentDTO.getFoto().length == 0
+                        ? new FileResource(Paths.get(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath(), "WEB-INF", "classes", "profile_default.jpg").toFile())
+                        : new StreamResource((StreamResource.StreamSource) () -> new ByteArrayInputStream(studentDTO.getFoto()), "")
         );
+        profilImage.setHeight(150, Unit.PIXELS);
+        profilImage.setWidth(150, Unit.PIXELS);
+        form.addComponent(profilImage);
 
         Upload upload = new Upload("Upload Profilbild", (Upload.Receiver) (filename, mimeType) -> new ByteArrayOutputStream());
-        upload.setImmediateMode(false);
-        upload.addSucceededListener((Upload.SucceededListener) event -> ((StudentDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER)).setFoto(((ByteArrayOutputStream) upload.getReceiver().receiveUpload(event.getFilename(), event.getMIMEType())).toByteArray()));
-        form.addComponent(upload);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        upload.setReceiver((Upload.Receiver) (filename, mimeType) -> baos);
+        upload.addSucceededListener((Upload.SucceededListener) succeededEvent -> {
+            byte[] bytes = baos.toByteArray();
+            studentDTO.setFoto(bytes);
+            profilImage.setSource(new StreamResource((StreamResource.StreamSource) () -> new ByteArrayInputStream(bytes), ""));
 
-        StudentDTO studentDTO = (StudentDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
+        });
+        upload.setImmediateMode(false);
+        form.addComponent(upload);
         Binder<StudentDTO> binder = new Binder<>();
 
         TextField vorname = new TextField("Vorname");

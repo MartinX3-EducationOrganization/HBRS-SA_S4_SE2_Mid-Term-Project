@@ -10,6 +10,7 @@ package org.bonn.se.ss18.view;
 import com.vaadin.data.Binder;
 import com.vaadin.data.ValidationException;
 import com.vaadin.server.FileResource;
+import com.vaadin.server.StreamResource;
 import com.vaadin.server.VaadinService;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.*;
@@ -22,8 +23,9 @@ import org.bonn.se.ss18.dto.UnternehmerDTO;
 import org.bonn.se.ss18.dto.UserDTO;
 import org.bonn.se.ss18.service.Roles;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class ProfilUnternehmen extends Abstract {
@@ -32,6 +34,7 @@ public class ProfilUnternehmen extends Abstract {
     private final LoginController loginController = new LoginController();
 
     public ProfilUnternehmen() {
+        UnternehmerDTO unternehmerDTO = (UnternehmerDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
         Label title = new Label("Profil (Unternehmen)");
         title.addStyleName(ValoTheme.LABEL_H1);
 
@@ -41,28 +44,37 @@ public class ProfilUnternehmen extends Abstract {
         form.setWidth("800px");
         form.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
 
-        // Section 1
+// Section 1
         Label section = new Label("Unternehmen");
         section.addStyleName(ValoTheme.LABEL_H3);
         section.addStyleName(ValoTheme.LABEL_COLORED);
         form.addComponent(section);
 
-        form.addComponent(
-                new Image(
-                        null,
-                        new FileResource(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/WEB-INF/classes/profile_default.jpg"))
-                )
+        Image profilImage = new Image(
+                null,
+                unternehmerDTO.getFoto() == null
+                        || unternehmerDTO.getFoto().length == 0
+                        ? new FileResource(Paths.get(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath(), "WEB-INF", "classes", "profile_default.jpg").toFile())
+                        : new StreamResource((StreamResource.StreamSource) () -> new ByteArrayInputStream(unternehmerDTO.getFoto()), "")
         );
+        profilImage.setHeight(150, Unit.PIXELS);
+        profilImage.setWidth(150, Unit.PIXELS);
+        form.addComponent(profilImage);
 
         Upload upload = new Upload("Upload Profilbild", (Upload.Receiver) (filename, mimeType) -> new ByteArrayOutputStream());
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        upload.setReceiver((Upload.Receiver) (filename, mimeType) -> baos);
+        upload.addSucceededListener((Upload.SucceededListener) succeededEvent -> {
+            byte[] bytes = baos.toByteArray();
+            unternehmerDTO.setFoto(bytes);
+            profilImage.setSource(new StreamResource((StreamResource.StreamSource) () -> new ByteArrayInputStream(bytes), ""));
+
+        });
         upload.setImmediateMode(false);
-        upload.addSucceededListener((Upload.SucceededListener) event -> ((UnternehmerDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER)).setFoto(((ByteArrayOutputStream) upload.getReceiver().receiveUpload(event.getFilename(), event.getMIMEType())).toByteArray()));
         form.addComponent(upload);
-        UnternehmerDTO unternehmerDTO = (UnternehmerDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER);
-        Binder<UnternehmerDTO> binder = new Binder<>();
 
         TextField firmenname = new TextField("Firmenname");
-
+        Binder<UnternehmerDTO> binder = new Binder<>();
         binder.bind(firmenname, UnternehmerDTO::getFirmenname, UnternehmerDTO::setFirmenname);
         firmenname.setId("firmenname");
         firmenname.setWidth("50%");
@@ -74,12 +86,12 @@ public class ProfilUnternehmen extends Abstract {
         branche.setEmptySelectionAllowed(false);
         branche.setSizeFull();
         branche.setSelectedItem(branches.get(unternehmerDTO.getBranchenid() - 1));
-        // Use the name property for item captions
+// Use the name property for item captions
         branche.setItemCaptionGenerator(BrancheDTO::getBezeichnung);
         form.addComponent(branche);
         branche.addValueChangeListener(x -> unternehmerDTO.setBranchenid(x.getValue().getId()));
 
-        // Section 2
+// Section 2
         section = new Label("Kontakt");
         section.addStyleName(ValoTheme.LABEL_H3);
         section.addStyleName(ValoTheme.LABEL_COLORED);
@@ -139,7 +151,7 @@ public class ProfilUnternehmen extends Abstract {
         ansprechpartner.setWidth("50%");
         form.addComponent(ansprechpartner);
 
-        // Section 3
+// Section 3
         section = new Label("Zusätzliche Informationen");
         section.addStyleName(ValoTheme.LABEL_H3);
         section.addStyleName(ValoTheme.LABEL_COLORED);
@@ -152,7 +164,7 @@ public class ProfilUnternehmen extends Abstract {
         form.addComponent(bio);
 
         binder.readBean(unternehmerDTO);
-        // Footer
+// Footer
         HorizontalLayout footer = new HorizontalLayout();
         footer.setMargin(new MarginInfo(true, false, true, false));
         footer.setSpacing(true);
@@ -191,7 +203,7 @@ public class ProfilUnternehmen extends Abstract {
         deleteButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
         footer.addComponent(deleteButton);
 
-        // Ausgangszustand: read-only
+// Ausgangszustand: read-only
         setFormReadOnly(true);
     }
 
@@ -221,16 +233,16 @@ public class ProfilUnternehmen extends Abstract {
         getUI().addWindow(deletWarning);
     }
 
-    //TODO: Hier später Profilbild hinzufügen
-    /*private VerticalLayout setProfilePictureLayout() {
-        Upload upload = new Upload(
-                "Upload it here",
-                null
-        );
-        upload.setImmediateMode(false);
+//TODO: Hier später Profilbild hinzufügen
+/*private VerticalLayout setProfilePictureLayout() {
+Upload upload = new Upload(
+"Upload it here",
+null
+);
+upload.setImmediateMode(false);
 
-        return new VerticalLayout(upload);
-    }*/
+return new VerticalLayout(upload);
+}*/
 
     private void setFormReadOnly(boolean bool) {
         for (Component c : form) {
