@@ -21,7 +21,7 @@ import org.bonn.se.ss18.service.Views;
 import java.io.File;
 
 @Title("Registrierung")
-class RegistrationUnternehmen extends Abstract {
+public class RegistrationUnternehmen extends Abstract {
     private final UnternehmerDTO unternehmerDTO = new UnternehmerDTO();
 
     public RegistrationUnternehmen() {

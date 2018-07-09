@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author rjourd2s
  */
-class StellenausgabeDataView extends Window {
+public class StellenausgabeDataView extends Window {
     private final UnternehmenController unternehmenController = new UnternehmenController();
 
     public StellenausgabeDataView(Anzeige documentData) {

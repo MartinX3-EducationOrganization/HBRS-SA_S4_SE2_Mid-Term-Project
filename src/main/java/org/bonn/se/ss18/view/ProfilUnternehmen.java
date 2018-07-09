@@ -26,7 +26,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.List;
 
-class ProfilUnternehmen extends Abstract {
+public class ProfilUnternehmen extends Abstract {
     private final FormLayout form = new FormLayout();
     private final UnternehmenController unternehmenController = new UnternehmenController();
     private final LoginController loginController = new LoginController();
@@ -186,7 +186,7 @@ class ProfilUnternehmen extends Abstract {
                 "Profil Löschen",
                 (Button.ClickListener) event -> deletProfil()
         );
-        
+
         deleteButton.setId("delete");
         deleteButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
         footer.addComponent(deleteButton);
@@ -194,6 +194,7 @@ class ProfilUnternehmen extends Abstract {
         // Ausgangszustand: read-only
         setFormReadOnly(true);
     }
+
     private void deletProfil() {
         Window deletWarning = new Window("Warnung löschen des eigenen Profils");
         VerticalLayout deletWarningContent = new VerticalLayout();

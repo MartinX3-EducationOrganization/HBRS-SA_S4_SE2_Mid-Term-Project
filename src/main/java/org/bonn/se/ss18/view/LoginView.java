@@ -19,7 +19,7 @@ import org.bonn.se.ss18.service.Views;
 import java.io.File;
 
 @Title("Grundgerüst - Login")
-class LoginView extends Abstract {
+public class LoginView extends Abstract {
     // Link zum Backend
     private final LoginController loginController = new LoginController();
 
