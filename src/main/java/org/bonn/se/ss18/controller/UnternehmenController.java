@@ -14,6 +14,7 @@ import org.bonn.se.ss18.dao.UserDAO;
 import org.bonn.se.ss18.dto.UnternehmerDTO;
 import org.bonn.se.ss18.entity.Anzeige;
 import org.bonn.se.ss18.entity.Unternehmer;
+import org.bonn.se.ss18.entity.User;
 import org.bonn.se.ss18.service.Tables;
 
 import java.sql.SQLException;
@@ -38,7 +39,7 @@ public class UnternehmenController {
     public boolean updateProfil(UnternehmerDTO unternehmerDTO) {
         try (UserDAO userDAO = (UserDAO) ConnectionFactory.getDAO(Tables.table_user)) {
             try (UnternehmerDAO unternehmerDAO = (UnternehmerDAO) ConnectionFactory.getDAO(Tables.table_unternehmen)) {
-                return userDAO.update(new Unternehmer(unternehmerDTO)) && unternehmerDAO.update(new Unternehmer(unternehmerDTO));
+                return userDAO.update(new User(unternehmerDTO)) && unternehmerDAO.update(new Unternehmer(unternehmerDTO));
             }
         } catch (SQLException e) {
             Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
