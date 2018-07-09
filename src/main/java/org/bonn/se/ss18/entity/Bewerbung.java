@@ -1,6 +1,7 @@
 package org.bonn.se.ss18.entity;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 /**
  * @author rjourd2s
@@ -37,18 +38,32 @@ public class Bewerbung extends AbstractEntity {
     }
 
     final public byte[] getAnschreiben() {
-        return anschreiben;
+        if (anschreiben == null) {
+            return null;
+        }
+        return Arrays.copyOf(anschreiben, anschreiben.length);
     }
 
     final public void setAnschreiben(byte[] anschreiben) {
-        this.anschreiben = anschreiben;
+        if (anschreiben == null) {
+            this.anschreiben = null;
+        } else {
+            this.anschreiben = Arrays.copyOf(anschreiben, anschreiben.length);
+        }
     }
 
     final public byte[] getLebenslauf() {
-        return lebenslauf;
+        if (lebenslauf == null) {
+            return null;
+        }
+        return Arrays.copyOf(lebenslauf, lebenslauf.length);
     }
 
     final public void setLebenslauf(byte[] lebenslauf) {
-        this.lebenslauf = lebenslauf;
+        if (lebenslauf == null) {
+            this.lebenslauf = null;
+        } else {
+            this.lebenslauf = Arrays.copyOf(lebenslauf, lebenslauf.length);
+        }
     }
 }

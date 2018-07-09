@@ -100,18 +100,16 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
     }
 
     @Override
-    public boolean delete(Unternehmer entity) {
+    public boolean delete(Unternehmer entity) throws SQLException {
         try (Statement statement = con.createStatement()) {
             if (statement.executeUpdate(String.format("DELETE FROM %s WHERE %s=%d", tableName, primaryKey, entity.getUnternehmerid())) == 1) {
                 return true;
             }
-        } catch (SQLException ex) {
-            Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
         return false;
     }
 
-    public boolean deleteByUserID(int id, UserDAO userDAO) {
+    public boolean deleteByUserID(int id, UserDAO userDAO) throws SQLException {
         return delete(getByID(id, userDAO));
     }
 }

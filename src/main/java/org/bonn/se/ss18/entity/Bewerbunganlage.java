@@ -1,5 +1,7 @@
 package org.bonn.se.ss18.entity;
 
+import java.util.Arrays;
+
 /**
  * @author rjourd2s
  */
@@ -16,10 +18,17 @@ public class Bewerbunganlage extends AbstractEntity {
     }
 
     final public byte[] getDatei() {
-        return datei;
+        if (datei == null) {
+            return null;
+        }
+        return Arrays.copyOf(datei, datei.length);
     }
 
     final public void setDatei(byte[] datei) {
-        this.datei = datei;
+        if (datei == null) {
+            this.datei = null;
+        } else {
+            this.datei = Arrays.copyOf(datei, datei.length);
+        }
     }
 }

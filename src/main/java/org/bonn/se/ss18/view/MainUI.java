@@ -11,7 +11,6 @@ import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Theme;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.Navigator;
-import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinRequest;
@@ -51,11 +50,11 @@ public class MainUI extends UI {
         addViews();
 
         UI.getCurrent().getNavigator().addViewChangeListener(
-                event -> rebuildMenu(event, viewContainer)
+                event -> rebuildMenu(viewContainer)
         );
     }
 
-    private boolean rebuildMenu(ViewChangeListener.ViewChangeEvent event, CssLayout viewContainer) {
+    private boolean rebuildMenu(CssLayout viewContainer) {
         HorizontalLayout layout = new HorizontalLayout();
 
         if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) != null) {

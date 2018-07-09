@@ -112,7 +112,7 @@ public class StudentDAO extends GenericDAO<Student> {
         }
 
         Student student = new Student(user);
-        
+
         student.setLinuxID(rs.getString(1));
         student.setId(rs.getInt(2));
         student.setAnrede(rs.getString(3));
@@ -124,18 +124,16 @@ public class StudentDAO extends GenericDAO<Student> {
     }
 
     @Override
-    public boolean delete(Student entity) {
+    public boolean delete(Student entity) throws SQLException {
         try (Statement statement = con.createStatement()) {
             if (statement.executeUpdate(String.format("DELETE FROM %s WHERE %s='%s'", tableName, primaryKey, entity.getLinuxID())) == 1) {
                 return true;
             }
-        } catch (SQLException ex) {
-            Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
         return false;
     }
 
-    public boolean deleteByUserID(int id, UserDAO userDAO) {
+    public boolean deleteByUserID(int id, UserDAO userDAO) throws SQLException {
         return delete(getByID(id, userDAO));
     }
 }

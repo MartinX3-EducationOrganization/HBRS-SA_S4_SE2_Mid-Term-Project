@@ -3,6 +3,8 @@ package org.bonn.se.ss18.entity;
 
 import org.bonn.se.ss18.dto.UserDTO;
 
+import java.util.Arrays;
+
 /**
  * @author rjourd2s
  */
@@ -100,11 +102,18 @@ public class User extends AbstractEntity {
     }
 
     final public byte[] getFoto() {
-        return foto;
+        if (foto == null) {
+            return null;
+        }
+        return Arrays.copyOf(foto, foto.length);
     }
 
     final public void setFoto(byte[] foto) {
-        this.foto = foto;
+        if (foto == null) {
+            this.foto = null;
+        } else {
+            this.foto = Arrays.copyOf(foto, foto.length);
+        }
     }
 
     final public String getKurzVorstellung() {

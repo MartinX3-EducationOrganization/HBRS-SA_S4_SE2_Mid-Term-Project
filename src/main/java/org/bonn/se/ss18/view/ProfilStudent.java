@@ -162,7 +162,6 @@ public class ProfilStudent extends Abstract {
         Button skillButton = new Button("Hinzufügen", new Button.ClickListener() {
             int i = 1;
 
-
             @Override
             public void buttonClick(Button.ClickEvent event) {
                 form.addComponent(new TextField("" + i++));
@@ -181,7 +180,7 @@ public class ProfilStudent extends Abstract {
         binder.readBean(studentDTO);
 
         Button editButton = new Button("Bearbeiten", (Button.ClickListener) event -> {
-            if (event.getButton().getCaption().equals("Bearbeiten")) {
+            if ("Bearbeiten".equals(event.getButton().getCaption())) {
                 setFormReadOnly(false);
                 form.removeStyleName(ValoTheme.FORMLAYOUT_LIGHT);
                 event.getButton().setCaption("Speichern");

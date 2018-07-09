@@ -108,7 +108,7 @@ public class StellenausgabeDataView extends Window {
         layout.addComponent(buttonLayout);
 
         save.addClickListener(event -> {
-            if (title.getValue().equals("") || description.getValue().equals("")) {
+            if ("".equals(title.getValue()) || "".equals(description.getValue())) {
                 Notification.show("Sie können nichts leeres speichern!");
             } else {
                 documentData.setTitel(title.getValue());

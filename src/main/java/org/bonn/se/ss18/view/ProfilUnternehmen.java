@@ -161,7 +161,7 @@ public class ProfilUnternehmen extends Abstract {
         form.addComponent(footer);
 
         Button editButton = new Button("Bearbeiten", (Button.ClickListener) event -> {
-            if (event.getButton().getCaption().equals("Bearbeiten")) {
+            if ("Bearbeiten".equals(event.getButton().getCaption())) {
                 setFormReadOnly(false);
                 form.removeStyleName(ValoTheme.FORMLAYOUT_LIGHT);
                 event.getButton().setCaption("Speichern");

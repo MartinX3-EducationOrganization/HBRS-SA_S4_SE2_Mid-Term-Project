@@ -23,8 +23,8 @@ public abstract class Abstract extends Panel implements View {
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
         if (UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER) != null
-                || UI.getCurrent().getNavigator().getState().equals(Views.LoginView)
-                || UI.getCurrent().getNavigator().getState().equals(Views.RegistrationUnternehmen)) {
+                || Views.LoginView.equals(UI.getCurrent().getNavigator().getState())
+                || Views.RegistrationUnternehmen.equals(UI.getCurrent().getNavigator().getState())) {
             return;
         }
         UI.getCurrent().getNavigator().navigateTo(Views.LoginView);
