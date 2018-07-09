@@ -59,12 +59,12 @@ public class ProfilStudent extends Abstract {
         Upload upload = new Upload("Upload Profilbild", (Upload.Receiver) (filename, mimeType) -> new ByteArrayOutputStream());
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         upload.setReceiver((Upload.Receiver) (filename, mimeType) -> baos);
-        upload.addSucceededListener((Upload.SucceededListener) succeededEvent -> {
-            byte[] bytes = baos.toByteArray();
-            studentDTO.setFoto(bytes);
-            profilImage.setSource(new StreamResource((StreamResource.StreamSource) () -> new ByteArrayInputStream(bytes), ""));
+        upload.addFinishedListener((Upload.FinishedListener) succeededEvent -> {
+            studentDTO.setFoto(baos.toByteArray());
+            profilImage.setSource(new StreamResource((StreamResource.StreamSource) () -> new ByteArrayInputStream(studentDTO.getFoto()), ""));
 
         });
+        upload.addProgressListener((readBytes, contentLength) -> section.setValue("Unternehmen " + readBytes + "/" + contentLength));
         upload.setImmediateMode(true);
         form.addComponent(upload);
 
@@ -93,10 +93,10 @@ public class ProfilStudent extends Abstract {
         birthday.setId("birthday");
         form.addComponent(birthday);
 
-        section = new Label("Kontakt");
-        section.addStyleName(ValoTheme.LABEL_H3);
-        section.addStyleName(ValoTheme.LABEL_COLORED);
-        form.addComponent(section);
+        Label section2 = new Label("Kontakt");
+        section2.addStyleName(ValoTheme.LABEL_H3);
+        section2.addStyleName(ValoTheme.LABEL_COLORED);
+        form.addComponent(section2);
 
         TextField strasse = new TextField("Straße");
         binder.bind(strasse, StudentDTO::getStrasse, StudentDTO::setStrasse);
@@ -148,10 +148,10 @@ public class ProfilStudent extends Abstract {
         fax.setWidth("50%");
         form.addComponent(fax);
 
-        section = new Label("Zusätzliche Informationen");
-        section.addStyleName(ValoTheme.LABEL_H3);
-        section.addStyleName(ValoTheme.LABEL_COLORED);
-        form.addComponent(section);
+        section2 = new Label("Zusätzliche Informationen");
+        section2.addStyleName(ValoTheme.LABEL_H3);
+        section2.addStyleName(ValoTheme.LABEL_COLORED);
+        form.addComponent(section2);
 
         TextField social_media_link = new TextField("Social Media Link");
         binder.bind(social_media_link, StudentDTO::getSocialMediaLink, StudentDTO::setSocialMediaLink);
@@ -166,10 +166,10 @@ public class ProfilStudent extends Abstract {
         bio.setWidth("100%");
         form.addComponent(bio);
 
-        section = new Label("Fähigkeiten und Skills");
-        section.addStyleName(ValoTheme.LABEL_H3);
-        section.addStyleName(ValoTheme.LABEL_COLORED);
-        form.addComponent(section);
+        section2 = new Label("Fähigkeiten und Skills");
+        section2.addStyleName(ValoTheme.LABEL_H3);
+        section2.addStyleName(ValoTheme.LABEL_COLORED);
+        form.addComponent(section2);
 
         form.addComponent(new Button("Hinzufügen", (Button.ClickListener) event -> form.addComponent(new TextField("Skill"))));
 

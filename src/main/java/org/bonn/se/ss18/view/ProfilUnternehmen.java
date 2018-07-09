@@ -64,12 +64,11 @@ public class ProfilUnternehmen extends Abstract {
         Upload upload = new Upload("Upload Profilbild", (Upload.Receiver) (filename, mimeType) -> new ByteArrayOutputStream());
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         upload.setReceiver((Upload.Receiver) (filename, mimeType) -> baos);
-        upload.addSucceededListener((Upload.SucceededListener) succeededEvent -> {
-            byte[] bytes = baos.toByteArray();
-            unternehmerDTO.setFoto(bytes);
-            profilImage.setSource(new StreamResource((StreamResource.StreamSource) () -> new ByteArrayInputStream(bytes), ""));
-
+        upload.addFinishedListener((Upload.FinishedListener) succeededEvent -> {
+            unternehmerDTO.setFoto(baos.toByteArray());
+            profilImage.setSource(new StreamResource((StreamResource.StreamSource) () -> new ByteArrayInputStream(unternehmerDTO.getFoto()), ""));
         });
+        upload.addProgressListener((readBytes, contentLength) -> section.setValue("Unternehmen " + readBytes + "/" + contentLength));
         upload.setImmediateMode(true);
         form.addComponent(upload);
 
@@ -92,10 +91,10 @@ public class ProfilUnternehmen extends Abstract {
         branche.addValueChangeListener(x -> unternehmerDTO.setBranchenid(x.getValue().getId()));
 
 // Section 2
-        section = new Label("Kontakt");
-        section.addStyleName(ValoTheme.LABEL_H3);
-        section.addStyleName(ValoTheme.LABEL_COLORED);
-        form.addComponent(section);
+        Label section2 = new Label("Kontakt");
+        section2.addStyleName(ValoTheme.LABEL_H3);
+        section2.addStyleName(ValoTheme.LABEL_COLORED);
+        form.addComponent(section2);
 
         TextField strasse = new TextField("Straße");
         binder.bind(strasse, UnternehmerDTO::getStrasse, UnternehmerDTO::setStrasse);
@@ -152,10 +151,10 @@ public class ProfilUnternehmen extends Abstract {
         form.addComponent(ansprechpartner);
 
 // Section 3
-        section = new Label("Zusätzliche Informationen");
-        section.addStyleName(ValoTheme.LABEL_H3);
-        section.addStyleName(ValoTheme.LABEL_COLORED);
-        form.addComponent(section);
+        section2 = new Label("Zusätzliche Informationen");
+        section2.addStyleName(ValoTheme.LABEL_H3);
+        section2.addStyleName(ValoTheme.LABEL_COLORED);
+        form.addComponent(section2);
 
         RichTextArea bio = new RichTextArea("Kurzvorstellung");
         binder.bind(bio, UnternehmerDTO::getKurzVorstellung, UnternehmerDTO::setKurzVorstellung);
