@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.sql.SQLException;
 import java.util.Set;
 
 public class UnternehmerDAOTest {
@@ -69,7 +70,11 @@ public class UnternehmerDAOTest {
         unternehmer.setUnternehmerid(2);
         unternehmer.setFirmenname("AG Dümer 2");
         unternehmer.setWebsite("www.ag2.de");
-        Assert.assertFalse(unternehmerDAO.delete(unternehmer));
+        try {
+            Assert.assertFalse(unternehmerDAO.delete(unternehmer));
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 }

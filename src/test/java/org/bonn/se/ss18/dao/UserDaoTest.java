@@ -8,6 +8,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.sql.SQLException;
+
 public class UserDaoTest {
     private UserDAO dao;
 
@@ -94,6 +96,10 @@ public class UserDaoTest {
         newUser.setFoto(null);
         newUser.setKurzVorstellung("blabla");
 
-        Assert.assertFalse(dao.delete(newUser));
+        try {
+            Assert.assertFalse(dao.delete(newUser));
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

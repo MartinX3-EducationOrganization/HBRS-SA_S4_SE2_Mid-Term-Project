@@ -96,11 +96,11 @@ public class UserDAO extends GenericDAO<User> {
         user.setFaxNr(rs.getString(9));
         user.setFoto(rs.getBytes(10));
         user.setKurzVorstellung(rs.getString(11));
-        
+
         return user;
     }
 
-    public boolean delete(int id) {
+    public boolean delete(int id) throws SQLException {
         return delete(getByID(id));
     }
 }

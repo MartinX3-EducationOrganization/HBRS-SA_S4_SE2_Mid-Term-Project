@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.Set;
 
 public class AnzeigeDAOTest {
@@ -40,7 +41,11 @@ public class AnzeigeDAOTest {
         anzeige.setAktiv(true);
         anzeige.setText("Text");
         Assert.assertFalse(dao.create(anzeige));
-        dao.delete(anzeige);
+        try {
+            dao.delete(anzeige);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
@@ -104,7 +109,11 @@ public class AnzeigeDAOTest {
         anzeige.setAktiv(true);
         anzeige.setText("Text");
         dao.create(anzeige);
-        Assert.assertFalse(dao.delete(anzeige));
+        try {
+            Assert.assertFalse(dao.delete(anzeige));
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
         // Gibt es noch eine Anzeige mit der Id 100 ? Wenn nicht Null.
         // Assert.assertNull(dao.getByID(100));
 

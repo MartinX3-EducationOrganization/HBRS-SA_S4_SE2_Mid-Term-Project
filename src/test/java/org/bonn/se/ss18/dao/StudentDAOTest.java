@@ -65,7 +65,11 @@ public class StudentDAOTest {
         student.setNachname("Müller");
         student.setGebDatum(new Date(1l));
 
-        Assert.assertFalse(studentDAO.delete(student));
+        try {
+            Assert.assertFalse(studentDAO.delete(student));
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
