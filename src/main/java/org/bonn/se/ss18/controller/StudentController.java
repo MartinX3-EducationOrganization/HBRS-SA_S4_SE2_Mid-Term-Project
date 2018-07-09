@@ -12,6 +12,7 @@ import org.bonn.se.ss18.dao.StudentDAO;
 import org.bonn.se.ss18.dao.UserDAO;
 import org.bonn.se.ss18.dto.StudentDTO;
 import org.bonn.se.ss18.entity.Student;
+import org.bonn.se.ss18.entity.User;
 import org.bonn.se.ss18.service.Tables;
 
 import java.sql.SQLException;
@@ -35,7 +36,7 @@ public class StudentController {
     public boolean updateProfil(StudentDTO studentDTO) {
         try (UserDAO userDAO = (UserDAO) ConnectionFactory.getDAO(Tables.table_user)) {
             try (StudentDAO studentDAO = (StudentDAO) ConnectionFactory.getDAO(Tables.table_student)) {
-                return userDAO.update(new Student(studentDTO)) && studentDAO.update(new Student(studentDTO));
+                return userDAO.update(new User(studentDTO)) && studentDAO.update(new Student(studentDTO));
             }
         } catch (SQLException e) {
             Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
