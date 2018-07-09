@@ -2,8 +2,8 @@
 package org.bonn.se.ss18.view;
 
 /*
-  @author Abdullah.Mohamad
- */
+@author Abdullah.Mohamad
+*/
 
 import com.vaadin.annotations.Title;
 import com.vaadin.data.HasValue;
@@ -91,12 +91,21 @@ public class RegistrationUnternehmen extends Abstract {
         Button registrieren = new Button(
                 "Registrieren",
                 event -> {
-                    if (unternehmerDTO.isCheckboxAGB()) {
+                    if (
+                            unternehmerDTO.isCheckboxAGB()
+                                    && !"".equals(unternehmerDTO.getFirmenname())
+                                    && !"".equals(unternehmerDTO.getEmail())
+                                    && !"".equals(unternehmerDTO.getPasswort())
+                                    && !"".equals(unternehmerDTO.getTelNr())
+                                    && !"".equals(unternehmerDTO.getOrt())
+                                    && !"".equals(unternehmerDTO.getPlz())
+                                    && unternehmerDTO.getBranchenid() > 0
+                            ) {
                         new RegistrationController().registration(unternehmerDTO);
                         UI.getCurrent().getNavigator().navigateTo(Views.LoginView);
                         Notification.show("Vielen Dank für die Registrierung");
                     } else {
-                        Notification.show("Bitte AGB's bestätigen!");
+                        Notification.show("Bitte alle Pflichtfelder ausfüllen!");
                     }
                 });
         registrieren.setId("registrieren");
