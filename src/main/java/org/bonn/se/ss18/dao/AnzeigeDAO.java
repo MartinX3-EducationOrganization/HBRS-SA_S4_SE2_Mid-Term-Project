@@ -23,11 +23,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
     @Override
     public Set<Anzeige> getAllByID(int id) throws SQLException {
         ResultSet rs = con.createStatement().executeQuery(String.format("SELECT * FROM %s WHERE userid=%d", tableName, id));
-        Set<Anzeige> stellen = new HashSet<>();
-        while (rs.next()) {
-            stellen = readResults(rs);
-        }
-        return stellen;
+        return readResults(rs);
     }
 
     @Override

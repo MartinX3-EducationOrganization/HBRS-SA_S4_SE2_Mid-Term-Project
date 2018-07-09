@@ -190,6 +190,16 @@ public class MainUI extends UI {
                 ValoTheme.MENU_ITEM
         );
         buttons.add(button);
+        button = new Button(
+                "Stellen",
+                e -> getNavigator().navigateTo(Views.StellenausschreibungUnternehmen)
+        );
+        button.addStyleNames(
+                ValoTheme.BUTTON_LINK,
+                ValoTheme.MENU_ITEM
+        );
+        buttons.add(button);
+
 
         return buttons.toArray(new Button[0]);
     }
