@@ -25,6 +25,7 @@ public class StellenausschreibungUnternehmen extends Abstract {
 
         VerticalLayout content = new VerticalLayout();
         setContent(content);
+        content.setWidthUndefined();
 
         HorizontalLayout titleBar = new HorizontalLayout();
         content.addComponent(titleBar);
@@ -37,6 +38,7 @@ public class StellenausschreibungUnternehmen extends Abstract {
 
 
         Panel matter = new Panel();
+        matter.setSizeFull();
         center.addComponent(matter);
         matter.setSizeFull();
         matter.setContent(grid);
@@ -66,8 +68,7 @@ public class StellenausschreibungUnternehmen extends Abstract {
         updateGrid();
         grid.setLocale(Locale.GERMAN);
         grid.setHeightMode(HeightMode.UNDEFINED);
-        center.setSizeUndefined();
-        grid.setSizeFull();
+        grid.setWidth("1000px");
         grid.setSelectionMode(Grid.SelectionMode.MULTI);
 
         grid.addItemClickListener(event ->
