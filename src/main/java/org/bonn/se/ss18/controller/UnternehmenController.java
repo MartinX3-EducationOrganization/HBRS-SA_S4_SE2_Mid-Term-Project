@@ -71,4 +71,12 @@ public class UnternehmenController {
             Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
     }
+
+    public void deleteAnzeige(Anzeige documentData) {
+        try (AnzeigeDAO anzeigeDAO = (AnzeigeDAO) ConnectionFactory.getDAO(Tables.table_anzeige)) {
+            anzeigeDAO.delete(documentData);
+        } catch (SQLException e) {
+            Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
+        }
+    }
 }

@@ -3,12 +3,15 @@ package org.bonn.se.ss18.view;
 import com.vaadin.annotations.Title;
 import com.vaadin.shared.ui.grid.HeightMode;
 import com.vaadin.ui.*;
+import com.vaadin.ui.themes.ValoTheme;
 import org.bonn.se.ss18.controller.UnternehmenController;
 import org.bonn.se.ss18.dto.UnternehmerDTO;
 import org.bonn.se.ss18.entity.Anzeige;
 import org.bonn.se.ss18.service.Roles;
 
+import java.util.Iterator;
 import java.util.Locale;
+import java.util.Set;
 
 /**
  * @author rjourd2s
@@ -44,22 +47,28 @@ public class StellenausschreibungUnternehmen extends Abstract {
         );
         content.addComponent(addButton);
 
+        // Löschbutton
         Button deleteButton = new Button(
                 "Löschen",
                 (Button.ClickListener) event -> {
-
+                    Set<Anzeige> selected = grid.getSelectedItems();
+                    Iterator i = selected.iterator();
+                    while (i.hasNext()) {
+                        unternehmenController.deleteAnzeige((Anzeige) i.next());
+                    }
+                    updateGrid();
                 }
         );
+        deleteButton.addStyleName(ValoTheme.BUTTON_DANGER);
         content.addComponent(deleteButton);
 
 
         updateGrid();
         grid.setLocale(Locale.GERMAN);
         grid.setHeightMode(HeightMode.UNDEFINED);
-
         center.setSizeUndefined();
-
         grid.setSizeFull();
+        grid.setSelectionMode(Grid.SelectionMode.MULTI);
 
         grid.addItemClickListener(event ->
 
@@ -79,7 +88,6 @@ public class StellenausschreibungUnternehmen extends Abstract {
         });
     }
 
-
     private void addRow() {
         Anzeige neue = new Anzeige();
         StellenausgabeDataView window = new StellenausgabeDataView(neue);
@@ -92,5 +100,11 @@ public class StellenausschreibungUnternehmen extends Abstract {
 
     private void updateGrid() {
         grid.setItems(unternehmenController.getAllAnzeigenByID(((UnternehmerDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER)).getId()));
+        grid.setColumnOrder("datum", "titel", "typ", "anstellungsart", "ort", "arbeitszeit");
+        grid.getColumn("aktiv").setHidden(true);
+        grid.getColumn("id").setHidden(true);
+        grid.getColumn("userid").setHidden(true);
+        grid.getColumn("text").setHidden(true);
+        grid.getColumn("brancheid").setHidden(true);
     }
 }
