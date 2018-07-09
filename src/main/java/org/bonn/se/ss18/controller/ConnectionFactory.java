@@ -7,8 +7,8 @@ import com.vaadin.ui.Notification;
 import org.bonn.se.ss18.dao.*;
 import org.bonn.se.ss18.service.Tables;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -24,7 +24,11 @@ public class ConnectionFactory {
 
         YAMLParser parser;
         try {
-            parser = new YAMLFactory().createParser(new File(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath() + "/WEB-INF/classes/properties.yaml"));
+            if (VaadinService.getCurrent() == null) {
+                parser = new YAMLFactory().createParser(Paths.get("src", "main", "resources", "properties.yaml").toFile());
+            } else {
+                parser = new YAMLFactory().createParser(Paths.get(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath(), "WEB-INF", "classes", "properties.yaml").toFile());
+            }
             while (parser.nextToken() != null) {
                 if ("VALUE_STRING".equals(parser.getCurrentToken().toString())) {
                     switch (parser.getCurrentName()) {
