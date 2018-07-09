@@ -27,9 +27,9 @@ public class LoginController {
             try (UnternehmerDAO unternehmerDAO = (UnternehmerDAO) ConnectionFactory.getDAO(Tables.table_unternehmen)) {
                 try (StudentDAO studentDAO = (StudentDAO) ConnectionFactory.getDAO(Tables.table_student)) {
                     loginStudent(username, password, userDAO, unternehmerDAO, studentDAO);
+                    return navigateToProfil();
                 }
             }
-            return navigateToProfil();
         } catch (SQLException e) {
             Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
@@ -55,7 +55,7 @@ public class LoginController {
                 throw new NoSuchUserOrPasswort();
             }
         } catch (SQLException e) {
-            throw new NoSuchUserOrPasswort();
+            e.printStackTrace();
         }
     }
 
@@ -77,7 +77,7 @@ public class LoginController {
                 throw new NoSuchUserOrPasswort();
             }
         } catch (SQLException e) {
-            throw new NoSuchUserOrPasswort();
+            e.printStackTrace();
         }
     }
 
