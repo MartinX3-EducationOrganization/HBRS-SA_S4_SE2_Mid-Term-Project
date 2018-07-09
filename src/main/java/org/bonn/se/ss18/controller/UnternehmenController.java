@@ -63,4 +63,12 @@ public class UnternehmenController {
         }
         return null;
     }
+
+    public void addAnzeige(Anzeige documentData) {
+        try (AnzeigeDAO anzeigeDAO = (AnzeigeDAO) ConnectionFactory.getDAO(Tables.table_anzeige)) {
+            anzeigeDAO.create(documentData);
+        } catch (SQLException e) {
+            Notification.show("Keine Verbindung zur Datenbank!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
+        }
+    }
 }

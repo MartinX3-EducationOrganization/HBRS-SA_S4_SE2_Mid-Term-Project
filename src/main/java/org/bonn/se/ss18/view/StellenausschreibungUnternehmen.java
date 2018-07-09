@@ -38,6 +38,20 @@ public class StellenausschreibungUnternehmen extends Abstract {
         matter.setSizeFull();
         matter.setContent(grid);
 
+        Button addButton = new Button(
+                "Hinzufügen",
+                (Button.ClickListener) event -> addRow()
+        );
+        content.addComponent(addButton);
+
+        Button deleteButton = new Button(
+                "Löschen",
+                (Button.ClickListener) event -> {
+
+                }
+        );
+        content.addComponent(deleteButton);
+
 
         updateGrid();
         grid.setLocale(Locale.GERMAN);
@@ -64,6 +78,17 @@ public class StellenausschreibungUnternehmen extends Abstract {
             }
         });
     }
+
+
+    private void addRow() {
+        Anzeige neue = new Anzeige();
+        StellenausgabeDataView window = new StellenausgabeDataView(neue);
+        getUI().addWindow(window);
+        window.addCloseListener(closeEvent -> {
+            updateGrid();
+        });
+    }
+
 
     private void updateGrid() {
         grid.setItems(unternehmenController.getAllAnzeigenByID(((UnternehmerDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER)).getId()));
