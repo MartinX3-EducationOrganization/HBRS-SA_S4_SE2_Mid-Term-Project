@@ -62,15 +62,15 @@ public class AnzeigeDAOTest {
         }
         Assert.assertEquals(6, anzeige2.getId());
         Assert.assertEquals(1, anzeige2.getUserid());
-       // Assert.assertEquals(new Date(2000, 1, 1), Date.valueOf(anzeige.getDatum()));
+        // Assert.assertEquals(new Date(2000, 1, 1), Date.valueOf(anzeige.getDatum()));
         Assert.assertEquals("Titel", anzeige2.getTitel());
         Assert.assertEquals("Ort", anzeige2.getOrt());
         Assert.assertEquals("Gesuch", anzeige2.getTyp());
         Assert.assertEquals("Praktikum", anzeige2.getAnstellungsart());
         Assert.assertEquals("Minijob", anzeige2.getArbeitszeit());
         Assert.assertEquals(1, anzeige2.getBrancheid());
-       // Assert.assertEquals(new Date(2000, 1, 1), Date.valueOf(anzeige.getDatum()));
-       // Assert.assertTrue(anzeige2.getBrancheid());
+        // Assert.assertEquals(new Date(2000, 1, 1), Date.valueOf(anzeige.getDatum()));
+        // Assert.assertTrue(anzeige2.getBrancheid());
         Assert.assertEquals("Text----- bllal", anzeige2.getText());
 
     }
@@ -83,7 +83,7 @@ public class AnzeigeDAOTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        Assert.assertEquals(0,result.size());
+        Assert.assertEquals(0, result.size());
 
         // Was macht GetAllById und wofür wird es gebraucht????
         Set<Anzeige> result1 = null;
@@ -92,9 +92,7 @@ public class AnzeigeDAOTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        Assert.assertEquals(1, result1.size());
-
-
+        Assert.assertEquals(2, result1.size());
 
 
     }
