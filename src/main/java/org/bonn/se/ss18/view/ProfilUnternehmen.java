@@ -10,6 +10,7 @@ package org.bonn.se.ss18.view;
 import com.vaadin.data.Binder;
 import com.vaadin.data.ValidationException;
 import com.vaadin.server.FileResource;
+import com.vaadin.server.Page;
 import com.vaadin.server.StreamResource;
 import com.vaadin.server.VaadinService;
 import com.vaadin.shared.ui.MarginInfo;
@@ -63,13 +64,12 @@ public class ProfilUnternehmen extends Abstract {
         Upload upload = new Upload("Upload Profilbild", (Upload.Receiver) (filename, mimeType) -> new ByteArrayOutputStream());
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         upload.setReceiver((Upload.Receiver) (filename, mimeType) -> baos);
-        upload.addSucceededListener((Upload.SucceededListener) succeededEvent -> {
-            byte[] bytes = baos.toByteArray();
-            unternehmerDTO.setFoto(bytes);
-            profilImage.setSource(new StreamResource((StreamResource.StreamSource) () -> new ByteArrayInputStream(bytes), ""));
-
+        upload.addFinishedListener((Upload.FinishedListener) succeededEvent -> {
+            unternehmerDTO.setFoto(baos.toByteArray());
+            profilImage.setSource(new StreamResource((StreamResource.StreamSource) () -> new ByteArrayInputStream(unternehmerDTO.getFoto()), ""));
         });
-        upload.setImmediateMode(false);
+        upload.addProgressListener((readBytes, contentLength) -> section.setValue("Unternehmen " + readBytes + "/" + contentLength));
+        upload.setImmediateMode(true);
         form.addComponent(upload);
 
         TextField firmenname = new TextField("Firmenname");
@@ -91,10 +91,10 @@ public class ProfilUnternehmen extends Abstract {
         branche.addValueChangeListener(x -> unternehmerDTO.setBranchenid(x.getValue().getId()));
 
 // Section 2
-        section = new Label("Kontakt");
-        section.addStyleName(ValoTheme.LABEL_H3);
-        section.addStyleName(ValoTheme.LABEL_COLORED);
-        form.addComponent(section);
+        Label section2 = new Label("Kontakt");
+        section2.addStyleName(ValoTheme.LABEL_H3);
+        section2.addStyleName(ValoTheme.LABEL_COLORED);
+        form.addComponent(section2);
 
         TextField strasse = new TextField("Straße");
         binder.bind(strasse, UnternehmerDTO::getStrasse, UnternehmerDTO::setStrasse);
@@ -151,10 +151,10 @@ public class ProfilUnternehmen extends Abstract {
         form.addComponent(ansprechpartner);
 
 // Section 3
-        section = new Label("Zusätzliche Informationen");
-        section.addStyleName(ValoTheme.LABEL_H3);
-        section.addStyleName(ValoTheme.LABEL_COLORED);
-        form.addComponent(section);
+        section2 = new Label("Zusätzliche Informationen");
+        section2.addStyleName(ValoTheme.LABEL_H3);
+        section2.addStyleName(ValoTheme.LABEL_COLORED);
+        form.addComponent(section2);
 
         RichTextArea bio = new RichTextArea("Kurzvorstellung");
         binder.bind(bio, UnternehmerDTO::getKurzVorstellung, UnternehmerDTO::setKurzVorstellung);
@@ -188,6 +188,7 @@ public class ProfilUnternehmen extends Abstract {
                 unternehmenController.updateProfil(unternehmerDTO);
                 event.getButton().setCaption("Bearbeiten");
                 event.getButton().removeStyleName(ValoTheme.BUTTON_PRIMARY);
+                Page.getCurrent().reload();
             }
         });
         editButton.setId("editButton");
@@ -231,17 +232,6 @@ public class ProfilUnternehmen extends Abstract {
         deletWarning.center();
         getUI().addWindow(deletWarning);
     }
-
-//TODO: Hier später Profilbild hinzufügen
-/*private VerticalLayout setProfilePictureLayout() {
-Upload upload = new Upload(
-"Upload it here",
-null
-);
-upload.setImmediateMode(false);
-
-return new VerticalLayout(upload);
-}*/
 
     private void setFormReadOnly(boolean bool) {
         for (Component c : form) {

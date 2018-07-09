@@ -83,6 +83,7 @@ public class LoginController {
 
     public void logout() {
         UI.getCurrent().getSession().close();
+        UI.getCurrent().getNavigator().navigateTo(Views.LoginView);
         Page.getCurrent().reload();
     }
 }
