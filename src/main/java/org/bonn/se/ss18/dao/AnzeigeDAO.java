@@ -30,7 +30,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
     public boolean create(Anzeige stelle) throws SQLException {
         return createps(
                 stelle,
-                con.prepareStatement(String.format("INSERT INTO %s(userid,datum,titel,ort,typ,anstellungsart,arbeitszeit,brancheid,beginn,aktiv,text, anzeigeid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", tableName))
+                con.prepareStatement(String.format("INSERT INTO %s(userid,datum,titel,ort,typ,anstellungsart,arbeitszeit,brancheid,beginn,aktiv,text) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", tableName))
         );
     }
 
@@ -38,7 +38,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
     public boolean update(Anzeige stelle) throws SQLException {
         return createps(
                 stelle,
-                con.prepareStatement(String.format("UPDATE %s SET userid = ?, datum = ? , titel = ?, ort = ?, typ = ?, anstellungsart = ?, arbeitszeit = ?, brancheid = ?, beginn = ?, aktiv = ?, text = ?, anzeigeid = ?WHERE anzeigeid = %d", tableName, stelle.getId()))
+                con.prepareStatement(String.format("UPDATE %s SET userid = ?, datum = ? , titel = ?, ort = ?, typ = ?, anstellungsart = ?, arbeitszeit = ?, brancheid = ?, beginn = ?, aktiv = ?, text = ? WHERE anzeigeid = %d", tableName, stelle.getId()))
         );
     }
 
@@ -54,7 +54,6 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
         ps.setDate(9, Date.valueOf(anzeige.getBeginn()));
         ps.setBoolean(10, anzeige.getAktiv());
         ps.setString(11, anzeige.getText());
-        ps.setInt(12, anzeige.getId());
 
         return ps.executeUpdate() == 1;
     }

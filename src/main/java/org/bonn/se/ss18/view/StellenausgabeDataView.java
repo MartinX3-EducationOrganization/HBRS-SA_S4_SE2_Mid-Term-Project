@@ -2,10 +2,13 @@ package org.bonn.se.ss18.view;
 
 import com.vaadin.ui.*;
 import org.bonn.se.ss18.controller.UnternehmenController;
+import org.bonn.se.ss18.dto.UnternehmerDTO;
 import org.bonn.se.ss18.entity.Anzeige;
+import org.bonn.se.ss18.service.Roles;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -31,12 +34,12 @@ public class StellenausgabeDataView extends Window {
         typlist.add("Angebot");
         typlist.add("Gesuch");
 
-        //Create a form layout which holds all components
+
         FormLayout layout = new FormLayout();
         layout.setMargin(true);
         layout.setSpacing(true);
 
-        //Topic TextField
+
         TextField title = new TextField();
         title.setCaption("Titel");
         if (documentData.getTitel() != null) {
@@ -44,13 +47,6 @@ public class StellenausgabeDataView extends Window {
         }
         layout.addComponent(title);
 
-
-        DateField datum = new DateField();
-        datum.setCaption("Datum");
-        if (documentData.getDatum() != null) {
-            datum.setValue(documentData.getDatum());
-        }
-        layout.addComponent(datum);
 
         TextField ort = new TextField();
         ort.setCaption("Ort");
@@ -60,10 +56,10 @@ public class StellenausgabeDataView extends Window {
         layout.addComponent(ort);
 
         ComboBox<String> selectType = new ComboBox<>("Wählen Sie aus");
-        selectType.setValue(documentData.getTyp());
+        selectType.setItems(typlist);
         selectType.setEmptySelectionAllowed(false);
         selectType.setTextInputAllowed(false);
-        selectType.setItems(typlist);
+        selectType.setValue(documentData.getTyp());
         layout.addComponent(selectType);
 
 
@@ -108,21 +104,25 @@ public class StellenausgabeDataView extends Window {
         layout.addComponent(buttonLayout);
 
         save.addClickListener(event -> {
-            if ("".equals(title.getValue()) || "".equals(description.getValue())) {
-                Notification.show("Sie können nichts leeres speichern!");
-            } else {
-                documentData.setTitel(title.getValue());
-                documentData.setDatum(Date.valueOf(datum.getValue()));
-                documentData.setOrt(ort.getValue());
-                documentData.setTyp(selectType.getValue());
-                documentData.setAnstellungsart(selectAnstellung.getValue());
-                documentData.setArbeitszeit(selectArbeitszeit.getValue());
-                documentData.setBeginn(Date.valueOf(beginn.getValue()));
-                documentData.setText(description.getValue());
+            documentData.setTitel(title.getValue());
+            documentData.setDatum(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
+            documentData.setOrt(ort.getValue());
+            documentData.setTyp(selectType.getValue());
+            documentData.setAnstellungsart(selectAnstellung.getValue());
+            documentData.setArbeitszeit(selectArbeitszeit.getValue());
+            documentData.setBeginn(Date.valueOf(beginn.getValue()));
+            documentData.setText(description.getValue());
+            documentData.setBrancheid((((UnternehmerDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER)).getBranchenid()));
+            documentData.setUserid((((UnternehmerDTO) UI.getCurrent().getSession().getAttribute(Roles.CURRENT_USER)).getId()));
 
+            if (documentData.getId() != 0) {
                 unternehmenController.updateAnzeige(documentData);
                 close();
+            } else {
+                unternehmenController.addAnzeige(documentData);
+                close();
             }
+
         });
         setContent(layout);
         setCaption("Stellenausschreibung");
