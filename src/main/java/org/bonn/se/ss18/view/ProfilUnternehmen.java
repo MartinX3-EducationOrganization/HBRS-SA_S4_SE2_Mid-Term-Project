@@ -53,8 +53,7 @@ public class ProfilUnternehmen extends Abstract {
         Image profilImage = new Image(
                 null,
                 unternehmerDTO.getFoto() == null
-                        || unternehmerDTO.getFoto().length == 0
-                        ? new FileResource(Paths.get(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath(), "WEB-INF", "classes", "profile_default.jpg").toFile())
+                        || unternehmerDTO.getFoto().length == 0 ? new FileResource(Paths.get(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath(), "WEB-INF", "classes", "profile_default.jpg").toFile())
                         : new StreamResource((StreamResource.StreamSource) () -> new ByteArrayInputStream(unternehmerDTO.getFoto()), "")
         );
         profilImage.setHeight(150, Unit.PIXELS);

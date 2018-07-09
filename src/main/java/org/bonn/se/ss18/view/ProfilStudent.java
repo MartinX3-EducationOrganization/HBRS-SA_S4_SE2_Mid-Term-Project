@@ -47,8 +47,7 @@ public class ProfilStudent extends Abstract {
 
         Image profilImage = new Image(
                 null,
-                studentDTO.getFoto() == null
-                        || studentDTO.getFoto().length == 0
+                studentDTO.getFoto() == null || studentDTO.getFoto().length == 0
                         ? new FileResource(Paths.get(VaadinService.getCurrent().getBaseDirectory().getAbsolutePath(), "WEB-INF", "classes", "profile_default.jpg").toFile())
                         : new StreamResource((StreamResource.StreamSource) () -> new ByteArrayInputStream(studentDTO.getFoto()), "")
         );
