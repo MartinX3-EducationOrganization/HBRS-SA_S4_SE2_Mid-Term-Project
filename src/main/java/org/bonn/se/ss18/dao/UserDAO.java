@@ -2,7 +2,10 @@ package org.bonn.se.ss18.dao;
 
 import org.bonn.se.ss18.entity.User;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Set;
 
 /**
@@ -18,9 +21,7 @@ public class UserDAO extends GenericDAO<User> {
     }
 
     public User getByColumnValue(String column, String keyword) throws SQLException {
-        try (Statement stmt = con.createStatement()) {
-            return readResults(stmt.executeQuery(String.format("SELECT * FROM %s WHERE %s= '%s'", tableName, column, keyword)));
-        }
+        return readResults(con.createStatement().executeQuery(String.format("SELECT * FROM %s WHERE %s= '%s'", tableName, column, keyword)));
     }
 
     @Override
@@ -30,15 +31,19 @@ public class UserDAO extends GenericDAO<User> {
 
     @Override
     public boolean create(User user) throws SQLException {
-        PreparedStatement ps = con.prepareStatement(String.format("INSERT INTO %s(passwort,strasse,hausnr,plz,ort,email,telnr,faxnr,foto,kurzvorstellung) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)", tableName));
-        return createps(user, ps);
+        return createps(
+                user,
+                con.prepareStatement(String.format("INSERT INTO %s(passwort,strasse,hausnr,plz,ort,email,telnr,faxnr,foto,kurzvorstellung) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)", tableName))
+        );
     }
 
 
     @Override
     public boolean update(User user) throws SQLException {
-        PreparedStatement ps = con.prepareStatement(String.format("UPDATE %s SET passwort=?,strasse=?,hausnr=?,plz=?,ort=?,email=?,telnr=?,faxnr=?,foto=?,kurzvorstellung=? WHERE userid=%d", tableName, user.getId()));
-        return createps(user, ps);
+        return createps(
+                user,
+                con.prepareStatement(String.format("UPDATE %s SET passwort=?,strasse=?,hausnr=?,plz=?,ort=?,email=?,telnr=?,faxnr=?,foto=?,kurzvorstellung=? WHERE userid=%d", tableName, user.getId()))
+        );
     }
 
     private boolean createps(User user, PreparedStatement ps) throws SQLException {
@@ -52,9 +57,8 @@ public class UserDAO extends GenericDAO<User> {
         ps.setString(8, user.getFaxNr());
         ps.setBytes(9, user.getFoto());
         ps.setString(10, user.getKurzVorstellung());
-        int i = ps.executeUpdate();
-// Eine Reihe(ROW)
-        return i == 1;
+
+        return ps.executeUpdate() == 1;
     }
 
     private User readResults(ResultSet rs) throws SQLException {

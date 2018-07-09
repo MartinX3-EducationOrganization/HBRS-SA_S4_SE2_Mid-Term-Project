@@ -22,26 +22,28 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
 
     @Override
     public Set<Anzeige> getAllByID(int id) throws SQLException {
-        try (Statement stmt = con.createStatement()) {
-            ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM %s WHERE userid=%d", tableName, id));
-            Set<Anzeige> stellen = new HashSet<>();
-            while (rs.next()) {
-                stellen = readResults(rs);
-            }
-            return stellen;
+        ResultSet rs = con.createStatement().executeQuery(String.format("SELECT * FROM %s WHERE userid=%d", tableName, id));
+        Set<Anzeige> stellen = new HashSet<>();
+        while (rs.next()) {
+            stellen = readResults(rs);
         }
+        return stellen;
     }
 
     @Override
     public boolean create(Anzeige stelle) throws SQLException {
-        PreparedStatement ps = con.prepareStatement(String.format("INSERT INTO %s(userid,datum,titel,ort,typ,anstellungsart,arbeitszeit,brancheid,beginn,aktiv,text, anzeigeid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", tableName));
-        return createps(stelle, ps);
+        return createps(
+                stelle,
+                con.prepareStatement(String.format("INSERT INTO %s(userid,datum,titel,ort,typ,anstellungsart,arbeitszeit,brancheid,beginn,aktiv,text, anzeigeid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", tableName))
+        );
     }
 
     @Override
     public boolean update(Anzeige stelle) throws SQLException {
-        PreparedStatement ps = con.prepareStatement(String.format("UPDATE %s SET userid = ?, datum = ? , titel = ?, ort = ?, typ = ?, anstellungsart = ?, arbeitszeit = ?, brancheid = ?, beginn = ?, aktiv = ?, text = ?, anzeigeid = ?WHERE anzeigeid = %d", tableName, stelle.getId()));
-        return createps(stelle, ps);
+        return createps(
+                stelle,
+                con.prepareStatement(String.format("UPDATE %s SET userid = ?, datum = ? , titel = ?, ort = ?, typ = ?, anstellungsart = ?, arbeitszeit = ?, brancheid = ?, beginn = ?, aktiv = ?, text = ?, anzeigeid = ?WHERE anzeigeid = %d", tableName, stelle.getId()))
+        );
     }
 
     private boolean createps(Anzeige anzeige, PreparedStatement ps) throws SQLException {
@@ -64,6 +66,7 @@ public class AnzeigeDAO extends GenericDAO<Anzeige> {
 
     private HashSet<Anzeige> readResults(ResultSet rs) throws SQLException {
         HashSet<Anzeige> result = new HashSet<>();
+
         while (rs.next()) {
             Anzeige anzeige = new Anzeige();
 

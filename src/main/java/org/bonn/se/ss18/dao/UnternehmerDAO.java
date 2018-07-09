@@ -3,7 +3,10 @@ package org.bonn.se.ss18.dao;
 import org.bonn.se.ss18.entity.Unternehmer;
 import org.bonn.se.ss18.entity.User;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Set;
 
 /**
@@ -15,23 +18,19 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
     }
 
     public Unternehmer getByID(int id, UserDAO userDAO) throws SQLException {
-        try (Statement statement = con.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(String.format("SELECT userid FROM %s WHERE %s=%s", super.tableName, "userid", id));
-            if (resultSet.next()) {
-                return readResults(
-                        getRsByID(id + ""),
-                        userDAO.getByID(id)
-                );
-            }
-            return null;
+        ResultSet resultSet = con.createStatement().executeQuery(String.format("SELECT userid FROM %s WHERE %s=%s", super.tableName, "userid", id));
+        if (resultSet.next()) {
+            return readResults(
+                    getRsByID(id + ""),
+                    userDAO.getByID(id)
+            );
         }
+        return null;
     }
 
     @Override
     public ResultSet getRsByID(String id) throws SQLException {
-        try (Statement statement = con.createStatement()) {
-            return statement.executeQuery(String.format("SELECT * FROM %s WHERE userid='%s'", tableName, id));
-        }
+        return con.createStatement().executeQuery(String.format("SELECT * FROM %s WHERE userid='%s'", tableName, id));
     }
 
     @Override
@@ -49,16 +48,15 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
         return createps(unternehmer, con.prepareStatement(String.format("UPDATE %s SET userid=?,firmenname=?,website=?,ansprechpartner=?,brancheid=? WHERE unternehmenid=%d", tableName, unternehmer.getUnternehmerid())));
     }
 
-        /*
-        Statements für Unternehmen
-     */
+/*
+Statements für Unternehmen
+*/
 
     private boolean createps(Unternehmer unternehmer, PreparedStatement ps) throws SQLException {
         ps.setInt(1, unternehmer.getId());
         ps.setString(2, unternehmer.getFirmenname());
         ps.setString(3, unternehmer.getWebsite());
         ps.setString(4, unternehmer.getAnsprechpartner());
-
 
         return ps.executeUpdate() == 1;
     }
@@ -82,9 +80,7 @@ public class UnternehmerDAO extends GenericDAO<Unternehmer> {
 
     @Override
     public boolean delete(Unternehmer entity) throws SQLException {
-        try (Statement statement = con.createStatement()) {
-            return statement.executeUpdate(String.format("DELETE FROM %s WHERE %s=%d", tableName, primaryKey, entity.getUnternehmerid())) == 1;
-        }
+        return con.createStatement().executeUpdate(String.format("DELETE FROM %s WHERE %s=%d", tableName, primaryKey, entity.getUnternehmerid())) == 1;
     }
 
     public boolean deleteByUserID(int id, UserDAO userDAO) throws SQLException {

@@ -15,8 +15,7 @@ public class StudentDAO extends GenericDAO<Student> {
     }
 
     public Student getByID(int userID, UserDAO userDAO) throws SQLException {
-        try (Statement statement = con.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(String.format("SELECT userid FROM table_student WHERE userid=%d", userID));
+        ResultSet resultSet = con.createStatement().executeQuery(String.format("SELECT userid FROM table_student WHERE userid=%d", userID));
             if (resultSet.next()) {
                 return readResults(
                         getRsByID(userID + ""),
@@ -24,14 +23,11 @@ public class StudentDAO extends GenericDAO<Student> {
                 );
             }
             return null;
-        }
     }
 
     @Override
     public ResultSet getRsByID(String id) throws SQLException {
-        try (Statement statement = con.createStatement()) {
-            return statement.executeQuery(String.format("SELECT * FROM %s WHERE userid='%s'", tableName, id));
-        }
+        return con.createStatement().executeQuery(String.format("SELECT * FROM %s WHERE userid='%s'", tableName, id));
     }
 
     //  Macht kein Sinn vorerst da man immer nur einen Studenten bekommen würde.
@@ -42,36 +38,36 @@ public class StudentDAO extends GenericDAO<Student> {
 
     @Override
     public boolean create(Student student) throws SQLException {
-        PreparedStatement ps = con.prepareStatement(String.format("INSERT INTO %s VALUES (?, ?, ?, ?, ?, ?)", super.tableName));
-        return createps(student, ps);
+        return createps(
+                student,
+                con.prepareStatement(String.format("INSERT INTO %s VALUES (?, ?, ?, ?, ?, ?)", super.tableName))
+        );
     }
 
     @Override
     public boolean update(Student student) throws SQLException {
-        PreparedStatement ps = con.prepareStatement(String.format("UPDATE %s SET linuxid=?,userid=?,anrede=?,vorname=?,nachname=?,gebdatum=? WHERE linuxid='%s'", super.tableName, student.getLinuxID()));
-        return createps(student, ps);
+        return createps(
+                student,
+                con.prepareStatement(String.format("UPDATE %s SET linuxid=?,userid=?,anrede=?,vorname=?,nachname=?,gebdatum=? WHERE linuxid='%s'", super.tableName, student.getLinuxID()))
+        );
     }
 
     /*
     Methoden die zusätzlich dazukommen
     */
     public Student getByUserAndPass(String linuxid, String password, UserDAO userDAO) throws SQLException {
-        try (Statement statement1 = con.createStatement()) {
-            ResultSet resultSet = statement1.executeQuery(String.format("SELECT table_user.userid FROM %s JOIN table_user ON %s.userid=table_user.userid WHERE %s.%s='%s' AND table_user.passwort='%s'", super.tableName, super.tableName, super.tableName, super.primaryKey, linuxid, password));
-            if (resultSet.next()) {
-                int id = resultSet.getInt(1);
-                try (Statement statement2 = con.createStatement()) {
-                    ResultSet studentResultSet = statement2.executeQuery(String.format("SELECT userid FROM table_student WHERE userid=%d", id));
-                    if (studentResultSet.next()) {
-                        return readResults(
-                                super.getRsByID(linuxid),
-                                userDAO.getByID(studentResultSet.getInt(1))
-                        );
-                    }
-                }
+        ResultSet resultSet = con.createStatement().executeQuery(String.format("SELECT table_user.userid FROM %s JOIN table_user ON %s.userid=table_user.userid WHERE %s.%s='%s' AND table_user.passwort='%s'", super.tableName, super.tableName, super.tableName, super.primaryKey, linuxid, password));
+        if (resultSet.next()) {
+            int id = resultSet.getInt(1);
+            ResultSet studentResultSet = con.createStatement().executeQuery(String.format("SELECT userid FROM table_student WHERE userid=%d", id));
+            if (studentResultSet.next()) {
+                return readResults(
+                        super.getRsByID(linuxid),
+                        userDAO.getByID(studentResultSet.getInt(1))
+                );
             }
-            return null;
         }
+        return null;
     }
 
     /*
@@ -84,8 +80,8 @@ public class StudentDAO extends GenericDAO<Student> {
         ps.setString(4, student.getVorname());
         ps.setString(5, student.getNachname());
         ps.setDate(6, Date.valueOf(student.getGebDatum()));
-        int i = ps.executeUpdate();
-        return i == 1;
+
+        return ps.executeUpdate() == 1;
     }
 
     private Student readResults(ResultSet rs, User user) throws SQLException {
@@ -107,9 +103,7 @@ public class StudentDAO extends GenericDAO<Student> {
 
     @Override
     public boolean delete(Student entity) throws SQLException {
-        try (Statement statement = con.createStatement()) {
-            return statement.executeUpdate(String.format("DELETE FROM %s WHERE %s='%s'", tableName, primaryKey, entity.getLinuxID())) == 1;
-        }
+        return con.createStatement().executeUpdate(String.format("DELETE FROM %s WHERE %s='%s'", tableName, primaryKey, entity.getLinuxID())) == 1;
     }
 
     public boolean deleteByUserID(int id, UserDAO userDAO) throws SQLException {

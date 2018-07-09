@@ -5,7 +5,6 @@ import org.bonn.se.ss18.entity.Branche;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -38,13 +37,11 @@ public class BrancheDAO extends GenericDAO<Branche> {
     }
 
     public List<Branche> getBranches() throws SQLException {
-        try (Statement stmt = con.createStatement()) {
-            ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM %s", tableName));
-            List<Branche> branchenlist = new ArrayList<>(rs.getFetchSize());
-            while (rs.next()) {
-                branchenlist.add(new Branche(rs.getInt("brancheid"), rs.getString("bezeichnung")));
-            }
-            return branchenlist;
+        ResultSet rs = con.createStatement().executeQuery(String.format("SELECT * FROM %s", tableName));
+        List<Branche> branchenlist = new ArrayList<>(rs.getFetchSize());
+        while (rs.next()) {
+            branchenlist.add(new Branche(rs.getInt("brancheid"), rs.getString("bezeichnung")));
         }
+        return branchenlist;
     }
 }

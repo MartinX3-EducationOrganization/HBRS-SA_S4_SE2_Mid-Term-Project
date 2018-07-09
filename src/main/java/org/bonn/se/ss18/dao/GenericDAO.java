@@ -6,7 +6,6 @@ import org.bonn.se.ss18.entity.AbstractEntity;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * @author rjourd2s
@@ -39,15 +38,11 @@ public abstract class GenericDAO<T extends AbstractEntity> implements IGenericDA
 
     @Override
     public ResultSet getRsByID(String id) throws SQLException {
-        try (Statement statement = con.createStatement()) {
-            return statement.executeQuery(String.format("SELECT * FROM %s WHERE %s='%s'", tableName, primaryKey, id));
-        }
+        return con.createStatement().executeQuery(String.format("SELECT * FROM %s WHERE %s='%s'", tableName, primaryKey, id));
     }
 
     @Override
     public boolean delete(T entity) throws SQLException {
-        try (Statement statement = con.createStatement()) {
-            return statement.executeUpdate(String.format("DELETE FROM %s WHERE %s=%d", tableName, primaryKey, entity.getId())) == 1;
-        }
+        return con.createStatement().executeUpdate(String.format("DELETE FROM %s WHERE %s=%d", tableName, primaryKey, entity.getId())) == 1;
     }
 }

@@ -36,26 +36,21 @@ public class LoginController {
         return false;
     }
 
-    private void loginStudent(String username, String password, UserDAO userDAO, UnternehmerDAO unternehmerDAO, StudentDAO studentDAO) throws NoSuchUserOrPasswort {
-        Student student;
-        try {
-            student = studentDAO.getByUserAndPass(username, password, userDAO);
+    private void loginStudent(String username, String password, UserDAO userDAO, UnternehmerDAO unternehmerDAO, StudentDAO studentDAO) throws NoSuchUserOrPasswort, SQLException {
+        Student student = studentDAO.getByUserAndPass(username, password, userDAO);
 
+        if (student != null) {
+            UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, new StudentDTO(student));
+        } else if (userDAO.getByColumnValue("email", username) != null) {
+            int id = userDAO.getByColumnValue("email", username).getId();
+            student = studentDAO.getByID(id, userDAO);
             if (student != null) {
-                UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, new StudentDTO(student));
-            } else if (userDAO.getByColumnValue("email", username) != null) {
-                int id = userDAO.getByColumnValue("email", username).getId();
-                student = studentDAO.getByID(id, userDAO);
-                if (student != null) {
-                    loginStudent(password, student);
-                } else {
-                    loginUnternehmer(password, userDAO, unternehmerDAO, id);
-                }
+                loginStudent(password, student);
             } else {
-                throw new NoSuchUserOrPasswort();
+                loginUnternehmer(password, userDAO, unternehmerDAO, id);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } else {
+            throw new NoSuchUserOrPasswort();
         }
     }
 
@@ -67,17 +62,12 @@ public class LoginController {
         }
     }
 
-    private void loginUnternehmer(String password, UserDAO userDAO, UnternehmerDAO unternehmerDAO, int id) throws NoSuchUserOrPasswort {
-        Unternehmer unternehmer;
-        try {
-            unternehmer = unternehmerDAO.getByID(id, userDAO);
-            if (unternehmer != null && unternehmer.getPasswort().equals(password)) {
-                UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, new UnternehmerDTO(unternehmer));
-            } else {
-                throw new NoSuchUserOrPasswort();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+    private void loginUnternehmer(String password, UserDAO userDAO, UnternehmerDAO unternehmerDAO, int id) throws NoSuchUserOrPasswort, SQLException {
+        Unternehmer unternehmer = unternehmerDAO.getByID(id, userDAO);
+        if (unternehmer != null && unternehmer.getPasswort().equals(password)) {
+            UI.getCurrent().getSession().setAttribute(Roles.CURRENT_USER, new UnternehmerDTO(unternehmer));
+        } else {
+            throw new NoSuchUserOrPasswort();
         }
     }
 
